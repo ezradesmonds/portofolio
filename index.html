@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ezra Desmond | Programmer Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">EzraDesmond</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="hero" class="hero-section">
+    <h1>Hi, I'm Ezra Desmond</h1>
+    <p>A passionate Full Stack Developer & Tech Enthusiast</p>
+    <a href="#projects" class="cta-button">View My Work</a>
+  </section>
+
+  <section id="about" class="about-section">
+    <h2>About Me</h2>
+    <p>
+      I build scalable and efficient web applications, design intuitive UI/UX, and explore AI and blockchain technologies. Currently an Informatics student actively sharpening my real-world skills through projects, freelance, and competitions.
+    </p>
+  </section>
+
+  <section id="projects" class="projects-section">
+    <h2>Projects</h2>
+    <div class="project-grid">
+      <div class="project-card">
+        <h3>Smart Finance Tracker</h3>
+        <p>Built with React & Firebase. Real-time income/expense management tool with analytics.</p>
+      </div>
+      <div class="project-card">
+        <h3>AI Resume Builder</h3>
+        <p>Next.js & OpenAI API. Instantly generates job-optimized resumes with one click.</p>
+      </div>
+      <div class="project-card">
+        <h3>Crypto Trading Bot</h3>
+        <p>Python-based bot using Bollinger Bands and backtesting with real data.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="skills-section">
+    <h2>Skills</h2>
+    <ul class="skills-list">
+      <li>HTML, CSS, JavaScript</li>
+      <li>React, Next.js, Tailwind</li>
+      <li>Node.js, Express</li>
+      <li>Python, Flask, Pandas</li>
+      <li>MongoDB, MySQL</li>
+      <li>Git, GitHub, VS Code</li>
+      <li>AI API Integration (OpenAI)</li>
+    </ul>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <h2>Contact</h2>
+    <form id="contact-form">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <textarea id="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <p id="form-response"></p>
+  </section>
+
+  <footer>
+    <p>Built with ❤️ by Ezra Desmond &copy; 2025</p>
+  </footer>
+</body>
+</html>
