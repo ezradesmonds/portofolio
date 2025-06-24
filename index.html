@@ -1,82 +1,618 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ezra Desmond | Programmer Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ketahanan Bitcoin: Sebuah Analisis Interaktif</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Earthy Resilience -->
+    <!-- Application Structure Plan: The application is structured as a single-page narrative journey to guide users from a fundamental question to a deep understanding. It starts with a Hero section posing the core question. Section 1 demystifies Bitcoin's foundation using an interactive diagram comparing centralized vs. decentralized systems. Section 2 simulates the "Internet Apocalypse" with an interactive toggle to explain network partitions and the longest chain rule visually. Section 3 presents alternative communication technologies as an interactive "Defense Layer Explorer" with cards and a comparative chart. Section 4 provides a direct "Bitcoin vs. TradFi" showdown in a crisis scenario. This thematic, story-driven flow was chosen over a direct report-to-page mapping because it makes complex technical concepts more digestible and engaging for a non-expert audience, progressively building their understanding. -->
+    <!-- Visualization & Content Choices: 
+    - Report Info: Bitcoin Storage -> Goal: Debunk myth -> Viz: Interactive HTML/CSS diagram -> Interaction: Click to 'destroy' nodes -> Justification: Visually proves decentralization's resilience. -> Library: Vanilla JS.
+    - Report Info: Network Partition -> Goal: Explain failure mode -> Viz: HTML/CSS/JS simulation -> Interaction: 'Internet ON/OFF' toggle -> Justification: Makes an abstract concept tangible. -> Library: Vanilla JS.
+    - Report Info: Alternative Communication Tech -> Goal: Compare solutions -> Viz: Interactive cards + Chart.js Bar Chart -> Interaction: Click cards to see details -> Justification: Chart.js provides a clearer quantitative comparison of attributes like cost and ease of use than a static table. -> Library: Chart.js, Vanilla JS.
+    - Report Info: Bitcoin vs. TradFi -> Goal: Compare system fragility -> Viz: Side-by-side layout with icons -> Interaction: 'Activate Crisis' button reveals failure modes -> Justification: Direct visual contrast is highly effective for understanding relative strengths. -> Library: Vanilla JS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #1e293b; /* slate-800 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #0d9488; /* teal-600 */
+        }
+        .btn-primary {
+            background-color: #0f766e; /* teal-700 */
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0d9488; /* teal-600 */
+        }
+        .section-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.1);
+        }
+        .interactive-node {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .node-destroyed {
+            opacity: 0.2;
+            transform: scale(0.8);
+        }
+        .chain-block {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+    </style>
 </head>
-<body>
-  <header class="navbar">
-    <div class="logo">EzraDesmond</div>
-    <nav>
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+<body class="antialiased">
 
-  <section id="hero" class="hero-section">
-    <h1>Hi, I'm Ezra Desmond</h1>
-    <p>A passionate Full Stack Developer & Tech Enthusiast</p>
-    <a href="#projects" class="cta-button">View My Work</a>
-  </section>
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="#hero" class="text-xl font-bold text-teal-700">Ketahanan Bitcoin</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#fondasi" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">Fondasi</a>
+                        <a href="#skenario" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">Skenario Krisis</a>
+                        <a href="#pertahanan" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">Pertahanan Lapis</a>
+                        <a href="#perbandingan" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-slate-600">Perbandingan</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-  <section id="about" class="about-section">
-    <h2>About Me</h2>
-    <p>
-      I build scalable and efficient web applications, design intuitive UI/UX, and explore AI and blockchain technologies. Currently an Informatics student actively sharpening my real-world skills through projects, freelance, and competitions.
-    </p>
-  </section>
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="py-20 md:py-32">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight">Jika Perang Terjadi & Internet Mati,</h1>
+                <h2 class="mt-4 text-4xl md:text-6xl font-extrabold text-teal-600 tracking-tight">Akankah Bitcoin Ikut Mati?</h2>
+                <p class="mt-6 max-w-3xl mx-auto text-lg text-slate-600">Pertanyaan ini menyentuh inti dari nilai Bitcoin sebagai aset terdesentralisasi. Aplikasi ini akan membedah ketahanan Bitcoin secara teknis, dari cara kerjanya yang mendasar hingga kemampuannya beroperasi di luar jaringan internet.</p>
+                <div class="mt-8">
+                    <a href="#fondasi" class="btn-primary inline-block px-8 py-3 rounded-lg font-semibold text-lg shadow-lg">Jelajahi Ketahanannya</a>
+                </div>
+            </div>
+        </section>
 
-  <section id="projects" class="projects-section">
-    <h2>Projects</h2>
-    <div class="project-grid">
-      <div class="project-card">
-        <h3>Smart Finance Tracker</h3>
-        <p>Built with React & Firebase. Real-time income/expense management tool with analytics.</p>
-      </div>
-      <div class="project-card">
-        <h3>AI Resume Builder</h3>
-        <p>Next.js & OpenAI API. Instantly generates job-optimized resumes with one click.</p>
-      </div>
-      <div class="project-card">
-        <h3>Crypto Trading Bot</h3>
-        <p>Python-based bot using Bollinger Bands and backtesting with real data.</p>
-      </div>
-    </div>
-  </section>
+        <!-- Section 1: The Foundation -->
+        <section id="fondasi" class="py-16 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Bagian 1: Fondasi yang Berbeda</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-500">Untuk memahami ketahanan Bitcoin, kita harus lupakan cara berpikir lama tentang "penyimpanan". Bitcoin tidak disimpan, melainkan dicatat secara terdistribusi. Ini adalah perbedaan fundamental yang membuatnya sangat tangguh.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-slate-800">Sistem Terpusat (Contoh: Bank)</h3>
+                        <p class="mt-2 text-slate-600">Data disimpan di satu lokasi pusat. Jika server pusat ini gagal, seluruh sistem akan lumpuh. Ini adalah titik kegagalan tunggal (*single point of failure*).</p>
+                        <div id="centralized-system" class="mt-6 p-6 border-2 border-dashed border-red-300 rounded-lg text-center">
+                            <div class="relative h-48 flex items-center justify-center">
+                                <div id="central-node" class="interactive-node w-16 h-16 bg-red-500 rounded-full flex items-center justify-center text-white font-bold" title="Klik untuk menghancurkan server pusat">SERVER</div>
+                            </div>
+                            <p id="centralized-status" class="mt-4 text-red-600 font-semibold transition-opacity duration-500 opacity-0">SISTEM OFFLINE</p>
+                            <button id="reset-centralized" class="mt-2 px-4 py-1 bg-red-100 text-red-700 rounded-md text-sm opacity-0 transition-opacity duration-500">Reset</button>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold text-slate-800">Sistem Terdistribusi (Bitcoin)</h3>
+                        <p class="mt-2 text-slate-600">Data (blockchain) disalin dan disebar ke ribuan komputer (node) di seluruh dunia. Tidak ada titik kegagalan tunggal. Jaringan tetap berjalan meskipun sebagian node hancur.</p>
+                        <div id="decentralized-system" class="mt-6 p-6 border-2 border-dashed border-teal-300 rounded-lg">
+                            <div class="relative h-48 grid grid-cols-4 gap-4 items-center justify-items-center">
+                                <div class="interactive-node node w-10 h-10 bg-teal-500 rounded-full" title="Klik untuk menghancurkan node ini"></div>
+                                <div class="interactive-node node w-10 h-10 bg-teal-500 rounded-full" title="Klik untuk menghancurkan node ini"></div>
+                                <div class="interactive-node node w-10 h-10 bg-teal-500 rounded-full" title="Klik untuk menghancurkan node ini"></div>
+                                <div class="interactive-node node w-10 h-10 bg-teal-500 rounded-full" title="Klik untuk menghancurkan node ini"></div>
+                                <div class="interactive-node node w-10 h-10 bg-teal-500 rounded-full" title="Klik untuk menghancurkan node ini"></div>
+                                <div class="interactive-node node w-10 h-10 bg-teal-500 rounded-full" title="Klik untuk menghancurkan node ini"></div>
+                                <div class="interactive-node node w-10 h-10 bg-teal-500 rounded-full" title="Klik untuk menghancurkan node ini"></div>
+                                <div class="interactive-node node w-10 h-10 bg-teal-500 rounded-full" title="Klik untuk menghancurkan node ini"></div>
+                            </div>
+                            <p id="decentralized-status" class="mt-4 text-center text-teal-600 font-semibold">SISTEM TETAP ONLINE</p>
+                             <button id="reset-decentralized" class="mt-2 mx-auto block px-4 py-1 bg-teal-100 text-teal-700 rounded-md text-sm">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  <section id="skills" class="skills-section">
-    <h2>Skills</h2>
-    <ul class="skills-list">
-      <li>HTML, CSS, JavaScript</li>
-      <li>React, Next.js, Tailwind</li>
-      <li>Node.js, Express</li>
-      <li>Python, Flask, Pandas</li>
-      <li>MongoDB, MySQL</li>
-      <li>Git, GitHub, VS Code</li>
-      <li>AI API Integration (OpenAI)</li>
-    </ul>
-  </section>
+        <!-- Section 2: Internet Apocalypse Scenario -->
+        <section id="skenario" class="py-16">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Bagian 2: Simulasi Krisis Internet</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-500">Apa yang terjadi jika internet terpecah menjadi beberapa "pulau" terisolasi? Bitcoin tidak mati, tetapi mengalami fenomena "partisi jaringan". Mari kita simulasikan.</p>
+                </div>
 
-  <section id="contact" class="contact-section">
-    <h2>Contact</h2>
-    <form id="contact-form">
-      <input type="text" id="name" placeholder="Your Name" required />
-      <input type="email" id="email" placeholder="Your Email" required />
-      <textarea id="message" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-    <p id="form-response"></p>
-  </section>
+                <div class="section-card p-6 md:p-8">
+                    <div class="flex flex-col md:flex-row items-center justify-center mb-8 gap-4">
+                        <span class="font-medium text-slate-600">Internet Global:</span>
+                        <label for="internet-toggle" class="inline-flex relative items-center cursor-pointer">
+                            <input type="checkbox" value="" id="internet-toggle" class="sr-only peer" checked>
+                            <div class="w-14 h-8 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-teal-600"></div>
+                            <span class="ml-3 text-lg font-bold text-teal-600" id="internet-status">TERHUBUNG</span>
+                        </label>
+                    </div>
 
-  <footer>
-    <p>Built with ❤️ by Ezra Desmond &copy; 2025</p>
-  </footer>
+                    <div id="blockchain-container" class="relative overflow-x-auto">
+                        <div id="info-box" class="absolute top-0 right-0 bg-white p-4 rounded-lg shadow-lg text-sm transition-opacity duration-500 opacity-0 max-w-xs">
+                           <h4 class="font-bold mb-2">Apa yang Terjadi?</h4>
+                           <p id="info-text"></p>
+                        </div>
+                        <div id="chain-unified" class="flex items-center space-x-2 p-4 transition-opacity duration-500">
+                           <div class="text-lg font-mono">⛓️</div>
+                           <!-- Initial blocks will be populated by JS -->
+                        </div>
+                        <div id="chain-split" class="hidden transition-opacity duration-500">
+                           <div class="mb-4">
+                               <h4 class="font-semibold text-slate-700">Partisi A (mis: Amerika)</h4>
+                               <div id="chain-a" class="flex items-center space-x-2 p-4 bg-blue-50 rounded-lg"></div>
+                           </div>
+                           <div>
+                               <h4 class="font-semibold text-slate-700">Partisi B (mis: Asia)</h4>
+                               <div id="chain-b" class="flex items-center space-x-2 p-4 bg-green-50 rounded-lg"></div>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: The Backup Plan -->
+        <section id="pertahanan" class="py-16 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Bagian 3: Pertahanan Lapis Tanpa Internet</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-500">Komunitas Bitcoin telah membangun teknologi alternatif untuk memastikan jaringan tetap berjalan. Ini bukan teori, tetapi sistem yang sudah operasional.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div>
+                        <div class="space-y-4">
+                            <div id="tech-satellite" class="p-6 rounded-lg border-2 border-teal-500 cursor-pointer section-card">
+                                <h4 class="text-xl font-bold">📡 Jaringan Satelit</h4>
+                                <p class="mt-2 text-sm text-slate-600">Menyiarkan data blockchain dari luar angkasa, memungkinkan sinkronisasi node tanpa internet.</p>
+                            </div>
+                             <div id="tech-mesh" class="p-6 rounded-lg border-2 border-slate-200 cursor-pointer section-card">
+                                <h4 class="text-xl font-bold">📱 Jaringan Mesh</h4>
+                                <p class="mt-2 text-sm text-slate-600">Menciptakan jaringan lokal peer-to-peer untuk mengirim transaksi antar perangkat.</p>
+                            </div>
+                             <div id="tech-radio" class="p-6 rounded-lg border-2 border-slate-200 cursor-pointer section-card">
+                                <h4 class="text-xl font-bold">📻 Radio & SMS</h4>
+                                <p class="mt-2 text-sm text-slate-600">Metode dasar untuk menyiarkan data transaksi mentah menggunakan gelombang radio atau jaringan seluler.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section-card p-6 md:p-8">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4" id="tech-detail-title">Jaringan Satelit (Blockstream)</h3>
+                        <p class="text-slate-600 mb-6" id="tech-detail-desc">Satelit geostasioner menyiarkan seluruh blockchain ke sebagian besar permukaan bumi. Pengguna dengan antena parabola kecil dapat menerima data ini, menjaga node mereka tetap sinkron tanpa koneksi internet sama sekali.</p>
+                        <div class="chart-container">
+                            <canvas id="techComparisonChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 4: Bitcoin vs TradFi -->
+        <section id="perbandingan" class="py-16">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Bagian 4: Perbandingan dalam Krisis</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-slate-500">Bagaimana ketahanan Bitcoin jika dibandingkan dengan sistem keuangan tradisional yang kita gunakan sehari-hari saat krisis melanda?</p>
+                </div>
+
+                <div class="text-center mb-8">
+                    <button id="crisis-button" class="btn-primary px-8 py-3 rounded-lg font-semibold text-lg shadow-lg">▶️ Aktifkan Skenario Krisis</button>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Traditional Finance -->
+                    <div class="section-card p-6 md:p-8">
+                        <h3 class="text-2xl font-bold text-center text-slate-800">Keuangan Tradisional</h3>
+                        <div class="mt-6 space-y-4">
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 text-3xl">🏦</div>
+                                <div>
+                                    <h4 class="font-semibold">Rekening Bank</h4>
+                                    <p class="text-sm text-slate-500">Bergantung pada server bank, listrik, dan internet.</p>
+                                    <p class="crisis-text mt-1 text-sm font-bold text-red-600 opacity-0 transition-opacity duration-500">Risiko: Akses dibekukan, tidak bisa diakses saat offline.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 text-3xl">💳</div>
+                                <div>
+                                    <h4 class="font-semibold">ATM & Kartu Kredit</h4>
+                                    <p class="text-sm text-slate-500">Membutuhkan jaringan telekomunikasi dan listrik yang berfungsi.</p>
+                                    <p class="crisis-text mt-1 text-sm font-bold text-red-600 opacity-0 transition-opacity duration-500">Risiko: Tidak berfungsi tanpa listrik atau koneksi jaringan.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 text-3xl">🌐</div>
+                                <div>
+                                    <h4 class="font-semibold">Transfer Internasional (SWIFT)</h4>
+                                    <p class="text-sm text-slate-500">Sistem terpusat yang bisa digunakan sebagai senjata politik.</p>
+                                    <p class="crisis-text mt-1 text-sm font-bold text-red-600 opacity-0 transition-opacity duration-500">Risiko: Akses bisa diputus, mengisolasi sebuah negara.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Bitcoin -->
+                    <div class="section-card p-6 md:p-8 border-2 border-teal-500">
+                        <h3 class="text-2xl font-bold text-center text-slate-800">Bitcoin</h3>
+                        <div class="mt-6 space-y-4">
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 text-3xl">🔑</div>
+                                <div>
+                                    <h4 class="font-semibold">Dompet Bitcoin (Kunci Privat)</h4>
+                                    <p class="text-sm text-slate-500">Kepemilikan ada pada pemegang kunci, bukan institusi.</p>
+                                    <p class="crisis-text mt-1 text-sm font-bold text-teal-600 opacity-0 transition-opacity duration-500">Kekuatan: Tidak bisa dibekukan, kontrol penuh di tangan Anda.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 text-3xl">🛰️</div>
+                                <div>
+                                    <h4 class="font-semibold">Aksesibilitas Jaringan</h4>
+                                    <p class="text-sm text-slate-500">Bisa diakses melalui internet, satelit, mesh, atau radio.</p>
+                                    <p class="crisis-text mt-1 text-sm font-bold text-teal-600 opacity-0 transition-opacity duration-500">Kekuatan: Redundansi komunikasi memastikan jaringan tetap bisa dijangkau.</p>
+                                </div>
+                            </div>
+                             <div class="flex items-start space-x-4">
+                                <div class="flex-shrink-0 text-3xl">🌍</div>
+                                <div>
+                                    <h4 class="font-semibold">Sifat Aset</h4>
+                                    <p class="text-sm text-slate-500">Aset digital tanpa batas negara dan tahan sensor.</p>
+                                    <p class="crisis-text mt-1 text-sm font-bold text-teal-600 opacity-0 transition-opacity duration-500">Kekuatan: Dapat dibawa melintasi perbatasan dan tidak bisa disita secara remote.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conclusion -->
+        <section id="kesimpulan" class="py-20 bg-slate-800 text-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">Kesimpulan: Bitcoin Tidak Akan Mati</h2>
+                <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-300">Jaringan Bitcoin dirancang dengan ketahanan berlapis untuk bertahan dalam skenario terburuk sekalipun. Ia tidak bergantung pada satu entitas, satu server, atau bahkan internet itu sendiri. Namun, perlu diingat, meskipun protokolnya akan bertahan, memanfaatkan Bitcoin dalam krisis membutuhkan persiapan dan pengetahuan teknis.</p>
+                <blockquote class="mt-8 max-w-2xl mx-auto text-xl italic text-slate-400">"Bitcoin bukan hanya 'tangguh', tetapi 'anti-rapuh'. Setiap guncangan dan tekanan justru memacu inovasi yang membuatnya semakin kuat."</blockquote>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="bg-slate-900 text-slate-400 text-center py-6">
+        <p>&copy; 2025 Analisis Interaktif Ketahanan Bitcoin. Dibuat untuk tujuan edukasi.</p>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    // --- Section 1: Foundation Simulation ---
+    function setupFoundationSim() {
+        const centralNode = document.getElementById('central-node');
+        const centralizedStatus = document.getElementById('centralized-status');
+        const resetCentralizedBtn = document.getElementById('reset-centralized');
+
+        centralNode.addEventListener('click', () => {
+            centralNode.classList.add('node-destroyed');
+            centralizedStatus.classList.remove('opacity-0');
+            resetCentralizedBtn.classList.remove('opacity-0');
+        });
+        resetCentralizedBtn.addEventListener('click', () => {
+            centralNode.classList.remove('node-destroyed');
+            centralizedStatus.classList.add('opacity-0');
+            resetCentralizedBtn.classList.add('opacity-0');
+        });
+
+        const decentralizedNodes = document.querySelectorAll('#decentralized-system .node');
+        const resetDecentralizedBtn = document.getElementById('reset-decentralized');
+        
+        decentralizedNodes.forEach(node => {
+            node.addEventListener('click', () => {
+                node.classList.toggle('node-destroyed');
+            });
+        });
+
+        resetDecentralizedBtn.addEventListener('click', () => {
+             decentralizedNodes.forEach(node => node.classList.remove('node-destroyed'));
+        });
+    }
+    
+    // --- Section 2: Crisis Simulation ---
+    function setupCrisisSim() {
+        const toggle = document.getElementById('internet-toggle');
+        const status = document.getElementById('internet-status');
+        const chainUnified = document.getElementById('chain-unified');
+        const chainSplit = document.getElementById('chain-split');
+        const chainA = document.getElementById('chain-a');
+        const chainB = document.getElementById('chain-b');
+        const infoBox = document.getElementById('info-box');
+        const infoText = document.getElementById('info-text');
+
+        let blockCounter = 5;
+        let chainAInterval, chainBInterval;
+
+        const createBlock = (id, color = 'bg-slate-200') => `<div class="chain-block w-12 h-12 ${color} rounded-md flex items-center justify-center font-mono text-sm shadow-md">#${id}</div>`;
+        const initChain = () => {
+            for(let i=1; i<=blockCounter; i++) {
+                chainUnified.innerHTML += createBlock(i);
+            }
+        };
+
+        const showInfo = (text) => {
+            infoText.textContent = text;
+            infoBox.classList.remove('opacity-0');
+        }
+
+        const hideInfo = () => {
+            infoBox.classList.add('opacity-0');
+        }
+
+        const startSplit = () => {
+            status.textContent = "TERPUTUS";
+            status.classList.remove('text-teal-600');
+            status.classList.add('text-red-600');
+            
+            chainUnified.classList.add('opacity-0');
+            chainSplit.classList.remove('hidden');
+            chainSplit.classList.remove('opacity-0');
+
+            chainA.innerHTML = chainUnified.innerHTML;
+            chainB.innerHTML = chainUnified.innerHTML;
+            
+            showInfo("Internet terputus. Jaringan terpecah. Masing-masing 'pulau' membuat rantai bloknya sendiri. Ini menciptakan risiko 'double spending', dimana koin yang sama bisa dibelanjakan di kedua rantai.");
+
+            let blockACounter = blockCounter;
+            let blockBCounter = blockCounter;
+
+            chainAInterval = setInterval(() => {
+                blockACounter++;
+                chainA.innerHTML += createBlock(blockACounter, 'bg-blue-200');
+                if (chainA.children.length > 10) chainA.firstElementChild.remove();
+            }, 2000);
+            
+            chainBInterval = setInterval(() => {
+                blockBCounter++;
+                chainB.innerHTML += createBlock(blockBCounter, 'bg-green-200');
+                if (chainB.children.length > 8) chainB.firstElementChild.remove();
+            }, 2500); // Slower hashrate
+        };
+
+        const endSplit = () => {
+            clearInterval(chainAInterval);
+            clearInterval(chainBInterval);
+
+            showInfo("Koneksi pulih. Protokol Bitcoin secara otomatis mengikuti aturan 'rantai terpanjang' (dengan Proof-of-Work terbanyak). Rantai yang lebih pendek (Partisi B) ditinggalkan dan semua transaksinya menjadi tidak valid.");
+            
+            const chainAWin = chainA.children.length > chainB.children.length;
+
+            if (chainAWin) {
+                chainA.classList.add('border-4', 'border-teal-500');
+                chainB.classList.add('opacity-30');
+            } else {
+                chainB.classList.add('border-4', 'border-teal-500');
+                chainA.classList.add('opacity-30');
+            }
+
+            setTimeout(() => {
+                status.textContent = "TERHUBUNG";
+                status.classList.add('text-teal-600');
+                status.classList.remove('text-red-600');
+                
+                chainSplit.classList.add('opacity-0');
+                setTimeout(() => {
+                    chainSplit.classList.add('hidden');
+                    chainA.classList.remove('border-4', 'border-teal-500', 'opacity-30');
+                    chainB.classList.remove('border-4', 'border-teal-500', 'opacity-30');
+
+                    blockCounter = chainAWin ? chainA.children.length : chainB.children.length;
+                    chainUnified.innerHTML = chainAWin ? chainA.innerHTML : chainB.innerHTML;
+                    chainUnified.classList.remove('opacity-0');
+                    hideInfo();
+                }, 1000);
+            }, 4000);
+        };
+
+        toggle.addEventListener('change', () => {
+            if (toggle.checked) {
+                endSplit();
+            } else {
+                startSplit();
+            }
+        });
+
+        initChain();
+    }
+
+    // --- Section 3: Defense Tech Comparison ---
+    function setupDefenseExplorer() {
+        const techData = {
+            satellite: {
+                title: 'Jaringan Satelit (Blockstream)',
+                desc: 'Satelit geostasioner menyiarkan seluruh blockchain ke sebagian besar permukaan bumi. Pengguna dengan antena parabola kecil dapat menerima data ini, menjaga node mereka tetap sinkron tanpa koneksi internet sama sekali.',
+                chartData: [2, 7, 10] // Cost, Ease of Use, Coverage
+            },
+            mesh: {
+                title: 'Jaringan Mesh (goTenna, dll.)',
+                desc: 'Menciptakan jaringan komunikasi P2P lokal dari perangkat ke perangkat. Ideal untuk mengirim transaksi dalam satu kota atau wilayah tanpa perlu menara seluler atau router internet.',
+                 chartData: [4, 5, 3]
+            },
+            radio: {
+                title: 'Radio & SMS',
+                desc: 'Metode paling dasar untuk menyiarkan data transaksi. Radio Ham dapat menjangkau jarak jauh, sementara SMS memanfaatkan infrastruktur seluler yang ada. Bandwidth sangat rendah, hanya untuk transaksi darurat.',
+                 chartData: [7, 3, 6]
+            }
+        };
+
+        let myChart;
+        const ctx = document.getElementById('techComparisonChart').getContext('2d');
+        const techCards = document.querySelectorAll('#pertahanan [id^="tech-"]');
+        const detailTitle = document.getElementById('tech-detail-title');
+        const detailDesc = document.getElementById('tech-detail-desc');
+        
+        function renderChart(data) {
+            if (myChart) {
+                myChart.destroy();
+            }
+            myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Biaya Awal', 'Kemudahan Penggunaan', 'Potensi Jangkauan'],
+                    datasets: [{
+                        label: 'Skor Relatif (1-10)',
+                        data: data,
+                        backgroundColor: [
+                            'rgba(204, 153, 255, 0.6)', // purple
+                            'rgba(249, 203, 156, 0.6)', // orange
+                            'rgba(130, 204, 221, 0.6)'  // blue
+                        ],
+                        borderColor: [
+                            'rgba(204, 153, 255, 1)',
+                            'rgba(249, 203, 156, 1)',
+                            'rgba(130, 204, 221, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 10,
+                            grid: {
+                                color: 'rgba(200, 200, 200, 0.1)'
+                            }
+                        },
+                         y: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.x !== null) {
+                                        label += context.parsed.x;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function updateDetails(techKey) {
+            const data = techData[techKey];
+            detailTitle.textContent = data.title;
+            detailDesc.textContent = data.desc;
+            renderChart(data.chartData);
+            
+            techCards.forEach(card => {
+                card.classList.remove('border-teal-500');
+                card.classList.add('border-slate-200');
+            });
+            document.getElementById(`tech-${techKey}`).classList.add('border-teal-500');
+            document.getElementById(`tech-${techKey}`).classList.remove('border-slate-200');
+        }
+
+        techCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const techKey = card.id.split('-')[1];
+                updateDetails(techKey);
+            });
+        });
+        
+        updateDetails('satellite'); // Initial view
+    }
+    
+    // --- Section 4: Crisis Comparison ---
+    function setupCrisisComparison() {
+        const crisisButton = document.getElementById('crisis-button');
+        const crisisTexts = document.querySelectorAll('.crisis-text');
+        let crisisActive = false;
+
+        crisisButton.addEventListener('click', () => {
+            crisisActive = !crisisActive;
+            if (crisisActive) {
+                crisisButton.textContent = "⏹️ Kembalikan ke Normal";
+                crisisButton.classList.remove('btn-primary');
+                crisisButton.classList.add('bg-amber-600', 'hover:bg-amber-500');
+                crisisTexts.forEach(text => text.classList.remove('opacity-0'));
+            } else {
+                crisisButton.textContent = "▶️ Aktifkan Skenario Krisis";
+                crisisButton.classList.add('btn-primary');
+                crisisButton.classList.remove('bg-amber-600', 'hover:bg-amber-500');
+                crisisTexts.forEach(text => text.classList.add('opacity-0'));
+            }
+        });
+    }
+
+    // --- Smooth Scrolling for Nav Links ---
+    function setupNav() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    }
+
+    // Initialize all modules
+    setupFoundationSim();
+    setupCrisisSim();
+    setupDefenseExplorer();
+    setupCrisisComparison();
+    setupNav();
+});
+</script>
 </body>
 </html>
