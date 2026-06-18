@@ -18,6 +18,9 @@
     const container = document.getElementById("three-bg");
     if (!container) return;
 
+    // Skip on mobile for performance
+    if (window.innerWidth < 768) return;
+
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
     camera.position.z = 15;

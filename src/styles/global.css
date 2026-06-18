@@ -225,11 +225,17 @@ body {
 
 /* Section spacing */
 .section {
-  padding: 6rem 1.5rem;
+  padding: 4rem 1rem;
   position: relative;
 }
 
 @media (min-width: 768px) {
+  .section {
+    padding: 6rem 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
   .section {
     padding: 7rem 1.5rem;
   }
@@ -240,4 +246,11 @@ body {
   max-width: 80rem;
   margin: 0 auto;
   width: 100%;
+  padding: 0 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .container-lg {
+    padding: 0 1rem;
+  }
 }

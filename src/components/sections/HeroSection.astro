@@ -2,7 +2,7 @@
 import { SITE } from "../../data/site";
 ---
 
-<section id="hero" class="min-h-screen flex items-center pt-20 relative px-6">
+<section id="hero" class="min-h-[90vh] md:min-h-screen flex items-center pt-24 md:pt-20 relative px-4 md:px-6">
   <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center">
     <div class="z-10">
       <div
@@ -16,15 +16,15 @@ import { SITE } from "../../data/site";
         {SITE.availabilityMessage}
       </div>
 
-      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-none tracking-tight" data-reveal data-reveal-delay="200">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold text-white leading-[1.05] tracking-tight" data-reveal data-reveal-delay="200">
         <span class="text-gradient-animated">{SITE.headline}</span>
       </h1>
 
-      <p class="text-lg md:text-xl text-text-secondary max-w-lg mt-8 leading-relaxed" data-reveal data-reveal-delay="400">
+      <p class="text-base md:text-lg lg:text-xl text-text-secondary max-w-lg mt-6 md:mt-8 leading-relaxed" data-reveal data-reveal-delay="400">
         {SITE.subheadline}
       </p>
 
-      <div class="flex flex-wrap gap-4 mt-10" data-reveal data-reveal-delay="600">
+      <div class="flex flex-wrap gap-3 md:gap-4 mt-8 md:mt-10" data-reveal data-reveal-delay="600">
         <a href="/#work" class="btn btn-primary">
           View Selected Work
         </a>
@@ -33,7 +33,7 @@ import { SITE } from "../../data/site";
         </a>
       </div>
 
-      <div class="flex items-center gap-6 mt-10" data-reveal data-reveal-delay="800">
+      <div class="flex items-center gap-4 md:gap-6 mt-8 md:mt-10" data-reveal data-reveal-delay="800">
         <a
           href={SITE.github}
           target="_blank"
