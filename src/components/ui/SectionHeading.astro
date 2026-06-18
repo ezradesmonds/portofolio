@@ -1,0 +1,17 @@
+---
+interface Props {
+  number: string;
+  title: string;
+  subtitle?: string;
+}
+
+const { number, title, subtitle } = Astro.props;
+---
+
+<div class="mb-16" data-reveal data-reveal-delay="0">
+  <span class="section-num">{number}</span>
+  <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mt-3">{title}</h2>
+  {subtitle && (
+    <p class="text-lg text-text-secondary mt-4 max-w-2xl">{subtitle}</p>
+  )}
+</div>

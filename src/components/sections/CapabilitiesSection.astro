@@ -1,0 +1,31 @@
+---
+import { capabilities } from "../../data/capabilities";
+import SectionHeading from "../ui/SectionHeading.astro";
+---
+
+<section id="capabilities" class="section">
+  <div class="container-lg">
+    <SectionHeading
+      number="04."
+      title="Technical Capabilities"
+      subtitle="Grouped by domain, not ranked as equally proficient."
+    />
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {capabilities.map((group) => (
+        <div class="glass-card rounded-xl p-6 border-glow">
+          <h3 class="text-sm font-mono font-bold text-accent-cyan uppercase tracking-wider mb-4">
+            {group.name}
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            {group.items.map((item) => (
+              <span class="text-xs font-mono text-text-secondary bg-white/5 border border-white/10 px-2.5 py-1 rounded">
+                {item.name}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

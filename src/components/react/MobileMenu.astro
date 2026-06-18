@@ -1,0 +1,85 @@
+---
+---
+
+<script>
+  function initMobileMenu() {
+    const btn = document.getElementById("mobile-menu-btn");
+    const menu = document.getElementById("mobile-menu");
+    if (!btn || !menu) return;
+
+    const btnEl = btn as HTMLButtonElement;
+    const menuEl = menu as HTMLDivElement;
+
+    const srOnly = btnEl.querySelector(".sr-only") as HTMLSpanElement;
+    const iconOpen = btnEl.querySelector(".icon-open") as SVGElement;
+    const iconClose = btnEl.querySelector(".icon-close") as SVGElement;
+
+    function open() {
+      menuEl.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+      btnEl.setAttribute("aria-expanded", "true");
+      btnEl.setAttribute("aria-label", "Close menu");
+      if (srOnly) srOnly.textContent = "Close menu";
+      iconOpen.classList.add("hidden");
+      iconClose.classList.remove("hidden");
+      (menuEl.querySelector("a") as HTMLAnchorElement)?.focus();
+    }
+
+    function close() {
+      menuEl.classList.add("hidden");
+      document.body.style.overflow = "";
+      btnEl.setAttribute("aria-expanded", "false");
+      btnEl.setAttribute("aria-label", "Open menu");
+      if (srOnly) srOnly.textContent = "Open menu";
+      iconOpen.classList.remove("hidden");
+      iconClose.classList.add("hidden");
+      btnEl.focus();
+    }
+
+    btnEl.addEventListener("click", () => {
+      menuEl.classList.contains("hidden") ? open() : close();
+    });
+
+    menuEl.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", close);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !menuEl.classList.contains("hidden")) close();
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", initMobileMenu);
+</script>
+
+<button
+  id="mobile-menu-btn"
+  class="md:hidden relative z-50 flex items-center justify-center w-10 h-10 text-white rounded-lg hover:bg-white/10 transition-colors"
+  aria-expanded="false"
+  aria-controls="mobile-menu"
+  aria-label="Open menu"
+>
+  <span class="sr-only">Open menu</span>
+  <svg class="icon-open w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+  </svg>
+  <svg class="icon-close w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+  </svg>
+</button>
+
+<div
+  id="mobile-menu"
+  class="hidden fixed inset-0 z-40 bg-dark-base/95 backdrop-blur-md md:hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Mobile navigation"
+>
+  <nav class="flex flex-col items-center justify-center h-full gap-6">
+    <a href="/#work" class="text-2xl font-semibold text-text-secondary hover:text-white transition-colors">Work</a>
+    <a href="/#experience" class="text-2xl font-semibold text-text-secondary hover:text-white transition-colors">Experience</a>
+    <a href="/#about" class="text-2xl font-semibold text-text-secondary hover:text-white transition-colors">About</a>
+    <a href="/#contact" class="text-2xl font-semibold text-text-secondary hover:text-white transition-colors">Contact</a>
+    <a href="mailto:ezradesmonds@gmail.com" class="mt-4 px-6 py-3 text-base font-semibold border border-accent-cyan text-accent-cyan rounded-lg hover:bg-accent-cyan/10 transition-colors">Get in Touch</a>
+  </nav>
+</div>

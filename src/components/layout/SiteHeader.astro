@@ -1,0 +1,60 @@
+---
+import { navigation } from "../../data/navigation";
+import { SITE } from "../../data/site";
+import MobileMenu from "../react/MobileMenu.astro";
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="site-header">
+  <nav
+    class="mx-auto max-w-7xl px-6 py-4 flex justify-between items-center"
+    aria-label="Main navigation"
+  >
+    <a
+      href="/#hero"
+      class="text-xl font-bold tracking-tight text-white hover:text-accent-cyan transition-colors"
+      aria-label="Go to homepage"
+    >
+      Ezra<span class="text-accent-cyan">.</span>
+    </a>
+
+    <div class="hidden md:flex items-center space-x-1">
+      {
+        navigation.map((item) => (
+          <a
+            href={item.href}
+            class="px-3 py-2 text-sm font-medium text-text-secondary hover:text-white transition-colors relative group rounded-md"
+          >
+            {item.label}
+            <span class="absolute bottom-1 left-3 right-3 h-px bg-accent-cyan scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+          </a>
+        ))
+      }
+      <a
+        href={`mailto:${SITE.email}`}
+        class="ml-3 px-4 py-1.5 text-sm font-semibold border border-accent-cyan/30 text-accent-cyan rounded-lg hover:bg-accent-cyan/10 transition-colors"
+      >
+        Get in Touch
+      </a>
+    </div>
+
+    <MobileMenu />
+  </nav>
+
+  <div
+    class="absolute inset-0 -z-10 glass-nav border-b border-white/5"
+    aria-hidden="true"
+  ></div>
+</header>
+
+<style>
+  .glass-nav {
+    background: rgba(5, 11, 20, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  #site-header {
+    transform: translateY(0);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+</style>
