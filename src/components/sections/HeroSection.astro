@@ -6,21 +6,21 @@ import { SITE } from "../../data/site";
   <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center">
     <div class="z-10">
       <div
-        class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent-cyan/20 bg-accent-cyan/5 text-sm font-medium text-accent-cyan mb-8 whitespace-nowrap"
+        class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-accent-cyan/20 bg-accent-cyan/5 text-xs sm:text-sm font-medium text-accent-cyan mb-6 sm:mb-8 max-w-full overflow-hidden"
         data-reveal data-reveal-delay="100"
       >
-        <span class="relative flex h-2 w-2">
+        <span class="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2 flex-shrink-0">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-cyan opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2 w-2 bg-accent-cyan"></span>
         </span>
         {SITE.availabilityMessage}
       </div>
 
-      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold text-white leading-[1.05] tracking-tight" data-reveal data-reveal-delay="200">
+      <h1 class="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold text-white leading-[1.1] tracking-tight" data-reveal data-reveal-delay="200">
         <span class="text-gradient-animated">{SITE.headline}</span>
       </h1>
 
-      <p class="text-base md:text-lg lg:text-xl text-text-secondary max-w-lg mt-6 md:mt-8 leading-relaxed" data-reveal data-reveal-delay="400">
+      <p class="text-sm sm:text-base md:text-lg lg:text-xl text-text-secondary max-w-lg mt-4 sm:mt-6 md:mt-8 leading-relaxed" data-reveal data-reveal-delay="400">
         {SITE.subheadline}
       </p>
 

@@ -20,31 +20,31 @@ const statusColor = statusColorMap[project.status] ?? statusColorMap.prototype;
 ---
 
 <div
-  class="block group glass-card rounded-xl p-6 border-glow transition-all duration-300 hover:border-accent-cyan/30 hover:-translate-y-1 cursor-pointer"
+  class="block group glass-card rounded-xl p-4 sm:p-6 border-glow transition-all duration-300 hover:border-accent-cyan/30 hover:-translate-y-1 cursor-pointer"
   data-project-slug={project.slug}
   role="button"
   tabindex="0"
 >
-  <div class="flex items-start justify-between mb-4">
-    <span class="text-xs font-mono text-accent-cyan">{project.category}</span>
+  <div class="flex items-start justify-between mb-3 sm:mb-4">
+    <span class="text-[11px] sm:text-xs font-mono text-accent-cyan line-clamp-1">{project.category}</span>
     <span
-      class={`text-[10px] font-mono font-semibold uppercase px-2 py-0.5 rounded border ${statusColor}`}
+      class={`text-[9px] sm:text-[10px] font-mono font-semibold uppercase px-1.5 sm:px-2 py-0.5 rounded border ${statusColor} flex-shrink-0 ml-2`}
     >
       {project.statusLabel}
     </span>
   </div>
 
-  <h3 class="text-xl font-bold text-white mb-3 group-hover:text-accent-cyan transition-colors">
+  <h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 group-hover:text-accent-cyan transition-colors">
     {project.title}
   </h3>
 
-  <p class="text-sm text-text-secondary leading-relaxed mb-6 line-clamp-3">
+  <p class="text-xs sm:text-sm text-text-secondary leading-relaxed mb-4 sm:mb-6 line-clamp-3">
     {project.description}
   </p>
 
-  <div class="flex flex-wrap gap-2 mb-5">
-    {project.technologies.slice(0, 5).map((tech) => (
-      <span class="text-[11px] font-mono text-text-muted bg-white/5 border border-white/10 px-2 py-0.5 rounded">
+  <div class="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-5">
+    {project.technologies.slice(0, 4).map((tech) => (
+      <span class="text-[10px] sm:text-[11px] font-mono text-text-muted bg-white/5 border border-white/10 px-1.5 sm:px-2 py-0.5 rounded">
         {tech}
       </span>
     ))}
