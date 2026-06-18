@@ -1,0 +1,71 @@
+---
+import { projects, additionalProjects } from "../../data/projects";
+import SectionHeading from "../ui/SectionHeading.astro";
+import ProjectCard from "../ui/ProjectCard.astro";
+import ProjectModal from "../react/ProjectModal.astro";
+
+const allProjects = [...projects, ...additionalProjects].sort((a, b) => a.sortOrder - b.sortOrder);
+const featured = projects.filter((p) => p.featured).sort((a, b) => a.sortOrder - b.sortOrder);
+const othersSorted = [...projects.filter((p) => !p.featured), ...additionalProjects].sort((a, b) => a.sortOrder - b.sortOrder);
+
+const statusColorMap: Record<string, string> = {
+  live: "border-green-500/40 text-green-400 bg-green-500/10",
+  "in-development": "border-amber-500/40 text-amber-400 bg-amber-500/10",
+  prototype: "border-sky-500/40 text-sky-400 bg-sky-500/10",
+  academic: "border-slate-500/40 text-slate-400 bg-slate-500/10",
+  competition: "border-violet-500/40 text-violet-400 bg-violet-500/10",
+  "case-study": "border-teal-500/40 text-teal-400 bg-teal-500/10",
+};
+
+const projectsData = allProjects.map((p) => ({
+    slug: p.slug,
+    title: p.title,
+    category: p.category,
+    description: p.description,
+    problem: p.problem,
+    targetUsers: p.targetUsers,
+    role: p.role,
+    contribution: p.contribution,
+    technologies: p.technologies,
+    statusLabel: p.statusLabel,
+    statusColor: statusColorMap[p.status] ?? statusColorMap.prototype,
+    outcome: p.outcome,
+    liveUrl: p.liveUrl,
+    githubUrl: p.githubUrl,
+    overview: p.detail?.overview,
+    keyFeatures: p.detail?.keyFeatures,
+    challenges: p.detail?.challenges,
+    lessons: p.detail?.lessonsLearned,
+  }))
+---
+
+<section id="work" class="section">
+  <div class="container-lg">
+    <SectionHeading
+      number="01."
+      title="Selected Work"
+      subtitle="Products, systems, and experiments built for real users and operational contexts."
+    />
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {featured.map((project) => <ProjectCard project={project} />)}
+    </div>
+
+    {othersSorted.length > 0 && (
+      <>
+        <h3 class="text-sm font-mono font-bold uppercase tracking-widest text-text-muted mt-20 mb-8">
+          More Projects
+        </h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {othersSorted.map((project) => <ProjectCard project={project} />)}
+        </div>
+      </>
+    )}
+  </div>
+
+  <ProjectModal />
+
+  <script define:vars={{ projects: projectsData }}>
+    window.__PROJECTS__ = projects;
+  </script>
+</section>

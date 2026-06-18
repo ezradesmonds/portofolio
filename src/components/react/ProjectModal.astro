@@ -1,0 +1,192 @@
+---
+---
+
+<script>
+  interface ModalProject {
+    slug: string;
+    title: string;
+    category: string;
+    description: string;
+    problem: string;
+    targetUsers: string;
+    role: string;
+    contribution: string;
+    technologies: string[];
+    statusLabel: string;
+    statusColor: string;
+    outcome?: string;
+    liveUrl?: string;
+    githubUrl?: string;
+    overview?: string;
+    keyFeatures?: string[];
+    challenges?: string[];
+    lessons?: string[];
+  }
+
+  function getProjects(): ModalProject[] {
+    const w = window as unknown as { __PROJECTS__?: ModalProject[] };
+    return w.__PROJECTS__ || [];
+  }
+
+  function openModal(slug: string) {
+    const allProjects = getProjects();
+    const project = allProjects.find((p) => p.slug === slug);
+    if (!project) return;
+
+    const modal = document.getElementById("project-modal");
+    const body = document.getElementById("modal-body");
+    if (!modal || !body) return;
+
+    const techTags = project.technologies.map((t) =>
+      `<span class="text-[11px] font-mono text-text-muted bg-white/5 border border-white/10 px-2 py-0.5 rounded">${t}</span>`
+    ).join("");
+
+    const features = (project.keyFeatures || []).map((f) =>
+      `<li class="flex items-start gap-3 text-text-secondary text-sm"><span class="text-accent-cyan mt-1 flex-shrink-0">&rarr;</span>${f}</li>`
+    ).join("");
+
+    const challenges = (project.challenges || []).map((c) =>
+      `<li class="text-text-secondary text-sm pl-4 border-l-2 border-dark-border">${c}</li>`
+    ).join("");
+
+    const lessons = (project.lessons || []).map((l) =>
+      `<li class="text-text-secondary text-sm pl-4 border-l-2 border-accent-violet/30">${l}</li>`
+    ).join("");
+
+    body.innerHTML = `
+      <button id="modal-close" class="absolute top-5 right-5 text-text-muted hover:text-white transition-colors bg-white/5 p-2 rounded-full hover:bg-white/10 z-10" aria-label="Close modal">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div class="flex flex-wrap items-center gap-3 mb-2">
+        <span class="text-xs font-mono text-accent-cyan">${project.category}</span>
+        <span class="text-[10px] font-mono font-semibold uppercase px-2 py-0.5 rounded border ${project.statusColor}">${project.statusLabel}</span>
+      </div>
+
+      <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-4">${project.title}</h2>
+      <p class="text-text-secondary leading-relaxed mb-8">${project.description}</p>
+
+      ${project.overview ? `
+      <div class="mb-8">
+        <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-accent-cyan mb-3">Overview</h3>
+        <p class="text-text-secondary text-sm leading-relaxed">${project.overview}</p>
+      </div>` : ""}
+
+      <div class="grid sm:grid-cols-2 gap-6 mb-8">
+        <div>
+          <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-accent-cyan mb-2">Problem</h3>
+          <p class="text-text-secondary text-sm">${project.problem}</p>
+        </div>
+        <div>
+          <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-accent-cyan mb-2">Target Users</h3>
+          <p class="text-text-secondary text-sm">${project.targetUsers}</p>
+        </div>
+      </div>
+
+      <div class="mb-8">
+        <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-accent-cyan mb-2">My Role</h3>
+        <p class="text-sm font-semibold text-white mb-1">${project.role}</p>
+        <p class="text-text-secondary text-sm leading-relaxed">${project.contribution}</p>
+      </div>
+
+      ${features ? `
+      <div class="mb-8">
+        <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-accent-cyan mb-3">Key Features</h3>
+        <ul class="grid sm:grid-cols-2 gap-2">${features}</ul>
+      </div>` : ""}
+
+      ${challenges ? `
+      <div class="mb-8">
+        <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-accent-cyan mb-3">Challenges & Trade-offs</h3>
+        <ul class="space-y-2">${challenges}</ul>
+      </div>` : ""}
+
+      ${lessons ? `
+      <div class="mb-8">
+        <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-accent-cyan mb-3">Lessons Learned</h3>
+        <ul class="space-y-2">${lessons}</ul>
+      </div>` : ""}
+
+      ${project.outcome ? `
+      <div class="mb-8">
+        <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-accent-cyan mb-2">Results</h3>
+        <p class="text-text-secondary text-sm">${project.outcome}</p>
+      </div>` : ""}
+
+      <div class="flex flex-wrap gap-2 mb-8 pt-4 border-t border-dark-border">
+        ${techTags}
+      </div>
+
+      <div class="flex flex-wrap gap-3">
+        ${project.liveUrl ? `<a href="${project.liveUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Visit Live Site</a>` : ""}
+        ${project.githubUrl ? `<a href="${project.githubUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">View on GitHub</a>` : ""}
+      </div>
+    `;
+
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+    const closeBtn = document.getElementById("modal-close");
+    if (closeBtn) closeBtn.focus();
+
+    function closeModal() {
+      if (modal) modal.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+
+    document.getElementById("modal-close")?.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+    document.addEventListener("keydown", function escHandler(e) {
+      if (e.key === "Escape") {
+        closeModal();
+        document.removeEventListener("keydown", escHandler);
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("[data-project-slug]").forEach((card) => {
+      card.addEventListener("click", () => {
+        const slug = card.getAttribute("data-project-slug");
+        if (slug) openModal(slug);
+      });
+      card.addEventListener("keydown", (e) => {
+        const ke = e as KeyboardEvent;
+        if (ke.key === "Enter" || ke.key === " ") {
+          ke.preventDefault();
+          const slug = card.getAttribute("data-project-slug");
+          if (slug) openModal(slug);
+        }
+      });
+    });
+  });
+</script>
+
+<div
+  id="project-modal"
+  class="fixed inset-0 z-[100] flex items-start justify-center p-4 pt-20 pb-20 bg-dark-base/70 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300"
+  aria-hidden="true"
+>
+  <div class="glass-card w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-2xl border border-white/10 p-6 md:p-10 shadow-2xl relative modal-content transform translate-y-6 scale-95 transition-all duration-300">
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<style>
+  #project-modal.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  #project-modal.active .modal-content {
+    transform: translateY(0) scale(1);
+  }
+
+  #project-modal .glass-card {
+    background: linear-gradient(145deg, rgba(17, 29, 51, 0.85) 0%, rgba(10, 19, 36, 0.95) 100%);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+</style>

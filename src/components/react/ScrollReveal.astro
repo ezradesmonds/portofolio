@@ -1,0 +1,41 @@
+---
+---
+
+<script>
+  function initScrollReveal() {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const revealEls = document.querySelectorAll("[data-reveal]");
+
+    if (prefersReduced) {
+      revealEls.forEach((el) => {
+        const htmlEl = el as HTMLElement;
+        htmlEl.style.opacity = "1";
+        htmlEl.style.transform = "none";
+        htmlEl.style.transition = "none";
+      });
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const target = entry.target as HTMLElement;
+            const delay = target.getAttribute("data-reveal-delay") || "0";
+            target.style.transitionDelay = `${delay}ms`;
+            target.style.opacity = "1";
+            target.style.transform = "translateY(0) scale(1)";
+            observer.unobserve(target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    );
+
+    revealEls.forEach((el) => {
+      observer.observe(el);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", initScrollReveal);
+</script>

@@ -1,0 +1,24 @@
+---
+import { awards } from "../../data/awards";
+import SectionHeading from "../ui/SectionHeading.astro";
+---
+
+<section id="awards" class="section bg-dark-surface/30">
+  <div class="container-lg">
+    <SectionHeading
+      number="03."
+      title="Awards & Achievements"
+    />
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {awards.map((award) => (
+        <div class="glass-card rounded-xl p-6 border-glow">
+          <div class="text-3xl font-bold text-accent-cyan font-mono mb-2">{award.title}</div>
+          <div class="text-xs font-mono text-text-muted uppercase tracking-wider mb-1">{award.year}</div>
+          <h3 class="text-sm font-semibold text-white mb-3">{award.event}</h3>
+          <p class="text-xs text-text-secondary leading-relaxed">{award.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
