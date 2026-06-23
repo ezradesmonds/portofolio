@@ -1,30 +1,20 @@
 ---
 import { capabilities } from "../../data/capabilities";
 import SectionHeading from "../ui/SectionHeading.astro";
+import GlowCapabilityCard from "../react/GlowCapabilityCard";
 ---
 
 <section id="capabilities" class="section">
   <div class="container-lg">
     <SectionHeading
-      number="04."
+      number="05."
       title="Technical Capabilities"
       subtitle="Grouped by domain, not ranked as equally proficient."
     />
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
       {capabilities.map((group) => (
-        <div class="glass-card rounded-xl p-4 sm:p-6 border-glow">
-          <h3 class="text-xs sm:text-sm font-mono font-bold text-accent-cyan uppercase tracking-wider mb-3 sm:mb-4">
-            {group.name}
-          </h3>
-          <div class="flex flex-wrap gap-1.5 sm:gap-2">
-            {group.items.map((item) => (
-              <span class="text-[10px] sm:text-xs font-mono text-text-secondary bg-white/5 border border-white/10 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded">
-                {item.name}
-              </span>
-            ))}
-          </div>
-        </div>
+        <GlowCapabilityCard group={group} client:load />
       ))}
     </div>
   </div>

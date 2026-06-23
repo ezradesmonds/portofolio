@@ -1,0 +1,282 @@
+---
+---
+
+<div id="webgl-scene" class="fixed inset-0 z-0 pointer-events-none" aria-hidden="true" style="max-width:100vw"></div>
+
+<script>
+  import * as THREE from "three";
+
+  let scene: THREE.Scene;
+  let camera: THREE.PerspectiveCamera;
+  let renderer: THREE.WebGLRenderer;
+  let shapes: { mesh: THREE.Mesh; rotSpeed: { x: number; y: number; z: number }; floatAmp: number; baseY: number; baseZ: number }[] = [];
+  let starParticles: THREE.Points;
+  let dustParticles: THREE.Points;
+  let grid: THREE.LineSegments;
+  let animFrame: number;
+  let smoothMouseX = 0;
+  let smoothMouseY = 0;
+  let targetCameraY = 0;
+  let targetCameraZ = 0;
+  let mouseX = 0;
+  let mouseY = 0;
+  let keyLight: THREE.PointLight;
+  let rimLight: THREE.PointLight;
+  const clock = new THREE.Clock();
+
+  function createEnvironment() {
+    // Dark atmospheric fog
+    scene.fog = new THREE.FogExp2("#050B14", 0.00015);
+
+    // Ambient to lift shadows
+    const ambient = new THREE.AmbientLight("#1a1a3e", 0.5);
+    scene.add(ambient);
+
+    // Key light - cyan
+    keyLight = new THREE.PointLight("#00E5FF", 80, 30, 1.5);
+    keyLight.position.set(5, 8, 5);
+    scene.add(keyLight);
+
+    // Rim light - violet
+    rimLight = new THREE.PointLight("#8B5CF6", 60, 25, 1.5);
+    rimLight.position.set(-5, -2, -3);
+    scene.add(rimLight);
+
+    // Fill light - warm white
+    const fillLight = new THREE.PointLight("#ffffff", 20, 20, 2);
+    fillLight.position.set(0, 3, 8);
+    scene.add(fillLight);
+  }
+
+  function createGrid() {
+    const size = 40;
+    const divisions = 40;
+    const geo = new THREE.BufferGeometry();
+    const vertices: number[] = [];
+    const step = size / divisions;
+    const half = size / 2;
+
+    for (let i = 0; i <= divisions; i++) {
+      const v = -half + i * step;
+      vertices.push(-half, -2, v, half, -2, v);
+      vertices.push(v, -2, -half, v, -2, half);
+    }
+
+    geo.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
+    const mat = new THREE.LineBasicMaterial({
+      color: "#1a2a4a",
+      transparent: true,
+      opacity: 0.3,
+      depthWrite: false,
+    });
+    grid = new THREE.LineSegments(geo, mat);
+    scene.add(grid);
+  }
+
+  function createShapes() {
+    // Large central torus
+    const torusGeo = new THREE.TorusKnotGeometry(2.5, 0.3, 128, 16);
+    const torus = new THREE.Mesh(torusGeo, new THREE.MeshPhysicalMaterial({
+      color: "#00E5FF",
+      metalness: 0.1,
+      roughness: 0.25,
+      transparent: true,
+      opacity: 0.1,
+      wireframe: false,
+    }));
+    scene.add(torus);
+    shapes.push({ mesh: torus, rotSpeed: { x: 0.1, y: 0.2, z: 0.05 }, floatAmp: 0.3, baseY: 1, baseZ: -5 });
+
+    // Floating icosahedrons - 8 clean scattered shapes
+    for (let i = 0; i < 8; i++) {
+      const size = 0.15 + Math.random() * 0.5;
+      const geo = new THREE.IcosahedronGeometry(size, 1);
+      const mat = new THREE.MeshStandardMaterial({
+        color: i % 3 === 0 ? "#00E5FF" : i % 3 === 1 ? "#8B5CF6" : "#7C3AED",
+        metalness: 0.4,
+        roughness: 0.3,
+        transparent: true,
+        opacity: 0.15 + Math.random() * 0.2,
+      });
+      const mesh = new THREE.Mesh(geo, mat);
+      const baseY = (Math.random() - 0.5) * 12;
+      const baseZ = -3 - Math.random() * 12;
+      mesh.position.set((Math.random() - 0.5) * 18, baseY, baseZ);
+      mesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0);
+      scene.add(mesh);
+      shapes.push({ mesh, baseY, baseZ, rotSpeed: { x: 0.2 + Math.random() * 0.6, y: 0.2 + Math.random() * 0.6, z: 0.1 }, floatAmp: 0.1 + Math.random() * 0.3 });
+    }
+
+    // Clean - no rings, just the torus + icosahedrons + particles
+  }
+
+  function createParticles() {
+    // Starfield - 1200 distant twinkling dots
+    const starCount = 1200;
+    const starGeo = new THREE.BufferGeometry();
+    const starPositions = new Float32Array(starCount * 3);
+    for (let i = 0; i < starCount; i++) {
+      starPositions[i * 3] = (Math.random() - 0.5) * 50;
+      starPositions[i * 3 + 1] = (Math.random() - 0.5) * 35;
+      starPositions[i * 3 + 2] = -5 - Math.random() * 20;
+    }
+    starGeo.setAttribute("position", new THREE.BufferAttribute(starPositions, 3));
+    const starMat = new THREE.PointsMaterial({
+      size: 0.025,
+      color: "#8899cc",
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      transparent: true,
+      opacity: 0.7,
+    });
+    starParticles = new THREE.Points(starGeo, starMat);
+    scene.add(starParticles);
+
+    // Dust ring - 500 flowing colored particles
+    const dustCount = 500;
+    const dustGeo = new THREE.BufferGeometry();
+    const dustPositions = new Float32Array(dustCount * 3);
+    const dustColors = new Float32Array(dustCount * 3);
+    const cyan = new THREE.Color("#00E5FF");
+    const violet = new THREE.Color("#8B5CF6");
+    for (let i = 0; i < dustCount; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const radius = 3 + Math.random() * 12;
+      dustPositions[i * 3] = Math.cos(angle) * radius;
+      dustPositions[i * 3 + 1] = (Math.random() - 0.5) * 15;
+      dustPositions[i * 3 + 2] = Math.sin(angle) * radius - 2;
+      const c = cyan.clone().lerp(violet, Math.random());
+      dustColors[i * 3] = c.r;
+      dustColors[i * 3 + 1] = c.g;
+      dustColors[i * 3 + 2] = c.b;
+    }
+    dustGeo.setAttribute("position", new THREE.BufferAttribute(dustPositions, 3));
+    dustGeo.setAttribute("color", new THREE.BufferAttribute(dustColors, 3));
+    const dustMat = new THREE.PointsMaterial({
+      size: 0.04,
+      vertexColors: true,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+      transparent: true,
+      opacity: 0.4,
+    });
+    dustParticles = new THREE.Points(dustGeo, dustMat);
+    scene.add(dustParticles);
+  }
+
+  function init() {
+    const container = document.getElementById("webgl-scene");
+    if (!container) return;
+    if (window.innerWidth < 768) return;
+
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.set(0, 1, 10);
+    camera.lookAt(0, 0, 0);
+
+    renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.2;
+    container.appendChild(renderer.domElement);
+
+    createEnvironment();
+    createGrid();
+    createShapes();
+    createParticles();
+
+    document.addEventListener("mousemove", (e) => {
+      mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    let lastScroll = 0;
+    window.addEventListener("scroll", () => {
+      const scrollY = window.scrollY;
+      const maxScroll = document.body.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? scrollY / maxScroll : 0;
+      targetCameraY = progress * 4;
+      targetCameraZ = progress * 3;
+      lastScroll = scrollY;
+    }, { passive: true });
+
+    window.addEventListener("resize", () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    animate();
+  }
+
+  function animate() {
+    animFrame = requestAnimationFrame(animate);
+    const dt = Math.min(clock.getDelta(), 0.1);
+    const time = Date.now() * 0.0005;
+
+    // Ultra-smooth mouse interpolation (low lerp = smooth)
+    smoothMouseX += (mouseX - smoothMouseX) * 0.015;
+    smoothMouseY += (mouseY - smoothMouseY) * 0.015;
+
+    // Smooth camera follow - all directions
+    camera.position.y += (targetCameraY + smoothMouseY * 1.5 - camera.position.y) * 0.025;
+    camera.position.z += (10 + targetCameraZ - camera.position.z) * 0.025;
+    camera.position.x += (smoothMouseX * 2.5 - camera.position.x) * 0.025;
+    camera.lookAt(smoothMouseX * 0.6, targetCameraY * 0.5 + smoothMouseY * 0.8, -3);
+
+    // Smooth lighting following mouse
+    if (keyLight) {
+      keyLight.position.x += (smoothMouseX * 8 - keyLight.position.x) * 0.015;
+      keyLight.position.y += (smoothMouseY * 5 + 6 - keyLight.position.y) * 0.015;
+      keyLight.intensity += (70 + smoothMouseX * 15 + smoothMouseY * 10 - keyLight.intensity) * 0.015;
+    }
+    if (rimLight) {
+      rimLight.position.x += (-smoothMouseX * 6 - rimLight.position.x) * 0.015;
+      rimLight.position.y += (-smoothMouseY * 4 - rimLight.position.y) * 0.015;
+      rimLight.intensity += (55 + smoothMouseY * 12 - rimLight.intensity) * 0.015;
+    }
+
+    // Animate shapes
+    shapes.forEach((s) => {
+      s.mesh.rotation.x += s.rotSpeed.x * 0.008;
+      s.mesh.rotation.y += s.rotSpeed.y * 0.008;
+      s.mesh.rotation.z += s.rotSpeed.z * 0.008;
+      s.mesh.position.y = s.baseY + Math.sin(time + s.mesh.position.x) * s.floatAmp;
+    });
+
+    // Starfield slowly rotates
+    if (starParticles) {
+      starParticles.rotation.y += 0.00008;
+      starParticles.rotation.x += 0.00004;
+    }
+
+    // Dust particles swirl and flow
+    if (dustParticles) {
+      dustParticles.rotation.y += 0.0003;
+      dustParticles.rotation.z += 0.00015;
+      dustParticles.position.y = Math.sin(time * 0.5) * 0.5;
+    }
+
+    if (grid) grid.position.y = -2;
+
+    renderer.render(scene, camera);
+  }
+
+  function cleanup() {
+    if (animFrame) cancelAnimationFrame(animFrame);
+    if (renderer) {
+      renderer.dispose();
+      const el = renderer.domElement;
+      if (el.parentNode) el.parentNode.removeChild(el);
+    }
+    shapes.forEach((s) => {
+      s.mesh.geometry.dispose();
+      (s.mesh.material as THREE.Material).dispose();
+    });
+    shapes = [];
+  }
+
+  document.addEventListener("DOMContentLoaded", init);
+  document.addEventListener("astro:after-swap", cleanup);
+</script>
