@@ -1,15 +1,18 @@
 ---
+import { resolveLang, t } from "../../i18n/utils";
 import { capabilities } from "../../data/capabilities";
 import SectionHeading from "../ui/SectionHeading.astro";
 import GlowCapabilityCard from "../react/GlowCapabilityCard";
+
+const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.cookies.get("lang")?.value);
 ---
 
 <section id="capabilities" class="section">
   <div class="container-lg">
     <SectionHeading
       number="05."
-      title="Technical Capabilities"
-      subtitle="Grouped by domain, not ranked as equally proficient."
+      title={t(lang, "capabilities.title")}
+      subtitle={t(lang, "capabilities.subtitle")}
     />
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">

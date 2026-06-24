@@ -1,41 +1,36 @@
 ---
+import { resolveLang, t } from "../../i18n/utils";
 import SectionHeading from "../ui/SectionHeading.astro";
+
+const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.cookies.get("lang")?.value);
 ---
 
 <section id="about" class="section bg-dark-surface/30">
   <div class="container-lg">
     <SectionHeading
       number="01."
-      title="About Ezra"
+      title={t(lang, "about.title")}
     />
 
     <div class="grid md:grid-cols-2 gap-6 md:gap-12 text-text-secondary leading-relaxed text-sm md:text-base max-w-5xl">
       <div class="space-y-5">
-        <p>
-          Ezra Desmond Sutanto is an Informatics student at Petra Christian University, Surabaya, currently in the fourth semester with a GPA of 3.75 / 4.00. He is a software engineer focused on building complete, usable digital products. His work spans full-stack web development, artificial intelligence, business systems, financial technology experiments, and product design.
-        </p>
-        <p>
-          Rather than treating engineering as code alone, he approaches products through the full problem-solving process: understanding users, defining workflows, designing system architecture, implementing frontend and backend systems, validating business logic, and improving the final user experience.
-        </p>
+        <p>{t(lang, "about.p1")}</p>
+        <p>{t(lang, "about.p2")}</p>
       </div>
       <div class="space-y-5">
-        <p>
-          He has built products for Indonesian SMEs, event operations, financial research, service marketplaces, cooperative management, and AI-assisted business workflows. Alongside engineering, he has experience leading technical teams, managing events, working across multidisciplinary teams, and translating operational problems into practical software.
-        </p>
-        <p>
-          Outside engineering, Ezra is interested in music and guitar, product building, financial markets, and technology entrepreneurship. He is open to internships, collaborations, and opportunities to build technology that creates measurable value.
-        </p>
+        <p>{t(lang, "about.p3")}</p>
+        <p>{t(lang, "about.p4")}</p>
       </div>
     </div>
 
     <div class="mt-12 max-w-5xl">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-accent-cyan/5 border border-accent-cyan/20 text-xs font-mono text-accent-cyan">
-        Education
+        {t(lang, "about.education.label")}
       </div>
       <p class="text-text-secondary mt-3">
-        <span class="text-white font-semibold">Petra Christian University, Surabaya</span>
+        <span class="text-white font-semibold">{t(lang, "about.education.school")}</span>
         <span class="mx-2 text-text-muted">&mdash;</span>
-        Informatics, 4th Semester &middot; GPA 3.75 / 4.00
+        {t(lang, "about.education.detail")}
       </p>
     </div>
   </div>

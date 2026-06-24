@@ -1,14 +1,17 @@
 ---
+import { resolveLang, t } from "../../i18n/utils";
 import { experiences } from "../../data/experience";
 import SectionHeading from "../ui/SectionHeading.astro";
+
+const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.cookies.get("lang")?.value);
 ---
 
 <section id="experience" class="section">
   <div class="container-lg">
     <SectionHeading
       number="03."
-      title="Experience & Leadership"
-      subtitle="Roles where I led technical delivery, managed teams, and connected engineering with operations."
+      title={t(lang, "experience.title")}
+      subtitle={t(lang, "experience.subtitle")}
     />
 
     <div class="relative">

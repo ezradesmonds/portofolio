@@ -1,4 +1,7 @@
 ---
+import { resolveLang, t } from "../../i18n/utils";
+
+const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.cookies.get("lang")?.value);
 ---
 
 <section class="border-b border-dark-border">
@@ -6,19 +9,19 @@
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
       <div class="text-center md:text-left">
         <div class="text-xl md:text-3xl font-bold text-accent-cyan font-mono">2nd</div>
-        <div class="text-[11px] md:text-xs text-text-muted mt-1 leading-tight">Place International<br />Hackathon 2026</div>
+        <div class="text-[11px] md:text-xs text-text-muted mt-1 leading-tight" set:html={t(lang, "proof.hackathon")}></div>
       </div>
       <div class="text-center md:text-left">
         <div class="text-xl md:text-3xl font-bold text-accent-violet font-mono">7+</div>
-        <div class="text-[11px] md:text-xs text-text-muted mt-1 leading-tight">Full-Stack & AI<br />Products Built</div>
+        <div class="text-[11px] md:text-xs text-text-muted mt-1 leading-tight" set:html={t(lang, "proof.products")}></div>
       </div>
       <div class="text-center md:text-left">
         <div class="text-xl md:text-3xl font-bold text-accent-cyan font-mono">4th</div>
-        <div class="text-[11px] md:text-xs text-text-muted mt-1 leading-tight">Semester Informatics<br />GPA 3.75 / 4.00</div>
+        <div class="text-[11px] md:text-xs text-text-muted mt-1 leading-tight" set:html={t(lang, "proof.gpa")}></div>
       </div>
       <div class="text-center md:text-left">
         <div class="text-xl md:text-3xl font-bold text-accent-violet font-mono">ID</div>
-        <div class="text-[11px] md:text-xs text-text-muted mt-1 leading-tight">Products for Indonesian<br />Businesses & Users</div>
+        <div class="text-[11px] md:text-xs text-text-muted mt-1 leading-tight" set:html={t(lang, "proof.local")}></div>
       </div>
     </div>
   </div>

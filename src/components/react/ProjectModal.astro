@@ -54,9 +54,11 @@
     ).join("");
 
     body.innerHTML = `
-      <button id="modal-close" class="absolute top-5 right-5 text-text-muted hover:text-white transition-colors bg-white/5 p-2 rounded-full hover:bg-white/10 z-10" aria-label="Close modal">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-      </button>
+      <div class="sticky top-0 z-20 flex justify-end mb-4 -mx-5 md:-mx-10 -mt-5 md:-mt-10 px-5 md:px-10 py-3 bg-dark-surface/60 backdrop-blur-md border-b border-white/5">
+        <button id="modal-close" class="text-text-muted hover:text-white transition-colors bg-white/5 p-2 rounded-full hover:bg-white/10" aria-label="Close modal">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
 
       <div class="flex flex-wrap items-center gap-3 mb-2">
         <span class="text-xs font-mono text-accent-cyan">${project.category}</span>

@@ -2,7 +2,8 @@
 import "../../styles/global.css";
 import SiteHeader from "./SiteHeader.astro";
 import SiteFooter from "./SiteFooter.astro";
-import { SITE } from "../../data/site";
+import { resolveLang, isValidLang, t } from "../../i18n/utils";
+import type { Lang } from "../../i18n/translations";
 
 interface Props {
   title?: string;
@@ -10,11 +11,16 @@ interface Props {
   image?: string;
 }
 
-const { title = SITE.title, description = SITE.description, image } = Astro.props;
+const lang: Lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.cookies.get("lang")?.value);
+
+const title = Astro.props.title ?? t(lang, "seo.title");
+const description = Astro.props.description ?? t(lang, "seo.description");
+const image = Astro.props.image;
+const canonical = Astro.url.origin + Astro.url.pathname;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,13 +29,13 @@ const { title = SITE.title, description = SITE.description, image } = Astro.prop
     <title>{title}</title>
 
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="canonical" href={Astro.url.href} />
+    <link rel="canonical" href={canonical} />
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:url" content={canonical} />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:site_name" content="Ezra Desmond Sutanto" />
     {image && <meta property="og:image" content={image} />}
 
     <meta name="twitter:card" content="summary_large_image" />
@@ -47,16 +53,28 @@ const { title = SITE.title, description = SITE.description, image } = Astro.prop
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <script is:inline>
-      const t = localStorage.getItem("theme");
-      if (t === "light") document.documentElement.classList.add("light");
+      (function () {
+        const params = new URLSearchParams(location.search);
+        const langParam = params.get("lang");
+        if (langParam && (langParam === "en" || langParam === "id")) {
+          document.cookie = "lang=" + langParam + ";path=/;max-age=31536000;SameSite=Lax";
+          localStorage.setItem("lang", langParam);
+          const clean = location.origin + location.pathname + location.hash;
+          history.replaceState(null, "", clean);
+        }
+        var stored = localStorage.getItem("lang") || (document.cookie.match(/lang=([^;]+)/) || [])[1];
+        if (stored && stored !== document.documentElement.lang) {
+          document.documentElement.lang = stored;
+        }
+      })();
     </script>
   </head>
   <body class="bg-dark-base text-text-primary font-sans antialiased bg-mesh bg-noise">
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-    <SiteHeader />
+    <a href="#main-content" class="skip-link">{t(lang, "skipLink")}</a>
+    <SiteHeader lang={lang} />
     <main id="main-content">
       <slot />
     </main>
-    <SiteFooter />
+    <SiteFooter lang={lang} />
   </body>
 </html>

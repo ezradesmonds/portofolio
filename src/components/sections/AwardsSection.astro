@@ -1,14 +1,17 @@
 ---
+import { resolveLang, t } from "../../i18n/utils";
 import { awards } from "../../data/awards";
 import SectionHeading from "../ui/SectionHeading.astro";
 import GlowAwardCard from "../react/GlowAwardCard";
+
+const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.cookies.get("lang")?.value);
 ---
 
 <section id="awards" class="section bg-dark-surface/30">
   <div class="container-lg">
     <SectionHeading
       number="04."
-      title="Awards & Achievements"
+      title={t(lang, "awards.title")}
     />
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">

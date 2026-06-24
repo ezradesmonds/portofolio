@@ -1,5 +1,16 @@
 ---
+import { resolveLang, t } from "../../i18n/utils";
+import type { TranslationKey } from "../../i18n/translations";
 import { SITE } from "../../data/site";
+
+const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.cookies.get("lang")?.value);
+
+const navItems: { href: string; key: TranslationKey }[] = [
+  { href: "/#work", key: "nav.work" },
+  { href: "/#experience", key: "nav.experience" },
+  { href: "/#about", key: "nav.about" },
+  { href: "/#contact", key: "nav.contact" },
+];
 ---
 
 <footer class="border-t border-dark-border bg-dark-base">
@@ -8,27 +19,26 @@ import { SITE } from "../../data/site";
       <div>
         <a href="/" class="text-2xl font-bold text-white">Ezra<span class="text-accent-cyan">.</span></a>
         <p class="text-text-secondary text-sm max-w-sm mt-4 leading-relaxed">
-          Software engineer and AI product builder creating full-stack systems that solve real-world problems.
+          {t(lang, "footer.tagline")}
         </p>
       </div>
 
       <div class="grid grid-cols-2 gap-8">
         <div>
-          <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-accent-cyan mb-4">Navigation</h3>
+          <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-accent-cyan mb-4">{t(lang, "footer.navigation")}</h3>
           <ul class="space-y-2">
-            <li><a href="/#work" class="text-sm text-text-secondary hover:text-white transition-colors">Work</a></li>
-            <li><a href="/#experience" class="text-sm text-text-secondary hover:text-white transition-colors">Experience</a></li>
-            <li><a href="/#about" class="text-sm text-text-secondary hover:text-white transition-colors">About</a></li>
-            <li><a href="/#contact" class="text-sm text-text-secondary hover:text-white transition-colors">Contact</a></li>
+            {navItems.map((item) => (
+              <li><a href={item.href} class="text-sm text-text-secondary hover:text-white transition-colors">{t(lang, item.key)}</a></li>
+            ))}
           </ul>
         </div>
         <div>
-          <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-accent-cyan mb-4">Links</h3>
+          <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-accent-cyan mb-4">{t(lang, "footer.links")}</h3>
           <ul class="space-y-2">
             <li><a href={SITE.github} target="_blank" rel="noopener noreferrer" class="text-sm text-text-secondary hover:text-white transition-colors">GitHub</a></li>
             <li><a href={SITE.linkedin} target="_blank" rel="noopener noreferrer" class="text-sm text-text-secondary hover:text-white transition-colors">LinkedIn</a></li>
             <li><a href={SITE.instagram} target="_blank" rel="noopener noreferrer" class="text-sm text-text-secondary hover:text-white transition-colors">Instagram</a></li>
-            <li><a href={`mailto:${SITE.email}`} class="text-sm text-text-secondary hover:text-white transition-colors">Email</a></li>
+            <li><a href={`mailto:${SITE.email}`} class="text-sm text-text-secondary hover:text-white transition-colors">{t(lang, "footer.email")}</a></li>
           </ul>
         </div>
       </div>
@@ -39,7 +49,7 @@ import { SITE } from "../../data/site";
         &copy; {new Date().getFullYear()} {SITE.name}
       </p>
       <p class="text-[11px] md:text-xs text-text-muted font-mono">
-        Built with Astro &middot; TypeScript &middot; Three.js
+        {t(lang, "footer.builtWith")}
       </p>
     </div>
   </div>

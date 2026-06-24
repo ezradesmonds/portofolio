@@ -1,4 +1,20 @@
 ---
+import { t } from "../../i18n/utils";
+import type { Lang, TranslationKey } from "../../i18n/translations";
+import { SITE } from "../../data/site";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const navItems: { href: string; key: TranslationKey }[] = [
+  { href: "/#work", key: "nav.work" },
+  { href: "/#experience", key: "nav.experience" },
+  { href: "/#about", key: "nav.about" },
+  { href: "/#contact", key: "nav.contact" },
+];
 ---
 
 <script>
@@ -76,10 +92,9 @@
   aria-label="Mobile navigation"
 >
   <nav class="flex flex-col items-center justify-center h-full gap-6">
-    <a href="/#work" class="text-2xl font-semibold text-text-secondary hover:text-white transition-colors">Work</a>
-    <a href="/#experience" class="text-2xl font-semibold text-text-secondary hover:text-white transition-colors">Experience</a>
-    <a href="/#about" class="text-2xl font-semibold text-text-secondary hover:text-white transition-colors">About</a>
-    <a href="/#contact" class="text-2xl font-semibold text-text-secondary hover:text-white transition-colors">Contact</a>
-    <a href="mailto:ezradesmonds@gmail.com" class="mt-4 px-6 py-3 text-base font-semibold border border-accent-cyan text-accent-cyan rounded-lg hover:bg-accent-cyan/10 transition-colors">Get in Touch</a>
+    {navItems.map((item) => (
+      <a href={item.href} class="text-2xl font-semibold text-text-secondary hover:text-white transition-colors">{t(lang, item.key)}</a>
+    ))}
+    <a href={`mailto:${SITE.email}`} class="mt-4 px-6 py-3 text-base font-semibold border border-accent-cyan text-accent-cyan rounded-lg hover:bg-accent-cyan/10 transition-colors">{t(lang, "nav.getInTouch")}</a>
   </nav>
 </div>
