@@ -10,20 +10,20 @@ export const translations = {
     "nav.openMenu": "Open menu",
     "nav.closeMenu": "Close menu",
 
-    "hero.headline": "Building AI-powered systems that turn chaos into clarity and ideas into execution.",
+    "hero.headline": "AI systems for clearer execution.",
     "hero.subheadline":
-      "I build AI-powered systems that help ambitious students, young builders, and early-stage entrepreneurs think clearer, execute faster, and turn ideas into real outcomes.",
+      "I build tools that help students, builders, and early founders organize ideas, decide faster, and ship real outcomes.",
     "hero.availability":
-      "Open to internships, collaborations, AI systems, execution tools, and ambitious product projects.",
+      "Open to internships, collaborations, and AI systems.",
     "hero.ctaPrimary": "View Selected Work",
     "hero.ctaSecondary": "Get in Touch",
     "hero.github": "GitHub",
     "hero.linkedin": "LinkedIn",
     "hero.instagram": "Instagram",
     "hero.codeBlock.title": "ezra.ts",
-    "hero.codeBlock.focus": "AI Systems & Execution Tools",
+    "hero.codeBlock.focus": "Clarity & Execution",
     "hero.codeBlock.stacks": ["Full-Stack Web", "AI & ML Integration", "Product Engineering"],
-    "hero.codeBlock.approach": "Turn chaos into clarity\n       and ideas into execution.",
+    "hero.codeBlock.approach": "Think clearer.\n       Ship faster.",
 
     "proof.hackathon": "2nd Place International<br />Hackathon 2026",
     "proof.products": "AI & Full-Stack<br />Systems Built",
@@ -58,7 +58,7 @@ export const translations = {
     "capabilities.subtitle": "Grouped by domain, not ranked as equally proficient.",
 
     "contact.heading":
-      'Have an idea, system,<br class="hidden sm:block" />or messy workflow?',
+      'Have an idea<br class="hidden sm:block" />or messy workflow?',
     "contact.subtitle":
       "I'm open to internships, collaborations, and opportunities to build AI-powered systems for ambitious students, builders, and early-stage entrepreneurs.",
     "contact.sendEmail": "Send an Email",
@@ -88,7 +88,7 @@ export const translations = {
 
     "seo.title": "Ezra Desmond Sutanto — AI & Full-Stack Builder",
     "seo.description":
-      "Portfolio of Ezra Desmond Sutanto, an AI and full-stack builder creating systems for ambitious students, young builders, and early-stage entrepreneurs.",
+      "Portfolio of Ezra Desmond Sutanto, an AI and full-stack builder creating systems for students, builders, and early founders.",
   },
 
   id: {
@@ -100,20 +100,20 @@ export const translations = {
     "nav.openMenu": "Buka menu",
     "nav.closeMenu": "Tutup menu",
 
-    "hero.headline": "Membangun sistem AI yang mengubah kekacauan menjadi kejelasan dan ide menjadi eksekusi",
+    "hero.headline": "Sistem AI untuk eksekusi yang lebih jelas",
     "hero.subheadline":
-      "Saya membangun sistem bertenaga AI yang membantu mahasiswa ambisius, builder muda, dan entrepreneur tahap awal berpikir lebih jernih, mengeksekusi lebih cepat, dan mengubah ide menjadi hasil nyata.",
+      "Saya membangun alat yang membantu mahasiswa, builder, dan founder awal merapikan ide, mengambil keputusan, dan bergerak lebih cepat.",
     "hero.availability":
-      "Terbuka untuk magang, kolaborasi, sistem AI, alat eksekusi, dan proyek produk ambisius.",
+      "Terbuka untuk magang, kolaborasi, dan sistem AI.",
     "hero.ctaPrimary": "Lihat Karya Pilihan",
     "hero.ctaSecondary": "Hubungi Saya",
     "hero.github": "GitHub",
     "hero.linkedin": "LinkedIn",
     "hero.instagram": "Instagram",
     "hero.codeBlock.title": "ezra.ts",
-    "hero.codeBlock.focus": "AI Systems & Execution Tools",
+    "hero.codeBlock.focus": "Kejelasan & Eksekusi",
     "hero.codeBlock.stacks": ["Full-Stack Web", "AI & ML Integration", "Product Engineering"],
-    "hero.codeBlock.approach": "Mengubah kekacauan\n       menjadi kejelasan dan\n       ide menjadi eksekusi.",
+    "hero.codeBlock.approach": "Berpikir jernih.\n       Bergerak cepat.",
 
     "proof.hackathon": "Juara 2 International<br />Hackathon 2026",
     "proof.products": "Sistem AI & Full-Stack<br />Dibangun",
@@ -149,7 +149,7 @@ export const translations = {
       "Dikelompokkan berdasarkan domain, tidak diurutkan berdasarkan tingkat mahir.",
 
     "contact.heading":
-      'Punya ide, sistem,<br class="hidden sm:block" />atau workflow yang berantakan?',
+      'Punya ide<br class="hidden sm:block" />atau workflow berantakan?',
     "contact.subtitle":
       "Saya terbuka untuk magang, kolaborasi, dan peluang membangun sistem bertenaga AI untuk mahasiswa ambisius, builder, dan entrepreneur tahap awal.",
     "contact.sendEmail": "Kirim Email",
@@ -179,7 +179,7 @@ export const translations = {
 
     "seo.title": "Ezra Desmond Sutanto — AI & Full-Stack Builder",
     "seo.description":
-      "Portofolio Ezra Desmond Sutanto, AI dan full-stack builder yang menciptakan sistem untuk mahasiswa ambisius, builder muda, dan entrepreneur tahap awal.",
+      "Portofolio Ezra Desmond Sutanto, AI dan full-stack builder yang menciptakan sistem untuk mahasiswa, builder, dan founder awal.",
   },
 } as const;
 

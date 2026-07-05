@@ -4,7 +4,7 @@ export const SITE: SiteConfig = {
   name: "Ezra Desmond Sutanto",
   title: "Ezra Desmond Sutanto — AI & Full-Stack Builder",
   description:
-    "Portfolio of Ezra Desmond Sutanto, an AI and full-stack builder creating systems for ambitious students, young builders, and early-stage entrepreneurs.",
+    "Portfolio of Ezra Desmond Sutanto, an AI and full-stack builder creating systems for students, builders, and early founders.",
   url: "https://www.ezradesmonds.my.id",
   email: "ezradesmonds@gmail.com",
   github: "https://github.com/ezradesmonds",
@@ -12,7 +12,7 @@ export const SITE: SiteConfig = {
   instagram: "https://instagram.com/ezradesmonds",
   headline: "AI & Full-Stack Builder",
   subheadline:
-    "I build AI-powered systems that help ambitious people think clearer, execute faster, and turn ideas into real outcomes.",
+    "I build AI-powered tools that help ambitious people think clearer, move faster, and ship real outcomes.",
   availabilityMessage:
-    "Open to internships, collaborations, AI systems, execution tools, and ambitious product projects.",
+    "Open to internships, collaborations, and AI systems.",
 };
