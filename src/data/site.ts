@@ -2,17 +2,17 @@ import type { SiteConfig } from "../types";
 
 export const SITE: SiteConfig = {
   name: "Ezra Desmond Sutanto",
-  title: "Ezra Desmond Sutanto — Software Engineer & AI Product Builder",
+  title: "Ezra Desmond Sutanto — AI & Full-Stack Builder",
   description:
-    "Portfolio of Ezra Desmond Sutanto, a software engineer and AI product builder creating full-stack systems, AI products, and digital solutions for real-world problems.",
+    "Portfolio of Ezra Desmond Sutanto, an AI and full-stack builder creating systems for ambitious students, young builders, and early-stage entrepreneurs.",
   url: "https://www.ezradesmonds.my.id",
   email: "ezradesmonds@gmail.com",
   github: "https://github.com/ezradesmonds",
   linkedin: "https://www.linkedin.com/in/ezra-desmond-sutanto-90309332b",
   instagram: "https://instagram.com/ezradesmonds",
-  headline: "Software Engineer & AI Product Builder",
+  headline: "AI & Full-Stack Builder",
   subheadline:
-    "I build production-ready AI systems and digital products that solve real-world problems, with a focus on Indonesian businesses and users.",
+    "I build AI-powered systems that help ambitious people think clearer, execute faster, and turn ideas into real outcomes.",
   availabilityMessage:
-    "Open to internships, collaborations, product opportunities, and ambitious technology projects.",
+    "Open to internships, collaborations, AI systems, execution tools, and ambitious product projects.",
 };
