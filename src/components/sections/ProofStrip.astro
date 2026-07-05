@@ -6,26 +6,80 @@ const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname)
 
 <section class="border-b border-dark-border">
   <div class="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-12">
-    <div class="signal-strip grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+    <div class="signal-strip grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4" data-proof-strip>
       <div class="signal-proof">
-        <div class="signal-value">2nd</div>
+        <div class="signal-value" data-count-to="2" data-count-suffix="nd">2nd</div>
         <div class="signal-label" set:html={t(lang, "proof.hackathon")}></div>
       </div>
       <div class="signal-proof">
-        <div class="signal-value">7+</div>
+        <div class="signal-value" data-count-to="7" data-count-suffix="+">7+</div>
         <div class="signal-label" set:html={t(lang, "proof.products")}></div>
       </div>
       <div class="signal-proof">
-        <div class="signal-value">3.75</div>
+        <div class="signal-value" data-count-to="3.75" data-count-decimals="2">3.75</div>
         <div class="signal-label" set:html={t(lang, "proof.gpa")}></div>
       </div>
       <div class="signal-proof">
-        <div class="signal-value">NOW</div>
+        <div class="signal-value" data-count-final="NOW">NOW</div>
         <div class="signal-label" set:html={t(lang, "proof.local")}></div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  function initProofCounters() {
+    const strip = document.querySelector("[data-proof-strip]");
+    if (!strip) return;
+
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const values = Array.from(strip.querySelectorAll(".signal-value"));
+
+    function animateValue(el) {
+      const finalText = el.getAttribute("data-count-final");
+      if (finalText) {
+        el.textContent = prefersReduced ? finalText : "...";
+        window.setTimeout(() => {
+          el.textContent = finalText;
+        }, prefersReduced ? 0 : 320);
+        return;
+      }
+
+      const target = Number(el.getAttribute("data-count-to") || "0");
+      const suffix = el.getAttribute("data-count-suffix") || "";
+      const decimals = Number(el.getAttribute("data-count-decimals") || "0");
+      const duration = prefersReduced ? 1 : 900;
+      const start = performance.now();
+
+      function tick(now) {
+        const progress = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = target * eased;
+        el.textContent = `${value.toFixed(decimals)}${suffix}`;
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          values.forEach((value, index) => {
+            window.setTimeout(() => animateValue(value), index * 110);
+          });
+          observer.disconnect();
+        });
+      },
+      { threshold: 0.35 }
+    );
+
+    observer.observe(strip);
+  }
+
+  document.addEventListener("DOMContentLoaded", initProofCounters);
+</script>
 
 <style>
   .signal-strip {
@@ -37,6 +91,13 @@ const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname)
     border-radius: 12px;
     background: rgba(16, 18, 11, 0.74);
     padding: 0.9rem;
+    transition: transform 0.24s ease, border-color 0.24s ease, background-color 0.24s ease;
+  }
+
+  .signal-proof:hover {
+    transform: translateY(-0.18rem);
+    border-color: rgba(244, 255, 114, 0.32);
+    background: rgba(20, 23, 13, 0.9);
   }
 
   .signal-value {

@@ -2,6 +2,7 @@
 import "../../styles/global.css";
 import SiteHeader from "./SiteHeader.astro";
 import SiteFooter from "./SiteFooter.astro";
+import SmoothScroll from "../react/SmoothScroll.astro";
 import { resolveLang, t } from "../../i18n/utils";
 import type { Lang } from "../../i18n/translations";
 
@@ -60,5 +61,6 @@ const canonical = Astro.url.origin + Astro.url.pathname;
       <slot />
     </main>
     <SiteFooter lang={lang} />
+    <SmoothScroll />
   </body>
 </html>

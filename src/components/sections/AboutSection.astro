@@ -17,10 +17,10 @@ const identityLabel = lang === "id" ? "Catatan operasi" : "Operating notes";
     />
 
     <div class="about-grid grid lg:grid-cols-[0.75fr_1.25fr] gap-6 md:gap-10 max-w-6xl">
-      <aside class="identity-note">
+      <aside class="identity-note" data-scramble-note>
         <p class="identity-label">{identityLabel}</p>
         <ul>
-          {principles.map((principle) => <li>{principle}</li>)}
+          {principles.map((principle) => <li data-scramble-text={principle}>{principle}</li>)}
         </ul>
       </aside>
 
@@ -49,8 +49,84 @@ const identityLabel = lang === "id" ? "Catatan operasi" : "Operating notes";
   </div>
 </section>
 
+<script>
+  function initIdentityScramble() {
+    const notes = document.querySelectorAll("[data-scramble-note]");
+    if (!notes.length) return;
+
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/<>-_";
+    const timers = new WeakMap();
+
+    function scramble(el) {
+      if (prefersReduced) return;
+
+      const target = el.getAttribute("data-scramble-text") || el.textContent || "";
+      let frame = 0;
+      const total = Math.max(18, target.length * 2);
+      const existingTimer = timers.get(el);
+
+      if (existingTimer) window.clearInterval(existingTimer);
+      const timer = window.setInterval(() => {
+        const progress = frame / total;
+        el.textContent = target
+          .split("")
+          .map((char, index) => {
+            if (char === " ") return " ";
+            if (index / target.length < progress) return char;
+            return chars[Math.floor(Math.random() * chars.length)];
+          })
+          .join("");
+
+        frame += 1;
+        if (frame > total) {
+          window.clearInterval(timer);
+          el.textContent = target;
+        }
+      }, 28);
+      timers.set(el, timer);
+    }
+
+    notes.forEach((note) => {
+      const rows = Array.from(note.querySelectorAll("[data-scramble-text]"));
+
+      rows.forEach((row) => {
+        row.addEventListener("mouseenter", () => scramble(row));
+        row.addEventListener("focus", () => scramble(row));
+      });
+
+      note.addEventListener("pointermove", (event) => {
+        const rect = note.getBoundingClientRect();
+        note.style.setProperty("--note-x", `${event.clientX - rect.left}px`);
+        note.style.setProperty("--note-y", `${event.clientY - rect.top}px`);
+      });
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            rows.forEach((row, index) => {
+              window.setTimeout(() => scramble(row), index * 180);
+            });
+            observer.disconnect();
+          });
+        },
+        { threshold: 0.55 }
+      );
+
+      observer.observe(note);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", initIdentityScramble);
+</script>
+
 <style>
   .identity-note {
+    --note-x: 50%;
+    --note-y: 50%;
+    position: relative;
+    overflow: hidden;
     align-self: start;
     border: 1px solid rgba(244, 255, 114, 0.18);
     border-radius: 16px;
@@ -61,7 +137,23 @@ const identityLabel = lang === "id" ? "Catatan operasi" : "Operating notes";
     box-shadow: 0 16px 0 rgba(0, 0, 0, 0.22);
   }
 
+  .identity-note::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at var(--note-x) var(--note-y), rgba(244, 255, 114, 0.28), transparent 8rem);
+    opacity: 0;
+    mix-blend-mode: multiply;
+    transition: opacity 0.2s ease;
+  }
+
+  .identity-note:hover::before {
+    opacity: 0.55;
+  }
+
   .identity-label {
+    position: relative;
     color: #697200;
     font-family: var(--font-mono);
     font-size: 0.68rem;
@@ -71,6 +163,7 @@ const identityLabel = lang === "id" ? "Catatan operasi" : "Operating notes";
   }
 
   .identity-note ul {
+    position: relative;
     display: grid;
     gap: 0.75rem;
     margin-top: 1.1rem;
@@ -84,5 +177,12 @@ const identityLabel = lang === "id" ? "Catatan operasi" : "Operating notes";
     font-weight: 900;
     line-height: 0.95;
     letter-spacing: -0.04em;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  .identity-note li:hover,
+  .identity-note li:focus-visible {
+    color: #ff6b35;
+    transform: translateX(0.2rem);
   }
 </style>

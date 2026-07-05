@@ -1,8 +1,9 @@
 ---
-import { resolveLang, t } from "../../i18n/utils";
+import { localizedPath, resolveLang, t } from "../../i18n/utils";
 import { SITE } from "../../data/site";
 
 const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname);
+const homeHref = localizedPath(lang, "/");
 const board = lang === "id"
   ? {
       label: "EZRA / MEJA SINYAL",
@@ -17,6 +18,16 @@ const board = lang === "id"
       logItems: ["AI akuntansi", "Asisten dagang", "Terminal finansial"],
       note: "jelas dulu baru cepat",
       signals: ["Sistem AI", "Alat eksekusi", "Loop kerja"],
+      run: "Jalankan alur",
+      reset: "Reset meja",
+      meterTitle: "Simulasi",
+      metricChaos: "Chaos",
+      metricClarity: "Kejelasan",
+      stages: [
+        { key: "input", state: "TANGKAP CHAOS", label: "Input terkumpul", chaos: "86", clarity: "18", action: "Rangkum konteks" },
+        { key: "layer", state: "PILIH SINYAL", label: "Lapisan AI bekerja", chaos: "42", clarity: "64", action: "Pilih langkah" },
+        { key: "output", state: "EKSEKUSI", label: "Siap dikirim", chaos: "9", clarity: "91", action: "Kirim bukti" },
+      ],
     }
   : {
       label: "EZRA / SIGNAL DESK",
@@ -31,7 +42,19 @@ const board = lang === "id"
       logItems: ["Accounting AI", "Commerce assistant", "Finance terminal"],
       note: "clarity before speed",
       signals: ["AI systems", "Builder tools", "Execution loops"],
+      run: "Run clarity pass",
+      reset: "Reset desk",
+      meterTitle: "Simulation",
+      metricChaos: "Chaos",
+      metricClarity: "Clarity",
+      stages: [
+        { key: "input", state: "CAPTURE CHAOS", label: "Input captured", chaos: "86", clarity: "18", action: "Collect context" },
+        { key: "layer", state: "SORT SIGNAL", label: "AI layer sorting", chaos: "42", clarity: "64", action: "Choose next move" },
+        { key: "output", state: "SHIP LOOP", label: "Ready to execute", chaos: "9", clarity: "91", action: "Ship proof" },
+      ],
     };
+const initialStage = board.stages[0];
+const stagesJson = JSON.stringify(board.stages).replace(/</g, "\\u003c");
 ---
 
 <section id="hero" class="hero-section min-h-[90vh] md:min-h-screen flex items-center pt-24 md:pt-20 relative px-4 md:px-6">
@@ -61,7 +84,7 @@ const board = lang === "id"
       </div>
 
       <div class="flex flex-wrap gap-3 md:gap-4 mt-8 md:mt-10" data-reveal data-reveal-delay="600">
-        <a href="/#work" class="btn btn-primary">
+        <a href={`${homeHref}#work`} class="btn btn-primary">
           {t(lang, "hero.ctaPrimary")}
         </a>
         <a href={`mailto:${SITE.email}`} class="btn btn-secondary">
@@ -104,14 +127,31 @@ const board = lang === "id"
     </div>
 
     <div class="hidden lg:flex justify-center z-10">
-      <div class="execution-board w-full max-w-xl" aria-label="Ezra execution signal desk">
+      <div
+        class="execution-board w-full max-w-xl"
+        aria-label="Ezra execution signal desk"
+        data-signal-desk
+        data-active-stage={initialStage.key}
+      >
+        <script type="application/json" data-signal-stages set:html={stagesJson}></script>
         <div class="board-topline">
           <span>{board.label}</span>
-          <span>{board.state}</span>
+          <span data-board-state>{initialStage.state}</span>
+        </div>
+
+        <div class="simulation-bar">
+          <div>
+            <span>{board.meterTitle}</span>
+            <strong data-stage-label aria-live="polite">{initialStage.label}</strong>
+          </div>
+          <div class="sim-actions">
+            <button type="button" data-sim-run>{board.run}</button>
+            <button type="button" data-sim-reset>{board.reset}</button>
+          </div>
         </div>
 
         <div class="board-canvas">
-          <article class="signal-card input-card">
+          <article class="signal-card input-card" data-signal-card="input" role="button" tabindex="0">
             <span class="card-kicker">01 / INPUT</span>
             <h2>{board.input}</h2>
             <p>{board.inputBody}</p>
@@ -123,13 +163,13 @@ const board = lang === "id"
             <span></span>
           </div>
 
-          <article class="signal-card layer-card">
+          <article class="signal-card layer-card" data-signal-card="layer" role="button" tabindex="0">
             <span class="card-kicker">02 / LAYER</span>
             <h2>{board.layer}</h2>
             <p>{board.layerBody}</p>
           </article>
 
-          <article class="signal-card output-card">
+          <article class="signal-card output-card" data-signal-card="output" role="button" tabindex="0">
             <span class="card-kicker">03 / OUTPUT</span>
             <h2>{board.output}</h2>
             <p>{board.outputBody}</p>
@@ -138,8 +178,22 @@ const board = lang === "id"
           <aside class="build-log">
             <span>{board.logTitle}</span>
             <ul>
-              {board.logItems.map((item) => <li>{item}</li>)}
+              {board.logItems.map((item) => <li data-log-row>{item}</li>)}
             </ul>
+          </aside>
+
+          <aside class="signal-meter" aria-label={board.meterTitle}>
+            <div>
+              <span>{board.metricChaos}</span>
+              <strong><span data-chaos-value>{initialStage.chaos}</span>%</strong>
+            </div>
+            <i><b data-chaos-bar style={`width: ${initialStage.chaos}%`}></b></i>
+            <div>
+              <span>{board.metricClarity}</span>
+              <strong><span data-clarity-value>{initialStage.clarity}</span>%</strong>
+            </div>
+            <i><b data-clarity-bar style={`width: ${initialStage.clarity}%`}></b></i>
+            <p data-next-action>{initialStage.action}</p>
           </aside>
 
           <div class="sticky-note">
@@ -150,6 +204,116 @@ const board = lang === "id"
     </div>
   </div>
 </section>
+
+<script>
+  function initSignalDesk() {
+    const desks = document.querySelectorAll("[data-signal-desk]");
+    if (!desks.length) return;
+
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    desks.forEach((desk) => {
+      const config = desk.querySelector("[data-signal-stages]");
+      const stages = JSON.parse(config?.textContent || "[]");
+      const cards = Array.from(desk.querySelectorAll("[data-signal-card]"));
+      const logs = Array.from(desk.querySelectorAll("[data-log-row]"));
+      const runButton = desk.querySelector("[data-sim-run]");
+      const resetButton = desk.querySelector("[data-sim-reset]");
+      const stateEl = desk.querySelector("[data-board-state]");
+      const stageLabel = desk.querySelector("[data-stage-label]");
+      const chaosValue = desk.querySelector("[data-chaos-value]");
+      const clarityValue = desk.querySelector("[data-clarity-value]");
+      const chaosBar = desk.querySelector("[data-chaos-bar]");
+      const clarityBar = desk.querySelector("[data-clarity-bar]");
+      const nextAction = desk.querySelector("[data-next-action]");
+      let timers = [];
+
+      function clearTimers() {
+        timers.forEach((timer) => window.clearTimeout(timer));
+        timers = [];
+      }
+
+      function setStage(index) {
+        const stage = stages[index] || stages[0];
+        if (!stage) return;
+
+        desk.setAttribute("data-active-stage", stage.key);
+        desk.setAttribute("data-stage-index", String(index));
+        if (stateEl) stateEl.textContent = stage.state;
+        if (stageLabel) stageLabel.textContent = stage.label;
+        if (chaosValue) chaosValue.textContent = stage.chaos;
+        if (clarityValue) clarityValue.textContent = stage.clarity;
+        if (chaosBar) chaosBar.style.width = `${stage.chaos}%`;
+        if (clarityBar) clarityBar.style.width = `${stage.clarity}%`;
+        if (nextAction) nextAction.textContent = stage.action;
+
+        cards.forEach((card) => {
+          card.classList.toggle("is-active", card.getAttribute("data-signal-card") === stage.key);
+        });
+
+        logs.forEach((log, logIndex) => {
+          log.classList.toggle("is-done", logIndex <= index);
+        });
+      }
+
+      function runSimulation() {
+        clearTimers();
+        if (prefersReduced) {
+          setStage(stages.length - 1);
+          return;
+        }
+
+        stages.forEach((_, index) => {
+          timers.push(window.setTimeout(() => setStage(index), index * 720));
+        });
+      }
+
+      cards.forEach((card) => {
+        const activateCard = () => {
+          clearTimers();
+          const key = card.getAttribute("data-signal-card");
+          const index = stages.findIndex((stage) => stage.key === key);
+          setStage(index >= 0 ? index : 0);
+        };
+
+        card.addEventListener("click", activateCard);
+        card.addEventListener("keydown", (event) => {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault();
+          activateCard();
+        });
+      });
+
+      runButton?.addEventListener("click", runSimulation);
+      resetButton?.addEventListener("click", () => {
+        clearTimers();
+        setStage(0);
+      });
+
+      desk.addEventListener("pointermove", (event) => {
+        const rect = desk.getBoundingClientRect();
+        desk.style.setProperty("--spot-x", `${event.clientX - rect.left}px`);
+        desk.style.setProperty("--spot-y", `${event.clientY - rect.top}px`);
+      });
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            runSimulation();
+            observer.disconnect();
+          });
+        },
+        { threshold: 0.45 }
+      );
+
+      observer.observe(desk);
+      setStage(0);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", initSignalDesk);
+</script>
 
 <style>
   .hero-section::before {
@@ -196,6 +360,8 @@ const board = lang === "id"
   }
 
   .execution-board {
+    --spot-x: 50%;
+    --spot-y: 50%;
     position: relative;
     border: 1px solid rgba(244, 255, 114, 0.22);
     border-radius: 18px;
@@ -205,6 +371,7 @@ const board = lang === "id"
     box-shadow: 0 32px 70px rgba(0, 0, 0, 0.42);
     transform: rotate(-1deg);
     overflow: hidden;
+    cursor: crosshair;
   }
 
   .execution-board::before {
@@ -217,6 +384,17 @@ const board = lang === "id"
     background-size: 42px 42px;
     mask-image: linear-gradient(to bottom, black, transparent 88%);
     pointer-events: none;
+  }
+
+  .execution-board::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at var(--spot-x) var(--spot-y), rgba(244, 255, 114, 0.2), transparent 12rem);
+    opacity: 0.7;
+    mix-blend-mode: screen;
   }
 
   .board-topline {
@@ -235,10 +413,64 @@ const board = lang === "id"
     text-transform: uppercase;
   }
 
+  .simulation-bar {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(244, 255, 114, 0.12);
+    padding: 0.7rem 1rem;
+    background: rgba(244, 255, 114, 0.035);
+    font-family: var(--font-mono);
+  }
+
+  .simulation-bar span {
+    display: block;
+    color: var(--color-text-muted);
+    font-size: 0.58rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .simulation-bar strong {
+    color: var(--color-text-primary);
+    font-size: 0.72rem;
+    line-height: 1;
+  }
+
+  .sim-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .sim-actions button {
+    border: 1px solid rgba(244, 255, 114, 0.24);
+    border-radius: 999px;
+    background: rgba(244, 255, 114, 0.08);
+    color: var(--color-accent-cyan);
+    font-size: 0.58rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    padding: 0.45rem 0.6rem;
+    text-transform: uppercase;
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .sim-actions button:hover {
+    transform: translateY(-1px);
+    border-color: rgba(244, 255, 114, 0.7);
+    background: rgba(244, 255, 114, 0.14);
+  }
+
   .board-canvas {
     position: relative;
     z-index: 1;
-    min-height: 30rem;
+    min-height: 28.5rem;
     padding: 1.2rem;
   }
 
@@ -256,6 +488,23 @@ const board = lang === "id"
   .signal-card {
     width: 15rem;
     padding: 1rem;
+    cursor: pointer;
+    transition:
+      opacity 0.28s ease,
+      border-color 0.28s ease,
+      box-shadow 0.28s ease,
+      transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 0.28s ease;
+  }
+
+  .signal-card:not(.is-active) {
+    opacity: 0.82;
+    filter: saturate(0.9);
+  }
+
+  .signal-card:focus-visible {
+    outline: 2px solid var(--color-accent-cyan);
+    outline-offset: 4px;
   }
 
   .signal-card h2 {
@@ -288,6 +537,12 @@ const board = lang === "id"
     transform: rotate(-3deg);
   }
 
+  .input-card.is-active {
+    transform: rotate(-3deg) translateY(-0.35rem) scale(1.035);
+    border-color: rgba(244, 255, 114, 0.85);
+    box-shadow: 0 20px 42px rgba(244, 255, 114, 0.16);
+  }
+
   .layer-card {
     right: 1.6rem;
     top: 7.8rem;
@@ -295,10 +550,22 @@ const board = lang === "id"
     transform: rotate(2deg);
   }
 
+  .layer-card.is-active {
+    transform: rotate(2deg) translateY(-0.35rem) scale(1.035);
+    border-color: rgba(255, 255, 255, 0.72);
+    box-shadow: 0 22px 44px rgba(244, 255, 114, 0.24);
+  }
+
   .output-card {
     left: 5.2rem;
     bottom: 2rem;
     transform: rotate(1deg);
+  }
+
+  .output-card.is-active {
+    transform: rotate(1deg) translateY(-0.35rem) scale(1.035);
+    border-color: rgba(63, 142, 255, 0.72);
+    box-shadow: 0 22px 44px rgba(63, 142, 255, 0.18);
   }
 
   .signal-router {
@@ -313,6 +580,8 @@ const board = lang === "id"
     height: 2px;
     background: linear-gradient(90deg, rgba(244, 255, 114, 0), rgba(244, 255, 114, 0.7), rgba(244, 255, 114, 0));
     transform-origin: left center;
+    opacity: 0.26;
+    transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
   }
 
   .signal-router span:nth-child(1) {
@@ -334,6 +603,14 @@ const board = lang === "id"
     top: 21.5rem;
     width: 8rem;
     transform: rotate(-8deg);
+  }
+
+  .execution-board[data-stage-index="0"] .signal-router span:nth-child(1),
+  .execution-board[data-stage-index="1"] .signal-router span:nth-child(1),
+  .execution-board[data-stage-index="1"] .signal-router span:nth-child(2),
+  .execution-board[data-stage-index="2"] .signal-router span {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px rgba(244, 255, 114, 0.55));
   }
 
   .build-log {
@@ -358,6 +635,74 @@ const board = lang === "id"
     content: ">";
     margin-right: 0.4rem;
     color: var(--color-accent-violet);
+  }
+
+  .build-log li {
+    transition: color 0.24s ease, opacity 0.24s ease;
+  }
+
+  .build-log li.is-done {
+    color: var(--color-text-primary);
+  }
+
+  .build-log li.is-done::before {
+    content: "✓";
+    color: var(--color-accent-cyan);
+  }
+
+  .signal-meter {
+    position: absolute;
+    left: 1.2rem;
+    top: 12.1rem;
+    width: 12.4rem;
+    border: 1px solid rgba(244, 255, 114, 0.14);
+    border-radius: 14px;
+    background: rgba(9, 10, 7, 0.88);
+    color: var(--color-text-primary);
+    padding: 0.75rem;
+    font-family: var(--font-mono);
+  }
+
+  .signal-meter div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    font-size: 0.62rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .signal-meter span {
+    color: var(--color-text-muted);
+  }
+
+  .signal-meter strong {
+    color: var(--color-accent-cyan);
+  }
+
+  .signal-meter i {
+    display: block;
+    height: 0.32rem;
+    margin: 0.35rem 0 0.55rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.09);
+  }
+
+  .signal-meter b {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--color-accent-violet), var(--color-accent-cyan));
+    transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .signal-meter p {
+    color: var(--color-text-secondary);
+    font-size: 0.62rem;
+    font-weight: 800;
+    line-height: 1.25;
   }
 
   .sticky-note {

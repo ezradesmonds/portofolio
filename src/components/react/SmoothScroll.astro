@@ -1,0 +1,47 @@
+---
+---
+
+<script>
+  import Lenis from "lenis";
+
+  function initSmoothScroll() {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return;
+
+    const lenis = new Lenis({
+      duration: 1.12,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      wheelMultiplier: 0.92,
+    });
+
+    (window as any).__lenis = lenis;
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    document.querySelectorAll('a[href^="#"], a[href^="/#"], a[href^="/id/#"]').forEach((anchor) => {
+      anchor.addEventListener("click", (event) => {
+        const link = event.currentTarget;
+        if (!(link instanceof HTMLAnchorElement)) return;
+
+        const url = new URL(link.href);
+        const isSamePage = url.pathname === window.location.pathname;
+        if (!isSamePage || !url.hash) return;
+
+        const target = document.querySelector(url.hash);
+        if (!target) return;
+
+        event.preventDefault();
+        lenis.scrollTo(target, { offset: -76 });
+        history.pushState(null, "", url.hash);
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", initSmoothScroll, { once: true });
+</script>
