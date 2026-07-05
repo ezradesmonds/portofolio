@@ -79,7 +79,7 @@ export default function BorderGlow({
   glowIntensity = 0.8,
   coneSpread = 20,
   animated = false,
-  colors = ["#00E5FF", "#8B5CF6", "#7C3AED"],
+  colors = ["#F4FF72", "#FF6B35", "#3F8EFF"],
   fillOpacity = 0.3,
 }: BorderGlowProps) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -153,7 +153,7 @@ export default function BorderGlow({
       onPointerMove={handlePointerMove}
       onPointerEnter={() => setIsHovered(true)}
       onPointerLeave={() => setIsHovered(false)}
-      className={`relative grid isolate ${className}`}
+      className={`relative grid isolate overflow-hidden ${className}`}
       style={{
         background: backgroundColor,
         borderRadius: `${borderRadius}px`,

@@ -1,10 +1,12 @@
 ---
 import { resolveLang, t } from "../../i18n/utils";
 import { capabilities } from "../../data/capabilities";
+import { localizeCapabilities } from "../../i18n/content";
 import SectionHeading from "../ui/SectionHeading.astro";
 import GlowCapabilityCard from "../react/GlowCapabilityCard";
 
-const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.cookies.get("lang")?.value);
+const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname);
+const localizedCapabilities = localizeCapabilities(capabilities, lang);
 ---
 
 <section id="capabilities" class="section">
@@ -16,7 +18,7 @@ const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.cookies.get("
     />
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
-      {capabilities.map((group) => (
+      {localizedCapabilities.map((group) => (
         <GlowCapabilityCard group={group} client:load />
       ))}
     </div>

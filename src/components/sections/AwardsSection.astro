@@ -1,10 +1,12 @@
 ---
 import { resolveLang, t } from "../../i18n/utils";
 import { awards } from "../../data/awards";
+import { localizeAwards } from "../../i18n/content";
 import SectionHeading from "../ui/SectionHeading.astro";
 import GlowAwardCard from "../react/GlowAwardCard";
 
-const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.cookies.get("lang")?.value);
+const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname);
+const localizedAwards = localizeAwards(awards, lang);
 ---
 
 <section id="awards" class="section bg-dark-surface/30">
@@ -15,7 +17,7 @@ const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.cookies.get("
     />
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-      {awards.map((award) => (
+      {localizedAwards.map((award) => (
         <GlowAwardCard award={award} client:load />
       ))}
     </div>

@@ -2,7 +2,7 @@
 import { resolveLang, t } from "../../i18n/utils";
 import { SITE } from "../../data/site";
 
-const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.cookies.get("lang")?.value);
+const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname);
 ---
 
 <section id="contact" class="section">
@@ -95,8 +95,7 @@ const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.cookies.get("
       const params = new URLSearchParams(location.search);
       const param = params.get("lang");
       if (param === "en" || param === "id") return param;
-      const stored = localStorage.getItem("lang") || (document.cookie.match(/lang=([^;]+)/) || [])[1];
-      return stored === "en" ? "en" : "id";
+      return location.pathname === "/id" || location.pathname.startsWith("/id/") ? "id" : "en";
     })();
 
     const msgs: Record<string, Record<string, string>> = {

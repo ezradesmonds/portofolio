@@ -1,9 +1,11 @@
 ---
 import { resolveLang, t } from "../../i18n/utils";
 import { experiences } from "../../data/experience";
+import { localizeExperiences } from "../../i18n/content";
 import SectionHeading from "../ui/SectionHeading.astro";
 
-const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.cookies.get("lang")?.value);
+const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname);
+const localizedExperiences = localizeExperiences(experiences, lang);
 ---
 
 <section id="experience" class="section">
@@ -18,7 +20,7 @@ const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.cookies.get("
       <div class="absolute left-3 md:left-6 top-0 bottom-0 w-px bg-dark-border" aria-hidden="true"></div>
 
       <div class="space-y-10 md:space-y-12">
-        {experiences.map((exp) => (
+        {localizedExperiences.map((exp) => (
           <div class="relative pl-10 md:pl-16">
             <div class="absolute left-0 md:left-1.5 top-1.5 w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-accent-cyan ring-4 ring-dark-base" aria-hidden="true"></div>
 

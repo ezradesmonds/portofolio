@@ -1,16 +1,44 @@
 ---
-import { resolveLang, t, tArray } from "../../i18n/utils";
+import { resolveLang, t } from "../../i18n/utils";
 import { SITE } from "../../data/site";
 
-const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.cookies.get("lang")?.value);
-const stacks = tArray(lang, "hero.codeBlock.stacks");
+const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname);
+const board = lang === "id"
+  ? {
+      label: "EZRA / MEJA SINYAL",
+      state: "MODE BANGUN",
+      input: "Ide berantakan",
+      inputBody: "Catatan, target, deadline, dan taruhan produk yang masih mentah.",
+      layer: "Lapisan AI",
+      layerBody: "Sistem yang merapikan konteks, pilihan, dan langkah berikutnya.",
+      output: "Eksekusi nyata",
+      outputBody: "Prototipe, alur kerja, dashboard, dan produk yang bisa dipakai.",
+      logTitle: "Log bangun",
+      logItems: ["AI akuntansi", "Asisten dagang", "Terminal finansial"],
+      note: "jelas dulu baru cepat",
+      signals: ["Sistem AI", "Alat eksekusi", "Loop kerja"],
+    }
+  : {
+      label: "EZRA / SIGNAL DESK",
+      state: "BUILD MODE",
+      input: "Scattered ideas",
+      inputBody: "Notes, goals, deadlines, and raw product bets.",
+      layer: "AI layer",
+      layerBody: "Systems that organize context, choices, and next actions.",
+      output: "Real execution",
+      outputBody: "Prototypes, workflows, dashboards, and usable products.",
+      logTitle: "Build log",
+      logItems: ["Accounting AI", "Commerce assistant", "Finance terminal"],
+      note: "clarity before speed",
+      signals: ["AI systems", "Builder tools", "Execution loops"],
+    };
 ---
 
-<section id="hero" class="min-h-[90vh] md:min-h-screen flex items-center pt-24 md:pt-20 relative px-4 md:px-6">
-  <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center">
+<section id="hero" class="hero-section min-h-[90vh] md:min-h-screen flex items-center pt-24 md:pt-20 relative px-4 md:px-6">
+  <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-[0.95fr_1.05fr] gap-10 xl:gap-16 items-center">
     <div class="z-10 max-w-full overflow-hidden">
       <div
-        class="relative pl-6 pr-3 py-1.5 rounded-full border border-accent-cyan/20 bg-accent-cyan/5 text-xs font-medium text-accent-cyan mb-6 sm:mb-8 leading-relaxed"
+        class="hero-pill relative pl-6 pr-3 py-1.5 text-xs font-bold text-accent-cyan mb-6 sm:mb-8 leading-relaxed"
         data-reveal data-reveal-delay="100"
       >
         <span class="absolute left-2.5 top-1/2 -translate-y-1/2 flex h-1.5 w-1.5 flex-shrink-0">
@@ -20,13 +48,17 @@ const stacks = tArray(lang, "hero.codeBlock.stacks");
         {t(lang, "hero.availability")}
       </div>
 
-      <h1 class="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold text-white leading-[1.1] tracking-tight max-w-full break-words" data-reveal data-reveal-delay="200">
-        <span class="text-gradient-animated">{t(lang, "hero.headline")}</span>
+      <h1 class="hero-title text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-black text-white leading-[0.92] tracking-tight max-w-3xl" data-reveal data-reveal-delay="200">
+        <span>{t(lang, "hero.headline")}</span>
       </h1>
 
-      <p class="text-sm sm:text-base md:text-lg lg:text-xl text-text-secondary max-w-lg mt-4 sm:mt-6 md:mt-8 leading-relaxed" data-reveal data-reveal-delay="400">
+      <p class="text-base md:text-lg xl:text-xl text-text-secondary max-w-xl mt-5 sm:mt-6 md:mt-8 leading-relaxed" data-reveal data-reveal-delay="400">
         {t(lang, "hero.subheadline")}
       </p>
+
+      <div class="hero-signals flex flex-wrap gap-2.5 mt-6" data-reveal data-reveal-delay="500">
+        {board.signals.map((signal) => <span>{signal}</span>)}
+      </div>
 
       <div class="flex flex-wrap gap-3 md:gap-4 mt-8 md:mt-10" data-reveal data-reveal-delay="600">
         <a href="/#work" class="btn btn-primary">
@@ -46,7 +78,7 @@ const stacks = tArray(lang, "hero.codeBlock.stacks");
           aria-label="GitHub profile"
         >
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
-          GitHub -> {t(lang, "hero.github")}
+          {t(lang, "hero.github")}
         </a>
         <a
           href={SITE.linkedin}
@@ -72,29 +104,47 @@ const stacks = tArray(lang, "hero.codeBlock.stacks");
     </div>
 
     <div class="hidden lg:flex justify-center z-10">
-      <div class="mac-window w-full max-w-lg">
-        <div class="mac-header">
-          <div class="mac-dot dot-red"></div>
-          <div class="mac-dot dot-yellow"></div>
-          <div class="mac-dot dot-green"></div>
-          <span class="ml-2 text-xs text-text-muted font-mono">{t(lang, "hero.codeBlock.title")}</span>
+      <div class="execution-board w-full max-w-xl" aria-label="Ezra execution signal desk">
+        <div class="board-topline">
+          <span>{board.label}</span>
+          <span>{board.state}</span>
         </div>
-        <div class="p-6 font-mono text-sm leading-relaxed">
-          <pre class="text-text-secondary whitespace-pre-wrap break-words">
-<span class="text-accent-violet">const</span> <span class="text-accent-cyan">engineer</span> = {"{"}
-  name: <span class="text-yellow-300">"Ezra"</span>,
-  focus: <span class="text-yellow-300">"{t(lang, "hero.codeBlock.focus")}"</span>,
-  stacks: [
-    <span class="text-yellow-300">"{stacks[0]}"</span>,
-    <span class="text-yellow-300">"{stacks[1]}"</span>,
-    <span class="text-yellow-300">"{stacks[2]}"</span>
-  ],
-  approach: <span class="text-accent-violet">function</span>() {"{"}
-    <span class="text-accent-violet">return</span> <span class="text-yellow-300">
-      "{t(lang, "hero.codeBlock.approach")}"</span>;
-  {"}"}
-{"}"};
-          </pre>
+
+        <div class="board-canvas">
+          <article class="signal-card input-card">
+            <span class="card-kicker">01 / INPUT</span>
+            <h2>{board.input}</h2>
+            <p>{board.inputBody}</p>
+          </article>
+
+          <div class="signal-router" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <article class="signal-card layer-card">
+            <span class="card-kicker">02 / LAYER</span>
+            <h2>{board.layer}</h2>
+            <p>{board.layerBody}</p>
+          </article>
+
+          <article class="signal-card output-card">
+            <span class="card-kicker">03 / OUTPUT</span>
+            <h2>{board.output}</h2>
+            <p>{board.outputBody}</p>
+          </article>
+
+          <aside class="build-log">
+            <span>{board.logTitle}</span>
+            <ul>
+              {board.logItems.map((item) => <li>{item}</li>)}
+            </ul>
+          </aside>
+
+          <div class="sticky-note">
+            {board.note}
+          </div>
         </div>
       </div>
     </div>
@@ -102,35 +152,242 @@ const stacks = tArray(lang, "hero.codeBlock.stacks");
 </section>
 
 <style>
-  .mac-window {
-    background: #111D33;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    transform: perspective(1000px) rotateY(-6deg) rotateX(3deg);
-    transition: transform 0.7s ease;
+  .hero-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 13% 24%, rgba(244, 255, 114, 0.12), transparent 22rem),
+      radial-gradient(circle at 84% 34%, rgba(63, 142, 255, 0.11), transparent 26rem);
+    opacity: 0.9;
   }
 
-  .mac-window:hover {
-    transform: perspective(1000px) rotateY(0) rotateX(0);
+  .hero-pill {
+    display: inline-flex;
+    max-width: 100%;
+    border: 1px solid rgba(244, 255, 114, 0.26);
+    border-radius: 999px;
+    background: rgba(244, 255, 114, 0.06);
+    font-family: var(--font-mono);
+    line-height: 1.35;
+    text-wrap: pretty;
   }
 
-  .mac-header {
-    background: rgba(0, 0, 0, 0.2);
-    padding: 12px 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  .hero-title {
+    font-family: var(--font-display);
+    text-wrap: balance;
+    letter-spacing: -0.035em;
+  }
+
+  .hero-title span {
+    color: var(--color-text-primary);
+  }
+
+  .hero-signals span {
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.045);
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 0.38rem 0.62rem;
+  }
+
+  .execution-board {
+    position: relative;
+    border: 1px solid rgba(244, 255, 114, 0.22);
+    border-radius: 18px;
+    background:
+      linear-gradient(180deg, rgba(20, 23, 13, 0.94), rgba(8, 10, 6, 0.97)),
+      radial-gradient(circle at 20% 10%, rgba(244, 255, 114, 0.18), transparent 20rem);
+    box-shadow: 0 32px 70px rgba(0, 0, 0, 0.42);
+    transform: rotate(-1deg);
+    overflow: hidden;
+  }
+
+  .execution-board::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(244, 255, 114, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(244, 255, 114, 0.045) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: linear-gradient(to bottom, black, transparent 88%);
+    pointer-events: none;
+  }
+
+  .board-topline {
+    position: relative;
+    z-index: 1;
     display: flex;
-    align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(244, 255, 114, 0.16);
+    padding: 0.85rem 1rem;
+    color: var(--color-accent-cyan);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
-  .mac-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
+  .board-canvas {
+    position: relative;
+    z-index: 1;
+    min-height: 30rem;
+    padding: 1.2rem;
   }
 
-  .dot-red { background: #FF5F56; }
-  .dot-yellow { background: #FFBD2E; }
-  .dot-green { background: #27C93F; }
+  .signal-card,
+  .build-log,
+  .sticky-note {
+    position: absolute;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(232, 226, 207, 0.94);
+    color: #14160f;
+    box-shadow: 0 20px 32px rgba(0, 0, 0, 0.24);
+  }
+
+  .signal-card {
+    width: 15rem;
+    padding: 1rem;
+  }
+
+  .signal-card h2 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    line-height: 1;
+    margin: 0.4rem 0 0.55rem;
+    color: #0b0d08;
+  }
+
+  .signal-card p {
+    color: rgba(11, 13, 8, 0.72);
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  .card-kicker,
+  .build-log span {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #657000;
+  }
+
+  .input-card {
+    left: 1.4rem;
+    top: 1.2rem;
+    transform: rotate(-3deg);
+  }
+
+  .layer-card {
+    right: 1.6rem;
+    top: 7.8rem;
+    background: #f4ff72;
+    transform: rotate(2deg);
+  }
+
+  .output-card {
+    left: 5.2rem;
+    bottom: 2rem;
+    transform: rotate(1deg);
+  }
+
+  .signal-router {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .signal-router span {
+    position: absolute;
+    display: block;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(244, 255, 114, 0), rgba(244, 255, 114, 0.7), rgba(244, 255, 114, 0));
+    transform-origin: left center;
+  }
+
+  .signal-router span:nth-child(1) {
+    left: 14.5rem;
+    top: 7.4rem;
+    width: 11rem;
+    transform: rotate(18deg);
+  }
+
+  .signal-router span:nth-child(2) {
+    left: 14.2rem;
+    top: 15.6rem;
+    width: 9rem;
+    transform: rotate(-22deg);
+  }
+
+  .signal-router span:nth-child(3) {
+    left: 18rem;
+    top: 21.5rem;
+    width: 8rem;
+    transform: rotate(-8deg);
+  }
+
+  .build-log {
+    right: 1.5rem;
+    bottom: 1.5rem;
+    width: 12rem;
+    background: rgba(9, 10, 7, 0.92);
+    color: var(--color-text-primary);
+    padding: 0.9rem;
+  }
+
+  .build-log ul {
+    display: grid;
+    gap: 0.45rem;
+    margin-top: 0.7rem;
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+  }
+
+  .build-log li::before {
+    content: ">";
+    margin-right: 0.4rem;
+    color: var(--color-accent-violet);
+  }
+
+  .sticky-note {
+    right: 9rem;
+    top: 1.3rem;
+    width: 8.4rem;
+    background: #ff6b35;
+    color: #120904;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 800;
+    line-height: 0.95;
+    padding: 0.8rem;
+    transform: rotate(8deg);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .execution-board {
+      animation: board-settle 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes board-settle {
+      from {
+        opacity: 0;
+        transform: translateY(18px) rotate(0deg);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) rotate(-1deg);
+      }
+    }
+  }
 </style>

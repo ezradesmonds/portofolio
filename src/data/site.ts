@@ -13,6 +13,5 @@ export const SITE: SiteConfig = {
   headline: "AI & Full-Stack Builder",
   subheadline:
     "I build AI-powered tools that help ambitious people think clearer, move faster, and ship real outcomes.",
-  availabilityMessage:
-    "Open to internships, collaborations, and AI systems.",
+  availabilityMessage: "Open for AI internships + execution tools.",
 };

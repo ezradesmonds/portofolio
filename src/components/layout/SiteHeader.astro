@@ -1,5 +1,5 @@
 ---
-import { t } from "../../i18n/utils";
+import { alternateLangPath, localizedPath, t } from "../../i18n/utils";
 import type { Lang, TranslationKey } from "../../i18n/translations";
 import { SITE } from "../../data/site";
 import MobileMenu from "../react/MobileMenu.astro";
@@ -9,17 +9,17 @@ interface Props {
 }
 
 const { lang } = Astro.props;
+const homeHref = localizedPath(lang, "/");
+const currentLangLabel = lang.toUpperCase();
+const switcherHref = alternateLangPath(lang, Astro.url.pathname);
+const switcherTitle = lang === "en" ? "Switch to Bahasa Indonesia" : "Switch to English";
 
 const navItems: { href: string; key: TranslationKey }[] = [
-  { href: "/#work", key: "nav.work" },
-  { href: "/#experience", key: "nav.experience" },
-  { href: "/#about", key: "nav.about" },
-  { href: "/#contact", key: "nav.contact" },
+  { href: `${homeHref}#work`, key: "nav.work" },
+  { href: `${homeHref}#experience`, key: "nav.experience" },
+  { href: `${homeHref}#about`, key: "nav.about" },
+  { href: `${homeHref}#contact`, key: "nav.contact" },
 ];
-
-const otherLang: Lang = lang === "id" ? "en" : "id";
-const switcherLabel = lang === "id" ? "EN" : "ID";
-const switcherTitle = lang === "id" ? "Switch to English" : "Ganti ke Bahasa Indonesia";
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="site-header">
@@ -29,19 +29,19 @@ const switcherTitle = lang === "id" ? "Switch to English" : "Ganti ke Bahasa Ind
   >
     <div class="flex items-center gap-2 sm:gap-3">
       <a
-        href="/#hero"
-        class="text-lg sm:text-xl font-bold tracking-tight text-white hover:text-accent-cyan transition-colors"
+        href={`${homeHref}#hero`}
+        class="brand-logo text-lg sm:text-xl font-black tracking-tight text-white hover:text-accent-cyan transition-colors"
         aria-label="Go to homepage"
       >
         Ezra<span class="text-accent-cyan">.</span>
       </a>
       <a
-        href={`?lang=${otherLang}`}
-        class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded border border-white/10 text-text-muted hover:text-accent-cyan hover:border-accent-cyan/30 transition-colors"
+        href={switcherHref}
+        class="language-toggle"
         title={switcherTitle}
         aria-label={switcherTitle}
       >
-        {switcherLabel}
+        {currentLangLabel}
       </a>
     </div>
 
@@ -76,13 +76,41 @@ const switcherTitle = lang === "id" ? "Switch to English" : "Ganti ke Bahasa Ind
 
 <style>
   .glass-nav {
-    background: rgba(5, 11, 20, 0.75);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: rgba(7, 8, 5, 0.78);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
   }
 
   #site-header {
     transform: translateY(0);
     transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+
+  .brand-logo {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  .language-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.1rem;
+    height: 1.45rem;
+    border: 1px solid rgba(244, 255, 114, 0.34);
+    border-radius: 999px;
+    color: var(--color-accent-cyan);
+    background: rgba(244, 255, 114, 0.08);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .language-toggle:hover {
+    transform: translateY(-1px);
+    border-color: rgba(244, 255, 114, 0.75);
+    background: rgba(244, 255, 114, 0.14);
   }
 </style>

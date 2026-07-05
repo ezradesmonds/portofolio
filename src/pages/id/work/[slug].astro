@@ -1,0 +1,137 @@
+---
+import BaseLayout from "../../../components/layout/BaseLayout.astro";
+import { projects, additionalProjects } from "../../../data/projects";
+import { SITE } from "../../../data/site";
+import TechBadge from "../../../components/ui/TechBadge.astro";
+import { localizeProject } from "../../../i18n/content";
+
+export function getStaticPaths() {
+  const all = [...projects, ...additionalProjects];
+  return all.map((p) => ({ params: { slug: p.slug } }));
+}
+
+const { slug } = Astro.params;
+const all = [...projects, ...additionalProjects];
+const rawProject = all.find((p) => p.slug === slug);
+
+if (!rawProject) {
+  return Astro.redirect("/404");
+}
+
+const lang = "id";
+const project = localizeProject(rawProject, lang);
+const detail = project.detail;
+const pageTitle = `${project.title} — ${SITE.name}`;
+---
+
+<BaseLayout title={pageTitle} description={project.description}>
+  <article class="pt-32 pb-24 px-6">
+    <div class="container-lg max-w-4xl">
+      <a href="/id/#work" class="inline-flex items-center gap-2 text-sm text-text-muted hover:text-white transition-colors mb-8 font-mono">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        Kembali ke Karya
+      </a>
+
+      <div class="flex flex-wrap items-center gap-3 mb-4">
+        <span class="text-xs font-mono text-accent-cyan">{project.category}</span>
+        <span class={`text-[10px] font-mono font-semibold uppercase px-2 py-0.5 rounded border ${
+          project.status === "live" ? "border-green-500/40 text-green-400 bg-green-500/10" :
+          project.status === "in-development" ? "border-amber-500/40 text-amber-400 bg-amber-500/10" :
+          project.status === "prototype" ? "border-sky-500/40 text-sky-400 bg-sky-500/10" :
+          project.status === "competition" ? "border-violet-500/40 text-violet-400 bg-violet-500/10" :
+          "border-slate-500/40 text-slate-400 bg-slate-500/10"
+        }`}>
+          {project.statusLabel}
+        </span>
+      </div>
+
+      <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-6">{project.title}</h1>
+      <p class="text-xl text-text-secondary leading-relaxed mb-12">{project.description}</p>
+
+      {detail && (
+        <div class="space-y-16">
+          <section>
+            <h2 class="text-sm font-mono font-bold uppercase tracking-widest text-accent-cyan mb-4">Ikhtisar</h2>
+            <p class="text-text-secondary leading-relaxed">{detail.overview}</p>
+          </section>
+
+          <div class="grid md:grid-cols-2 gap-12">
+            <div>
+              <h2 class="text-sm font-mono font-bold uppercase tracking-widest text-accent-cyan mb-4">Masalah</h2>
+              <p class="text-text-secondary">{project.problem}</p>
+            </div>
+            <div>
+              <h2 class="text-sm font-mono font-bold uppercase tracking-widest text-accent-cyan mb-4">Target Pengguna</h2>
+              <p class="text-text-secondary">{project.targetUsers}</p>
+            </div>
+          </div>
+
+          <section>
+            <h2 class="text-sm font-mono font-bold uppercase tracking-widest text-accent-cyan mb-4">Peran Saya</h2>
+            <p class="text-base font-semibold text-white mb-2">{project.role}</p>
+            <p class="text-text-secondary leading-relaxed">{project.contribution}</p>
+          </section>
+
+          <section>
+            <h2 class="text-sm font-mono font-bold uppercase tracking-widest text-accent-cyan mb-4">Fitur Utama</h2>
+            <ul class="grid sm:grid-cols-2 gap-3">
+              {detail.keyFeatures.map((f) => (
+                <li class="flex items-start gap-3 text-text-secondary text-sm">
+                  <span class="text-accent-cyan mt-1 flex-shrink-0" aria-hidden="true">&rarr;</span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {detail.challenges && detail.challenges.length > 0 && (
+            <section>
+              <h2 class="text-sm font-mono font-bold uppercase tracking-widest text-accent-cyan mb-4">Tantangan & Trade-off</h2>
+              <ul class="space-y-3">
+                {detail.challenges.map((c) => (
+                  <li class="text-text-secondary text-sm pl-4 border-l-2 border-dark-border">{c}</li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {project.outcome && (
+            <section>
+              <h2 class="text-sm font-mono font-bold uppercase tracking-widest text-accent-cyan mb-4">Hasil</h2>
+              <p class="text-text-secondary">{project.outcome}</p>
+            </section>
+          )}
+        </div>
+      )}
+
+      <section class="mt-16 pt-8 border-t border-dark-border">
+        <h2 class="text-sm font-mono font-bold uppercase tracking-widest text-accent-cyan mb-4">Teknologi</h2>
+        <div class="flex flex-wrap gap-2">
+          {project.technologies.map((t) => <TechBadge name={t} size="md" />)}
+        </div>
+      </section>
+
+      <div class="flex flex-wrap gap-4 mt-12">
+        {project.liveUrl && (
+          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            Kunjungi Situs Live
+          </a>
+        )}
+        {project.githubUrl && (
+          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            Lihat di GitHub
+          </a>
+        )}
+      </div>
+
+      <nav class="mt-16 pt-8 border-t border-dark-border flex justify-between">
+        <a href="/id/#work" class="text-sm text-text-muted hover:text-white transition-colors font-mono">
+          &larr; Semua Proyek
+        </a>
+        <a href="/id/#contact" class="text-sm text-accent-cyan hover:underline font-mono">
+          Hubungi Saya &rarr;
+        </a>
+      </nav>
+    </div>
+  </article>
+</BaseLayout>

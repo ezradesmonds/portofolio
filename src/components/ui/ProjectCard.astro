@@ -1,11 +1,17 @@
 ---
 import type { Project } from "../../types";
+import type { Lang } from "../../i18n/translations";
+import { localizedPath } from "../../i18n/utils";
 
 interface Props {
   project: Project;
+  lang: Lang;
 }
 
-const { project } = Astro.props;
+const { project, lang } = Astro.props;
+const projectHref = localizedPath(lang, `/work/${project.slug}/`);
+const viewLabel = lang === "id" ? "Buka Studi Kasus" : "View Case Study";
+const liveLabel = lang === "id" ? "Situs live" : "Live";
 
 const statusColorMap: Record<string, string> = {
   live: "border-green-500/40 text-green-400 bg-green-500/10",
@@ -19,32 +25,31 @@ const statusColorMap: Record<string, string> = {
 const statusColor = statusColorMap[project.status] ?? statusColorMap.prototype;
 ---
 
-<div
-  class="block group glass-card rounded-xl p-4 sm:p-6 border-glow transition-all duration-300 hover:border-accent-cyan/30 hover:-translate-y-1 cursor-pointer"
+<a
+  href={projectHref}
+  class="case-card block group glass-card rounded-xl p-4 sm:p-6 transition-all duration-300 hover:-translate-y-1"
   data-project-slug={project.slug}
-  role="button"
-  tabindex="0"
 >
-  <div class="flex items-start justify-between mb-3 sm:mb-4">
-    <span class="text-[11px] sm:text-xs font-mono text-accent-cyan line-clamp-1">{project.category}</span>
+  <div class="flex items-start justify-between gap-3 mb-4">
+    <span class="case-label line-clamp-1">{project.category}</span>
     <span
-      class={`text-[9px] sm:text-[10px] font-mono font-semibold uppercase px-1.5 sm:px-2 py-0.5 rounded border ${statusColor} flex-shrink-0 ml-2`}
+      class={`text-[9px] sm:text-[10px] font-mono font-semibold uppercase px-1.5 sm:px-2 py-0.5 rounded border ${statusColor} flex-shrink-0`}
     >
       {project.statusLabel}
     </span>
   </div>
 
-  <h3 class="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 group-hover:text-accent-cyan transition-colors">
+  <h3 class="case-title text-xl sm:text-2xl font-black text-white mb-2 sm:mb-3 group-hover:text-accent-cyan transition-colors">
     {project.title}
   </h3>
 
-  <p class="text-xs sm:text-sm text-text-secondary leading-relaxed mb-4 sm:mb-6 line-clamp-3">
+  <p class="text-xs sm:text-sm text-text-secondary leading-relaxed mb-5 sm:mb-6 line-clamp-3">
     {project.description}
   </p>
 
   <div class="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-5">
     {project.technologies.slice(0, 4).map((tech) => (
-      <span class="text-[10px] sm:text-[11px] font-mono text-text-muted bg-white/5 border border-white/10 px-1.5 sm:px-2 py-0.5 rounded">
+      <span class="text-[10px] sm:text-[11px] font-mono text-text-muted bg-white/5 border border-white/10 px-1.5 sm:px-2 py-0.5 rounded-full">
         {tech}
       </span>
     ))}
@@ -54,13 +59,59 @@ const statusColor = statusColorMap[project.status] ?? statusColorMap.prototype;
   </div>
 
   <div class="flex items-center gap-4 text-sm">
-    <span class="text-accent-cyan font-semibold group-hover:underline">
-      View Case Study &rarr;
+    <span class="text-accent-cyan font-bold group-hover:underline">
+      {viewLabel} &rarr;
     </span>
     {project.liveUrl && (
       <span class="text-text-muted text-xs ml-auto">
-        Live &nearr;
+        {liveLabel} &nearr;
       </span>
     )}
   </div>
-</div>
+</a>
+
+<style>
+  .case-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 18rem;
+    text-decoration: none;
+  }
+
+  .case-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-top: 4px solid var(--color-accent-cyan);
+    opacity: 0.9;
+    pointer-events: none;
+  }
+
+  .case-card::after {
+    content: "CASE";
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.45rem;
+    color: rgba(244, 255, 114, 0.07);
+    font-family: var(--font-display);
+    font-size: 4.5rem;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.06em;
+    pointer-events: none;
+  }
+
+  .case-label {
+    color: var(--color-accent-cyan);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .case-title {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+  }
+</style>

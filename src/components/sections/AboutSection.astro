@@ -2,7 +2,11 @@
 import { resolveLang, t } from "../../i18n/utils";
 import SectionHeading from "../ui/SectionHeading.astro";
 
-const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.cookies.get("lang")?.value);
+const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname);
+const principles = lang === "id"
+  ? ["Jelas dulu, baru cepat", "Sistem sebelum mood", "Eksekusi sebelum wacana"]
+  : ["Clarity before speed", "Systems before vibes", "Execution before talk"];
+const identityLabel = lang === "id" ? "Catatan operasi" : "Operating notes";
 ---
 
 <section id="about" class="section bg-dark-surface/30">
@@ -12,14 +16,23 @@ const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.cookies.get("
       title={t(lang, "about.title")}
     />
 
-    <div class="grid md:grid-cols-2 gap-6 md:gap-12 text-text-secondary leading-relaxed text-sm md:text-base max-w-5xl">
-      <div class="space-y-5">
-        <p>{t(lang, "about.p1")}</p>
-        <p>{t(lang, "about.p2")}</p>
-      </div>
-      <div class="space-y-5">
-        <p>{t(lang, "about.p3")}</p>
-        <p>{t(lang, "about.p4")}</p>
+    <div class="about-grid grid lg:grid-cols-[0.75fr_1.25fr] gap-6 md:gap-10 max-w-6xl">
+      <aside class="identity-note">
+        <p class="identity-label">{identityLabel}</p>
+        <ul>
+          {principles.map((principle) => <li>{principle}</li>)}
+        </ul>
+      </aside>
+
+      <div class="grid md:grid-cols-2 gap-6 md:gap-10 text-text-secondary leading-relaxed text-sm md:text-base">
+        <div class="space-y-5">
+          <p>{t(lang, "about.p1")}</p>
+          <p>{t(lang, "about.p2")}</p>
+        </div>
+        <div class="space-y-5">
+          <p>{t(lang, "about.p3")}</p>
+          <p>{t(lang, "about.p4")}</p>
+        </div>
       </div>
     </div>
 
@@ -35,3 +48,41 @@ const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.cookies.get("
     </div>
   </div>
 </section>
+
+<style>
+  .identity-note {
+    align-self: start;
+    border: 1px solid rgba(244, 255, 114, 0.18);
+    border-radius: 16px;
+    background: #e8e2cf;
+    color: #10120b;
+    padding: 1.1rem;
+    transform: rotate(-1.5deg);
+    box-shadow: 0 16px 0 rgba(0, 0, 0, 0.22);
+  }
+
+  .identity-label {
+    color: #697200;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .identity-note ul {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1.1rem;
+  }
+
+  .identity-note li {
+    border-top: 1px solid rgba(16, 18, 11, 0.18);
+    padding-top: 0.75rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 3vw, 2rem);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+  }
+</style>

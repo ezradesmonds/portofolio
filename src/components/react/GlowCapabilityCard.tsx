@@ -11,7 +11,7 @@ export default function GlowCapabilityCard({ group }: { group: Capability }) {
       backgroundColor="#0A1324"
       borderRadius={16}
       glowColor="195 100 50"
-      colors={["#00E5FF", "#8B5CF6", "#7C3AED"]}
+      colors={["#F4FF72", "#FF6B35", "#3F8EFF"]}
       edgeSensitivity={30}
       glowRadius={25}
       glowIntensity={0.5}

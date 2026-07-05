@@ -10,25 +10,24 @@ export const translations = {
     "nav.openMenu": "Open menu",
     "nav.closeMenu": "Close menu",
 
-    "hero.headline": "AI systems for clearer execution.",
+    "hero.headline": "From chaos to shipped systems.",
     "hero.subheadline":
-      "I build tools that help students, builders, and early founders organize ideas, decide faster, and ship real outcomes.",
-    "hero.availability":
-      "Open to internships, collaborations, and AI systems.",
+      "I build AI-powered tools for students, builders, and early founders who need clearer thinking, faster decisions, and real execution.",
+    "hero.availability": "Open for AI internships + execution tools.",
     "hero.ctaPrimary": "View Selected Work",
     "hero.ctaSecondary": "Get in Touch",
     "hero.github": "GitHub",
     "hero.linkedin": "LinkedIn",
     "hero.instagram": "Instagram",
     "hero.codeBlock.title": "ezra.ts",
-    "hero.codeBlock.focus": "Clarity & Execution",
+    "hero.codeBlock.focus": "Execution Systems",
     "hero.codeBlock.stacks": ["Full-Stack Web", "AI & ML Integration", "Product Engineering"],
     "hero.codeBlock.approach": "Think clearer.\n       Ship faster.",
 
     "proof.hackathon": "2nd Place International<br />Hackathon 2026",
     "proof.products": "AI & Full-Stack<br />Systems Built",
     "proof.gpa": "Semester Informatics<br />GPA 3.75 / 4.00",
-    "proof.local": "Systems for Students,<br />Builders & Founders",
+    "proof.local": "Students, Builders<br />& Early Founders",
 
     "about.title": "About Ezra",
     "about.education.label": "Education",
@@ -45,7 +44,7 @@ export const translations = {
 
     "work.title": "Selected Work",
     "work.subtitle":
-      "AI-powered systems, product experiments, and full-stack builds shaped around clarity, execution, and real outcomes.",
+      "Case files from the systems, products, and experiments behind the positioning.",
     "work.moreProjects": "More Projects",
 
     "experience.title": "Experience & Leadership",
@@ -100,25 +99,24 @@ export const translations = {
     "nav.openMenu": "Buka menu",
     "nav.closeMenu": "Tutup menu",
 
-    "hero.headline": "Sistem AI untuk eksekusi yang lebih jelas",
+    "hero.headline": "Dari chaos ke sistem yang jalan.",
     "hero.subheadline":
-      "Saya membangun alat yang membantu mahasiswa, builder, dan founder awal merapikan ide, mengambil keputusan, dan bergerak lebih cepat.",
-    "hero.availability":
-      "Terbuka untuk magang, kolaborasi, dan sistem AI.",
+      "Saya membangun alat bertenaga AI untuk mahasiswa, builder, dan founder awal yang butuh pikiran lebih jernih, keputusan lebih cepat, dan eksekusi nyata.",
+    "hero.availability": "Terbuka untuk magang AI + alat eksekusi.",
     "hero.ctaPrimary": "Lihat Karya Pilihan",
     "hero.ctaSecondary": "Hubungi Saya",
     "hero.github": "GitHub",
     "hero.linkedin": "LinkedIn",
     "hero.instagram": "Instagram",
     "hero.codeBlock.title": "ezra.ts",
-    "hero.codeBlock.focus": "Kejelasan & Eksekusi",
+    "hero.codeBlock.focus": "Execution Systems",
     "hero.codeBlock.stacks": ["Full-Stack Web", "AI & ML Integration", "Product Engineering"],
     "hero.codeBlock.approach": "Berpikir jernih.\n       Bergerak cepat.",
 
     "proof.hackathon": "Juara 2 International<br />Hackathon 2026",
     "proof.products": "Sistem AI & Full-Stack<br />Dibangun",
     "proof.gpa": "Semester 4 Informatika<br />IPK 3.75 / 4.00",
-    "proof.local": "Sistem untuk Mahasiswa,<br />Builder & Founder",
+    "proof.local": "Mahasiswa, Builder<br />& Founder Awal",
 
     "about.title": "Tentang Ezra",
     "about.education.label": "Pendidikan",
@@ -135,7 +133,7 @@ export const translations = {
 
     "work.title": "Karya Pilihan",
     "work.subtitle":
-      "Sistem bertenaga AI, eksperimen produk, dan build full-stack yang dibentuk di sekitar kejelasan, eksekusi, dan hasil nyata.",
+      "Case file dari sistem, produk, dan eksperimen yang membentuk positioning ini.",
     "work.moreProjects": "Proyek Lainnya",
 
     "experience.title": "Pengalaman & Kepemimpinan",

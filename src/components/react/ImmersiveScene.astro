@@ -29,16 +29,16 @@
     scene.fog = new THREE.FogExp2("#050B14", 0.00015);
 
     // Ambient to lift shadows
-    const ambient = new THREE.AmbientLight("#1a1a3e", 0.5);
+    const ambient = new THREE.AmbientLight("#2b2e13", 0.5);
     scene.add(ambient);
 
     // Key light - cyan
-    keyLight = new THREE.PointLight("#00E5FF", 80, 30, 1.5);
+    keyLight = new THREE.PointLight("#F4FF72", 80, 30, 1.5);
     keyLight.position.set(5, 8, 5);
     scene.add(keyLight);
 
     // Rim light - violet
-    rimLight = new THREE.PointLight("#8B5CF6", 60, 25, 1.5);
+    rimLight = new THREE.PointLight("#3F8EFF", 60, 25, 1.5);
     rimLight.position.set(-5, -2, -3);
     scene.add(rimLight);
 
@@ -64,7 +64,7 @@
 
     geo.setAttribute("position", new THREE.Float32BufferAttribute(vertices, 3));
     const mat = new THREE.LineBasicMaterial({
-      color: "#1a2a4a",
+      color: "#31371d",
       transparent: true,
       opacity: 0.3,
       depthWrite: false,
@@ -77,7 +77,7 @@
     // Large central torus
     const torusGeo = new THREE.TorusKnotGeometry(2.5, 0.3, 128, 16);
     const torus = new THREE.Mesh(torusGeo, new THREE.MeshPhysicalMaterial({
-      color: "#00E5FF",
+      color: "#F4FF72",
       metalness: 0.1,
       roughness: 0.25,
       transparent: true,
@@ -92,7 +92,7 @@
       const size = 0.15 + Math.random() * 0.5;
       const geo = new THREE.IcosahedronGeometry(size, 1);
       const mat = new THREE.MeshStandardMaterial({
-        color: i % 3 === 0 ? "#00E5FF" : i % 3 === 1 ? "#8B5CF6" : "#7C3AED",
+        color: i % 3 === 0 ? "#F4FF72" : i % 3 === 1 ? "#FF6B35" : "#3F8EFF",
         metalness: 0.4,
         roughness: 0.3,
         transparent: true,
@@ -123,7 +123,7 @@
     starGeo.setAttribute("position", new THREE.BufferAttribute(starPositions, 3));
     const starMat = new THREE.PointsMaterial({
       size: 0.025,
-      color: "#8899cc",
+      color: "#b8b08d",
       blending: THREE.AdditiveBlending,
       depthWrite: false,
       transparent: true,
@@ -137,8 +137,8 @@
     const dustGeo = new THREE.BufferGeometry();
     const dustPositions = new Float32Array(dustCount * 3);
     const dustColors = new Float32Array(dustCount * 3);
-    const cyan = new THREE.Color("#00E5FF");
-    const violet = new THREE.Color("#8B5CF6");
+    const cyan = new THREE.Color("#F4FF72");
+    const violet = new THREE.Color("#3F8EFF");
     for (let i = 0; i < dustCount; i++) {
       const angle = Math.random() * Math.PI * 2;
       const radius = 3 + Math.random() * 12;
