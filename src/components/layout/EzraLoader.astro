@@ -1,0 +1,361 @@
+---
+import type { Lang } from "../../i18n/translations";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const subtitle = lang === "id" ? "SISTEM AI / ALAT EKSEKUSI" : "AI SYSTEMS / EXECUTION TOOLS";
+const status = lang === "id" ? "Menyusun sinyal" : "Composing signal";
+const ariaLabel = lang === "id" ? "Memuat portofolio Ezra" : "Loading Ezra portfolio";
+---
+
+<script is:inline>
+  document.documentElement.classList.add("loader-enabled", "loader-active");
+</script>
+
+<div class="ezra-loader" data-ezra-loader role="status" aria-live="polite" aria-label={ariaLabel}>
+  <div class="loader-scanline" aria-hidden="true"></div>
+  <div class="loader-core">
+    <div class="loader-fragments" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <svg class="loader-word" viewBox="0 0 760 210" aria-hidden="true">
+      <text class="loader-echo" x="50%" y="52%" text-anchor="middle" dominant-baseline="middle">EZRA</text>
+      <text class="loader-stroke" x="50%" y="50%" text-anchor="middle" dominant-baseline="middle">EZRA</text>
+      <text class="loader-fill" x="50%" y="50%" text-anchor="middle" dominant-baseline="middle">EZRA</text>
+    </svg>
+
+    <p class="loader-subtitle">{subtitle}</p>
+    <div class="loader-rail" aria-hidden="true"><span></span></div>
+    <p class="loader-status">{status}</p>
+  </div>
+</div>
+
+<script>
+  function initEzraLoader() {
+    const loader = document.querySelector("[data-ezra-loader]");
+    if (!loader) return;
+
+    const root = document.documentElement;
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const visibleFor = prefersReduced ? 120 : 1850;
+    let finished = false;
+
+    function finish() {
+      if (finished) return;
+      finished = true;
+      loader.classList.add("is-leaving");
+      root.classList.remove("loader-active");
+
+      window.setTimeout(() => {
+        loader.remove();
+        root.classList.remove("loader-enabled");
+      }, prefersReduced ? 80 : 720);
+    }
+
+    const scheduleFinish = () => window.setTimeout(finish, visibleFor);
+
+    if (document.readyState === "complete") {
+      scheduleFinish();
+    } else {
+      window.addEventListener("load", scheduleFinish, { once: true });
+    }
+
+    window.setTimeout(finish, prefersReduced ? 700 : 4200);
+  }
+
+  document.addEventListener("DOMContentLoaded", initEzraLoader, { once: true });
+</script>
+
+<style>
+  .ezra-loader {
+    display: none;
+  }
+
+  :global(html.loader-enabled) .ezra-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 50% 58%, rgba(244, 255, 114, 0.12), transparent 18rem),
+      radial-gradient(circle at 62% 45%, rgba(63, 142, 255, 0.09), transparent 24rem),
+      #03040f;
+    color: var(--color-text-primary);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  :global(html.loader-active body) {
+    overflow: hidden;
+  }
+
+  .ezra-loader::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(244, 255, 114, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(244, 255, 114, 0.035) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(circle at center, black, transparent 72%);
+    opacity: 0.55;
+  }
+
+  .ezra-loader::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(244, 255, 114, 0.08) 49%, transparent 52%);
+    animation: loader-field-scan 1.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    pointer-events: none;
+  }
+
+  .ezra-loader.is-leaving {
+    opacity: 0;
+    transform: scale(1.025);
+    filter: blur(8px);
+    pointer-events: none;
+  }
+
+  .loader-core {
+    position: relative;
+    width: min(72vw, 48rem);
+    text-align: center;
+  }
+
+  .loader-word {
+    display: block;
+    width: 100%;
+    overflow: visible;
+  }
+
+  .loader-stroke,
+  .loader-echo,
+  .loader-fill {
+    font-family: var(--font-display);
+    font-size: 8.5rem;
+    font-weight: 900;
+    letter-spacing: 0;
+  }
+
+  .loader-stroke,
+  .loader-echo {
+    fill: none;
+    stroke-linejoin: round;
+    stroke-width: 1.45;
+    stroke-dasharray: 1180;
+    stroke-dashoffset: 1180;
+    animation: loader-draw 1.18s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  }
+
+  .loader-stroke {
+    stroke: var(--color-text-primary);
+    filter: drop-shadow(0 0 12px rgba(244, 255, 114, 0.16));
+  }
+
+  .loader-echo {
+    stroke: rgba(63, 142, 255, 0.68);
+    transform: translate(7px, 7px);
+    animation-delay: 0.08s;
+    opacity: 0.52;
+  }
+
+  .loader-fill {
+    fill: var(--color-text-primary);
+    opacity: 0;
+    animation: loader-fill 0.28s ease-out 1.15s forwards;
+  }
+
+  .loader-subtitle {
+    margin-top: -1.3rem;
+    color: var(--color-text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-indent: 0;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: loader-subtitle 0.45s ease-out 1.1s forwards;
+  }
+
+  .loader-status {
+    margin-top: 0.8rem;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: loader-subtitle 0.35s ease-out 1.32s forwards;
+  }
+
+  .loader-rail {
+    position: relative;
+    width: min(30rem, 72vw);
+    height: 1px;
+    margin: 1.25rem auto 0;
+    overflow: hidden;
+    background: rgba(247, 244, 232, 0.14);
+  }
+
+  .loader-rail span {
+    position: absolute;
+    inset: 0;
+    width: 42%;
+    background: linear-gradient(90deg, transparent, var(--color-accent-cyan), transparent);
+    animation: loader-rail 1.25s cubic-bezier(0.65, 0, 0.35, 1) 0.62s both;
+  }
+
+  .loader-scanline {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: min(42rem, 74vw);
+    height: 1px;
+    transform: translate(-50%, -50%);
+    background: rgba(247, 244, 232, 0.22);
+    opacity: 0;
+    animation: loader-scanline 1.1s ease-out 0.1s both;
+  }
+
+  .loader-fragments span {
+    position: absolute;
+    display: block;
+    width: 3.5rem;
+    height: 1px;
+    background: var(--color-text-primary);
+    opacity: 0;
+    transform-origin: center;
+    animation: loader-fragment 0.82s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .loader-fragments span:nth-child(1) { left: 12%; top: 32%; transform: rotate(0deg); animation-delay: 0.08s; }
+  .loader-fragments span:nth-child(2) { left: 22%; top: 68%; transform: rotate(0deg); animation-delay: 0.16s; }
+  .loader-fragments span:nth-child(3) { left: 36%; top: 24%; transform: rotate(68deg); animation-delay: 0.24s; }
+  .loader-fragments span:nth-child(4) { left: 48%; top: 72%; transform: rotate(84deg); animation-delay: 0.32s; }
+  .loader-fragments span:nth-child(5) { right: 31%; top: 30%; transform: rotate(90deg); animation-delay: 0.2s; }
+  .loader-fragments span:nth-child(6) { right: 20%; top: 36%; transform: rotate(0deg); animation-delay: 0.28s; }
+  .loader-fragments span:nth-child(7) { right: 13%; top: 62%; transform: rotate(76deg); animation-delay: 0.36s; }
+  .loader-fragments span:nth-child(8) { right: 24%; top: 74%; transform: rotate(0deg); animation-delay: 0.44s; }
+
+  @keyframes loader-draw {
+    to { stroke-dashoffset: 0; }
+  }
+
+  @keyframes loader-fill {
+    to { opacity: 0.08; }
+  }
+
+  @keyframes loader-subtitle {
+    from {
+      opacity: 0;
+      transform: translateY(0.45rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes loader-rail {
+    from { transform: translateX(-110%); }
+    to { transform: translateX(245%); }
+  }
+
+  @keyframes loader-scanline {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scaleX(0.08);
+    }
+    38% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scaleX(1);
+    }
+  }
+
+  @keyframes loader-field-scan {
+    from { transform: translateY(-44vh); opacity: 0; }
+    45% { opacity: 1; }
+    to { transform: translateY(44vh); opacity: 0; }
+  }
+
+  @keyframes loader-fragment {
+    0% {
+      opacity: 0;
+      clip-path: inset(0 100% 0 0);
+    }
+    35% {
+      opacity: 0.9;
+    }
+    100% {
+      opacity: 0;
+      clip-path: inset(0 0 0 0);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .loader-core {
+      width: min(86vw, 30rem);
+    }
+
+    .loader-stroke,
+    .loader-echo,
+    .loader-fill {
+      font-size: 7.2rem;
+    }
+
+    .loader-subtitle {
+      margin-top: -1rem;
+      font-size: 0.78rem;
+      letter-spacing: 0;
+      text-indent: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ezra-loader,
+    .ezra-loader::after,
+    .loader-stroke,
+    .loader-echo,
+    .loader-fill,
+    .loader-subtitle,
+    .loader-status,
+    .loader-rail span,
+    .loader-scanline,
+    .loader-fragments span {
+      animation: none !important;
+      transition-duration: 0.01ms !important;
+    }
+
+    .loader-stroke,
+    .loader-echo {
+      stroke-dashoffset: 0;
+    }
+
+    .loader-fill,
+    .loader-subtitle,
+    .loader-status {
+      opacity: 1;
+    }
+  }
+</style>
