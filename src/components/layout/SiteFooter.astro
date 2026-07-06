@@ -18,7 +18,10 @@ const navItems: { href: string; key: TranslationKey }[] = [
   <div class="max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-16">
     <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
       <div>
-        <a href={homeHref} class="text-2xl font-black text-white">Ezra<span class="text-accent-cyan">.</span></a>
+        <a href={homeHref} class="footer-brand text-2xl font-black text-white">
+          <img src="/ezra-mark.png" alt="" width="34" height="34" loading="lazy" decoding="async" />
+          Ezra<span class="text-accent-cyan">.</span>
+        </a>
         <p class="text-text-secondary text-sm max-w-sm mt-4 leading-relaxed">
           {t(lang, "footer.tagline")}
         </p>
@@ -55,3 +58,26 @@ const navItems: { href: string; key: TranslationKey }[] = [
     </div>
   </div>
 </footer>
+
+<style>
+  .footer-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.58rem;
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    transition: color 0.2s ease;
+  }
+
+  .footer-brand:hover {
+    color: var(--color-accent-cyan);
+  }
+
+  .footer-brand img {
+    width: 1.95rem;
+    height: 1.95rem;
+    border-radius: 0.58rem;
+    object-fit: cover;
+    box-shadow: 0 0 22px rgba(244, 255, 114, 0.14);
+  }
+</style>

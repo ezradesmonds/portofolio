@@ -33,6 +33,7 @@ const navItems: { href: string; key: TranslationKey }[] = [
         class="brand-logo text-lg sm:text-xl font-black tracking-tight text-white hover:text-accent-cyan transition-colors"
         aria-label="Go to homepage"
       >
+        <img src="/ezra-mark.png" alt="" width="28" height="28" class="brand-mark" loading="eager" decoding="async" />
         Ezra<span class="text-accent-cyan">.</span>
       </a>
       <a
@@ -87,8 +88,27 @@ const navItems: { href: string; key: TranslationKey }[] = [
   }
 
   .brand-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
     font-family: var(--font-display);
     letter-spacing: -0.02em;
+  }
+
+  .brand-mark {
+    width: 1.45rem;
+    height: 1.45rem;
+    border-radius: 0.42rem;
+    object-fit: cover;
+    box-shadow: 0 0 18px rgba(244, 255, 114, 0.14);
+  }
+
+  @media (min-width: 640px) {
+    .brand-mark {
+      width: 1.6rem;
+      height: 1.6rem;
+      border-radius: 0.48rem;
+    }
   }
 
   .language-toggle {
