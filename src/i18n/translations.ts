@@ -10,9 +10,10 @@ export const translations = {
     "nav.openMenu": "Open menu",
     "nav.closeMenu": "Close menu",
 
-    "hero.headline": "From chaos to shipped systems.",
+    "hero.headline": "Ezra Desmond Sutanto",
+    "hero.role": "AI & Full-Stack Builder",
     "hero.subheadline":
-      "I build AI-powered tools for students, builders, and early founders who need clearer thinking, faster decisions, and real execution.",
+      "I build AI-powered systems that help students, builders, and early founders think clearer, execute faster, and turn ideas into shipped outcomes.",
     "hero.availability": "Open for AI internships + execution tools.",
     "hero.ctaPrimary": "View Selected Work",
     "hero.ctaSecondary": "Get in Touch",
@@ -99,9 +100,10 @@ export const translations = {
     "nav.openMenu": "Buka menu",
     "nav.closeMenu": "Tutup menu",
 
-    "hero.headline": "Dari chaos ke sistem yang jalan.",
+    "hero.headline": "Ezra Desmond Sutanto",
+    "hero.role": "AI & Full-Stack Builder",
     "hero.subheadline":
-      "Saya membangun alat bertenaga AI untuk mahasiswa, builder, dan founder awal yang butuh pikiran lebih jernih, keputusan lebih cepat, dan eksekusi nyata.",
+      "Saya membangun sistem bertenaga AI yang membantu mahasiswa, builder, dan founder awal berpikir lebih jernih, mengeksekusi lebih cepat, dan mengubah ide menjadi hasil nyata.",
     "hero.availability": "Terbuka untuk magang AI + alat eksekusi.",
     "hero.ctaPrimary": "Lihat Karya Pilihan",
     "hero.ctaSecondary": "Hubungi Saya",

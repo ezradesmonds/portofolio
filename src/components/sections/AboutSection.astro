@@ -7,6 +7,71 @@ const principles = lang === "id"
   ? ["Jelas dulu, baru cepat", "Sistem sebelum mood", "Eksekusi sebelum wacana"]
   : ["Clarity before speed", "Systems before vibes", "Execution before talk"];
 const identityLabel = lang === "id" ? "Catatan operasi" : "Operating notes";
+const aboutColumns = lang === "id"
+  ? [
+      [
+        [
+          { text: "Ezra Desmond Sutanto adalah " },
+          { text: "mahasiswa Informatika di Universitas Kristen Petra Surabaya", strong: true },
+          { text: ", saat ini semester empat dengan " },
+          { text: "IPK 3.76 / 4.00", strong: true },
+          { text: ". Ia adalah " },
+          { text: "AI dan full-stack builder", strong: true },
+          { text: " yang fokus menciptakan sistem untuk membantu orang ambisius bekerja dengan lebih jelas dan mengeksekusi ide lebih cepat. Karyanya mencakup full-stack web development, kecerdasan buatan, sistem produktivitas, business tools, eksperimen teknologi finansial, dan desain produk." },
+        ],
+        [
+          { text: "Ia ingin membangun sistem yang membantu orang ambisius " },
+          { text: "bergerak lebih cepat, berpikir lebih jernih, dan mencapai lebih banyak hal", strong: true },
+          { text: ". Saat ini, ia memulai dari " },
+          { text: "mahasiswa ambisius, builder muda, dan entrepreneur tahap awal", strong: true },
+          { text: ": orang-orang dengan ambisi kuat yang sering terhambat oleh alat yang terpencar, information overload, dan kesulitan mengubah ide menjadi aksi yang konsisten." },
+        ],
+      ],
+      [
+        [
+          { text: "Melalui produk bertenaga AI, Ezra ingin membantu orang " },
+          { text: "mengurangi kekacauan, mengambil keputusan lebih baik, dan bergerak dari niat menuju eksekusi", strong: true },
+          { text: ". Proyek-proyek sebelumnya di akuntansi, commerce, operasional event, riset finansial, marketplace jasa, manajemen koperasi, dan workflow berbasis AI kini menjadi bagian dari arah yang lebih luas: membangun execution systems." },
+        ],
+        [
+          { text: "Di luar engineering, Ezra tertarik pada musik dan gitar, product building, pasar finansial, dan kewirausahaan teknologi. Ia terbuka untuk " },
+          { text: "magang, kolaborasi, dan peluang membangun sistem bertenaga AI", strong: true },
+          { text: " yang menghemat waktu, meningkatkan kejelasan, mempercepat eksekusi, dan membantu lebih banyak ide menjadi kenyataan." },
+        ],
+      ],
+    ]
+  : [
+      [
+        [
+          { text: "Ezra Desmond Sutanto is an " },
+          { text: "Informatics student at Petra Christian University", strong: true },
+          { text: ", Surabaya, currently in the fourth semester with a " },
+          { text: "GPA of 3.76 / 4.00", strong: true },
+          { text: ". He is an " },
+          { text: "AI and full-stack builder", strong: true },
+          { text: " focused on creating systems that help ambitious people work with more clarity and execute their ideas faster. His work spans full-stack web development, artificial intelligence, productivity systems, business tools, financial technology experiments, and product design." },
+        ],
+        [
+          { text: "He wants to build systems that help ambitious people " },
+          { text: "move faster, think clearer, and achieve more", strong: true },
+          { text: ". Today, he is starting with " },
+          { text: "students, young builders, and early-stage entrepreneurs", strong: true },
+          { text: ": people with strong ambitions who are often limited by scattered tools, information overload, and difficulty turning ideas into consistent action." },
+        ],
+      ],
+      [
+        [
+          { text: "Through AI-powered products, Ezra wants to help people " },
+          { text: "reduce chaos, make better decisions, and move from intention to execution", strong: true },
+          { text: ". His past projects across accounting, commerce, event operations, financial research, service marketplaces, cooperative management, and AI-assisted workflows are now part of that broader execution-systems direction." },
+        ],
+        [
+          { text: "Outside engineering, Ezra is interested in music and guitar, product building, financial markets, and technology entrepreneurship. He is open to " },
+          { text: "internships, collaborations, and opportunities to build AI-powered systems", strong: true },
+          { text: " that save time, improve clarity, accelerate execution, and help more ideas become reality." },
+        ],
+      ],
+    ];
 ---
 
 <section id="about" class="section bg-dark-surface/30">
@@ -24,15 +89,16 @@ const identityLabel = lang === "id" ? "Catatan operasi" : "Operating notes";
         </ul>
       </aside>
 
-      <div class="grid md:grid-cols-2 gap-6 md:gap-10 text-text-secondary leading-relaxed text-sm md:text-base">
-        <div class="space-y-5">
-          <p>{t(lang, "about.p1")}</p>
-          <p>{t(lang, "about.p2")}</p>
-        </div>
-        <div class="space-y-5">
-          <p>{t(lang, "about.p3")}</p>
-          <p>{t(lang, "about.p4")}</p>
-        </div>
+      <div class="about-copy grid md:grid-cols-2 gap-6 md:gap-10 text-text-secondary leading-relaxed text-sm md:text-base">
+        {aboutColumns.map((column) => (
+          <div class="space-y-5">
+            {column.map((paragraph) => (
+              <p>
+                {paragraph.map((segment) => segment.strong ? <strong>{segment.text}</strong> : segment.text)}
+              </p>
+            ))}
+          </div>
+        ))}
       </div>
     </div>
 
@@ -184,5 +250,10 @@ const identityLabel = lang === "id" ? "Catatan operasi" : "Operating notes";
   .identity-note li:focus-visible {
     color: #ff6b35;
     transform: translateX(0.2rem);
+  }
+
+  .about-copy strong {
+    color: var(--color-text-primary);
+    font-weight: 850;
   }
 </style>

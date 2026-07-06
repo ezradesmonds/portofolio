@@ -27,14 +27,14 @@ const navItems: { href: string; key: TranslationKey }[] = [
     class="mx-auto max-w-7xl px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center"
     aria-label="Main navigation"
   >
-    <div class="flex items-center gap-2 sm:gap-3">
+    <div class="flex min-w-0 items-center gap-2 sm:gap-3">
       <a
         href={`${homeHref}#hero`}
-        class="brand-logo text-lg sm:text-xl font-black tracking-tight text-white hover:text-accent-cyan transition-colors"
+        class="brand-logo shrink-0 text-lg sm:text-xl font-black text-white hover:text-accent-cyan transition-colors"
         aria-label="Go to homepage"
       >
         <img src="/ezra-mark.png" alt="" width="28" height="28" class="brand-mark" loading="eager" decoding="async" />
-        Ezra<span class="text-accent-cyan">.</span>
+        <span class="brand-name">Ezra<span class="text-accent-cyan">.</span></span>
       </a>
       <a
         href={switcherHref}
@@ -90,12 +90,23 @@ const navItems: { href: string; key: TranslationKey }[] = [
   .brand-logo {
     display: inline-flex;
     align-items: center;
+    flex-wrap: nowrap;
     gap: 0.42rem;
     font-family: var(--font-display);
     letter-spacing: -0.02em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .brand-name {
+    display: inline-flex;
+    align-items: baseline;
+    line-height: 1;
   }
 
   .brand-mark {
+    display: block;
+    flex: 0 0 auto;
     width: 1.45rem;
     height: 1.45rem;
     border-radius: 0.42rem;
