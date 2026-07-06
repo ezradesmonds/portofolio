@@ -26,15 +26,15 @@ export const translations = {
 
     "proof.hackathon": "2nd Place International<br />Hackathon 2026",
     "proof.products": "AI & Full-Stack<br />Systems Built",
-    "proof.gpa": "Semester Informatics<br />GPA 3.75 / 4.00",
+    "proof.gpa": "Semester Informatics<br />GPA 3.76 / 4.00",
     "proof.local": "Students, Builders<br />& Early Founders",
 
     "about.title": "About Ezra",
     "about.education.label": "Education",
     "about.education.school": "Petra Christian University, Surabaya",
-    "about.education.detail": "Informatics, 4th Semester · GPA 3.75 / 4.00",
+    "about.education.detail": "Informatics, 4th Semester · GPA 3.76 / 4.00",
     "about.p1":
-      "Ezra Desmond Sutanto is an Informatics student at Petra Christian University, Surabaya, currently in the fourth semester with a GPA of 3.75 / 4.00. He is an AI and full-stack builder focused on creating systems that help ambitious people work with more clarity and execute their ideas faster. His work spans full-stack web development, artificial intelligence, productivity systems, business tools, financial technology experiments, and product design.",
+      "Ezra Desmond Sutanto is an Informatics student at Petra Christian University, Surabaya, currently in the fourth semester with a GPA of 3.76 / 4.00. He is an AI and full-stack builder focused on creating systems that help ambitious people work with more clarity and execute their ideas faster. His work spans full-stack web development, artificial intelligence, productivity systems, business tools, financial technology experiments, and product design.",
     "about.p2":
       "He wants to build systems that help ambitious people move faster, think clearer, and achieve more. Today, he is starting with students, young builders, and early-stage entrepreneurs: people with strong ambitions who are often limited by scattered tools, information overload, and difficulty turning ideas into consistent action.",
     "about.p3":
@@ -115,15 +115,15 @@ export const translations = {
 
     "proof.hackathon": "Juara 2 International<br />Hackathon 2026",
     "proof.products": "Sistem AI & Full-Stack<br />Dibangun",
-    "proof.gpa": "Semester 4 Informatika<br />IPK 3.75 / 4.00",
+    "proof.gpa": "Semester 4 Informatika<br />IPK 3.76 / 4.00",
     "proof.local": "Mahasiswa, Builder<br />& Founder Awal",
 
     "about.title": "Tentang Ezra",
     "about.education.label": "Pendidikan",
     "about.education.school": "Universitas Kristen Petra, Surabaya",
-    "about.education.detail": "Informatika, Semester 4 · IPK 3.75 / 4.00",
+    "about.education.detail": "Informatika, Semester 4 · IPK 3.76 / 4.00",
     "about.p1":
-      "Ezra Desmond Sutanto adalah mahasiswa Informatika di Universitas Kristen Petra Surabaya, saat ini semester empat dengan IPK 3.75 / 4.00. Ia adalah AI dan full-stack builder yang fokus menciptakan sistem untuk membantu orang ambisius bekerja dengan lebih jelas dan mengeksekusi ide lebih cepat. Karyanya mencakup full-stack web development, kecerdasan buatan, sistem produktivitas, business tools, eksperimen teknologi finansial, dan desain produk.",
+      "Ezra Desmond Sutanto adalah mahasiswa Informatika di Universitas Kristen Petra Surabaya, saat ini semester empat dengan IPK 3.76 / 4.00. Ia adalah AI dan full-stack builder yang fokus menciptakan sistem untuk membantu orang ambisius bekerja dengan lebih jelas dan mengeksekusi ide lebih cepat. Karyanya mencakup full-stack web development, kecerdasan buatan, sistem produktivitas, business tools, eksperimen teknologi finansial, dan desain produk.",
     "about.p2":
       "Ia ingin membangun sistem yang membantu orang ambisius bergerak lebih cepat, berpikir lebih jernih, dan mencapai lebih banyak hal. Saat ini, ia memulai dari mahasiswa ambisius, builder muda, dan entrepreneur tahap awal: orang-orang dengan ambisi kuat yang sering terhambat oleh alat yang terpencar, information overload, dan kesulitan mengubah ide menjadi aksi yang konsisten.",
     "about.p3":

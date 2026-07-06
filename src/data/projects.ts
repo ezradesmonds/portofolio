@@ -221,39 +221,6 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: "bizxray-ai",
-    title: "BizXRay AI",
-    category: "AI Business Consulting",
-    description:
-      "An AI-assisted business consulting platform composed of six analytical modules for structured business evaluation and recommendations.",
-    problem:
-      "Small businesses cannot afford traditional consulting but need structured, analytical business evaluation to identify improvement areas and growth opportunities.",
-    targetUsers: "Small business owners and operators",
-    role: "Product builder",
-    contribution:
-      "Designed the multi-module analysis workflow, integrated OpenRouter-based LLM for business analysis, and built the reporting and recommendation system.",
-    technologies: ["Next.js", "TypeScript", "OpenRouter", "Python"],
-    status: "prototype",
-    statusLabel: "Prototype",
-    githubUrl: "https://github.com/ezradesmonds",
-    featured: false,
-    sortOrder: 6,
-    detail: {
-      overview:
-        "BizXRay AI provides six analytical modules covering different aspects of business evaluation. Each module uses structured prompting and LLM analysis to generate actionable business insights and recommendations.",
-      keyFeatures: [
-        "Six-module business analysis framework",
-        "OpenRouter-based LLM integration",
-        "Business-oriented prompting and reporting",
-        "Structured recommendation generation",
-      ],
-      challenges: [
-        "Designing prompts that produce structured, consistent business analysis",
-        "Balancing AI-generated insights with human business judgment",
-      ],
-    },
-  },
-  {
     slug: "servisin",
     title: "Servisin",
     category: "Service Marketplace / Mobile Application / Technopreneur Final Project",
@@ -308,23 +275,6 @@ export const additionalProjects: Project[] = [
     liveUrl: "https://byribkachyntya1.odoo.com/",
     featured: false,
     sortOrder: 8,
-  },
-  {
-    slug: "quantitative-stock-prediction",
-    title: "Quantitative Stock Prediction",
-    category: "Financial Technology / Machine Learning",
-    description:
-      "A machine learning-based financial prediction system integrating technical indicators and an interactive analytics dashboard.",
-    problem: "TODO: Add specific problem context",
-    targetUsers: "Quantitative researchers",
-    role: "Developer",
-    contribution:
-      "Engineered trading signals using MACD, RSI, EMA, and Z-Score indicators. Built a Python backtesting engine and Streamlit analytics dashboard.",
-    technologies: ["Python", "Pandas", "Streamlit", "NumPy"],
-    status: "academic",
-    statusLabel: "Academic",
-    featured: false,
-    sortOrder: 9,
   },
   {
     slug: "tower-defense-game",

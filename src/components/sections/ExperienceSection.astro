@@ -6,9 +6,10 @@ import SectionHeading from "../ui/SectionHeading.astro";
 
 const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname);
 const localizedExperiences = localizeExperiences(experiences, lang);
+const skillsLabel = lang === "id" ? "Keahlian" : "Skills";
 ---
 
-<section id="experience" class="section">
+<section id="experience" class="section experience-section" data-experience-section>
   <div class="container-lg">
     <SectionHeading
       number="03."
@@ -16,33 +17,347 @@ const localizedExperiences = localizeExperiences(experiences, lang);
       subtitle={t(lang, "experience.subtitle")}
     />
 
-    <div class="relative">
-      <div class="absolute left-3 md:left-6 top-0 bottom-0 w-px bg-dark-border" aria-hidden="true"></div>
+    <div class="experience-timeline" data-experience-timeline>
+      <div class="timeline-rail" aria-hidden="true">
+        <span data-timeline-progress></span>
+      </div>
 
-      <div class="space-y-10 md:space-y-12">
-        {localizedExperiences.map((exp) => (
-          <div class="relative pl-10 md:pl-16">
-            <div class="absolute left-0 md:left-1.5 top-1.5 w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-accent-cyan ring-4 ring-dark-base" aria-hidden="true"></div>
-
-            <div class="flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 mb-3">
-              <h3 class="text-xl font-bold text-white">{exp.role}</h3>
-              <span class="text-sm font-mono text-accent-cyan whitespace-nowrap">{exp.period}</span>
+      <div class="timeline-list">
+        {localizedExperiences.map((exp, index) => (
+          <article class="timeline-item" data-timeline-item>
+            <div class="timeline-marker" aria-hidden="true">
+              <span>{String(index + 1).padStart(2, "0")}</span>
             </div>
 
-            <p class="text-sm text-text-muted font-mono mb-1">{exp.organization}</p>
-            <p class="text-text-secondary leading-relaxed mb-4">{exp.description}</p>
+            <div class="timeline-content">
+              <div class="timeline-meta">
+                <p>{exp.organization}</p>
+                <span>{exp.period}</span>
+              </div>
 
-            <ul class="space-y-2">
-              {exp.highlights.map((h) => (
-                <li class="text-sm text-text-secondary flex items-start gap-2">
-                  <span class="text-accent-cyan mt-1.5 flex-shrink-0" aria-hidden="true">&mdash;</span>
-                  {h}
-                </li>
-              ))}
-            </ul>
-          </div>
+              <h3>{exp.role}</h3>
+              <p class="timeline-description">{exp.description}</p>
+
+              <ul class="timeline-highlights">
+                {exp.highlights.map((highlight) => (
+                  <li>
+                    <span aria-hidden="true">&gt;</span>
+                    {highlight}
+                  </li>
+                ))}
+              </ul>
+
+              {exp.skills && exp.skills.length > 0 && (
+                <div class="timeline-skills" aria-label={skillsLabel}>
+                  {exp.skills.map((skill) => <span>{skill}</span>)}
+                </div>
+              )}
+            </div>
+          </article>
         ))}
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initExperienceTimeline() {
+    const timeline = document.querySelector("[data-experience-timeline]");
+    if (!timeline) return;
+
+    const items = Array.from(timeline.querySelectorAll("[data-timeline-item]"));
+    const progress = timeline.querySelector("[data-timeline-progress]");
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    ScrollTrigger.getAll().forEach((trigger) => {
+      const triggerElement = trigger.trigger;
+      if (triggerElement instanceof Element && timeline.contains(triggerElement)) {
+        trigger.kill();
+      }
+    });
+
+    if (prefersReduced) {
+      timeline.classList.add("is-reduced-motion");
+      return;
+    }
+
+    gsap.set(items, { autoAlpha: 0, y: 28, filter: "blur(8px)" });
+
+    items.forEach((item) => {
+      gsap.to(item, {
+        autoAlpha: 1,
+        y: 0,
+        filter: "blur(0px)",
+        duration: 0.78,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: item,
+          start: "top 84%",
+          toggleActions: "play none none reverse",
+        },
+      });
+    });
+
+    if (progress) {
+      gsap.set(progress, { scaleY: 0, transformOrigin: "top center" });
+      gsap.to(progress, {
+        scaleY: 1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: timeline,
+          start: "top 78%",
+          end: "bottom 66%",
+          scrub: 0.45,
+        },
+      });
+    }
+
+    ScrollTrigger.refresh();
+  }
+
+  document.addEventListener("DOMContentLoaded", initExperienceTimeline);
+  document.addEventListener("astro:after-swap", initExperienceTimeline);
+</script>
+
+<style>
+  .experience-section {
+    overflow: hidden;
+  }
+
+  .experience-timeline {
+    position: relative;
+    margin-top: 0.5rem;
+  }
+
+  .timeline-rail {
+    position: absolute;
+    left: 1.18rem;
+    top: 0.35rem;
+    bottom: 0.35rem;
+    width: 1px;
+    overflow: hidden;
+    background: rgba(244, 255, 114, 0.13);
+  }
+
+  .timeline-rail span {
+    position: absolute;
+    inset: 0;
+    display: block;
+    background: linear-gradient(
+      180deg,
+      rgba(244, 255, 114, 0),
+      rgba(244, 255, 114, 0.92) 18%,
+      rgba(255, 107, 53, 0.88) 74%,
+      rgba(63, 142, 255, 0)
+    );
+    transform: scaleY(1);
+    transform-origin: top center;
+  }
+
+  .timeline-list {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    gap: 1rem;
+    will-change: transform, opacity, filter;
+  }
+
+  .timeline-item::before {
+    content: "";
+    position: absolute;
+    left: 2.35rem;
+    top: 1.12rem;
+    width: 1.6rem;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(244, 255, 114, 0.8), rgba(244, 255, 114, 0));
+  }
+
+  .timeline-marker {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    width: 2.35rem;
+    height: 2.35rem;
+    place-items: center;
+    border: 1px solid rgba(244, 255, 114, 0.42);
+    border-radius: 999px;
+    background:
+      radial-gradient(circle, rgba(244, 255, 114, 0.95), rgba(244, 255, 114, 0.62) 42%, rgba(7, 8, 5, 0.92) 45%),
+      var(--color-dark-base);
+    box-shadow:
+      0 0 0 7px rgba(7, 8, 5, 0.9),
+      0 0 28px rgba(244, 255, 114, 0.18);
+    color: var(--color-dark-base);
+    font-family: var(--font-mono);
+    font-size: 0.56rem;
+    font-weight: 900;
+  }
+
+  .timeline-marker span {
+    transform: translateY(0.03rem);
+  }
+
+  .timeline-content {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(244, 255, 114, 0.14);
+    border-radius: 14px;
+    background:
+      linear-gradient(145deg, rgba(18, 21, 12, 0.92), rgba(8, 10, 6, 0.96)),
+      radial-gradient(circle at 0 0, rgba(244, 255, 114, 0.12), transparent 18rem);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.26);
+    padding: 1.05rem;
+    transition:
+      border-color 0.24s ease,
+      transform 0.24s ease,
+      background-color 0.24s ease;
+  }
+
+  .timeline-content::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(244, 255, 114, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(244, 255, 114, 0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: linear-gradient(to bottom, black, transparent 80%);
+  }
+
+  .timeline-item:hover .timeline-content {
+    transform: translateY(-0.16rem);
+    border-color: rgba(244, 255, 114, 0.32);
+  }
+
+  .timeline-meta,
+  .timeline-content h3,
+  .timeline-description,
+  .timeline-highlights,
+  .timeline-skills {
+    position: relative;
+    z-index: 1;
+  }
+
+  .timeline-meta {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.55rem;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 800;
+    line-height: 1.35;
+  }
+
+  .timeline-meta span {
+    flex-shrink: 0;
+    color: var(--color-accent-cyan);
+  }
+
+  .timeline-content h3 {
+    color: var(--color-text-primary);
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2.4vw, 1.8rem);
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .timeline-description {
+    max-width: 58rem;
+    margin-top: 0.75rem;
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .timeline-highlights {
+    display: grid;
+    gap: 0.55rem;
+    margin-top: 1rem;
+  }
+
+  .timeline-highlights li {
+    display: grid;
+    grid-template-columns: 1rem minmax(0, 1fr);
+    gap: 0.45rem;
+    color: var(--color-text-secondary);
+    font-size: 0.86rem;
+    line-height: 1.45;
+  }
+
+  .timeline-highlights span {
+    color: var(--color-accent-cyan);
+    font-family: var(--font-mono);
+    font-weight: 900;
+  }
+
+  .timeline-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 1rem;
+  }
+
+  .timeline-skills span {
+    border: 1px solid rgba(244, 255, 114, 0.16);
+    border-radius: 999px;
+    background: rgba(244, 255, 114, 0.06);
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    font-weight: 800;
+    padding: 0.28rem 0.52rem;
+  }
+
+  @media (min-width: 768px) {
+    .timeline-rail {
+      left: 1.42rem;
+    }
+
+    .timeline-list {
+      gap: 2.35rem;
+    }
+
+    .timeline-item {
+      grid-template-columns: 3.65rem minmax(0, 1fr);
+      gap: 1.3rem;
+    }
+
+    .timeline-item::before {
+      left: 2.68rem;
+      width: 2.3rem;
+    }
+
+    .timeline-marker {
+      width: 2.85rem;
+      height: 2.85rem;
+    }
+
+    .timeline-content {
+      padding: 1.35rem 1.45rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .timeline-item,
+    .timeline-content,
+    .timeline-rail span {
+      opacity: 1 !important;
+      filter: none !important;
+      transform: none !important;
+    }
+  }
+</style>

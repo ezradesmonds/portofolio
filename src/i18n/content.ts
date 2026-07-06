@@ -187,32 +187,6 @@ const projectIdLocales: Record<string, ProjectLocale> = {
         "Platform memproses 100+ peserta dan berjalan reliabel sepanjang event. Tim teknis mengirim sistem di bawah koordinasi kepala divisi IT.",
     },
   },
-  "bizxray-ai": {
-    category: "Konsultasi Bisnis AI",
-    description:
-      "Platform konsultasi bisnis berbantuan AI dengan enam modul analisis untuk evaluasi dan rekomendasi bisnis yang terstruktur.",
-    problem:
-      "Bisnis kecil sering tidak mampu membayar konsultasi tradisional, tetapi tetap butuh evaluasi bisnis yang analitis untuk menemukan area perbaikan dan peluang pertumbuhan.",
-    targetUsers: "Pemilik dan operator bisnis kecil",
-    role: "Pembangun produk",
-    contribution:
-      "Merancang workflow analisis multi-modul, mengintegrasikan LLM berbasis OpenRouter untuk analisis bisnis, dan membangun sistem laporan serta rekomendasi.",
-    statusLabel: "Prototipe",
-    detail: {
-      overview:
-        "BizXRay AI menyediakan enam modul analisis untuk berbagai aspek evaluasi bisnis. Setiap modul memakai prompting terstruktur dan analisis LLM untuk menghasilkan insight serta rekomendasi yang bisa ditindaklanjuti.",
-      keyFeatures: [
-        "Framework analisis bisnis enam modul",
-        "Integrasi LLM berbasis OpenRouter",
-        "Prompting dan pelaporan berorientasi bisnis",
-        "Generasi rekomendasi terstruktur",
-      ],
-      challenges: [
-        "Merancang prompt yang menghasilkan analisis bisnis konsisten dan terstruktur",
-        "Menyeimbangkan insight dari AI dengan penilaian bisnis manusia",
-      ],
-    },
-  },
   servisin: {
     category: "Marketplace Jasa / Aplikasi Mobile / Tugas Akhir Technopreneur",
     description:
@@ -252,18 +226,6 @@ const projectIdLocales: Record<string, ProjectLocale> = {
       "Mengonfigurasi dan menyesuaikan modul e-commerce serta rental Odoo untuk mendukung booking, ketersediaan, dan manajemen transaksi.",
     statusLabel: "Studi Kasus",
   },
-  "quantitative-stock-prediction": {
-    title: "Prediksi Saham Kuantitatif",
-    category: "Financial Technology / Machine Learning",
-    description:
-      "Sistem prediksi finansial berbasis machine learning yang menggabungkan indikator teknikal dan dashboard analitik interaktif.",
-    problem: "Peneliti kuantitatif butuh eksperimen prediksi dan backtesting yang lebih terstruktur untuk mengevaluasi sinyal market.",
-    targetUsers: "Peneliti kuantitatif",
-    role: "Developer",
-    contribution:
-      "Membangun sinyal trading menggunakan indikator MACD, RSI, EMA, dan Z-Score. Membuat engine backtesting Python dan dashboard analitik Streamlit.",
-    statusLabel: "Akademik",
-  },
   "tower-defense-game": {
     title: "Game Tower Defense",
     category: "Game Development / Tugas Akhir OOP",
@@ -302,8 +264,44 @@ const projectIdLocales: Record<string, ProjectLocale> = {
   },
 };
 
-const experienceIdLocales: Partial<Experience>[] = [
-  {
+const experienceIdLocalesByKey: Record<string, Partial<Experience>> = {
+  "Equipment Coordinator - AI & Machine Learning Academic Event::Equipment Coordinator": {
+    organization: "Academic Event AI & Machine Learning",
+    role: "Koordinator Perlengkapan",
+    description:
+      "Acara akademik AI dan Machine Learning yang diselenggarakan Departemen Informatika, menghadirkan dosen tamu dari Jepang dan diikuti 200+ mahasiswa Informatika dari seluruh angkatan.",
+    highlights: [
+      "Memimpin perencanaan dan koordinasi perlengkapan serta logistik venue untuk acara",
+      "Berkoordinasi dengan panitia untuk memastikan sesi teknis dan presentasi berjalan lancar",
+      "Mendukung keberhasilan acara yang dihadiri 200+ mahasiswa dan dosen tamu internasional",
+    ],
+    skills: ["Operasi Event", "Manajemen Logistik", "Koordinasi Tim"],
+  },
+  "Petra Fun Run x Royal Residence::Coordinator of Equipment Division": {
+    organization: "Petra Fun Run x Royal Residence",
+    role: "Koordinator Divisi Perlengkapan",
+    description:
+      "Event lari komunitas berskala besar yang diselenggarakan Petra Christian University bersama Royal Residence, dihadiri 500-1.000+ peserta termasuk Wali Kota Surabaya, Presiden Direktur Royal Residence, dan Rektor Petra Christian University.",
+    highlights: [
+      "Memimpin Divisi Perlengkapan dalam perencanaan dan koordinasi logistik operasional acara",
+      "Mengelola persiapan perlengkapan, distribusi, dan setup venue bersama panitia lintas divisi",
+      "Membantu memastikan kelancaran event publik berskala besar yang melibatkan pejabat pemerintah, pimpinan universitas, dan peserta komunitas",
+    ],
+    skills: ["Leadership", "Logistik Event", "Manajemen Operasi"],
+  },
+  "Welcome Grateful Generation 2026::Member of IT Division": {
+    organization: "Welcome Grateful Generation 2026",
+    role: "Anggota Divisi IT",
+    description:
+      "Program orientasi untuk mahasiswa baru Informatika di Petra Christian University.",
+    highlights: [
+      "Mengembangkan platform rekrutmen online yang digunakan 100+ calon panitia selama proses rekrutmen tim penyelenggara",
+      "Membangun dashboard administratif untuk manajemen panitia dan operasi rekrutmen",
+      "Mengembangkan website landing resmi berisi informasi dan resource onboarding untuk 1.000+ mahasiswa baru",
+    ],
+    skills: ["Web Development", "Laravel", "Full-Stack Development", "Manajemen Database"],
+  },
+  "Innofashion Show 8::Head / Coordinator of IT Division": {
     role: "Kepala / Koordinator Divisi IT",
     period: "2024 - 2025",
     description:
@@ -315,7 +313,7 @@ const experienceIdLocales: Partial<Experience>[] = [
       "Mengelola operasi teknis on-site saat event berlangsung",
     ],
   },
-  {
+  "Investalk Talkshow::Event Chair": {
     role: "Ketua Event",
     description:
       "Memimpin perencanaan dan eksekusi talkshow edukasi finansial.",
@@ -325,7 +323,7 @@ const experienceIdLocales: Partial<Experience>[] = [
       "Mengelola budgeting dan alokasi resource",
     ],
   },
-  {
+  "DigiComp 2026 UI/UX Competition::Secretary and Treasurer": {
     role: "Sekretaris dan Bendahara",
     description:
       "Mengelola budgeting, operasi finansial, dan dokumentasi administratif untuk kompetisi desain UI/UX.",
@@ -335,7 +333,7 @@ const experienceIdLocales: Partial<Experience>[] = [
       "Mendukung logistik event dan koordinasi lintas tim",
     ],
   },
-  {
+  "HIMAINFRA::Organizational Member": {
     role: "Anggota Organisasi",
     period: "2024 - Sekarang",
     description:
@@ -345,7 +343,7 @@ const experienceIdLocales: Partial<Experience>[] = [
       "Berkolaborasi dengan mahasiswa lain dalam inisiatif teknis dan komunitas",
     ],
   },
-];
+};
 
 const awardIdLocales: Partial<Award>[] = [
   {
@@ -485,11 +483,20 @@ export function localizeProjects(projects: Project[], lang: Lang): Project[] {
 export function localizeExperiences(experiences: Experience[], lang: Lang): Experience[] {
   if (lang !== "id") return experiences;
 
-  return experiences.map((experience, index) => ({
-    ...experience,
-    ...experienceIdLocales[index],
-    highlights: experienceIdLocales[index]?.highlights ?? experience.highlights,
-  }));
+  return experiences.map((experience) => {
+    const localized =
+      experienceIdLocalesByKey[`${experience.organization}::${experience.role}`] ??
+      experienceIdLocalesByKey[experience.organization];
+
+    if (!localized) return experience;
+
+    return {
+      ...experience,
+      ...localized,
+      highlights: localized.highlights ?? experience.highlights,
+      skills: localized.skills ?? experience.skills,
+    };
+  });
 }
 
 export function localizeAwards(awards: Award[], lang: Lang): Award[] {

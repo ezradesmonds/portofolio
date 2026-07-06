@@ -2,6 +2,45 @@ import type { Experience } from "../types";
 
 export const experiences: Experience[] = [
   {
+    organization: "Equipment Coordinator - AI & Machine Learning Academic Event",
+    role: "Equipment Coordinator",
+    period: "2025",
+    description:
+      "An academic AI and Machine Learning event organized by the Informatics Department, featuring a guest lecturer from Japan and attended by 200+ Informatics students from the full cohort.",
+    highlights: [
+      "Led the planning and coordination of equipment and venue logistics for the event",
+      "Coordinated with organizing committees to ensure smooth execution of technical sessions and presentations",
+      "Supported the successful delivery of the event attended by 200+ students and an international guest lecturer",
+    ],
+    skills: ["Event Operations", "Logistics Management", "Team Coordination"],
+  },
+  {
+    organization: "Petra Fun Run x Royal Residence",
+    role: "Coordinator of Equipment Division",
+    period: "2025",
+    description:
+      "A large-scale community running event jointly organized by Petra Christian University and Royal Residence, attended by 500-1,000+ participants including the Mayor of Surabaya, the President Director of Royal Residence, and the Rector of Petra Christian University.",
+    highlights: [
+      "Led the Equipment Division in planning and coordinating logistics for event operations",
+      "Managed equipment preparation, distribution, and venue setup with cross-functional committees",
+      "Helped ensure smooth execution of a large-scale public event involving government officials, university leadership, and community participants",
+    ],
+    skills: ["Leadership", "Event Logistics", "Operations Management"],
+  },
+  {
+    organization: "Welcome Grateful Generation 2026",
+    role: "Member of IT Division",
+    period: "2026",
+    description:
+      "Orientation program for new Informatics students at Petra Christian University.",
+    highlights: [
+      "Developed an online recruitment platform used by 100+ committee applicants during the organizing team's recruitment process",
+      "Built an administrative dashboard for committee management and recruitment operations",
+      "Developed the official landing website providing information and onboarding resources for 1,000+ incoming freshmen",
+    ],
+    skills: ["Web Development", "Laravel", "Full-Stack Development", "Database Management"],
+  },
+  {
     organization: "Innofashion Show 8",
     role: "Head / Coordinator of IT Division",
     period: "2024 – 2025",

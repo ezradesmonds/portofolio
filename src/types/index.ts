@@ -39,6 +39,7 @@ export interface Experience {
   period: string;
   description: string;
   highlights: string[];
+  skills?: string[];
 }
 
 export interface Award {
