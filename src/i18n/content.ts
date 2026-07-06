@@ -312,6 +312,7 @@ const experienceIdLocalesByKey: Record<string, Partial<Experience>> = {
       "Mengimplementasikan banyak bagian frontend dan backend",
       "Mengelola operasi teknis on-site saat event berlangsung",
     ],
+    skills: ["Leadership Teknis", "Full-Stack Development", "Teknologi Event", "Deployment"],
   },
   "Investalk Talkshow::Event Chair": {
     role: "Ketua Event",
@@ -322,6 +323,7 @@ const experienceIdLocalesByKey: Record<string, Partial<Experience>> = {
       "Mengoordinasikan tim, operasi event, evaluasi, dan pengalaman peserta",
       "Mengelola budgeting dan alokasi resource",
     ],
+    skills: ["Leadership Event", "Budgeting", "Edukasi Finansial", "Operasi Tim"],
   },
   "DigiComp 2026 UI/UX Competition::Secretary and Treasurer": {
     role: "Sekretaris dan Bendahara",
@@ -332,6 +334,7 @@ const experienceIdLocalesByKey: Record<string, Partial<Experience>> = {
       "Menyiapkan dokumen administratif, surat izin, dan korespondensi resmi",
       "Mendukung logistik event dan koordinasi lintas tim",
     ],
+    skills: ["Budgeting", "Operasi Finansial", "Administrasi", "Koordinasi Lintas Tim"],
   },
   "HIMAINFRA::Organizational Member": {
     role: "Anggota Organisasi",
@@ -342,6 +345,7 @@ const experienceIdLocalesByKey: Record<string, Partial<Experience>> = {
       "Berkontribusi dalam aktivitas organisasi dan event",
       "Berkolaborasi dengan mahasiswa lain dalam inisiatif teknis dan komunitas",
     ],
+    skills: ["Organisasi Mahasiswa", "Inisiatif Komunitas", "Kolaborasi"],
   },
 };
 
