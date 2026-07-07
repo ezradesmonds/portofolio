@@ -8,7 +8,7 @@ export const SITE: SiteConfig = {
   url: "https://www.ezradesmonds.my.id",
   email: "ezradesmonds@gmail.com",
   github: "https://github.com/ezradesmonds",
-  linkedin: "https://www.linkedin.com/in/ezra-desmond-sutanto-90309332b",
+  linkedin: "https://www.linkedin.com/in/ezradesmonds/",
   instagram: "https://instagram.com/ezradesmonds",
   headline: "AI & Full-Stack Builder",
   subheadline:
