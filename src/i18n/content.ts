@@ -328,6 +328,142 @@ const projectIdLocales: Record<string, ProjectLocale> = {
       },
     ],
   },
+  finlend: {
+    category: "AI Credit Intelligence / Tugas Akhir AIML",
+    description:
+      "Sistem simulasi risiko kredit berbasis AI yang menggabungkan model neural network dengan fuzzy logic untuk merekomendasikan keputusan kredit, limit, dan bunga.",
+    problem:
+      "Evaluasi kredit membutuhkan intake data pemohon yang terstruktur, sinyal risiko yang bisa dijelaskan, dan dukungan keputusan yang menghubungkan output model ke rekomendasi yang mudah dibaca.",
+    targetUsers: "Analis kredit, builder fintech, dan evaluator akademik AIML",
+    role: "AI dan full-stack developer",
+    contribution:
+      "Membangun interface Laravel, menghubungkannya ke AI engine FastAPI, merancang alur input 25 fitur, dan membentuk pipeline ML plus fuzzy decision menjadi pengalaman simulasi kredit yang polished.",
+    statusLabel: "Tugas Akhir AIML",
+    outcome:
+      "Menghasilkan flow simulasi kredit end-to-end yang memproses data pemohon, finansial, pinjaman, dan jaminan menjadi rekomendasi risiko, approval, limit, dan bunga.",
+    detail: {
+      overview:
+        "FinLend adalah proyek akademik AI credit intelligence yang dibangun dengan interface Laravel dan AI engine FastAPI. Sistem ini mengubah 25 sinyal pemohon menjadi rekomendasi risiko kredit memakai feedforward neural network dan fuzzy logic.",
+      keyFeatures: [
+        "Flow pengajuan kredit 5 tahap",
+        "Input 25 fitur pemohon dan pinjaman",
+        "Integrasi AI engine FastAPI",
+        "Risk scoring dengan feedforward neural network",
+        "Fuzzy logic untuk rekomendasi limit dan bunga",
+        "Interface Laravel untuk output disetujui atau ditolak",
+      ],
+      challenges: [
+        "Menjaga struktur input model tetap selaras antara Laravel dan FastAPI",
+        "Menyajikan output model sebagai rekomendasi kredit yang terbaca, bukan skor black-box",
+        "Menghadapi batasan dataset akademik sambil menjaga demo tetap believable",
+      ],
+      aiSystem: {
+        provider: "AI engine Python FastAPI memakai MLPClassifier plus layer fuzzy logic.",
+        pipeline: [
+          "User mengisi 25 sinyal pemohon, finansial, pinjaman, dan jaminan lewat form Laravel.",
+          "Laravel mengirim payload terstruktur ke endpoint FastAPI /hitung-kredit.",
+          "Model neural network memperkirakan risiko gagal bayar dari feature set yang sudah diskalakan.",
+          "Fuzzy logic menerjemahkan risiko dan konteks finansial menjadi rekomendasi limit dan bunga.",
+          "Laravel menampilkan output keputusan sebagai simulasi approval atau rejection dengan konteks yang mudah dibaca.",
+        ],
+        dataFlow:
+          "Laravel menangani flow web dan mengirim request terstruktur ke FastAPI; service Python mengembalikan output risiko dan fuzzy decision ke halaman hasil.",
+        validation:
+          "Input dibatasi ke 25 fitur model, lalu diskalakan dan diproses sebelum output rekomendasi.",
+        failureHandling:
+          "Flow web bergantung pada service FastAPI di port 8000; masalah koneksi diperlakukan sebagai dependency runtime demo, bukan hasil palsu.",
+        limitations:
+          "Simulasi akademik memakai data loan-default dan asumsi skala USD. Ini bukan sistem approval kredit produksi dan masih butuh validasi fairness, kalibrasi, dan compliance.",
+      },
+      results:
+        "Dibangun sebagai tugas akhir mata kuliah AIML dengan pipeline Laravel-ke-FastAPI yang bekerja dan interface analisis kredit yang polished.",
+    },
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/finlend-landing.webp",
+        alt: "Landing page FinLend dengan positioning AI credit intelligence, pipeline ML plus fuzzy, dan flow pengajuan bertahap.",
+        caption:
+          "Permukaan landing dan workflow: positioning ML + fuzzy decision dengan flow pengajuan kredit 5 tahap.",
+      },
+      {
+        src: "/assets/case-studies/finlend-form.webp",
+        alt: "Form profil pemohon FinLend dengan catatan analisis berlapis dan indikator risk model aktif.",
+        caption:
+          "Form intake pemohon: profil, skor kredit, biro kredit, dan eligibility dikirim ke AI engine.",
+      },
+      {
+        src: "/assets/case-studies/finlend-demo.mp4",
+        poster: "/assets/case-studies/finlend-landing.webp",
+        kind: "video",
+        alt: "Video demo FinLend yang menunjukkan flow analisis kredit.",
+        caption:
+          "Artifact video demo untuk pengalaman pengajuan dan analisis kredit end-to-end.",
+      },
+    ],
+  },
+  "bank-tulang": {
+    category: "Client Project / Platform Edukasi Kesehatan",
+    description:
+      "Prototype promosi kesehatan tulang berbasis web untuk mahasiswa farmasi, dengan modul edukasi, kuis adaptasi OKAT, konsep tracking kalsium/aktivitas, dan simulasi kesiapan interaktif.",
+    problem:
+      "Client mahasiswa farmasi membutuhkan platform interaktif yang jelas untuk mengomunikasikan rancangan intervensi kesehatan tulang, bukan sekadar tabel atau slide statis.",
+    targetUsers: "Mahasiswa farmasi, dosen pembimbing, dan audiens presentasi akademik",
+    role: "Developer client project",
+    contribution:
+      "Membangun microsite interaktif, menyusun delapan modul intervensi, merancang permukaan kuis dan simulasi, serta menerjemahkan evidence akademik menjadi pengalaman web yang siap dipresentasikan.",
+    statusLabel: "Client Project",
+    outcome:
+      "Menghasilkan prototype siap presentasi yang menjelaskan intervensi 8 komponen, kuis adaptasi OKAT 12 item, dan simulasi kesiapan kesehatan dalam format web-native.",
+    detail: {
+      overview:
+        "Bank Tulang adalah microsite client untuk mahasiswa farmasi yang perlu mempresentasikan platform intervensi kesehatan tulang. Produk ini membingkai asesmen, skor, tracking, edukasi, target, gamification, dan social challenge dalam prototype web yang jelas.",
+      keyFeatures: [
+        "Landing page promosi kesehatan tulang",
+        "Delapan kartu modul intervensi",
+        "Modal kuis adaptasi OKAT 12 item",
+        "Simulasi kesiapan dengan parameter yang bisa diubah",
+        "Arsitektur konten berbasis evidence",
+        "Mode presentasi responsif untuk review akademik",
+      ],
+      challenges: [
+        "Mengubah tabel intervensi akademik menjadi website yang kredibel dan mudah dibaca",
+        "Menjaga produk tetap edukatif tanpa memberi kesan diagnosis medis",
+        "Menyeimbangkan visual yang energik dengan kejelasan dan aksesibilitas kesehatan",
+      ],
+      results:
+        "Membuat prototype web-native yang membantu audiens memahami struktur intervensi dengan cepat saat presentasi akademik.",
+      lessonsLearned: [
+        "Client akademik membutuhkan translasi dari evidence dan modul menjadi cerita yang bisa diikuti audiens non-teknis",
+        "Produk terkait kesehatan harus hati-hati dalam klaim, label, dan framing diagnosis",
+      ],
+    },
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/bank-tulang-landing.webp",
+        alt: "Landing page Bank Tulang dengan positioning pemantauan kesehatan tulang dan visual tulang belakang.",
+        caption:
+          "Landing experience untuk platform promosi kesehatan tulang dan framing intervensi akademik.",
+      },
+      {
+        src: "/assets/case-studies/bank-tulang-quiz.webp",
+        alt: "Modal kuis Bank Tulang dengan pertanyaan adaptasi OKAT dan opsi benar, salah, tidak tahu.",
+        caption:
+          "Interface kuis adaptasi OKAT 12 item dengan konsep interpretasi skor otomatis.",
+      },
+      {
+        src: "/assets/case-studies/bank-tulang-modules.webp",
+        alt: "Delapan kartu modul intervensi Bank Tulang untuk kuis, skor, tracking kalsium, catatan aktivitas, edukasi, target, gamification, dan social challenge.",
+        caption:
+          "Delapan modul intervensi yang diterjemahkan dari rencana akademik menjadi kartu web yang mudah dibaca.",
+      },
+      {
+        src: "/assets/case-studies/bank-tulang-simulation.webp",
+        alt: "Simulasi kesiapan Bank Tulang dengan slider jawaban OKAT, kalsium, aktivitas, dan indikator kesiapan.",
+        caption:
+          "Simulasi interaktif untuk kesiapan pengetahuan, kalsium, dan aktivitas. Edukatif saja, bukan diagnosis medis.",
+      },
+    ],
+  },
   "innofashion-show-8": {
     title: "Platform Event Innofashion Show 8",
     category: "Teknologi Event Full-Stack",
@@ -450,6 +586,41 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     contribution:
       "Mengonfigurasi dan menyesuaikan modul e-commerce serta rental Odoo untuk mendukung booking, ketersediaan, dan manajemen transaksi.",
     statusLabel: "Studi Kasus",
+    detail: {
+      overview:
+        "Implementasi Odoo rental-commerce untuk bisnis gaun pengantin. Fokusnya adalah mengubah inventori produk menjadi storefront rental yang bisa dijelajahi pelanggan, lengkap dengan booking dan dukungan back-office inventory.",
+      keyFeatures: [
+        "Storefront e-commerce Odoo",
+        "Katalog produk rental",
+        "Flow booking rentang tanggal",
+        "Status publikasi inventori",
+        "Halaman detail produk untuk pelanggan",
+      ],
+      challenges: [
+        "Mengadaptasi setup commerce umum Odoo menjadi workflow rental",
+        "Membuat ketersediaan dan booking mudah dipahami pelanggan",
+      ],
+    },
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/wedding-rental-landing.webp",
+        alt: "Landing page storefront Odoo rental gaun pengantin.",
+        caption:
+          "Storefront publik yang dikonfigurasi untuk discovery gaun, browsing produk, dan appointment scheduling.",
+      },
+      {
+        src: "/assets/case-studies/wedding-rental-booking.webp",
+        alt: "Halaman produk rental gaun pengantin dengan kalender booking rentang tanggal.",
+        caption:
+          "Flow booking rental dengan pilihan rentang tanggal dan kalender ketersediaan di halaman detail produk.",
+      },
+      {
+        src: "/assets/case-studies/wedding-rental-products.webp",
+        alt: "Daftar produk backend Odoo untuk inventori rental gaun pengantin.",
+        caption:
+          "Tampilan back-office inventory untuk mengelola item rental yang dipublikasikan dan status stok.",
+      },
+    ],
   },
   "tower-defense-game": {
     title: "Game Tower Defense",
@@ -462,6 +633,41 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     contribution:
       "Mengimplementasikan mekanik inti seperti pathfinding musuh, penempatan tower, logika serangan, dan progresi wave menggunakan Java dan LibGDX.",
     statusLabel: "Akademik",
+    detail: {
+      overview:
+        "Game tower defense Java/LibGDX yang dibangun untuk tugas akhir pemrograman berorientasi objek. Proyek ini menunjukkan manajemen state game, perilaku entity, dan desain class reusable melalui gameplay tower-defense yang bisa dimainkan.",
+      keyFeatures: [
+        "Path musuh dan progresi wave",
+        "Penempatan tower dan logika serangan",
+        "Perilaku projectile dan collision",
+        "State money, score, health, dan sisa musuh",
+        "Kontrol pause, speed, reset, dan upgrade",
+      ],
+      challenges: [
+        "Menjaga entity game tetap modular untuk evaluasi OOP",
+        "Mengelola update state real-time antara musuh, tower, projectile, dan HUD",
+      ],
+    },
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/tower-defense-wave.webp",
+        alt: "Screen countdown wave game tower defense.",
+        caption:
+          "Screen awal wave yang menampilkan map, HUD, health, money, dan timing wave berikutnya.",
+      },
+      {
+        src: "/assets/case-studies/tower-defense-gameplay.webp",
+        alt: "Gameplay tower defense dengan tower menyerang musuh di jalur.",
+        caption:
+          "Gameplay loop dengan penempatan tower, serangan projectile, score, money, health, dan jumlah musuh tersisa.",
+      },
+      {
+        src: "/assets/case-studies/tower-defense-map.webp",
+        alt: "Map game tower defense dengan kontrol UI dan pilihan pembelian tower.",
+        caption:
+          "Permukaan map dan HUD untuk membeli tower, pause, speed up, reset, dan upgrade atribut.",
+      },
+    ],
   },
   "ppdb-school-info-system": {
     title: "Sistem Informasi PPDB Sekolah",
@@ -474,6 +680,41 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     contribution:
       "Membangun sistem web untuk pendaftaran, pengelolaan data, dan alur informasi penerimaan siswa.",
     statusLabel: "Akademik",
+    detail: {
+      overview:
+        "Sistem penerimaan siswa full-stack untuk tugas akhir Teknologi Web. Sistem mencakup landing page PPDB, login, registrasi pendaftar, dan upload dokumen.",
+      keyFeatures: [
+        "Landing page penerimaan siswa",
+        "Countdown dan CTA pendaftaran",
+        "Flow login pendaftar",
+        "Form data siswa dan orang tua",
+        "Pilihan akademik dan upload dokumen",
+      ],
+      challenges: [
+        "Menyusun form pendaftaran panjang agar tetap rapi",
+        "Memisahkan halaman informasi publik dari workflow pendaftar yang login",
+      ],
+    },
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/ppdb-landing.webp",
+        alt: "Landing page PPDB sekolah dengan countdown dan call to action pendaftaran.",
+        caption:
+          "Landing page penerimaan siswa dengan countdown, CTA utama pendaftaran, dan navigasi informasi.",
+      },
+      {
+        src: "/assets/case-studies/ppdb-login.webp",
+        alt: "Halaman login PPDB sekolah.",
+        caption:
+          "Permukaan login untuk akun pendaftar sebelum masuk ke workflow registrasi.",
+      },
+      {
+        src: "/assets/case-studies/ppdb-registration.webp",
+        alt: "Form pendaftaran PPDB dengan data siswa, orang tua, pilihan akademik, dan upload dokumen.",
+        caption:
+          "Form registrasi untuk data pendaftar, detail orang tua, pilihan akademik, dan upload dokumen.",
+      },
+    ],
   },
   "finance-tracker": {
     title: "Pelacak Keuangan",
@@ -486,6 +727,54 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     contribution:
       "Merancang dan membangun aplikasi finance tracker full-stack, termasuk pipeline deployment, desain database, dan frontend responsif.",
     statusLabel: "Tugas Akhir Akademik",
+    detail: {
+      overview:
+        "Aplikasi web keuangan pribadi yang dibangun sebagai tugas akhir Web Framework Deployment. Sistem ini memusatkan budget, expense, income, rekening, subscription, dan tanggal jatuh tempo.",
+      keyFeatures: [
+        "Ringkasan budget dan pengeluaran",
+        "Form pemasukan dan pengeluaran",
+        "Kartu rekening bergaya connected bank",
+        "Tracking subscription",
+        "Kalender jatuh tempo",
+        "Dashboard keuangan responsif",
+      ],
+      challenges: [
+        "Merancang beberapa mode keuangan tanpa membuat produk terasa terpecah",
+        "Menjaga form, chart, dan kalender tetap terbaca di berbagai ukuran layar",
+      ],
+    },
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/finance-tracker-landing.webp",
+        alt: "Landing page Finance Tracker dengan preview budget, transaksi, subscription, dan dashboard.",
+        caption:
+          "Landing page publik yang membingkai produk di sekitar budget, transaksi, subscription, dan dashboard terpadu.",
+      },
+      {
+        src: "/assets/case-studies/finance-tracker-dashboard.webp",
+        alt: "Dashboard Finance Tracker dengan budget, pengeluaran, subscription, kalender jatuh tempo, dan tagihan berikutnya.",
+        caption:
+          "Overview dashboard dengan budget bulanan, progres pengeluaran, subscription aktif, kalender jatuh tempo, dan tagihan berikutnya.",
+      },
+      {
+        src: "/assets/case-studies/finance-tracker-entry.webp",
+        alt: "Screen input pengeluaran dan pemasukan Finance Tracker dengan kartu bank terhubung.",
+        caption:
+          "Permukaan tracking untuk kartu bank, input pengeluaran, input pemasukan, sumber dana, dan kategori.",
+      },
+      {
+        src: "/assets/case-studies/finance-tracker-subscriptions.webp",
+        alt: "Halaman manajemen subscription Finance Tracker.",
+        caption:
+          "Halaman manajemen subscription dengan pembayaran recurring aktif dan rekomendasi quick-add.",
+      },
+      {
+        src: "/assets/case-studies/finance-tracker-calendar.webp",
+        alt: "Kalender jatuh tempo Finance Tracker dengan tanggal pembayaran subscription.",
+        caption:
+          "Tampilan kalender untuk memantau jatuh tempo tagihan recurring serta item upcoming/overdue.",
+      },
+    ],
   },
 };
 

@@ -178,7 +178,11 @@ const pageTitle = `${project.title} — ${SITE.name}`;
             <div class="proof-gallery">
               {project.proofArtifacts.map((artifact) => (
                 <figure class="proof-artifact">
-                  <img src={artifact.src} alt={artifact.alt} loading="lazy" decoding="async" />
+                  {artifact.kind === "video" ? (
+                    <video src={artifact.src} poster={artifact.poster} controls preload="metadata" aria-label={artifact.alt}></video>
+                  ) : (
+                    <img src={artifact.src} alt={artifact.alt} loading="lazy" decoding="async" />
+                  )}
                   <figcaption>{artifact.caption}</figcaption>
                 </figure>
               ))}
@@ -308,12 +312,14 @@ const pageTitle = `${project.title} — ${SITE.name}`;
     background: rgba(16, 18, 11, 0.72);
   }
 
-  .proof-artifact img {
+  .proof-artifact img,
+  .proof-artifact video {
     width: 100%;
     aspect-ratio: 16 / 10;
     object-fit: cover;
     display: block;
     border-bottom: 1px solid rgba(244, 255, 114, 0.12);
+    background: #050604;
   }
 
   .proof-artifact figcaption,

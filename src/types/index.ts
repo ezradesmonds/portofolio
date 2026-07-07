@@ -27,6 +27,8 @@ export interface ProjectArtifact {
   src: string;
   alt: string;
   caption: string;
+  kind?: "image" | "video";
+  poster?: string;
 }
 
 export interface ProjectDetail {

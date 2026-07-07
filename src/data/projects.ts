@@ -368,6 +368,164 @@ export const projects: Project[] = [
     },
   },
   {
+    slug: "finlend",
+    title: "FinLend",
+    category: "AI Credit Intelligence / AIML Final Project",
+    description:
+      "An AI credit-risk simulation system that combines a neural-network risk model with fuzzy logic to recommend credit decisions, limits, and interest.",
+    problem:
+      "Credit evaluation needs structured applicant intake, explainable risk signals, and decision support that can connect model output to a readable recommendation.",
+    targetUsers: "Credit analysts, fintech builders, and academic AIML evaluators",
+    role: "AI and full-stack developer",
+    contribution:
+      "Built the Laravel web interface, connected it to a FastAPI AI engine, designed the 25-feature intake flow, and shaped the ML plus fuzzy decision pipeline into a polished credit simulation experience.",
+    technologies: ["Laravel", "Python", "FastAPI", "Machine Learning", "Fuzzy Logic", "Tailwind CSS"],
+    status: "academic",
+    statusLabel: "AIML Final Project",
+    outcome:
+      "Delivered an end-to-end credit simulation flow where applicant, finance, loan, and collateral data are processed into risk, approval, limit, and interest recommendations.",
+    screenshot: "/assets/case-studies/finlend-landing.webp",
+    githubUrl: "https://github.com/ezradesmonds",
+    githubLabel: "GitHub Profile",
+    githubIsGeneric: true,
+    proofStatus: "available",
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/finlend-landing.webp",
+        alt: "FinLend landing page showing AI credit intelligence positioning, ML plus fuzzy pipeline, and multi-step application flow.",
+        caption:
+          "Landing and workflow surface: ML + fuzzy decision positioning with a 5-step credit application flow.",
+      },
+      {
+        src: "/assets/case-studies/finlend-form.webp",
+        alt: "FinLend applicant profile form with layered credit analysis notes and active risk model indicators.",
+        caption:
+          "Applicant intake form: structured profile, credit score, bureau, and eligibility inputs sent to the AI engine.",
+      },
+      {
+        src: "/assets/case-studies/finlend-demo.mp4",
+        poster: "/assets/case-studies/finlend-landing.webp",
+        kind: "video",
+        alt: "FinLend demo video showing the credit analysis flow.",
+        caption:
+          "Demo video artifact for the end-to-end credit application and analysis experience.",
+      },
+    ],
+    featured: true,
+    sortOrder: 5,
+    detail: {
+      overview:
+        "FinLend is an academic AI credit-intelligence project built with a Laravel interface and a FastAPI AI engine. It turns 25 structured applicant signals into a credit-risk recommendation using a feedforward neural network and fuzzy logic decision layer.",
+      keyFeatures: [
+        "Five-step credit application flow",
+        "25-feature applicant and loan intake",
+        "FastAPI AI engine integration",
+        "Feedforward neural-network risk scoring",
+        "Fuzzy logic for credit limit and interest recommendation",
+        "Laravel result interface for approval or rejection output",
+      ],
+      challenges: [
+        "Keeping the model input structure aligned between Laravel and FastAPI",
+        "Presenting model output as a readable credit recommendation rather than a black-box score",
+        "Handling academic dataset constraints while keeping the demo believable",
+      ],
+      aiSystem: {
+        provider: "Python FastAPI AI engine using MLPClassifier plus a fuzzy logic decision layer.",
+        pipeline: [
+          "User enters 25 applicant, financial, loan, and collateral signals in the Laravel form.",
+          "Laravel sends the structured payload to the FastAPI /hitung-kredit endpoint.",
+          "The neural-network model estimates default risk from the scaled feature set.",
+          "Fuzzy logic translates risk and financial context into limit and interest recommendations.",
+          "Laravel renders the decision output as an approval or rejection simulation with readable context.",
+        ],
+        dataFlow:
+          "Laravel handles the web flow and sends a structured request to FastAPI; the Python service returns risk and fuzzy decision outputs to the result page.",
+        validation:
+          "Inputs are constrained to the 25 model features, then scaled and processed before recommendation output.",
+        failureHandling:
+          "The web flow depends on the FastAPI service being available on port 8000; connection issues are surfaced as a demo/runtime dependency rather than silently faking a result.",
+        limitations:
+          "Academic simulation using loan-default data and USD-scale assumptions. It is not a production credit approval system and would need fairness, calibration, and compliance validation.",
+      },
+      results:
+        "Built as the final AIML course project with a working Laravel-to-FastAPI AI pipeline and a polished credit-analysis interface.",
+    },
+  },
+  {
+    slug: "bank-tulang",
+    title: "Bank Tulang",
+    category: "Client Project / Health Education Platform",
+    description:
+      "A web-based bone-health promotion prototype for pharmacy students, featuring education modules, an OKAT-adapted quiz, calcium/activity tracking concepts, and an interactive readiness simulation.",
+    problem:
+      "The pharmacy student client needed a clear, interactive platform to communicate a bone-health intervention design instead of relying on static tables or slides.",
+    targetUsers: "Pharmacy students, academic supervisors, and health-promotion presentation audiences",
+    role: "Client project developer",
+    contribution:
+      "Built the interactive microsite, structured the eight intervention modules, designed the quiz and simulation surfaces, and translated academic evidence into a presentation-ready web experience.",
+    technologies: ["JavaScript", "HTML", "CSS", "Responsive UI", "Accessibility"],
+    status: "case-study",
+    statusLabel: "Client Project",
+    outcome:
+      "Delivered a presentation-ready prototype that explains the eight-component intervention, 12-item adapted OKAT quiz, and health-readiness simulation in a web-native format.",
+    screenshot: "/assets/case-studies/bank-tulang-landing.webp",
+    githubUrl: "https://github.com/ezradesmonds",
+    githubLabel: "GitHub Profile",
+    githubIsGeneric: true,
+    proofStatus: "available",
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/bank-tulang-landing.webp",
+        alt: "Bank Tulang landing page showing bone health monitoring positioning and spine visual.",
+        caption:
+          "Landing experience for the bone-health promotion platform and academic intervention framing.",
+      },
+      {
+        src: "/assets/case-studies/bank-tulang-quiz.webp",
+        alt: "Bank Tulang quiz modal showing adapted OKAT questions with true, false, and don't know options.",
+        caption:
+          "12-item adapted OKAT quiz interface with automatic score interpretation concept.",
+      },
+      {
+        src: "/assets/case-studies/bank-tulang-modules.webp",
+        alt: "Bank Tulang eight intervention module cards for quiz, score, calcium tracking, activity notes, education, targets, gamification, and social challenge.",
+        caption:
+          "Eight intervention modules translated from academic planning into readable web cards.",
+      },
+      {
+        src: "/assets/case-studies/bank-tulang-simulation.webp",
+        alt: "Bank Tulang readiness simulation with sliders for OKAT answers, calcium, activity, and readiness indicators.",
+        caption:
+          "Interactive simulation for knowledge, calcium, and activity readiness. Educational only, not medical diagnosis.",
+      },
+    ],
+    featured: true,
+    sortOrder: 6,
+    detail: {
+      overview:
+        "Bank Tulang is a client microsite built for pharmacy students who needed to present a bone-health intervention platform. The product frames assessment, scoring, tracking, education, goals, gamification, and social challenge mechanics in a clear web prototype.",
+      keyFeatures: [
+        "Bone-health promotion landing page",
+        "Eight intervention module cards",
+        "12-item adapted OKAT quiz modal",
+        "Readiness simulation with adjustable parameters",
+        "Evidence-forward content architecture",
+        "Responsive presentation mode for academic review",
+      ],
+      challenges: [
+        "Turning academic intervention tables into a website that feels credible and readable",
+        "Keeping the product educational without implying medical diagnosis",
+        "Balancing visual energy with healthcare clarity and accessibility",
+      ],
+      results:
+        "Created a web-native prototype that helps audiences understand the intervention structure quickly during academic presentation.",
+      lessonsLearned: [
+        "Academic client work needs translation from evidence and modules into a story that non-technical audiences can follow",
+        "Health-related products must be careful with claims, labels, and diagnostic framing",
+      ],
+    },
+  },
+  {
     slug: "innofashion-show-8",
     title: "Innofashion Show 8 Event Platform",
     category: "Full-Stack Event Technology",
@@ -411,7 +569,7 @@ export const projects: Project[] = [
       },
     ],
     featured: true,
-    sortOrder: 5,
+    sortOrder: 7,
     detail: {
       overview:
         "A custom full-stack event management platform built for the Innofashion Show 8, a major student-run event. The system handled participant registration, QR-based ticketing, admin dashboards, and real-time event operations.",
@@ -484,7 +642,7 @@ export const projects: Project[] = [
       },
     ],
     featured: true,
-    sortOrder: 6,
+    sortOrder: 8,
     detail: {
       overview:
         "Servisin is a mobile marketplace MVP connecting customers with home-appliance repair technicians. The platform handles customer requests, technician matching, service tracking, and administrative workflows.",
@@ -510,7 +668,8 @@ export const additionalProjects: Project[] = [
     category: "Enterprise System / Odoo",
     description:
       "An Odoo-based rental e-commerce system for a wedding dress business including inventory tracking and booking management.",
-    problem: "TODO: Add specific problem context",
+    problem:
+      "A rental business needs a clearer way to publish products, track availability, and prevent booking conflicts across dress inventory.",
     targetUsers: "Wedding dress business customers and operators",
     role: "Developer",
     contribution:
@@ -519,9 +678,45 @@ export const additionalProjects: Project[] = [
     status: "case-study",
     statusLabel: "Case Study",
     liveUrl: "https://byribkachyntya1.odoo.com/",
-    proofStatus: "pending",
+    screenshot: "/assets/case-studies/wedding-rental-landing.webp",
+    proofStatus: "available",
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/wedding-rental-landing.webp",
+        alt: "Wedding dress rental Odoo storefront landing page.",
+        caption:
+          "Public storefront configured for dress discovery, product browsing, and appointment scheduling.",
+      },
+      {
+        src: "/assets/case-studies/wedding-rental-booking.webp",
+        alt: "Wedding dress rental product page with date-range booking calendar.",
+        caption:
+          "Rental booking flow with date-range selection and availability calendar inside the product detail page.",
+      },
+      {
+        src: "/assets/case-studies/wedding-rental-products.webp",
+        alt: "Odoo backend product list for wedding dress rental inventory.",
+        caption:
+          "Back-office product inventory view used to manage published rental items and stock status.",
+      },
+    ],
     featured: false,
-    sortOrder: 8,
+    sortOrder: 9,
+    detail: {
+      overview:
+        "An Odoo rental-commerce implementation for a wedding dress business. The project focused on turning product inventory into a browsable rental storefront with booking and back-office inventory support.",
+      keyFeatures: [
+        "Odoo e-commerce storefront",
+        "Rental product catalog",
+        "Date-range booking flow",
+        "Inventory publication status",
+        "Customer-facing product detail pages",
+      ],
+      challenges: [
+        "Adapting a general Odoo commerce setup into a rental-specific workflow",
+        "Making availability and booking behavior understandable for customers",
+      ],
+    },
   },
   {
     slug: "tower-defense-game",
@@ -529,7 +724,8 @@ export const additionalProjects: Project[] = [
     category: "Game Development / OOP Final Project",
     description:
       "A 2D tower defense game applying object-oriented programming principles and game logic design. Built as a Pemrograman Berbasis Obyek (Object-Oriented Programming) course final project.",
-    problem: "TODO: Add specific problem context",
+    problem:
+      "The academic challenge was to apply object-oriented programming to a stateful game with enemies, towers, upgrades, scoring, and wave progression.",
     targetUsers: "Casual gamers",
     role: "Developer",
     contribution:
@@ -537,9 +733,45 @@ export const additionalProjects: Project[] = [
     technologies: ["Java", "LibGDX", "OOP"],
     status: "academic",
     statusLabel: "Academic",
-    proofStatus: "pending",
+    screenshot: "/assets/case-studies/tower-defense-gameplay.webp",
+    proofStatus: "available",
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/tower-defense-wave.webp",
+        alt: "Tower defense game wave countdown screen.",
+        caption:
+          "Wave start screen showing the map, HUD, health, money, and upcoming wave timing.",
+      },
+      {
+        src: "/assets/case-studies/tower-defense-gameplay.webp",
+        alt: "Tower defense game with towers attacking enemies on the path.",
+        caption:
+          "Gameplay loop with tower placement, projectile attacks, score, money, health, and remaining enemy count.",
+      },
+      {
+        src: "/assets/case-studies/tower-defense-map.webp",
+        alt: "Tower defense game map with UI controls and tower purchase options.",
+        caption:
+          "Map and HUD surface for placing towers, pausing, speeding up, resetting, and upgrading attributes.",
+      },
+    ],
     featured: false,
     sortOrder: 10,
+    detail: {
+      overview:
+        "A Java/LibGDX tower defense game built for an object-oriented programming final project. The project demonstrates game state management, entity behavior, and reusable class design through a playable tower-defense loop.",
+      keyFeatures: [
+        "Enemy path and wave progression",
+        "Tower placement and attack logic",
+        "Projectile and collision behavior",
+        "Money, score, health, and remaining enemy state",
+        "Pause, speed, reset, and upgrade controls",
+      ],
+      challenges: [
+        "Keeping game entities modular enough for OOP evaluation",
+        "Managing real-time state updates across enemies, towers, projectiles, and HUD",
+      ],
+    },
   },
   {
     slug: "ppdb-school-info-system",
@@ -547,16 +779,54 @@ export const additionalProjects: Project[] = [
     category: "Full-Stack / Education / Web Technology Final Project",
     description:
       "A student registration and information system for school admissions processing. Built as a Teknologi Web course final project.",
-    problem: "TODO: Add specific problem context",
+    problem:
+      "Manual school admissions workflows make it hard to collect applicant data, manage accounts, and organize registration documents in one place.",
     targetUsers: "School administrators and prospective students",
     role: "Developer",
-    contribution: "TODO: Add specific contributions",
+    contribution:
+      "Built the admissions landing page, authentication flow, applicant registration form, and document upload interface.",
     technologies: ["Laravel", "MySQL", "PHP"],
     status: "academic",
     statusLabel: "Academic",
-    proofStatus: "pending",
+    screenshot: "/assets/case-studies/ppdb-landing.webp",
+    proofStatus: "available",
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/ppdb-landing.webp",
+        alt: "PPDB school admissions landing page with countdown and registration call to action.",
+        caption:
+          "Admissions landing page with countdown, primary registration CTA, and information navigation.",
+      },
+      {
+        src: "/assets/case-studies/ppdb-login.webp",
+        alt: "PPDB school admissions login page.",
+        caption:
+          "Login surface for applicant accounts before entering the registration workflow.",
+      },
+      {
+        src: "/assets/case-studies/ppdb-registration.webp",
+        alt: "PPDB school admissions registration form with student, parent, academic, and document upload sections.",
+        caption:
+          "Registration form for applicant data, parent details, academic choices, and document uploads.",
+      },
+    ],
     featured: false,
     sortOrder: 11,
+    detail: {
+      overview:
+        "A full-stack school admissions system created for a web technology final project. It covers the public admissions landing page, login, applicant registration, and document upload flow.",
+      keyFeatures: [
+        "Public admissions landing page",
+        "Countdown and registration CTA",
+        "Applicant login flow",
+        "Student and parent data form",
+        "Academic choice and document upload sections",
+      ],
+      challenges: [
+        "Structuring a long registration form without making it feel chaotic",
+        "Separating public information pages from authenticated applicant workflows",
+      ],
+    },
   },
   {
     slug: "finance-tracker",
@@ -564,7 +834,8 @@ export const additionalProjects: Project[] = [
     category: "Full-Stack / Web Framework Deployment Final Project",
     description:
       "A personal finance tracking and management web application built with modern deployment practices. Built as a Web Framework Deployment course final project.",
-    problem: "TODO: Add specific problem context",
+    problem:
+      "Personal finance data becomes scattered across accounts, subscriptions, budgets, and due dates without a single control surface.",
     targetUsers: "Individual users managing personal finances",
     role: "Developer",
     contribution:
@@ -572,8 +843,57 @@ export const additionalProjects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL", "Vercel"],
     status: "academic",
     statusLabel: "Academic Final Project",
-    proofStatus: "pending",
+    screenshot: "/assets/case-studies/finance-tracker-landing.webp",
+    proofStatus: "available",
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/finance-tracker-landing.webp",
+        alt: "Finance Tracker landing page showing budget, transactions, subscriptions, and dashboard preview.",
+        caption:
+          "Public landing page framing the product around budgets, transactions, subscriptions, and a unified dashboard.",
+      },
+      {
+        src: "/assets/case-studies/finance-tracker-dashboard.webp",
+        alt: "Finance Tracker dashboard showing budget, expense, subscriptions, due date calendar, and upcoming bills.",
+        caption:
+          "Dashboard overview with monthly budget, expense progress, active subscriptions, due-date calendar, and upcoming bills.",
+      },
+      {
+        src: "/assets/case-studies/finance-tracker-entry.webp",
+        alt: "Finance Tracker expense and income entry screen with connected bank cards.",
+        caption:
+          "Tracking surface for connected bank cards, expense entry, income entry, payment source, and categories.",
+      },
+      {
+        src: "/assets/case-studies/finance-tracker-subscriptions.webp",
+        alt: "Finance Tracker subscription management page.",
+        caption:
+          "Subscription management page with active recurring payment and quick-add recommendations.",
+      },
+      {
+        src: "/assets/case-studies/finance-tracker-calendar.webp",
+        alt: "Finance Tracker due-date calendar showing subscription payment date.",
+        caption:
+          "Calendar view for tracking recurring bill due dates and overdue/upcoming items.",
+      },
+    ],
     featured: false,
     sortOrder: 12,
+    detail: {
+      overview:
+        "A personal finance web app built as a web framework deployment final project. It centralizes budgets, expenses, income, bank-account surfaces, subscriptions, and recurring due dates.",
+      keyFeatures: [
+        "Budget and expense overview",
+        "Income and expense entry forms",
+        "Connected-bank style account cards",
+        "Subscription tracking",
+        "Due-date calendar",
+        "Responsive finance dashboard",
+      ],
+      challenges: [
+        "Designing multiple finance modes without making the product feel fragmented",
+        "Keeping forms, charts, and calendar views readable across screen sizes",
+      ],
+    },
   },
 ];
