@@ -21,6 +21,19 @@ if (!rawProject) {
 const lang = "id";
 const project = localizeProject(rawProject, lang);
 const detail = project.detail;
+const label = {
+  proof: "Bukti Visual",
+  proofPending: "Artifact untuk project ini akan ditambahkan di batch 2.",
+  aiSystem: "Catatan Sistem AI",
+  provider: "Provider / Model",
+  pipeline: "Pipeline",
+  dataFlow: "Data Flow",
+  validation: "Validasi",
+  failureHandling: "Failure Handling",
+  limitations: "Batasan Teknis",
+  github: "Lihat di GitHub",
+  githubProfile: "Profil GitHub",
+};
 const pageTitle = `${project.title} — ${SITE.name}`;
 ---
 
@@ -47,6 +60,12 @@ const pageTitle = `${project.title} — ${SITE.name}`;
 
       <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-6">{project.title}</h1>
       <p class="text-xl text-text-secondary leading-relaxed mb-12">{project.description}</p>
+
+      {project.screenshot && (
+        <figure class="case-hero-shot mb-14">
+          <img src={project.screenshot} alt={`${project.title} interface preview`} loading="eager" decoding="async" />
+        </figure>
+      )}
 
       {detail && (
         <div class="space-y-16">
@@ -84,6 +103,54 @@ const pageTitle = `${project.title} — ${SITE.name}`;
             </ul>
           </section>
 
+          {detail.aiSystem && (
+            <section class="ai-system-panel">
+              <h2 class="text-sm font-mono font-bold uppercase tracking-widest text-accent-cyan mb-5">{label.aiSystem}</h2>
+              <div class="grid lg:grid-cols-[0.85fr_1.15fr] gap-6">
+                <div class="space-y-4">
+                  {detail.aiSystem.provider && (
+                    <div class="ai-note">
+                      <span>{label.provider}</span>
+                      <p>{detail.aiSystem.provider}</p>
+                    </div>
+                  )}
+                  {detail.aiSystem.dataFlow && (
+                    <div class="ai-note">
+                      <span>{label.dataFlow}</span>
+                      <p>{detail.aiSystem.dataFlow}</p>
+                    </div>
+                  )}
+                  {detail.aiSystem.validation && (
+                    <div class="ai-note">
+                      <span>{label.validation}</span>
+                      <p>{detail.aiSystem.validation}</p>
+                    </div>
+                  )}
+                  {detail.aiSystem.failureHandling && (
+                    <div class="ai-note">
+                      <span>{label.failureHandling}</span>
+                      <p>{detail.aiSystem.failureHandling}</p>
+                    </div>
+                  )}
+                  {detail.aiSystem.limitations && (
+                    <div class="ai-note">
+                      <span>{label.limitations}</span>
+                      <p>{detail.aiSystem.limitations}</p>
+                    </div>
+                  )}
+                </div>
+                <div>
+                  <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-text-muted mb-3">{label.pipeline}</h3>
+                  <ol class="ai-pipeline">
+                    {detail.aiSystem.pipeline.map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+            </section>
+          )}
+
           {detail.challenges && detail.challenges.length > 0 && (
             <section>
               <h2 class="text-sm font-mono font-bold uppercase tracking-widest text-accent-cyan mb-4">Tantangan & Trade-off</h2>
@@ -104,6 +171,26 @@ const pageTitle = `${project.title} — ${SITE.name}`;
         </div>
       )}
 
+      {(project.proofArtifacts?.length || project.proofStatus === "pending") && (
+        <section class="mt-16 pt-8 border-t border-dark-border">
+          <h2 class="text-sm font-mono font-bold uppercase tracking-widest text-accent-cyan mb-5">{label.proof}</h2>
+          {project.proofArtifacts?.length ? (
+            <div class="proof-gallery">
+              {project.proofArtifacts.map((artifact) => (
+                <figure class="proof-artifact">
+                  <img src={artifact.src} alt={artifact.alt} loading="lazy" decoding="async" />
+                  <figcaption>{artifact.caption}</figcaption>
+                </figure>
+              ))}
+            </div>
+          ) : (
+            <div class="proof-pending">
+              <p>{label.proofPending}</p>
+            </div>
+          )}
+        </section>
+      )}
+
       <section class="mt-16 pt-8 border-t border-dark-border">
         <h2 class="text-sm font-mono font-bold uppercase tracking-widest text-accent-cyan mb-4">Teknologi</h2>
         <div class="flex flex-wrap gap-2">
@@ -119,7 +206,7 @@ const pageTitle = `${project.title} — ${SITE.name}`;
         )}
         {project.githubUrl && (
           <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-            Lihat di GitHub
+            {project.githubLabel ?? (project.githubIsGeneric ? label.githubProfile : label.github)}
           </a>
         )}
       </div>
@@ -135,3 +222,111 @@ const pageTitle = `${project.title} — ${SITE.name}`;
     </div>
   </article>
 </BaseLayout>
+
+<style>
+  .case-hero-shot {
+    overflow: hidden;
+    border: 1px solid rgba(244, 255, 114, 0.16);
+    border-radius: 1rem;
+    background: rgba(0, 0, 0, 0.28);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+  }
+
+  .case-hero-shot img {
+    width: 100%;
+    max-height: 34rem;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-system-panel {
+    border: 1px solid rgba(244, 255, 114, 0.14);
+    border-radius: 1rem;
+    background: linear-gradient(145deg, rgba(23, 26, 16, 0.86), rgba(9, 10, 7, 0.92));
+    padding: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  .ai-note {
+    border-left: 2px solid rgba(244, 255, 114, 0.32);
+    padding-left: 0.9rem;
+  }
+
+  .ai-note span {
+    display: block;
+    color: var(--color-accent-cyan);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.35rem;
+    text-transform: uppercase;
+  }
+
+  .ai-note p,
+  .ai-pipeline li {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  .ai-pipeline {
+    display: grid;
+    gap: 0.75rem;
+    counter-reset: pipeline;
+  }
+
+  .ai-pipeline li {
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.75rem;
+    background: rgba(255, 255, 255, 0.035);
+    padding: 0.85rem 0.95rem 0.85rem 2.8rem;
+  }
+
+  .ai-pipeline li::before {
+    counter-increment: pipeline;
+    content: counter(pipeline, decimal-leading-zero);
+    position: absolute;
+    left: 0.85rem;
+    top: 0.95rem;
+    color: var(--color-accent-cyan);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 900;
+  }
+
+  .proof-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: 1rem;
+  }
+
+  .proof-artifact {
+    overflow: hidden;
+    border: 1px solid rgba(244, 255, 114, 0.14);
+    border-radius: 0.9rem;
+    background: rgba(16, 18, 11, 0.72);
+  }
+
+  .proof-artifact img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid rgba(244, 255, 114, 0.12);
+  }
+
+  .proof-artifact figcaption,
+  .proof-pending p {
+    color: var(--color-text-secondary);
+    font-size: 0.82rem;
+    line-height: 1.55;
+    padding: 0.85rem;
+  }
+
+  .proof-pending {
+    border: 1px dashed rgba(244, 255, 114, 0.18);
+    border-radius: 0.9rem;
+    background: rgba(255, 255, 255, 0.035);
+  }
+</style>

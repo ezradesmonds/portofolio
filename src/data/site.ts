@@ -10,6 +10,7 @@ export const SITE: SiteConfig = {
   github: "https://github.com/ezradesmonds",
   linkedin: "https://www.linkedin.com/in/ezradesmonds/",
   instagram: "https://instagram.com/ezradesmonds",
+  cvUrl: "/assets/documents/ezra-desmond-sutanto-cv.pdf",
   headline: "AI & Full-Stack Builder",
   subheadline:
     "I build AI-powered tools that help ambitious people think clearer, move faster, and ship real outcomes.",

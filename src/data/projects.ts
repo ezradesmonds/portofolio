@@ -28,7 +28,37 @@ export const projects: Project[] = [
     statusLabel: "In Development",
     outcome:
       "Pre-launch: built full accounting workflow including chart of accounts, double-entry validation, financial reports, AI assistant, receipt OCR, and subscription management.",
+    screenshot: "/assets/case-studies/akun-ai-dashboard.webp",
     githubUrl: "https://github.com/ezradesmonds",
+    githubLabel: "GitHub Profile",
+    githubIsGeneric: true,
+    proofStatus: "available",
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/akun-ai-dashboard.webp",
+        alt: "Akun.AI dashboard showing cash balance, revenue, expenses, AI assistant, reports, invoice, inventory, and integrations.",
+        caption:
+          "Main dashboard with finance KPIs, AI assistant, reports, invoice, inventory, and integration cards.",
+      },
+      {
+        src: "/assets/case-studies/akun-ai-landing.webp",
+        alt: "Akun.AI landing page with accounting AI positioning for Indonesian businesses.",
+        caption:
+          "Public landing page positioning Akun.AI as a conversational accounting workspace.",
+      },
+      {
+        src: "/assets/case-studies/akun-ai-ledger.webp",
+        alt: "Akun.AI ledger preview with cash chart, AI assistant, and transaction rows.",
+        caption:
+          "Ledger preview: transactions, balances, and AI summary in one finance surface.",
+      },
+      {
+        src: "/assets/case-studies/akun-ai-pricing.webp",
+        alt: "Akun.AI pricing section with Free, Starter, and Pro plans.",
+        caption:
+          "Pricing model designed around transaction limits, AI chat limits, team access, and inventory needs.",
+      },
+    ],
     featured: true,
     sortOrder: 1,
     detail: {
@@ -49,6 +79,23 @@ export const projects: Project[] = [
         "Implementing double-entry validation logic that catches common errors",
         "Building AI prompts that produce reliable, audit-ready accounting responses",
       ],
+      aiSystem: {
+        provider: "OpenRouter-configurable LLM layer with planned OCR ingestion for receipt capture.",
+        pipeline: [
+          "Business transactions, invoices, inventory changes, and receipt OCR outputs enter the ledger workspace.",
+          "Structured transaction data is validated against chart-of-accounts rules before it reaches reports.",
+          "The AI assistant answers from workspace context and summarizes financial state instead of acting as an unconstrained chatbot.",
+          "Reports, CSV exports, and dashboard cards are generated from persisted accounting records.",
+        ],
+        dataFlow:
+          "Supabase/PostgreSQL stores tenant-isolated business data; RLS boundaries protect workspace records before AI context is assembled.",
+        validation:
+          "Double-entry checks, category validation, and permission-aware queries keep financial answers tied to stored ledger data.",
+        failureHandling:
+          "AI output is treated as advisory; accounting actions still pass through deterministic validation before being saved or reported.",
+        limitations:
+          "Pre-launch system. Tax, OCR accuracy, and local compliance behavior still need deeper production validation.",
+      },
       lessonsLearned: [
         "Accounting domain modeling requires deep understanding of Indonesian accounting standards",
         "AI integration for financial data needs careful grounding and validation",
@@ -74,7 +121,29 @@ export const projects: Project[] = [
     statusLabel: "Live",
     outcome:
       "Conversion-focused landing experience serving a business with over 4,000 customers and 50,000+ items represented.",
+    screenshot: "/assets/case-studies/tokokaret-landing.webp",
     liveUrl: "https://www.tokokaret.com",
+    proofStatus: "available",
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/tokokaret-landing.webp",
+        alt: "TokoKaret.com landing page for automotive and industrial rubber products.",
+        caption:
+          "Live storefront hero: product-first commerce page with WhatsApp consultation path.",
+      },
+      {
+        src: "/assets/case-studies/tokokaret-ai-check.webp",
+        alt: "TokoKaret.com AI assistant form for car model and product symptom intake.",
+        caption:
+          "AI consultation flow: users describe symptoms and receive an initial product category direction.",
+      },
+      {
+        src: "/assets/case-studies/tokokaret-products.webp",
+        alt: "TokoKaret.com product section showing commonly searched rubber parts.",
+        caption:
+          "Product discovery section connecting problem labels to specific catalog categories.",
+      },
+    ],
     featured: true,
     sortOrder: 2,
     detail: {
@@ -92,6 +161,23 @@ export const projects: Project[] = [
         "Building a Gemini prompt pipeline that reliably maps symptoms to products",
         "Integrating AI recommendations with offline sales workflows",
       ],
+      aiSystem: {
+        provider: "Google Gemini for symptom-to-category recommendation.",
+        pipeline: [
+          "User enters car model plus complaint or use case in a structured form.",
+          "The prompt constrains Gemini to map symptoms to likely product categories instead of inventing exact SKUs.",
+          "The answer becomes a first-pass direction that continues into WhatsApp consultation.",
+          "Sales follow-up uses the AI result plus photo verification for final product matching.",
+        ],
+        dataFlow:
+          "Form input stays lightweight: model, symptom, and category result are used to guide WhatsApp handoff.",
+        validation:
+          "AI is intentionally positioned as initial guidance; final size/type confirmation still happens through human consultation and photo evidence.",
+        failureHandling:
+          "When uncertainty is high, the interface pushes the user to continue consultation rather than overclaiming a product fit.",
+        limitations:
+          "The AI flow recommends categories, not guaranteed part compatibility. Physical photo confirmation remains necessary.",
+      },
       results:
         "The platform serves as the digital storefront for a business with over 4,000 customers and supports product discovery across a catalog of 50,000+ items.",
     },
@@ -119,7 +205,37 @@ export const projects: Project[] = [
     statusLabel: "Research System",
     outcome:
       "Dry-run trading terminal with scheduled market scanning, signal generation, trade lifecycle tracking, and equity curve visualization.",
+    screenshot: "/assets/case-studies/financeos-terminal.webp",
     githubUrl: "https://github.com/ezradesmonds",
+    githubLabel: "GitHub Profile",
+    githubIsGeneric: true,
+    proofStatus: "available",
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/financeos-terminal.webp",
+        alt: "FinanceOS terminal showing active crypto signals and signal detail panel.",
+        caption:
+          "Research terminal: active signal cards, live chart context, risk metrics, and dry-run status.",
+      },
+      {
+        src: "/assets/case-studies/financeos-signal.webp",
+        alt: "FinanceOS signal detail view with trend, momentum, liquidity, risk reward, and dry-run action.",
+        caption:
+          "Signal detail: structured factors, risk/reward, invalidation notes, and dry-run action.",
+      },
+      {
+        src: "/assets/case-studies/financeos-worker.webp",
+        alt: "FinanceOS autonomous dry-run worker and paper lifecycle tracking.",
+        caption:
+          "Autonomous dry-run worker tracking paper trades without live orders or exchange keys.",
+      },
+      {
+        src: "/assets/case-studies/financeos-news.webp",
+        alt: "FinanceOS market headlines and provider status panel.",
+        caption:
+          "News engine with provider status, fallback mode, dedupe count, and headline sentiment tags.",
+      },
+    ],
     featured: true,
     sortOrder: 3,
     detail: {
@@ -138,6 +254,24 @@ export const projects: Project[] = [
         "Implementing trade lifecycle tracking that accurately represents paper positions",
         "Building a research-grade frontend that remains fast with real-time data",
       ],
+      aiSystem: {
+        provider:
+          "Algorithmic signal pipeline with news/sentiment processing; not connected to live brokerage execution.",
+        pipeline: [
+          "Public market data and news feeds are ingested into a research workspace.",
+          "Rules score trend, momentum, liquidity, BTC regime, risk/reward, and signal freshness.",
+          "Signal cards expose entry, stop, TP levels, invalidation criteria, and dry-run lifecycle state.",
+          "A dry-run worker tracks paper positions for evaluation without sending live orders.",
+        ],
+        dataFlow:
+          "Binance/public market data, RSS/news providers, and fallback simulators feed the terminal and paper lifecycle records.",
+        validation:
+          "Signals include scoring, regime filters, invalidation notes, and explicit research-only labeling.",
+        failureHandling:
+          "Provider status surfaces disabled/fallback feeds, and live orders stay disabled by design.",
+        limitations:
+          "Research-only system. No wallet, broker, exchange key, or live financial execution is connected.",
+      },
     },
   },
   {
@@ -157,7 +291,43 @@ export const projects: Project[] = [
     statusLabel: "Competition — 2nd Place",
     outcome:
       "2nd Place — SUTD × Petra Christian University International Hackathon, January 2026.",
+    screenshot: "/assets/case-studies/tailor-allocation.webp",
     githubUrl: "https://github.com/ezradesmonds",
+    githubLabel: "GitHub Profile",
+    githubIsGeneric: true,
+    proofStatus: "available",
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/tailor-dashboard.webp",
+        alt: "Tailor cooperative managerial dashboard with profit, expense, active project, ready tailor, and stock warning metrics.",
+        caption:
+          "Managerial dashboard: business, production, and stock signals in one operational view.",
+      },
+      {
+        src: "/assets/case-studies/tailor-analytics.webp",
+        alt: "Tailor analytics dashboard with total partners, average speed, idle status, bar chart, and specialization distribution.",
+        caption:
+          "Tailor performance analytics used to understand capacity, speed, idle status, and specialization mix.",
+      },
+      {
+        src: "/assets/case-studies/tailor-data.webp",
+        alt: "Tailor data management table with distance, speed, specialty, status, and contact fields.",
+        caption:
+          "Operational data table powering tailor assignment decisions and management workflows.",
+      },
+      {
+        src: "/assets/case-studies/tailor-allocation.webp",
+        alt: "AI Smart Allocation form recommending a tailor based on deadline, category, and order size.",
+        caption:
+          "Smart allocation flow: deadline, category, quantity, target speed, and recommended tailor.",
+      },
+      {
+        src: "/assets/case-studies/tailor-split-order.webp",
+        alt: "Tailor custom split order simulation with capacity, estimated completion, and task split table.",
+        caption:
+          "Fallback split-order simulation when one tailor cannot safely carry the full workload alone.",
+      },
+    ],
     featured: true,
     sortOrder: 4,
     detail: {
@@ -175,6 +345,24 @@ export const projects: Project[] = [
         "Integrating ML predictions into practical operational workflows",
         "Coordinating across multidisciplinary team members (Business, Architecture, International Business)",
       ],
+      aiSystem: {
+        provider:
+          "Machine-learning prediction and rule-based allocation layer over cooperative operations data.",
+        pipeline: [
+          "Tailor records capture speed, status, distance, specialty, and available capacity.",
+          "Order inputs define category, quantity, and deadline pressure.",
+          "The allocation layer estimates required daily production and ranks feasible tailors.",
+          "If single-tailor capacity is unsafe, the system simulates split-order alternatives.",
+        ],
+        dataFlow:
+          "Operational tables feed dashboards, tailor management, and allocation recommendations in the cooperative system.",
+        validation:
+          "Recommendations are checked against deadline math, capacity, current status, specialty, and distance.",
+        failureHandling:
+          "When no single tailor is enough, the system proposes a custom split order instead of forcing one assignment.",
+        limitations:
+          "Competition prototype using limited operational data; model confidence needs real deployment data before production use.",
+      },
       results:
         "Awarded 2nd Place at the SUTD × Petra Christian University International Hackathon, recognized for combining technical depth with operational practicality.",
     },
@@ -196,8 +384,32 @@ export const projects: Project[] = [
     statusLabel: "Delivered",
     outcome:
       "Successfully supported 100+ participants across registration, ticketing, and event-day operations.",
+    screenshot: "/assets/case-studies/innofashion-dashboard.webp",
     liveUrl: "https://innofashionshow.petra.ac.id",
     githubUrl: "https://github.com/ezradesmonds",
+    githubLabel: "GitHub Profile",
+    githubIsGeneric: true,
+    proofStatus: "available",
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/innofashion-dashboard.webp",
+        alt: "Innofashion participant dashboard with registration status, upload submission, WhatsApp join, and verified badge.",
+        caption:
+          "Participant dashboard for registration status, submission upload, WhatsApp coordination, and verification.",
+      },
+      {
+        src: "/assets/case-studies/innofashion-admin.webp",
+        alt: "Innofashion admin dashboard with competition and event statistics.",
+        caption:
+          "Admin dashboard showing participant validation metrics and event statistics.",
+      },
+      {
+        src: "/assets/case-studies/innofashion-landing.webp",
+        alt: "Innofashion Show 8 landing page with register now call to action.",
+        caption:
+          "Public landing page for event discovery, registration, and participant onboarding.",
+      },
+    ],
     featured: true,
     sortOrder: 5,
     detail: {
@@ -237,6 +449,40 @@ export const projects: Project[] = [
     status: "prototype",
     statusLabel: "MVP",
     githubUrl: "https://github.com/ezradesmonds",
+    githubLabel: "GitHub Profile",
+    githubIsGeneric: true,
+    proofStatus: "available",
+    screenshot: "/assets/case-studies/servisin-home.webp",
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/servisin-home.webp",
+        alt: "Servisin mobile home screen with search, service categories, recent service, and bottom navigation.",
+        caption:
+          "Customer home flow with search, service categories, recent service, and booking navigation.",
+      },
+      {
+        src: "/assets/case-studies/servisin-signup.webp",
+        alt: "Servisin mobile sign-up screen with Google sign-in and technician mode entry.",
+        caption: "Authentication entry for customers and technicians.",
+      },
+      {
+        src: "/assets/case-studies/servisin-detail.webp",
+        alt: "Servisin service detail screen with portfolio and recent reviews.",
+        caption: "Technician/service detail surface with portfolio proof and reviews.",
+      },
+      {
+        src: "/assets/case-studies/servisin-transaction.webp",
+        alt: "Servisin transaction detail screen with completed service and technician card.",
+        caption:
+          "Transaction detail flow with service completion, protection card, and technician actions.",
+      },
+      {
+        src: "/assets/case-studies/servisin-subscription.webp",
+        alt: "Servisin subscription screen with active silver plan and remaining benefits.",
+        caption:
+          "Subscription model screen for recurring service benefits and plan upgrade.",
+      },
+    ],
     featured: true,
     sortOrder: 6,
     detail: {
@@ -273,6 +519,7 @@ export const additionalProjects: Project[] = [
     status: "case-study",
     statusLabel: "Case Study",
     liveUrl: "https://byribkachyntya1.odoo.com/",
+    proofStatus: "pending",
     featured: false,
     sortOrder: 8,
   },
@@ -290,6 +537,7 @@ export const additionalProjects: Project[] = [
     technologies: ["Java", "LibGDX", "OOP"],
     status: "academic",
     statusLabel: "Academic",
+    proofStatus: "pending",
     featured: false,
     sortOrder: 10,
   },
@@ -306,6 +554,7 @@ export const additionalProjects: Project[] = [
     technologies: ["Laravel", "MySQL", "PHP"],
     status: "academic",
     statusLabel: "Academic",
+    proofStatus: "pending",
     featured: false,
     sortOrder: 11,
   },
@@ -323,6 +572,7 @@ export const additionalProjects: Project[] = [
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL", "Vercel"],
     status: "academic",
     statusLabel: "Academic Final Project",
+    proofStatus: "pending",
     featured: false,
     sortOrder: 12,
   },

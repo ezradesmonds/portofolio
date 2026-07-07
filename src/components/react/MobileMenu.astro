@@ -103,6 +103,7 @@ const navItems: { href: string; key: TranslationKey }[] = [
     {navItems.map((item) => (
       <a href={item.href} class="text-2xl font-semibold text-text-secondary hover:text-white transition-colors">{t(lang, item.key)}</a>
     ))}
+    <a href={SITE.cvUrl} download class="text-2xl font-semibold text-text-secondary hover:text-white transition-colors">{t(lang, "nav.downloadCv")}</a>
     <a href={`mailto:${SITE.email}`} class="mt-4 px-6 py-3 text-base font-semibold border border-accent-cyan text-accent-cyan rounded-lg hover:bg-accent-cyan/10 transition-colors">{t(lang, "nav.getInTouch")}</a>
   </nav>
 </div>

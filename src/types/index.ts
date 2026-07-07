@@ -14,9 +14,19 @@ export interface Project {
   screenshot?: string;
   liveUrl?: string;
   githubUrl?: string;
+  githubLabel?: string;
+  githubIsGeneric?: boolean;
+  proofStatus?: "available" | "partial" | "pending";
+  proofArtifacts?: ProjectArtifact[];
   featured: boolean;
   sortOrder: number;
   detail?: ProjectDetail;
+}
+
+export interface ProjectArtifact {
+  src: string;
+  alt: string;
+  caption: string;
 }
 
 export interface ProjectDetail {
@@ -25,12 +35,22 @@ export interface ProjectDetail {
   productStrategy?: string;
   userFlow?: string;
   systemArchitecture?: string;
+  aiSystem?: ProjectAiSystem;
   keyFeatures: string[];
   implementation?: string;
   challenges?: string[];
   results?: string;
   lessonsLearned?: string[];
   relatedProjects?: string[];
+}
+
+export interface ProjectAiSystem {
+  pipeline: string[];
+  provider?: string;
+  dataFlow?: string;
+  validation?: string;
+  failureHandling?: string;
+  limitations?: string;
 }
 
 export interface Experience {
@@ -67,6 +87,7 @@ export interface SiteConfig {
   github: string;
   linkedin: string;
   instagram: string;
+  cvUrl: string;
   headline: string;
   subheadline: string;
   availabilityMessage: string;

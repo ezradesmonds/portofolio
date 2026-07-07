@@ -7,6 +7,7 @@ export const translations = {
     "nav.about": "About",
     "nav.contact": "Contact",
     "nav.getInTouch": "Get in Touch",
+    "nav.downloadCv": "Download CV",
     "nav.openMenu": "Open menu",
     "nav.closeMenu": "Close menu",
 
@@ -17,6 +18,7 @@ export const translations = {
     "hero.availability": "Open for AI internships + execution tools.",
     "hero.ctaPrimary": "View Selected Work",
     "hero.ctaSecondary": "Get in Touch",
+    "hero.ctaCv": "Download CV",
     "hero.github": "GitHub",
     "hero.linkedin": "LinkedIn",
     "hero.instagram": "Instagram",
@@ -29,6 +31,7 @@ export const translations = {
     "proof.products": "AI & Full-Stack<br />Systems Built",
     "proof.gpa": "Semester Informatics<br />GPA 3.76 / 4.00",
     "proof.local": "Students, Builders<br />& Early Founders",
+    "proof.availability": "Open to AI internships<br />Surabaya, Indonesia",
 
     "about.title": "About Ezra",
     "about.education.label": "Education",
@@ -97,6 +100,7 @@ export const translations = {
     "nav.about": "Tentang",
     "nav.contact": "Kontak",
     "nav.getInTouch": "Hubungi Saya",
+    "nav.downloadCv": "Unduh CV",
     "nav.openMenu": "Buka menu",
     "nav.closeMenu": "Tutup menu",
 
@@ -107,6 +111,7 @@ export const translations = {
     "hero.availability": "Terbuka untuk magang AI + alat eksekusi.",
     "hero.ctaPrimary": "Lihat Karya Pilihan",
     "hero.ctaSecondary": "Hubungi Saya",
+    "hero.ctaCv": "Unduh CV",
     "hero.github": "GitHub",
     "hero.linkedin": "LinkedIn",
     "hero.instagram": "Instagram",
@@ -119,6 +124,7 @@ export const translations = {
     "proof.products": "Sistem AI & Full-Stack<br />Dibangun",
     "proof.gpa": "Semester 4 Informatika<br />IPK 3.76 / 4.00",
     "proof.local": "Mahasiswa, Builder<br />& Founder Awal",
+    "proof.availability": "Terbuka untuk magang AI<br />Surabaya, Indonesia",
 
     "about.title": "Tentang Ezra",
     "about.education.label": "Pendidikan",

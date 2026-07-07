@@ -94,6 +94,9 @@ const stagesJson = JSON.stringify(board.stages).replace(/</g, "\\u003c");
         <a href={`mailto:${SITE.email}`} class="btn btn-secondary">
           {t(lang, "hero.ctaSecondary")}
         </a>
+        <a href={SITE.cvUrl} class="btn btn-cv" download>
+          {t(lang, "hero.ctaCv")}
+        </a>
       </div>
 
       <div class="hero-socials flex flex-wrap items-center gap-2.5 mt-5 sm:mt-6" data-reveal data-reveal-delay="800">
@@ -415,6 +418,20 @@ const stagesJson = JSON.stringify(board.stages).replace(/</g, "\\u003c");
     border-color: rgba(244, 255, 114, 0.52);
     background: rgba(244, 255, 114, 0.08);
     color: var(--color-text-primary);
+  }
+
+  .btn-cv {
+    border: 1px solid rgba(244, 255, 114, 0.28);
+    background: rgba(244, 255, 114, 0.08);
+    color: var(--color-accent-cyan);
+    box-shadow: inset 0 0 0 1px rgba(244, 255, 114, 0.04);
+  }
+
+  .btn-cv:hover,
+  .btn-cv:focus-visible {
+    border-color: rgba(244, 255, 114, 0.7);
+    background: rgba(244, 255, 114, 0.14);
+    transform: translateY(-1px);
   }
 
   .execution-board {

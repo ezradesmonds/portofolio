@@ -59,6 +59,14 @@ const navItems: { href: string; key: TranslationKey }[] = [
         ))
       }
       <a
+        href={SITE.cvUrl}
+        download
+        class="px-3 py-2 text-sm font-medium text-text-secondary hover:text-white transition-colors relative group rounded-md"
+      >
+        {t(lang, "nav.downloadCv")}
+        <span class="absolute bottom-1 left-3 right-3 h-px bg-accent-cyan scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+      </a>
+      <a
         href={`mailto:${SITE.email}`}
         class="ml-3 px-4 py-1.5 text-sm font-semibold border border-accent-cyan/30 text-accent-cyan rounded-lg hover:bg-accent-cyan/10 transition-colors"
       >

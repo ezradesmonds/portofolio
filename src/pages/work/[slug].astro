@@ -38,6 +38,18 @@ const label = {
   technologies: lang === "id" ? "Teknologi" : "Technologies",
   visit: lang === "id" ? "Kunjungi Situs Live" : "Visit Live Site",
   github: lang === "id" ? "Lihat di GitHub" : "View on GitHub",
+  githubProfile: lang === "id" ? "Profil GitHub" : "GitHub Profile",
+  proof: lang === "id" ? "Bukti Visual" : "Proof Artifacts",
+  proofPending: lang === "id"
+    ? "Artifact untuk project ini akan ditambahkan di batch 2."
+    : "Artifacts for this project will be added in batch 2.",
+  aiSystem: lang === "id" ? "Catatan Sistem AI" : "AI System Notes",
+  provider: lang === "id" ? "Provider / Model" : "Provider / Model",
+  pipeline: lang === "id" ? "Pipeline" : "Pipeline",
+  dataFlow: lang === "id" ? "Data Flow" : "Data Flow",
+  validation: lang === "id" ? "Validasi" : "Validation",
+  failureHandling: lang === "id" ? "Failure Handling" : "Failure Handling",
+  limitations: lang === "id" ? "Batasan Teknis" : "Technical Limitations",
   all: lang === "id" ? "Semua Proyek" : "All Projects",
   contact: lang === "id" ? "Hubungi Saya" : "Get in Touch",
 };
@@ -66,6 +78,12 @@ const label = {
 
       <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-6">{project.title}</h1>
       <p class="text-xl text-text-secondary leading-relaxed mb-12">{project.description}</p>
+
+      {project.screenshot && (
+        <figure class="case-hero-shot mb-14">
+          <img src={project.screenshot} alt={`${project.title} interface preview`} loading="eager" decoding="async" />
+        </figure>
+      )}
 
       {detail && (
         <div class="space-y-16">
@@ -103,6 +121,54 @@ const label = {
             </ul>
           </section>
 
+          {detail.aiSystem && (
+            <section class="ai-system-panel">
+              <h2 class="text-sm font-mono font-bold uppercase tracking-widest text-accent-cyan mb-5">{label.aiSystem}</h2>
+              <div class="grid lg:grid-cols-[0.85fr_1.15fr] gap-6">
+                <div class="space-y-4">
+                  {detail.aiSystem.provider && (
+                    <div class="ai-note">
+                      <span>{label.provider}</span>
+                      <p>{detail.aiSystem.provider}</p>
+                    </div>
+                  )}
+                  {detail.aiSystem.dataFlow && (
+                    <div class="ai-note">
+                      <span>{label.dataFlow}</span>
+                      <p>{detail.aiSystem.dataFlow}</p>
+                    </div>
+                  )}
+                  {detail.aiSystem.validation && (
+                    <div class="ai-note">
+                      <span>{label.validation}</span>
+                      <p>{detail.aiSystem.validation}</p>
+                    </div>
+                  )}
+                  {detail.aiSystem.failureHandling && (
+                    <div class="ai-note">
+                      <span>{label.failureHandling}</span>
+                      <p>{detail.aiSystem.failureHandling}</p>
+                    </div>
+                  )}
+                  {detail.aiSystem.limitations && (
+                    <div class="ai-note">
+                      <span>{label.limitations}</span>
+                      <p>{detail.aiSystem.limitations}</p>
+                    </div>
+                  )}
+                </div>
+                <div>
+                  <h3 class="text-xs font-mono font-bold uppercase tracking-widest text-text-muted mb-3">{label.pipeline}</h3>
+                  <ol class="ai-pipeline">
+                    {detail.aiSystem.pipeline.map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+            </section>
+          )}
+
           {detail.challenges && detail.challenges.length > 0 && (
             <section>
               <h2 class="text-sm font-mono font-bold uppercase tracking-widest text-accent-cyan mb-4">{label.challenges}</h2>
@@ -134,6 +200,26 @@ const label = {
         </div>
       )}
 
+      {(project.proofArtifacts?.length || project.proofStatus === "pending") && (
+        <section class="mt-16 pt-8 border-t border-dark-border">
+          <h2 class="text-sm font-mono font-bold uppercase tracking-widest text-accent-cyan mb-5">{label.proof}</h2>
+          {project.proofArtifacts?.length ? (
+            <div class="proof-gallery">
+              {project.proofArtifacts.map((artifact) => (
+                <figure class="proof-artifact">
+                  <img src={artifact.src} alt={artifact.alt} loading="lazy" decoding="async" />
+                  <figcaption>{artifact.caption}</figcaption>
+                </figure>
+              ))}
+            </div>
+          ) : (
+            <div class="proof-pending">
+              <p>{label.proofPending}</p>
+            </div>
+          )}
+        </section>
+      )}
+
       <section class="mt-16 pt-8 border-t border-dark-border">
         <h2 class="text-sm font-mono font-bold uppercase tracking-widest text-accent-cyan mb-4">{label.technologies}</h2>
         <div class="flex flex-wrap gap-2">
@@ -151,7 +237,7 @@ const label = {
         {project.githubUrl && (
           <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"/></svg>
-            {label.github}
+            {project.githubLabel ?? (project.githubIsGeneric ? label.githubProfile : label.github)}
           </a>
         )}
       </div>
@@ -167,3 +253,111 @@ const label = {
     </div>
   </article>
 </BaseLayout>
+
+<style>
+  .case-hero-shot {
+    overflow: hidden;
+    border: 1px solid rgba(244, 255, 114, 0.16);
+    border-radius: 1rem;
+    background: rgba(0, 0, 0, 0.28);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+  }
+
+  .case-hero-shot img {
+    width: 100%;
+    max-height: 34rem;
+    object-fit: cover;
+    display: block;
+  }
+
+  .ai-system-panel {
+    border: 1px solid rgba(244, 255, 114, 0.14);
+    border-radius: 1rem;
+    background: linear-gradient(145deg, rgba(23, 26, 16, 0.86), rgba(9, 10, 7, 0.92));
+    padding: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  .ai-note {
+    border-left: 2px solid rgba(244, 255, 114, 0.32);
+    padding-left: 0.9rem;
+  }
+
+  .ai-note span {
+    display: block;
+    color: var(--color-accent-cyan);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.35rem;
+    text-transform: uppercase;
+  }
+
+  .ai-note p,
+  .ai-pipeline li {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  .ai-pipeline {
+    display: grid;
+    gap: 0.75rem;
+    counter-reset: pipeline;
+  }
+
+  .ai-pipeline li {
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.75rem;
+    background: rgba(255, 255, 255, 0.035);
+    padding: 0.85rem 0.95rem 0.85rem 2.8rem;
+  }
+
+  .ai-pipeline li::before {
+    counter-increment: pipeline;
+    content: counter(pipeline, decimal-leading-zero);
+    position: absolute;
+    left: 0.85rem;
+    top: 0.95rem;
+    color: var(--color-accent-cyan);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 900;
+  }
+
+  .proof-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: 1rem;
+  }
+
+  .proof-artifact {
+    overflow: hidden;
+    border: 1px solid rgba(244, 255, 114, 0.14);
+    border-radius: 0.9rem;
+    background: rgba(16, 18, 11, 0.72);
+  }
+
+  .proof-artifact img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid rgba(244, 255, 114, 0.12);
+  }
+
+  .proof-artifact figcaption,
+  .proof-pending p {
+    color: var(--color-text-secondary);
+    font-size: 0.82rem;
+    line-height: 1.55;
+    padding: 0.85rem;
+  }
+
+  .proof-pending {
+    border: 1px dashed rgba(244, 255, 114, 0.18);
+    border-radius: 0.9rem;
+    background: rgba(255, 255, 255, 0.035);
+  }
+</style>

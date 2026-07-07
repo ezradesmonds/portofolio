@@ -13,6 +13,7 @@ type ProjectLocale = Partial<
     | "contribution"
     | "statusLabel"
     | "outcome"
+    | "proofArtifacts"
   >
 > & {
   detail?: Partial<ProjectDetail>;
@@ -55,7 +56,50 @@ const projectIdLocales: Record<string, ProjectLocale> = {
         "Integrasi AI untuk data keuangan harus diberi grounding dan validasi yang ketat",
         "Integrasi pembayaran untuk use case bisnis Indonesia punya pertimbangan tersendiri",
       ],
+      aiSystem: {
+        provider: "Layer LLM melalui OpenRouter, dengan rencana OCR untuk membaca struk.",
+        pipeline: [
+          "Transaksi, invoice, perubahan stok, dan hasil OCR struk masuk ke workspace ledger.",
+          "Data transaksi terstruktur divalidasi terhadap aturan chart of accounts sebelum masuk laporan.",
+          "Asisten AI menjawab dari konteks workspace dan merangkum kondisi finansial, bukan chatbot bebas tanpa batas.",
+          "Laporan, ekspor CSV, dan kartu dashboard dibuat dari catatan akuntansi yang tersimpan.",
+        ],
+        dataFlow:
+          "Supabase/PostgreSQL menyimpan data bisnis terisolasi per tenant; RLS menjaga batas workspace sebelum konteks AI disusun.",
+        validation:
+          "Validasi double-entry, kategori, dan query berbasis permission menjaga jawaban finansial tetap terikat ke data ledger.",
+        failureHandling:
+          "Output AI diposisikan sebagai bantuan; aksi akuntansi tetap melewati validasi deterministik sebelum disimpan atau dilaporkan.",
+        limitations:
+          "Sistem masih pre-launch. Pajak, akurasi OCR, dan compliance lokal masih butuh validasi produksi lebih dalam.",
+      },
     },
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/akun-ai-dashboard.webp",
+        alt: "Dashboard Akun.AI dengan saldo kas, pendapatan, pengeluaran, asisten AI, laporan, invoice, inventory, dan integrasi.",
+        caption:
+          "Dashboard utama dengan KPI finansial, asisten AI, laporan, invoice, inventory, dan kartu integrasi.",
+      },
+      {
+        src: "/assets/case-studies/akun-ai-landing.webp",
+        alt: "Landing page Akun.AI dengan positioning akuntansi AI untuk bisnis Indonesia.",
+        caption:
+          "Landing page publik yang memosisikan Akun.AI sebagai workspace akuntansi yang bisa diajak ngobrol.",
+      },
+      {
+        src: "/assets/case-studies/akun-ai-ledger.webp",
+        alt: "Preview ledger Akun.AI dengan grafik kas, asisten AI, dan baris transaksi.",
+        caption:
+          "Preview ledger: transaksi, saldo, dan ringkasan AI dalam satu permukaan finansial.",
+      },
+      {
+        src: "/assets/case-studies/akun-ai-pricing.webp",
+        alt: "Section harga Akun.AI dengan paket Free, Starter, dan Pro.",
+        caption:
+          "Model harga berbasis limit transaksi, limit chat AI, akses tim, dan kebutuhan inventory.",
+      },
+    ],
   },
   tokokaret: {
     category: "E-Commerce / Rekomendasi Produk AI",
@@ -85,9 +129,46 @@ const projectIdLocales: Record<string, ProjectLocale> = {
         "Membangun pipeline prompt Gemini yang bisa memetakan gejala ke produk dengan konsisten",
         "Menghubungkan rekomendasi AI dengan alur penjualan offline",
       ],
+      aiSystem: {
+        provider: "Google Gemini untuk rekomendasi dari gejala ke kategori produk.",
+        pipeline: [
+          "User memasukkan model mobil dan keluhan atau kebutuhan lewat form terstruktur.",
+          "Prompt membatasi Gemini untuk memetakan gejala ke kategori produk yang mungkin, bukan mengarang SKU pasti.",
+          "Jawaban menjadi arahan awal yang dilanjutkan ke konsultasi WhatsApp.",
+          "Follow-up penjualan memakai hasil AI plus verifikasi foto untuk finalisasi kecocokan produk.",
+        ],
+        dataFlow:
+          "Input form dibuat ringan: model, gejala, dan hasil kategori dipakai untuk mengarahkan handoff ke WhatsApp.",
+        validation:
+          "AI sengaja diposisikan sebagai arahan awal; ukuran dan tipe final tetap dikonfirmasi lewat konsultasi manusia dan bukti foto.",
+        failureHandling:
+          "Saat ketidakpastian tinggi, interface mendorong user lanjut konsultasi alih-alih memaksakan rekomendasi produk.",
+        limitations:
+          "Flow AI merekomendasikan kategori, bukan menjamin kecocokan part. Konfirmasi foto fisik tetap diperlukan.",
+      },
       results:
         "Platform ini menjadi storefront digital untuk bisnis dengan 4.000+ pelanggan dan mendukung discovery produk dari katalog 50.000+ item.",
     },
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/tokokaret-landing.webp",
+        alt: "Landing page TokoKaret.com untuk produk karet otomotif dan industri.",
+        caption:
+          "Hero storefront live: halaman commerce product-first dengan jalur konsultasi WhatsApp.",
+      },
+      {
+        src: "/assets/case-studies/tokokaret-ai-check.webp",
+        alt: "Form asisten AI TokoKaret.com untuk input model mobil dan gejala produk.",
+        caption:
+          "Flow konsultasi AI: user menjelaskan gejala dan mendapat arahan kategori produk awal.",
+      },
+      {
+        src: "/assets/case-studies/tokokaret-products.webp",
+        alt: "Section produk TokoKaret.com yang menampilkan part karet yang sering dicari.",
+        caption:
+          "Section discovery produk yang menghubungkan label masalah ke kategori katalog spesifik.",
+      },
+    ],
   },
   financeos: {
     category: "Riset Kuantitatif / FinTech / AI",
@@ -118,7 +199,51 @@ const projectIdLocales: Record<string, ProjectLocale> = {
         "Membangun pelacakan siklus trade yang merepresentasikan posisi paper dengan akurat",
         "Membangun frontend kelas riset yang tetap cepat dengan data real-time",
       ],
+      aiSystem: {
+        provider:
+          "Pipeline sinyal algoritmik dengan pemrosesan berita/sentimen; tidak terhubung ke eksekusi broker live.",
+        pipeline: [
+          "Data market publik dan feed berita masuk ke workspace riset.",
+          "Rules menilai trend, momentum, liquidity, regime BTC, risk/reward, dan freshness sinyal.",
+          "Kartu sinyal menampilkan entry, stop, TP, kriteria invalidasi, dan status lifecycle dry-run.",
+          "Worker dry-run melacak posisi paper untuk evaluasi tanpa mengirim order live.",
+        ],
+        dataFlow:
+          "Data market Binance/publik, provider RSS/berita, dan simulator fallback mengisi terminal serta record lifecycle paper.",
+        validation:
+          "Sinyal memiliki scoring, regime filter, catatan invalidasi, dan label research-only yang eksplisit.",
+        failureHandling:
+          "Status provider menampilkan feed yang disabled/fallback, dan live order tetap dimatikan by design.",
+        limitations:
+          "Sistem hanya untuk riset. Tidak ada wallet, broker, exchange key, atau eksekusi finansial live yang terhubung.",
+      },
     },
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/financeos-terminal.webp",
+        alt: "Terminal FinanceOS dengan sinyal crypto aktif dan panel detail sinyal.",
+        caption:
+          "Terminal riset: kartu sinyal aktif, konteks chart live, metrik risiko, dan status dry-run.",
+      },
+      {
+        src: "/assets/case-studies/financeos-signal.webp",
+        alt: "Tampilan detail sinyal FinanceOS dengan trend, momentum, liquidity, risk reward, dan aksi dry-run.",
+        caption:
+          "Detail sinyal: faktor terstruktur, risk/reward, catatan invalidasi, dan aksi dry-run.",
+      },
+      {
+        src: "/assets/case-studies/financeos-worker.webp",
+        alt: "Worker dry-run otomatis FinanceOS dan tracking lifecycle paper trade.",
+        caption:
+          "Worker dry-run otomatis yang melacak paper trade tanpa live order atau exchange key.",
+      },
+      {
+        src: "/assets/case-studies/financeos-news.webp",
+        alt: "Market headlines FinanceOS dan panel status provider.",
+        caption:
+          "News engine dengan status provider, fallback mode, jumlah dedupe, dan tag sentimen headline.",
+      },
+    ],
   },
   "tailor-cooperative-system": {
     title: "Sistem Prediksi Efisiensi Penjahit & Manajemen Koperasi",
@@ -149,9 +274,59 @@ const projectIdLocales: Record<string, ProjectLocale> = {
         "Mengintegrasikan prediksi ML ke workflow operasional yang praktis",
         "Berkoordinasi dengan anggota tim multidisiplin dari bisnis, arsitektur, dan bisnis internasional",
       ],
+      aiSystem: {
+        provider:
+          "Prediksi machine learning dan allocation layer berbasis rule di atas data operasional koperasi.",
+        pipeline: [
+          "Data penjahit menyimpan speed, status, jarak, spesialisasi, dan kapasitas tersedia.",
+          "Input order mendefinisikan kategori, jumlah pcs, dan tekanan deadline.",
+          "Layer alokasi menghitung kebutuhan produksi harian dan meranking penjahit yang feasible.",
+          "Jika kapasitas satu penjahit tidak aman, sistem mensimulasikan opsi split order.",
+        ],
+        dataFlow:
+          "Tabel operasional mengisi dashboard, manajemen penjahit, dan rekomendasi alokasi di sistem koperasi.",
+        validation:
+          "Rekomendasi dicek terhadap deadline math, kapasitas, status saat ini, spesialisasi, dan jarak.",
+        failureHandling:
+          "Saat satu penjahit tidak cukup, sistem menawarkan custom split order alih-alih memaksa satu assignment.",
+        limitations:
+          "Prototype kompetisi dengan data operasional terbatas; confidence model perlu data deployment nyata sebelum produksi.",
+      },
       results:
         "Mendapat Juara 2 di SUTD x Petra Christian University International Hackathon karena menggabungkan kedalaman teknis dengan kegunaan operasional.",
     },
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/tailor-dashboard.webp",
+        alt: "Dashboard manajerial koperasi penjahit dengan metrik profit, pengeluaran, project aktif, penjahit ready, dan stok menipis.",
+        caption:
+          "Dashboard manajerial: sinyal bisnis, produksi, dan stok dalam satu tampilan operasional.",
+      },
+      {
+        src: "/assets/case-studies/tailor-analytics.webp",
+        alt: "Dashboard analitik penjahit dengan total mitra, rata-rata speed, status idle, bar chart, dan distribusi spesialisasi.",
+        caption:
+          "Analitik performa penjahit untuk memahami kapasitas, speed, status idle, dan komposisi spesialisasi.",
+      },
+      {
+        src: "/assets/case-studies/tailor-data.webp",
+        alt: "Tabel manajemen data penjahit dengan jarak, speed, spesialisasi, status, dan kontak.",
+        caption:
+          "Tabel data operasional yang mendukung keputusan assignment dan workflow manajemen.",
+      },
+      {
+        src: "/assets/case-studies/tailor-allocation.webp",
+        alt: "Form AI Smart Allocation yang merekomendasikan penjahit berdasarkan deadline, kategori, dan jumlah order.",
+        caption:
+          "Flow smart allocation: deadline, kategori, quantity, target speed, dan rekomendasi penjahit.",
+      },
+      {
+        src: "/assets/case-studies/tailor-split-order.webp",
+        alt: "Simulasi custom split order penjahit dengan kapasitas, estimasi selesai, dan tabel pembagian tugas.",
+        caption:
+          "Simulasi split-order fallback ketika satu penjahit tidak aman membawa seluruh beban kerja.",
+      },
+    ],
   },
   "innofashion-show-8": {
     title: "Platform Event Innofashion Show 8",
@@ -186,6 +361,26 @@ const projectIdLocales: Record<string, ProjectLocale> = {
       results:
         "Platform memproses 100+ peserta dan berjalan reliabel sepanjang event. Tim teknis mengirim sistem di bawah koordinasi kepala divisi IT.",
     },
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/innofashion-dashboard.webp",
+        alt: "Dashboard peserta Innofashion dengan status registrasi, upload submission, join WhatsApp, dan badge verified.",
+        caption:
+          "Dashboard peserta untuk status registrasi, upload submission, koordinasi WhatsApp, dan verifikasi.",
+      },
+      {
+        src: "/assets/case-studies/innofashion-admin.webp",
+        alt: "Dashboard admin Innofashion dengan statistik kompetisi dan event.",
+        caption:
+          "Dashboard admin yang menampilkan metrik validasi peserta dan statistik event.",
+      },
+      {
+        src: "/assets/case-studies/innofashion-landing.webp",
+        alt: "Landing page Innofashion Show 8 dengan call to action register now.",
+        caption:
+          "Landing page publik untuk discovery event, registrasi, dan onboarding peserta.",
+      },
+    ],
   },
   servisin: {
     category: "Marketplace Jasa / Aplikasi Mobile / Tugas Akhir Technopreneur",
@@ -213,6 +408,36 @@ const projectIdLocales: Record<string, ProjectLocale> = {
         "Membangun pengalaman mobile lintas platform dengan resource terbatas",
       ],
     },
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/servisin-home.webp",
+        alt: "Home screen mobile Servisin dengan search, kategori layanan, recent service, dan bottom navigation.",
+        caption:
+          "Flow home pelanggan dengan search, kategori layanan, recent service, dan navigasi booking.",
+      },
+      {
+        src: "/assets/case-studies/servisin-signup.webp",
+        alt: "Screen sign-up mobile Servisin dengan Google sign-in dan akses mode teknisi.",
+        caption: "Entry autentikasi untuk pelanggan dan teknisi.",
+      },
+      {
+        src: "/assets/case-studies/servisin-detail.webp",
+        alt: "Screen detail layanan Servisin dengan portfolio dan recent reviews.",
+        caption: "Permukaan detail teknisi/layanan dengan bukti portfolio dan review.",
+      },
+      {
+        src: "/assets/case-studies/servisin-transaction.webp",
+        alt: "Screen transaction detail Servisin dengan service completed dan kartu teknisi.",
+        caption:
+          "Flow detail transaksi dengan service completion, protection card, dan aksi teknisi.",
+      },
+      {
+        src: "/assets/case-studies/servisin-subscription.webp",
+        alt: "Screen subscription Servisin dengan silver plan aktif dan sisa manfaat.",
+        caption:
+          "Screen model subscription untuk manfaat layanan berulang dan upgrade plan.",
+      },
+    ],
   },
   "wedding-dress-rental": {
     title: "Platform Rental Gaun Pengantin",
@@ -477,6 +702,7 @@ export function localizeProject(project: Project, lang: Lang): Project {
     ...project,
     ...localized,
     detail: mergeDetail(project.detail, localized.detail),
+    proofArtifacts: localized.proofArtifacts ?? project.proofArtifacts,
   };
 }
 
