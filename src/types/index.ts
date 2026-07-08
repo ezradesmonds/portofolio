@@ -15,12 +15,19 @@ export interface Project {
   liveUrl?: string;
   githubUrl?: string;
   githubLabel?: string;
+  githubLinks?: ProjectLink[];
   githubIsGeneric?: boolean;
   proofStatus?: "available" | "partial" | "pending";
   proofArtifacts?: ProjectArtifact[];
   featured: boolean;
   sortOrder: number;
   detail?: ProjectDetail;
+}
+
+export interface ProjectLink {
+  url: string;
+  label: string;
+  isGeneric?: boolean;
 }
 
 export interface ProjectArtifact {

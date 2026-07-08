@@ -13,6 +13,10 @@ type ProjectLocale = Partial<
     | "contribution"
     | "statusLabel"
     | "outcome"
+    | "githubUrl"
+    | "githubLabel"
+    | "githubLinks"
+    | "githubIsGeneric"
     | "proofArtifacts"
   >
 > & {
@@ -114,31 +118,38 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     statusLabel: "Sudah Live",
     outcome:
       "Landing experience berfokus konversi untuk bisnis dengan 4.000+ pelanggan dan 50.000+ item yang direpresentasikan.",
+    githubLabel: "Repo Live Saat Ini",
+    githubLinks: [
+      {
+        label: "Repo Live Saat Ini",
+        url: "https://github.com/ezradesmonds/Tokokaretastro",
+      },
+    ],
     detail: {
       overview:
-        "TokoKaret.com adalah platform commerce yang menjembatani katalog produk industri dengan keputusan pembelian yang lebih terarah. Mesin rekomendasi berbasis Gemini membantu pelanggan menemukan produk karet yang tepat dari gejala dan kebutuhan mereka.",
+        "TokoKaret.com adalah platform commerce yang menjembatani katalog produk industri dengan keputusan pembelian yang lebih terarah. Flow rekomendasi berbantuan RAG membantu pelanggan mengubah gejala mobil atau kebutuhan produk menjadi arahan awal part karet sebelum dikonfirmasi lewat WhatsApp.",
       keyFeatures: [
         "Landing experience berfokus konversi",
-        "Rekomendasi dari gejala ke produk berbasis AI (Google Gemini)",
+        "Rekomendasi dari gejala ke produk berbantuan RAG",
         "Integrasi jalur penjualan WhatsApp dan marketplace",
         "Alur konsultasi pelanggan dengan intake terstruktur",
         "Desain responsif untuk pengguna Indonesia yang mobile-first",
       ],
       challenges: [
         "Menerjemahkan spesifikasi teknis produk industri menjadi rekomendasi yang mudah dipahami pelanggan",
-        "Membangun pipeline prompt Gemini yang bisa memetakan gejala ke produk dengan konsisten",
+        "Membangun flow retrieval yang membatasi rekomendasi ke konteks produk dan kategori yang relevan",
         "Menghubungkan rekomendasi AI dengan alur penjualan offline",
       ],
       aiSystem: {
-        provider: "Google Gemini untuk rekomendasi dari gejala ke kategori produk.",
+        provider: "Layer rekomendasi berbantuan RAG untuk arahan gejala ke kategori produk.",
         pipeline: [
           "User memasukkan model mobil dan keluhan atau kebutuhan lewat form terstruktur.",
-          "Prompt membatasi Gemini untuk memetakan gejala ke kategori produk yang mungkin, bukan mengarang SKU pasti.",
-          "Jawaban menjadi arahan awal yang dilanjutkan ke konsultasi WhatsApp.",
+          "Query mengambil konteks produk/kategori yang relevan sebelum sistem menyusun arahan awal.",
+          "Jawaban dibatasi untuk memetakan gejala ke kategori produk yang mungkin, bukan mengarang SKU pasti.",
           "Follow-up penjualan memakai hasil AI plus verifikasi foto untuk finalisasi kecocokan produk.",
         ],
         dataFlow:
-          "Input form dibuat ringan: model, gejala, dan hasil kategori dipakai untuk mengarahkan handoff ke WhatsApp.",
+          "Input form dibuat ringan: model, gejala, konteks hasil retrieval, dan hasil kategori dipakai untuk mengarahkan handoff ke WhatsApp.",
         validation:
           "AI sengaja diposisikan sebagai arahan awal; ukuran dan tipe final tetap dikonfirmasi lewat konsultasi manusia dan bukti foto.",
         failureHandling:
@@ -259,38 +270,51 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     statusLabel: "Kompetisi - Juara 2",
     outcome:
       "Juara 2 - SUTD x Petra Christian University International Hackathon, Januari 2026.",
+    githubLabel: "Repo AIML",
+    githubLinks: [
+      {
+        label: "Repo AIML",
+        url: "https://github.com/ezradesmonds/AI_tailor_smart_allocator",
+      },
+      {
+        label: "Repo Sistem Manajemen",
+        url: "https://github.com/ezradesmonds/koperasi_app",
+      },
+    ],
     detail: {
       overview:
-        "Sistem dua modul yang menggabungkan machine learning untuk prediksi efisiensi tenaga kerja dengan platform manajemen koperasi. Modulnya mencakup prediksi efisiensi penjahit, dashboard operasional, manajemen penjahit, stok, supplier, dan pembelian.",
+        "Sistem dua modul yang menggabungkan workflow clustering unsupervised dari 200 data penjahit koperasi dengan platform manajemen koperasi. Modulnya mencakup cleaning data, feature engineering, sinyal alokasi, dashboard operasional, manajemen penjahit, stok, supplier, dan pembelian.",
       keyFeatures: [
-        "Model prediksi efisiensi penjahit berbasis ML",
+        "Workflow clustering unsupervised dari 200 data penjahit koperasi",
         "Dashboard operasional untuk manajer koperasi",
         "Modul manajemen penjahit, stok, supplier, dan pembelian",
         "Otomatisasi alur kerja operasional koperasi",
         "Validasi model finansial dan IRR",
       ],
       challenges: [
-        "Melatih model prediksi yang reliabel dengan data operasional terbatas",
-        "Mengintegrasikan prediksi ML ke workflow operasional yang praktis",
+        "Membersihkan dataset koperasi dan membentuk fitur operasional yang cukup bermakna untuk clustering",
+        "Mengintegrasikan output clustering ke workflow alokasi kerja yang praktis",
         "Berkoordinasi dengan anggota tim multidisiplin dari bisnis, arsitektur, dan bisnis internasional",
       ],
       aiSystem: {
         provider:
-          "Prediksi machine learning dan allocation layer berbasis rule di atas data operasional koperasi.",
+          "Clustering machine learning unsupervised plus allocation layer berbasis rule di atas 200 data penjahit koperasi.",
         pipeline: [
-          "Data penjahit menyimpan speed, status, jarak, spesialisasi, dan kapasitas tersedia.",
+          "Dataset koperasi dibersihkan dan distandardisasi sebelum feature engineering.",
+          "Fitur operasional dibentuk dari data penjahit seperti speed, status, jarak, spesialisasi, dan kapasitas.",
+          "Clustering unsupervised mengelompokkan penjahit berdasarkan profil operasional agar pola kerja serupa bisa dibandingkan.",
           "Input order mendefinisikan kategori, jumlah pcs, dan tekanan deadline.",
           "Layer alokasi menghitung kebutuhan produksi harian dan meranking penjahit yang feasible.",
           "Jika kapasitas satu penjahit tidak aman, sistem mensimulasikan opsi split order.",
         ],
         dataFlow:
-          "Tabel operasional mengisi dashboard, manajemen penjahit, dan rekomendasi alokasi di sistem koperasi.",
+          "Workflow AIML menghasilkan sinyal clustering dan alokasi, lalu sistem manajemen koperasi memakai sinyal itu di dashboard, manajemen penjahit, dan smart allocation.",
         validation:
-          "Rekomendasi dicek terhadap deadline math, kapasitas, status saat ini, spesialisasi, dan jarak.",
+          "Rekomendasi dicek terhadap deadline math, kapasitas, status saat ini, spesialisasi, jarak, dan sinyal kelayakan berbasis cluster.",
         failureHandling:
           "Saat satu penjahit tidak cukup, sistem menawarkan custom split order alih-alih memaksa satu assignment.",
         limitations:
-          "Prototype kompetisi dengan data operasional terbatas; confidence model perlu data deployment nyata sebelum produksi.",
+          "Prototype kompetisi memakai 200 data penjahit koperasi. Logika clustering masih butuh feedback deployment nyata sebelum bisa mengklaim akurasi alokasi produksi.",
       },
       results:
         "Mendapat Juara 2 di SUTD x Petra Christian University International Hackathon karena menggabungkan kedalaman teknis dengan kegunaan operasional.",
@@ -341,6 +365,7 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     statusLabel: "Tugas Akhir AIML",
     outcome:
       "Menghasilkan flow simulasi kredit end-to-end yang memproses data pemohon, finansial, pinjaman, dan jaminan menjadi rekomendasi risiko, approval, limit, dan bunga.",
+    githubLabel: "Repo GitHub",
     detail: {
       overview:
         "FinLend adalah proyek akademik AI credit intelligence yang dibangun dengan interface Laravel dan AI engine FastAPI. Sistem ini mengubah 25 sinyal pemohon menjadi rekomendasi risiko kredit memakai feedforward neural network dan fuzzy logic.",
@@ -414,6 +439,7 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     statusLabel: "Client Project",
     outcome:
       "Menghasilkan prototype siap presentasi yang menjelaskan intervensi 8 komponen, kuis adaptasi OKAT 12 item, dan simulasi kesiapan kesehatan dalam format web-native.",
+    githubLabel: "Repo GitHub",
     detail: {
       overview:
         "Bank Tulang adalah microsite client untuk mahasiswa farmasi yang perlu mempresentasikan platform intervensi kesehatan tulang. Produk ini membingkai asesmen, skor, tracking, edukasi, target, gamification, dan social challenge dalam prototype web yang jelas.",
@@ -478,6 +504,17 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     statusLabel: "Terkirim",
     outcome:
       "Berhasil mendukung 100+ peserta dalam registrasi, ticketing, dan operasi hari-H.",
+    githubLabel: "Repo Frontend",
+    githubLinks: [
+      {
+        label: "Repo Frontend",
+        url: "https://github.com/innofashion-8/frontend",
+      },
+      {
+        label: "Repo Backend",
+        url: "https://github.com/innofashion-8/backend",
+      },
+    ],
     detail: {
       overview:
         "Platform manajemen event custom untuk Innofashion Show 8, event besar yang dijalankan mahasiswa. Sistem ini menangani registrasi peserta, ticketing berbasis QR, dashboard admin, dan operasi event real-time.",
@@ -528,6 +565,17 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     role: "Arsitek produk dan bisnis",
     contribution:
       "Desain produk dan proses bisnis, arsitektur backend dan administrasi, workflow untuk teknisi, model finansial dan validasi IRR, serta alur pelanggan dan operasi layanan.",
+    githubLabel: "Repo Frontend",
+    githubLinks: [
+      {
+        label: "Repo Frontend",
+        url: "https://github.com/ezradesmonds/servisin-front",
+      },
+      {
+        label: "Repo Backend",
+        url: "https://github.com/ezradesmonds/servisin-backend",
+      },
+    ],
     statusLabel: "MVP",
     detail: {
       overview:
@@ -633,6 +681,7 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     contribution:
       "Mengimplementasikan mekanik inti seperti pathfinding musuh, penempatan tower, logika serangan, dan progresi wave menggunakan Java dan LibGDX.",
     statusLabel: "Akademik",
+    githubLabel: "Repo GitHub",
     detail: {
       overview:
         "Game tower defense Java/LibGDX yang dibangun untuk tugas akhir pemrograman berorientasi objek. Proyek ini menunjukkan manajemen state game, perilaku entity, dan desain class reusable melalui gameplay tower-defense yang bisa dimainkan.",
@@ -680,6 +729,7 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     contribution:
       "Membangun sistem web untuk pendaftaran, pengelolaan data, dan alur informasi penerimaan siswa.",
     statusLabel: "Akademik",
+    githubLabel: "Repo GitHub",
     detail: {
       overview:
         "Sistem penerimaan siswa full-stack untuk tugas akhir Teknologi Web. Sistem mencakup landing page PPDB, login, registrasi pendaftar, dan upload dokumen.",
@@ -727,6 +777,7 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     contribution:
       "Merancang dan membangun aplikasi finance tracker full-stack, termasuk pipeline deployment, desain database, dan frontend responsif.",
     statusLabel: "Tugas Akhir Akademik",
+    githubLabel: "Repo GitHub",
     detail: {
       overview:
         "Aplikasi web keuangan pribadi yang dibangun sebagai tugas akhir Web Framework Deployment. Sistem ini memusatkan budget, expense, income, rekening, subscription, dan tanggal jatuh tempo.",

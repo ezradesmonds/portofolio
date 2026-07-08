@@ -21,6 +21,18 @@ if (!rawProject) {
 const lang = "id";
 const project = localizeProject(rawProject, lang);
 const detail = project.detail;
+const fallbackGithubLabel = project.githubIsGeneric ? "Profil GitHub" : "Lihat di GitHub";
+const githubLinks = project.githubLinks?.length
+  ? project.githubLinks
+  : project.githubUrl
+    ? [
+        {
+          url: project.githubUrl,
+          label: project.githubLabel ?? fallbackGithubLabel,
+          isGeneric: project.githubIsGeneric,
+        },
+      ]
+    : [];
 const label = {
   proof: "Bukti Visual",
   proofPending: "Artifact untuk project ini akan ditambahkan di batch 2.",
@@ -208,11 +220,11 @@ const pageTitle = `${project.title} — ${SITE.name}`;
             Kunjungi Situs Live
           </a>
         )}
-        {project.githubUrl && (
-          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-            {project.githubLabel ?? (project.githubIsGeneric ? label.githubProfile : label.github)}
+        {githubLinks.map((link) => (
+          <a href={link.url} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            {link.label ?? fallbackGithubLabel}
           </a>
-        )}
+        ))}
       </div>
 
       <nav class="mt-16 pt-8 border-t border-dark-border flex justify-between">

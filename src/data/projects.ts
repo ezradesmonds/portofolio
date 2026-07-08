@@ -116,13 +116,21 @@ export const projects: Project[] = [
     role: "Product builder and designer",
     contribution:
       "Designed and built the landing experience, consultation journey, sales pathways, and AI-assisted recommendation flow.",
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Google Gemini"],
+    technologies: ["Astro", "TypeScript", "Tailwind CSS", "RAG", "AI Recommendation"],
     status: "live",
     statusLabel: "Live",
     outcome:
       "Conversion-focused landing experience serving a business with over 4,000 customers and 50,000+ items represented.",
     screenshot: "/assets/case-studies/tokokaret-landing.webp",
     liveUrl: "https://www.tokokaret.com",
+    githubUrl: "https://github.com/ezradesmonds/Tokokaretastro",
+    githubLabel: "Current Live Repo",
+    githubLinks: [
+      {
+        label: "Current Live Repo",
+        url: "https://github.com/ezradesmonds/Tokokaretastro",
+      },
+    ],
     proofStatus: "available",
     proofArtifacts: [
       {
@@ -148,29 +156,29 @@ export const projects: Project[] = [
     sortOrder: 2,
     detail: {
       overview:
-        "TokoKaret.com is a commerce platform bridging the gap between industrial product catalogs and informed purchase decisions. The Gemini-powered recommendation engine helps customers find the right rubber products based on their symptoms and requirements.",
+        "TokoKaret.com is a commerce platform bridging the gap between industrial product catalogs and informed purchase decisions. Its RAG-assisted recommendation flow helps customers turn car symptoms or product needs into an initial rubber-part direction before human WhatsApp confirmation.",
       keyFeatures: [
         "Conversion-focused landing experience",
-        "AI-powered symptom-to-product recommendation (Google Gemini)",
+        "RAG-assisted symptom-to-product recommendation",
         "WhatsApp and marketplace sales pathway integration",
         "Customer consultation journey with structured intake",
         "Responsive design optimized for mobile-first Indonesian users",
       ],
       challenges: [
         "Translating technical industrial product specifications into accessible user-facing recommendations",
-        "Building a Gemini prompt pipeline that reliably maps symptoms to products",
+        "Grounding recommendations in product/category context so the AI does not overclaim exact part compatibility",
         "Integrating AI recommendations with offline sales workflows",
       ],
       aiSystem: {
-        provider: "Google Gemini for symptom-to-category recommendation.",
+        provider: "RAG-assisted recommendation layer for symptom-to-category guidance.",
         pipeline: [
           "User enters car model plus complaint or use case in a structured form.",
-          "The prompt constrains Gemini to map symptoms to likely product categories instead of inventing exact SKUs.",
-          "The answer becomes a first-pass direction that continues into WhatsApp consultation.",
+          "The system retrieves relevant product/category context before producing a constrained recommendation.",
+          "The answer maps symptoms to likely product categories instead of claiming a guaranteed SKU match.",
           "Sales follow-up uses the AI result plus photo verification for final product matching.",
         ],
         dataFlow:
-          "Form input stays lightweight: model, symptom, and category result are used to guide WhatsApp handoff.",
+          "Form input stays lightweight: model, symptom, retrieved category context, and recommendation output are used to guide WhatsApp handoff.",
         validation:
           "AI is intentionally positioned as initial guidance; final size/type confirmation still happens through human consultation and photo evidence.",
         failureHandling:
@@ -292,9 +300,18 @@ export const projects: Project[] = [
     outcome:
       "2nd Place — SUTD × Petra Christian University International Hackathon, January 2026.",
     screenshot: "/assets/case-studies/tailor-allocation.webp",
-    githubUrl: "https://github.com/ezradesmonds",
-    githubLabel: "GitHub Profile",
-    githubIsGeneric: true,
+    githubUrl: "https://github.com/ezradesmonds/AI_tailor_smart_allocator",
+    githubLabel: "AIML Repo",
+    githubLinks: [
+      {
+        label: "AIML Repo",
+        url: "https://github.com/ezradesmonds/AI_tailor_smart_allocator",
+      },
+      {
+        label: "Management System Repo",
+        url: "https://github.com/ezradesmonds/koperasi_app",
+      },
+    ],
     proofStatus: "available",
     proofArtifacts: [
       {
@@ -334,34 +351,35 @@ export const projects: Project[] = [
       overview:
         "A dual-module system combining machine learning for workforce efficiency prediction with a full cooperative management platform. Modules include tailor efficiency prediction, operational dashboard, tailor management, stock management, supplier management, and purchase management.",
       keyFeatures: [
-        "ML-based tailor efficiency prediction model",
+        "Unsupervised clustering workflow over 200 cooperative tailor records",
         "Operational dashboard for cooperative managers",
         "Tailor, stock, supplier, and purchase management modules",
         "Cooperative operational workflow automation",
         "Financial model and IRR validation",
       ],
       challenges: [
-        "Training reliable prediction models with limited operational data",
-        "Integrating ML predictions into practical operational workflows",
+        "Cleaning and structuring cooperative tailor data before feature engineering",
+        "Integrating clustering output into practical work-allocation workflows",
         "Coordinating across multidisciplinary team members (Business, Architecture, International Business)",
       ],
       aiSystem: {
         provider:
-          "Machine-learning prediction and rule-based allocation layer over cooperative operations data.",
+          "Unsupervised machine-learning clustering plus a rule-based allocation layer over 200 cooperative tailor records.",
         pipeline: [
-          "Tailor records capture speed, status, distance, specialty, and available capacity.",
-          "Order inputs define category, quantity, and deadline pressure.",
-          "The allocation layer estimates required daily production and ranks feasible tailors.",
+          "Raw cooperative tailor data is cleaned to remove inconsistent, incomplete, or unusable operational records.",
+          "Feature engineering transforms tailor attributes into allocation-ready signals such as speed, status, distance, specialty, and capacity.",
+          "Unsupervised clustering groups tailors by operational profile so similar working patterns can be compared.",
+          "Order inputs define category, quantity, and deadline pressure, then the allocation layer ranks feasible candidates.",
           "If single-tailor capacity is unsafe, the system simulates split-order alternatives.",
         ],
         dataFlow:
-          "Operational tables feed dashboards, tailor management, and allocation recommendations in the cooperative system.",
+          "The AIML workflow produces clustering/allocation signals, while the cooperative management system uses those signals inside dashboards, tailor management, and smart allocation flows.",
         validation:
-          "Recommendations are checked against deadline math, capacity, current status, specialty, and distance.",
+          "Recommendations are checked against deadline math, capacity, current status, specialty, distance, and cluster-based feasibility signals.",
         failureHandling:
           "When no single tailor is enough, the system proposes a custom split order instead of forcing one assignment.",
         limitations:
-          "Competition prototype using limited operational data; model confidence needs real deployment data before production use.",
+          "Competition prototype using 200 cooperative tailor records. The clustering logic needs longer real-world feedback loops before it can claim production-grade allocation accuracy.",
       },
       results:
         "Awarded 2nd Place at the SUTD × Petra Christian University International Hackathon, recognized for combining technical depth with operational practicality.",
@@ -385,9 +403,8 @@ export const projects: Project[] = [
     outcome:
       "Delivered an end-to-end credit simulation flow where applicant, finance, loan, and collateral data are processed into risk, approval, limit, and interest recommendations.",
     screenshot: "/assets/case-studies/finlend-landing.webp",
-    githubUrl: "https://github.com/ezradesmonds",
-    githubLabel: "GitHub Profile",
-    githubIsGeneric: true,
+    githubUrl: "https://github.com/ezradesmonds/Finlend",
+    githubLabel: "GitHub Repo",
     proofStatus: "available",
     proofArtifacts: [
       {
@@ -469,9 +486,9 @@ export const projects: Project[] = [
     outcome:
       "Delivered a presentation-ready prototype that explains the eight-component intervention, 12-item adapted OKAT quiz, and health-readiness simulation in a web-native format.",
     screenshot: "/assets/case-studies/bank-tulang-landing.webp",
-    githubUrl: "https://github.com/ezradesmonds",
-    githubLabel: "GitHub Profile",
-    githubIsGeneric: true,
+    liveUrl: "https://ezradesmonds.github.io/BankTulang/",
+    githubUrl: "https://github.com/ezradesmonds/BankTulang",
+    githubLabel: "GitHub Repo",
     proofStatus: "available",
     proofArtifacts: [
       {
@@ -544,9 +561,18 @@ export const projects: Project[] = [
       "Successfully supported 100+ participants across registration, ticketing, and event-day operations.",
     screenshot: "/assets/case-studies/innofashion-dashboard.webp",
     liveUrl: "https://innofashionshow.petra.ac.id",
-    githubUrl: "https://github.com/ezradesmonds",
-    githubLabel: "GitHub Profile",
-    githubIsGeneric: true,
+    githubUrl: "https://github.com/innofashion-8/frontend",
+    githubLabel: "Frontend Repo",
+    githubLinks: [
+      {
+        label: "Frontend Repo",
+        url: "https://github.com/innofashion-8/frontend",
+      },
+      {
+        label: "Backend Repo",
+        url: "https://github.com/innofashion-8/backend",
+      },
+    ],
     proofStatus: "available",
     proofArtifacts: [
       {
@@ -606,9 +632,18 @@ export const projects: Project[] = [
     technologies: ["React Native", "Laravel 11", "MySQL"],
     status: "prototype",
     statusLabel: "MVP",
-    githubUrl: "https://github.com/ezradesmonds",
-    githubLabel: "GitHub Profile",
-    githubIsGeneric: true,
+    githubUrl: "https://github.com/ezradesmonds/servisin-front",
+    githubLabel: "Frontend Repo",
+    githubLinks: [
+      {
+        label: "Frontend Repo",
+        url: "https://github.com/ezradesmonds/servisin-front",
+      },
+      {
+        label: "Backend Repo",
+        url: "https://github.com/ezradesmonds/servisin-backend",
+      },
+    ],
     proofStatus: "available",
     screenshot: "/assets/case-studies/servisin-home.webp",
     proofArtifacts: [
@@ -734,6 +769,8 @@ export const additionalProjects: Project[] = [
     status: "academic",
     statusLabel: "Academic",
     screenshot: "/assets/case-studies/tower-defense-gameplay.webp",
+    githubUrl: "https://github.com/ezradesmonds/towerdefensejava",
+    githubLabel: "GitHub Repo",
     proofStatus: "available",
     proofArtifacts: [
       {
@@ -789,6 +826,8 @@ export const additionalProjects: Project[] = [
     status: "academic",
     statusLabel: "Academic",
     screenshot: "/assets/case-studies/ppdb-landing.webp",
+    githubUrl: "https://github.com/ezradesmonds/ppdbsekolah",
+    githubLabel: "GitHub Repo",
     proofStatus: "available",
     proofArtifacts: [
       {
@@ -844,6 +883,8 @@ export const additionalProjects: Project[] = [
     status: "academic",
     statusLabel: "Academic Final Project",
     screenshot: "/assets/case-studies/finance-tracker-landing.webp",
+    githubUrl: "https://github.com/ezradesmonds/FinanceTracker",
+    githubLabel: "GitHub Repo",
     proofStatus: "available",
     proofArtifacts: [
       {
