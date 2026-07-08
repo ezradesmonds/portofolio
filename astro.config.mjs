@@ -9,7 +9,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://ezradesmonds.my.id',
+  site: 'https://www.ezradesmonds.my.id',
 
   vite: {
     plugins: [tailwindcss()]
