@@ -37,6 +37,7 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     statusLabel: "Dalam Pengembangan",
     outcome:
       "Pra-peluncuran: alur akuntansi penuh sudah dibangun, termasuk chart of accounts, validasi double-entry, laporan keuangan, asisten AI, OCR struk, dan manajemen langganan.",
+    githubLabel: "Repo GitHub",
     detail: {
       overview:
         "Akun.AI adalah SaaS akuntansi berbantuan AI untuk bisnis Indonesia. Sistem ini menggabungkan pembukuan modern dengan asisten akuntansi, OCR struk, dan laporan keuangan otomatis.",

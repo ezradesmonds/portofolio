@@ -29,9 +29,8 @@ export const projects: Project[] = [
     outcome:
       "Pre-launch: built full accounting workflow including chart of accounts, double-entry validation, financial reports, AI assistant, receipt OCR, and subscription management.",
     screenshot: "/assets/case-studies/akun-ai-dashboard.webp",
-    githubUrl: "https://github.com/ezradesmonds",
-    githubLabel: "GitHub Profile",
-    githubIsGeneric: true,
+    githubUrl: "https://github.com/ezradesmonds/SaaS_akun.ai",
+    githubLabel: "GitHub Repo",
     proofStatus: "available",
     proofArtifacts: [
       {
@@ -516,8 +515,8 @@ export const projects: Project[] = [
           "Interactive simulation for knowledge, calcium, and activity readiness. Educational only, not medical diagnosis.",
       },
     ],
-    featured: true,
-    sortOrder: 6,
+    featured: false,
+    sortOrder: 12,
     detail: {
       overview:
         "Bank Tulang is a client microsite built for pharmacy students who needed to present a bone-health intervention platform. The product frames assessment, scoring, tracking, education, goals, gamification, and social challenge mechanics in a clear web prototype.",
@@ -918,8 +917,8 @@ export const additionalProjects: Project[] = [
           "Calendar view for tracking recurring bill due dates and overdue/upcoming items.",
       },
     ],
-    featured: false,
-    sortOrder: 12,
+    featured: true,
+    sortOrder: 6,
     detail: {
       overview:
         "A personal finance web app built as a web framework deployment final project. It centralizes budgets, expenses, income, bank-account surfaces, subscriptions, and recurring due dates.",
