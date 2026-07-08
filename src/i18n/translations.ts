@@ -12,10 +12,10 @@ export const translations = {
     "nav.closeMenu": "Close menu",
 
     "hero.headline": "Ezra Desmond Sutanto",
-    "hero.role": "AI & Full-Stack Builder",
+    "hero.role": "AI Engineer & Full-Stack Builder",
     "hero.subheadline":
-      "I build AI-powered systems that help students, builders, and early founders think clearer, execute faster, and turn ideas into shipped outcomes.",
-    "hero.availability": "Open for AI internships + execution tools.",
+      "I build practical AI-powered web systems: accounting SaaS, RAG commerce assistants, ML dashboards, event platforms, and automation workflows.",
+    "hero.availability": "Open for internships and work.",
     "hero.ctaPrimary": "View Selected Work",
     "hero.ctaSecondary": "Get in Touch",
     "hero.ctaCv": "Download CV",
@@ -28,7 +28,7 @@ export const translations = {
     "hero.codeBlock.approach": "Think clearer.\n       Ship faster.",
 
     "proof.hackathon": "2nd Place International<br />Hackathon 2026",
-    "proof.products": "AI & Full-Stack<br />Systems Built",
+    "proof.products": "Shipped AI/full-stack<br />Systems",
     "proof.gpa": "Semester Informatics<br />GPA 3.76 / 4.00",
     "proof.local": "Students, Builders<br />& Early Founders",
     "proof.availability": "Open to AI internships<br />Surabaya, Indonesia",
@@ -81,7 +81,7 @@ export const translations = {
     "contact.form.or": "or reach me via",
 
     "footer.tagline":
-      "AI and full-stack builder creating systems that turn chaos into clarity and ideas into execution.",
+      "AI engineer and full-stack builder shipping practical web systems across SaaS, commerce, ML dashboards, events, and automation.",
     "footer.navigation": "Navigation",
     "footer.links": "Links",
     "footer.email": "Email",
@@ -89,9 +89,9 @@ export const translations = {
 
     "skipLink": "Skip to main content",
 
-    "seo.title": "Ezra Desmond Sutanto — AI & Full-Stack Builder",
+    "seo.title": "Ezra Desmond Sutanto - AI Engineer & Full-Stack Builder",
     "seo.description":
-      "Portfolio of Ezra Desmond Sutanto, an AI and full-stack builder creating systems for students, builders, and early founders.",
+      "Portfolio of Ezra Desmond Sutanto, an AI engineer and full-stack builder shipping practical AI-powered web systems.",
   },
 
   id: {
@@ -105,10 +105,10 @@ export const translations = {
     "nav.closeMenu": "Tutup menu",
 
     "hero.headline": "Ezra Desmond Sutanto",
-    "hero.role": "AI & Full-Stack Builder",
+    "hero.role": "AI Engineer & Full-Stack Builder",
     "hero.subheadline":
-      "Saya membangun sistem bertenaga AI yang membantu mahasiswa, builder, dan founder awal berpikir lebih jernih, mengeksekusi lebih cepat, dan mengubah ide menjadi hasil nyata.",
-    "hero.availability": "Terbuka untuk magang AI + alat eksekusi.",
+      "Saya membangun sistem web bertenaga AI yang praktis: SaaS akuntansi, asisten commerce berbasis RAG, dashboard ML, platform event, dan workflow otomasi.",
+    "hero.availability": "Terbuka untuk magang dan kerja.",
     "hero.ctaPrimary": "Lihat Karya Pilihan",
     "hero.ctaSecondary": "Hubungi Saya",
     "hero.ctaCv": "Unduh CV",
@@ -121,7 +121,7 @@ export const translations = {
     "hero.codeBlock.approach": "Berpikir jernih.\n       Bergerak cepat.",
 
     "proof.hackathon": "Juara 2 International<br />Hackathon 2026",
-    "proof.products": "Sistem AI & Full-Stack<br />Dibangun",
+    "proof.products": "Sistem AI/full-stack<br />Terkirim",
     "proof.gpa": "Semester 4 Informatika<br />IPK 3.76 / 4.00",
     "proof.local": "Mahasiswa, Builder<br />& Founder Awal",
     "proof.availability": "Terbuka untuk magang AI<br />Surabaya, Indonesia",
@@ -175,7 +175,7 @@ export const translations = {
     "contact.form.or": "atau hubungi via",
 
     "footer.tagline":
-      "AI dan full-stack builder yang menciptakan sistem untuk mengubah kekacauan menjadi kejelasan dan ide menjadi eksekusi.",
+      "AI engineer dan full-stack builder yang mengirim sistem web praktis untuk SaaS, commerce, dashboard ML, event, dan otomasi.",
     "footer.navigation": "Navigasi",
     "footer.links": "Tautan",
     "footer.email": "Email",
@@ -183,9 +183,9 @@ export const translations = {
 
     "skipLink": "Langsung ke konten utama",
 
-    "seo.title": "Ezra Desmond Sutanto — AI & Full-Stack Builder",
+    "seo.title": "Ezra Desmond Sutanto - AI Engineer & Full-Stack Builder",
     "seo.description":
-      "Portofolio Ezra Desmond Sutanto, AI dan full-stack builder yang menciptakan sistem untuk mahasiswa, builder, dan founder awal.",
+      "Portofolio Ezra Desmond Sutanto, AI engineer dan full-stack builder yang mengirim sistem web bertenaga AI secara praktis.",
   },
 } as const;
 

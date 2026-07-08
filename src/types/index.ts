@@ -3,6 +3,8 @@ export interface Project {
   title: string;
   category: string;
   description: string;
+  seoTitle?: string;
+  seoDescription?: string;
   problem: string;
   targetUsers: string;
   role: string;
@@ -40,6 +42,7 @@ export interface ProjectArtifact {
 
 export interface ProjectDetail {
   overview: string;
+  mySpecificBuilds?: string[];
   constraints?: string;
   productStrategy?: string;
   userFlow?: string;

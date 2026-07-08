@@ -6,7 +6,7 @@ const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname)
 
 <section class="border-b border-dark-border">
   <div class="max-w-7xl mx-auto px-4 md:px-6 py-8 md:py-12">
-    <div class="signal-strip grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4" data-proof-strip>
+    <div class="signal-strip grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4" data-proof-strip>
       <div class="signal-proof">
         <div class="signal-value" data-count-to="2" data-count-suffix="nd">2nd</div>
         <div class="signal-label" set:html={t(lang, "proof.hackathon")}></div>
@@ -18,14 +18,6 @@ const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname)
       <div class="signal-proof">
         <div class="signal-value" data-count-to="3.76" data-count-decimals="2">3.76</div>
         <div class="signal-label" set:html={t(lang, "proof.gpa")}></div>
-      </div>
-      <div class="signal-proof">
-        <div class="signal-value" data-count-final="NOW">NOW</div>
-        <div class="signal-label" set:html={t(lang, "proof.local")}></div>
-      </div>
-      <div class="signal-proof">
-        <div class="signal-value signal-value-small">SBY</div>
-        <div class="signal-label" set:html={t(lang, "proof.availability")}></div>
       </div>
     </div>
   </div>
@@ -111,10 +103,6 @@ const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname)
     line-height: 0.9;
     color: var(--color-accent-cyan);
     letter-spacing: -0.04em;
-  }
-
-  .signal-value-small {
-    font-size: clamp(1.35rem, 3vw, 2.1rem);
   }
 
   .signal-label {

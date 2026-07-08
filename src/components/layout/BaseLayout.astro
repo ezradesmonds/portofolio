@@ -4,6 +4,7 @@ import SiteHeader from "./SiteHeader.astro";
 import SiteFooter from "./SiteFooter.astro";
 import EzraLoader from "./EzraLoader.astro";
 import SmoothScroll from "../react/SmoothScroll.astro";
+import { SITE } from "../../data/site";
 import { resolveLang, t } from "../../i18n/utils";
 import type { Lang } from "../../i18n/translations";
 
@@ -11,14 +12,56 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  structuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const lang: Lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname);
 
 const title = Astro.props.title ?? t(lang, "seo.title");
 const description = Astro.props.description ?? t(lang, "seo.description");
-const image = Astro.props.image;
-const canonical = Astro.url.origin + Astro.url.pathname;
+const image = Astro.props.image ? new URL(Astro.props.image, SITE.url).toString() : undefined;
+const canonical = new URL(Astro.url.pathname, SITE.url).toString();
+const baseStructuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: SITE.name,
+    url: SITE.url,
+    email: `mailto:${SITE.email}`,
+    jobTitle: SITE.headline,
+    sameAs: [SITE.github, SITE.linkedin, SITE.instagram],
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Surabaya",
+      addressCountry: "ID",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE.name,
+    url: SITE.url,
+    inLanguage: lang === "id" ? "id-ID" : "en-US",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    name: title,
+    url: canonical,
+    description,
+    mainEntity: {
+      "@type": "Person",
+      name: SITE.name,
+      url: SITE.url,
+    },
+  },
+];
+const extraStructuredData = Astro.props.structuredData
+  ? Array.isArray(Astro.props.structuredData)
+    ? Astro.props.structuredData
+    : [Astro.props.structuredData]
+  : [];
+const jsonLd = [...baseStructuredData, ...extraStructuredData];
 ---
 
 <!doctype html>
@@ -53,7 +96,8 @@ const canonical = Astro.url.origin + Astro.url.pathname;
       rel="stylesheet"
     />
 
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
 
   </head>
   <body class="bg-dark-base text-text-primary font-sans antialiased bg-mesh bg-noise">
