@@ -35,6 +35,7 @@ const githubLinks = project.githubLinks?.length
     : [];
 const label = {
   proof: "Bukti Visual",
+  contribution: "Kontribusi spesifik saya",
   proofPending: "Artifact untuk project ini akan ditambahkan di batch 2.",
   aiSystem: "Catatan Sistem AI",
   provider: "Provider / Model",
@@ -46,10 +47,28 @@ const label = {
   github: "Lihat di GitHub",
   githubProfile: "Profil GitHub",
 };
-const pageTitle = `${project.title} — ${SITE.name}`;
+const pageTitle = project.seoTitle ?? `${project.title} Case Study - ${SITE.name}`;
+const pageDescription = project.seoDescription ?? project.description;
+const projectImage = project.screenshot ? new URL(project.screenshot, SITE.url).toString() : undefined;
+const projectStructuredData = {
+  "@context": "https://schema.org",
+  "@type": project.githubUrl || project.githubLinks?.length ? "SoftwareSourceCode" : "CreativeWork",
+  name: project.title,
+  description: pageDescription,
+  url: new URL(Astro.url.pathname, SITE.url).toString(),
+  image: projectImage,
+  creator: {
+    "@type": "Person",
+    name: SITE.name,
+    url: SITE.url,
+  },
+  applicationCategory: project.category,
+  programmingLanguage: project.technologies,
+  codeRepository: project.githubUrl ?? project.githubLinks?.[0]?.url,
+};
 ---
 
-<BaseLayout title={pageTitle} description={project.description}>
+<BaseLayout title={pageTitle} description={pageDescription} image={project.screenshot} structuredData={projectStructuredData}>
   <article class="pt-32 pb-24 px-6">
     <div class="container-lg max-w-4xl">
       <a href="/id/#work" class="inline-flex items-center gap-2 text-sm text-text-muted hover:text-white transition-colors mb-8 font-mono">
@@ -102,6 +121,17 @@ const pageTitle = `${project.title} — ${SITE.name}`;
             <p class="text-base font-semibold text-white mb-2">{project.role}</p>
             <p class="text-text-secondary leading-relaxed">{project.contribution}</p>
           </section>
+
+          {detail.mySpecificBuilds && detail.mySpecificBuilds.length > 0 && (
+            <section class="contribution-panel">
+              <h2 class="text-sm font-mono font-bold uppercase tracking-widest text-accent-cyan mb-4">{label.contribution}</h2>
+              <ul class="contribution-list">
+                {detail.mySpecificBuilds.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           <section>
             <h2 class="text-sm font-mono font-bold uppercase tracking-widest text-accent-cyan mb-4">Fitur Utama</h2>
@@ -262,6 +292,38 @@ const pageTitle = `${project.title} — ${SITE.name}`;
     padding: clamp(1rem, 2vw, 1.5rem);
   }
 
+  .contribution-panel {
+    border: 1px solid rgba(244, 255, 114, 0.14);
+    border-radius: 1rem;
+    background: rgba(16, 18, 11, 0.64);
+    padding: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  .contribution-list {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .contribution-list li {
+    position: relative;
+    color: var(--color-text-secondary);
+    font-size: 0.93rem;
+    line-height: 1.65;
+    padding-left: 1.35rem;
+  }
+
+  .contribution-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.68rem;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 999px;
+    background: var(--color-accent-cyan);
+    box-shadow: 0 0 12px rgba(244, 255, 114, 0.28);
+  }
+
   .ai-note {
     border-left: 2px solid rgba(244, 255, 114, 0.32);
     padding-left: 0.9rem;
@@ -327,8 +389,9 @@ const pageTitle = `${project.title} — ${SITE.name}`;
   .proof-artifact img,
   .proof-artifact video {
     width: 100%;
-    aspect-ratio: 16 / 10;
-    object-fit: cover;
+    height: clamp(18rem, 44vw, 36rem);
+    object-fit: contain;
+    object-position: top center;
     display: block;
     border-bottom: 1px solid rgba(244, 255, 114, 0.12);
     background: #050604;

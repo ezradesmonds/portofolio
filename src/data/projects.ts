@@ -63,6 +63,11 @@ export const projects: Project[] = [
     detail: {
       overview:
         "Akun.AI is an AI-assisted accounting SaaS built for Indonesian SMEs. It combines modern bookkeeping with AI capabilities including an accounting assistant, receipt OCR, and automated financial reporting.",
+      mySpecificBuilds: [
+        "Designed the accounting workspace architecture, including chart of accounts, ledger flows, reporting surfaces, and tenant-aware data boundaries.",
+        "Built the full-stack SaaS flow across onboarding, dashboard, transactions, invoices, inventory, reports, AI assistant, and subscription surfaces.",
+        "Integrated the AI assistant as a grounded finance helper that reads workspace context while deterministic validation still protects saved accounting actions.",
+      ],
       keyFeatures: [
         "Business onboarding and chart of accounts",
         "Double-entry accounting with validation",
@@ -156,6 +161,11 @@ export const projects: Project[] = [
     detail: {
       overview:
         "TokoKaret.com is a commerce platform bridging the gap between industrial product catalogs and informed purchase decisions. Its RAG-assisted recommendation flow helps customers turn car symptoms or product needs into an initial rubber-part direction before human WhatsApp confirmation.",
+      mySpecificBuilds: [
+        "Built the live Astro storefront, product-first landing sections, consultation CTAs, and mobile-first buyer journey.",
+        "Designed the RAG-assisted intake flow that turns car model plus symptom text into a constrained product-category recommendation.",
+        "Connected AI guidance to WhatsApp handoff so final compatibility confirmation still uses human review and photo evidence.",
+      ],
       keyFeatures: [
         "Conversion-focused landing experience",
         "RAG-assisted symptom-to-product recommendation",
@@ -248,6 +258,11 @@ export const projects: Project[] = [
     detail: {
       overview:
         "FinanceOS is a financial research terminal for systematic market analysis using public Binance data. It supports scheduled scanning, signal generation, dry-run trade execution, and performance analytics — all in a structured research environment. This is a research and analysis system, not a live trading platform.",
+      mySpecificBuilds: [
+        "Designed the terminal interface for active signals, detail panels, provider status, news ingestion, and paper lifecycle tracking.",
+        "Built the research-only signal workflow around public market data, scoring factors, invalidation notes, and dry-run execution states.",
+        "Kept the system deliberately disconnected from wallets, brokers, exchange keys, and live orders so it remains analysis-only.",
+      ],
       keyFeatures: [
         "Public Binance market data integration",
         "Scheduled market scanning",
@@ -277,7 +292,7 @@ export const projects: Project[] = [
         failureHandling:
           "Provider status surfaces disabled/fallback feeds, and live orders stay disabled by design.",
         limitations:
-          "Research-only system. No wallet, broker, exchange key, or live financial execution is connected.",
+          "Research-only, dry-run, no live trading, no exchange keys, not financial advice. No wallet, broker, exchange key, or live financial execution is connected.",
       },
     },
   },
@@ -349,6 +364,11 @@ export const projects: Project[] = [
     detail: {
       overview:
         "A dual-module system combining machine learning for workforce efficiency prediction with a full cooperative management platform. Modules include tailor efficiency prediction, operational dashboard, tailor management, stock management, supplier management, and purchase management.",
+      mySpecificBuilds: [
+        "Cleaned and shaped cooperative tailor data into allocation-ready signals including speed, status, distance, specialty, and capacity.",
+        "Built the unsupervised clustering and smart-allocation workflow used to rank feasible tailors for deadline-sensitive orders.",
+        "Connected the ML output to a cooperative management dashboard with tailor analytics, production metrics, and split-order fallback simulation.",
+      ],
       keyFeatures: [
         "Unsupervised clustering workflow over 200 cooperative tailor records",
         "Operational dashboard for cooperative managers",
@@ -432,6 +452,11 @@ export const projects: Project[] = [
     detail: {
       overview:
         "FinLend is an academic AI credit-intelligence project built with a Laravel interface and a FastAPI AI engine. It turns 25 structured applicant signals into a credit-risk recommendation using a feedforward neural network and fuzzy logic decision layer.",
+      mySpecificBuilds: [
+        "Built the Laravel multi-step credit application interface and connected it to the FastAPI AI engine.",
+        "Mapped the 25-feature dataset structure into a web form, request payload, risk model input, and readable recommendation output.",
+        "Combined neural-network risk scoring with fuzzy logic so the product can explain credit decisions as limit and interest recommendations.",
+      ],
       keyFeatures: [
         "Five-step credit application flow",
         "25-feature applicant and loan intake",
@@ -598,6 +623,11 @@ export const projects: Project[] = [
     detail: {
       overview:
         "A custom full-stack event management platform built for the Innofashion Show 8, a major student-run event. The system handled participant registration, QR-based ticketing, admin dashboards, and real-time event operations.",
+      mySpecificBuilds: [
+        "Led the IT division and coordinated technical delivery across registration, dashboard, validation, and event-day workflows.",
+        "Built and integrated participant registration, competition/event flows, QR ticketing, admin statistics, and validation surfaces.",
+        "Managed deployment and reliability concerns for a live student event with 100+ participants.",
+      ],
       keyFeatures: [
         "Participant registration and data management",
         "QR-based ticketing system",
@@ -680,6 +710,11 @@ export const projects: Project[] = [
     detail: {
       overview:
         "Servisin is a mobile marketplace MVP connecting customers with home-appliance repair technicians. The platform handles customer requests, technician matching, service tracking, and administrative workflows.",
+      mySpecificBuilds: [
+        "Designed the marketplace flow from customer onboarding, service discovery, booking navigation, technician profile, transaction detail, and subscription surface.",
+        "Planned backend/admin architecture, technician workflow, and service-operation process for the MVP.",
+        "Built the business model, financial assumptions, and IRR validation used in the Technopreneur final project.",
+      ],
       keyFeatures: [
         "Customer service request flow",
         "Technician matching and dispatch",
@@ -878,7 +913,7 @@ export const additionalProjects: Project[] = [
     role: "Developer",
     contribution:
       "Designed and built the full-stack finance tracking application including deployment pipeline, database design, and responsive frontend.",
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL", "Vercel"],
+    technologies: ["Laravel", "PHP", "Blade", "Tailwind CSS", "MySQL"],
     status: "academic",
     statusLabel: "Academic Final Project",
     screenshot: "/assets/case-studies/finance-tracker-landing.webp",

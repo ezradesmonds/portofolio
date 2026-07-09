@@ -31,7 +31,7 @@ export const translations = {
     "proof.products": "Shipped AI/full-stack<br />Systems",
     "proof.gpa": "Semester Informatics<br />GPA 3.76 / 4.00",
     "proof.local": "Students, Builders<br />& Early Founders",
-    "proof.availability": "Open to AI internships<br />Surabaya, Indonesia",
+    "proof.availability": "Open for internships and work<br />Surabaya, Indonesia",
 
     "about.title": "About Ezra",
     "about.education.label": "Education",
@@ -61,7 +61,7 @@ export const translations = {
     "capabilities.subtitle": "Grouped by domain, not ranked as equally proficient.",
 
     "contact.heading":
-      'Have an idea<br class="hidden sm:block" />or messy workflow?',
+      'Have an idea <br class="hidden sm:block" />or a messy workflow?',
     "contact.subtitle":
       "I'm open to internships, collaborations, and opportunities to build AI-powered systems for ambitious students, builders, and early-stage entrepreneurs.",
     "contact.sendEmail": "Send an Email",
@@ -124,7 +124,7 @@ export const translations = {
     "proof.products": "Sistem AI/full-stack<br />Terkirim",
     "proof.gpa": "Semester 4 Informatika<br />IPK 3.76 / 4.00",
     "proof.local": "Mahasiswa, Builder<br />& Founder Awal",
-    "proof.availability": "Terbuka untuk magang AI<br />Surabaya, Indonesia",
+    "proof.availability": "Terbuka untuk magang dan kerja<br />Surabaya, Indonesia",
 
     "about.title": "Tentang Ezra",
     "about.education.label": "Pendidikan",

@@ -3,7 +3,7 @@ import { resolveLang, t } from "../../i18n/utils";
 import { capabilities } from "../../data/capabilities";
 import { localizeCapabilities } from "../../i18n/content";
 import SectionHeading from "../ui/SectionHeading.astro";
-import GlowCapabilityCard from "../react/GlowCapabilityCard";
+import GlowCapabilityCard from "../interactive/GlowCapabilityCard";
 
 const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname);
 const localizedCapabilities = localizeCapabilities(capabilities, lang);

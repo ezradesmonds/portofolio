@@ -3,7 +3,7 @@ import { resolveLang, t } from "../../i18n/utils";
 import { awards } from "../../data/awards";
 import { localizeAwards } from "../../i18n/content";
 import SectionHeading from "../ui/SectionHeading.astro";
-import GlowAwardCard from "../react/GlowAwardCard";
+import GlowAwardCard from "../interactive/GlowAwardCard";
 
 const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname);
 const localizedAwards = localizeAwards(awards, lang);

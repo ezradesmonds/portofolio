@@ -3,6 +3,9 @@
 
 <script>
   function initCardTilt() {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return;
+
     const cards = document.querySelectorAll("[data-project-slug]");
     if (!cards.length) return;
 

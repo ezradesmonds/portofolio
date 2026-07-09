@@ -3,7 +3,7 @@ import "../../styles/global.css";
 import SiteHeader from "./SiteHeader.astro";
 import SiteFooter from "./SiteFooter.astro";
 import EzraLoader from "./EzraLoader.astro";
-import SmoothScroll from "../react/SmoothScroll.astro";
+import SmoothScroll from "../interactive/SmoothScroll.astro";
 import { SITE } from "../../data/site";
 import { resolveLang, t } from "../../i18n/utils";
 import type { Lang } from "../../i18n/translations";
@@ -19,7 +19,7 @@ const lang: Lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pat
 
 const title = Astro.props.title ?? t(lang, "seo.title");
 const description = Astro.props.description ?? t(lang, "seo.description");
-const image = Astro.props.image ? new URL(Astro.props.image, SITE.url).toString() : undefined;
+const image = new URL(Astro.props.image ?? "/favicon.png", SITE.url).toString();
 const canonical = new URL(Astro.url.pathname, SITE.url).toString();
 const baseStructuredData = [
   {
@@ -82,12 +82,12 @@ const jsonLd = [...baseStructuredData, ...extraStructuredData];
     <meta property="og:url" content={canonical} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Ezra Desmond Sutanto" />
-    {image && <meta property="og:image" content={image} />}
+    <meta property="og:image" content={image} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    {image && <meta name="twitter:image" content={image} />}
+    <meta name="twitter:image" content={image} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

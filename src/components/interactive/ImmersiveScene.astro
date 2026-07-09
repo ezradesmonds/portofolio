@@ -23,6 +23,7 @@
   let keyLight: THREE.PointLight;
   let rimLight: THREE.PointLight;
   const clock = new THREE.Clock();
+  let isPaused = false;
 
   function createEnvironment() {
     // Dark atmospheric fog
@@ -111,8 +112,8 @@
   }
 
   function createParticles() {
-    // Starfield - 1200 distant twinkling dots
-    const starCount = 1200;
+    // Starfield - distant twinkling dots, capped to keep the hero light.
+    const starCount = 650;
     const starGeo = new THREE.BufferGeometry();
     const starPositions = new Float32Array(starCount * 3);
     for (let i = 0; i < starCount; i++) {
@@ -132,8 +133,8 @@
     starParticles = new THREE.Points(starGeo, starMat);
     scene.add(starParticles);
 
-    // Dust ring - 500 flowing colored particles
-    const dustCount = 500;
+    // Dust ring - flowing colored particles, reduced for smoother low-end devices.
+    const dustCount = 240;
     const dustGeo = new THREE.BufferGeometry();
     const dustPositions = new Float32Array(dustCount * 3);
     const dustColors = new Float32Array(dustCount * 3);
@@ -167,7 +168,8 @@
   function init() {
     const container = document.getElementById("webgl-scene");
     if (!container) return;
-    if (window.innerWidth < 768) return;
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (window.innerWidth < 768 || prefersReduced) return;
 
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
@@ -176,7 +178,7 @@
 
     renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.2;
     container.appendChild(renderer.domElement);
@@ -207,10 +209,20 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
     });
 
+    document.addEventListener("visibilitychange", () => {
+      isPaused = document.hidden;
+      if (!isPaused && !animFrame) animate();
+    });
+
     animate();
   }
 
   function animate() {
+    if (isPaused) {
+      animFrame = 0;
+      return;
+    }
+
     animFrame = requestAnimationFrame(animate);
     const dt = Math.min(clock.getDelta(), 0.1);
     const time = Date.now() * 0.0005;
