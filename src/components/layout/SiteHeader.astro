@@ -16,6 +16,7 @@ const switcherTitle = lang === "en" ? "Switch to Bahasa Indonesia" : "Switch to 
 
 const navItems: { href: string; key: TranslationKey }[] = [
   { href: `${homeHref}#work`, key: "nav.work" },
+  { href: localizedPath(lang, "/play/"), key: "nav.play" },
   { href: `${homeHref}#experience`, key: "nav.experience" },
   { href: `${homeHref}#about`, key: "nav.about" },
   { href: `${homeHref}#contact`, key: "nav.contact" },

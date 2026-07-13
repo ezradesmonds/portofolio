@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../../components/layout/BaseLayout.astro";
+import OpsArcade from "../../components/interactive/OpsArcade.astro";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: "Bug Hunt: Desktop Ezra",
+  description:
+    "Game portfolio interaktif untuk membersihkan korupsi, menangkap bug, dan memulihkan desktop developer Ezra.",
+  url: "https://ezradesmonds.my.id/id/play/",
+  creator: {
+    "@type": "Person",
+    name: "Ezra Desmond Sutanto",
+  },
+};
+---
+
+<BaseLayout
+  title="Bug Hunt: Desktop Ezra - Portfolio Interaktif"
+  description="Bersihkan korupsi interface, tangkap bug tersembunyi, dan pulihkan desktop developer Ezra Desmond Sutanto."
+  structuredData={structuredData}
+>
+  <OpsArcade lang="id" />
+</BaseLayout>

@@ -1,0 +1,741 @@
+---
+import { translations, type Lang } from "../../i18n/translations";
+import { SITE } from "../../data/site";
+import { projects } from "../../data/projects";
+import { capabilities } from "../../data/capabilities";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const existingCopy = translations[lang];
+const selectedProjects = ["akun-ai", "tokokaret", "financeos"]
+  .map((slug) => projects.find((project) => project.slug === slug))
+  .filter((project): project is NonNullable<typeof project> => Boolean(project));
+const skillLines = capabilities.slice(0, 3).map((group) =>
+  group.items.slice(0, 3).map((item) => item.name).join(" / ")
+);
+
+const copy = {
+  en: {
+    eyebrow: "Interactive portfolio diagnostic",
+    title: "Bug Hunt: Ezra's Desktop",
+    intro: "Three windows are buried under interface corruption. Scrub them clean, expose each bug, and restore the system before it spreads.",
+    instruction: "Mouse or touch: rub the dusty windows. Keyboard: focus a window and hold Space, then press Enter when the bug appears.",
+    fixed: "Bugs fixed",
+    status: "System status",
+    contaminated: "Contaminated",
+    clean: "System clean",
+    relaxed: "Exploration mode",
+    speed: "Speed run",
+    best: "Personal best",
+    noBest: "--",
+    reset: "Reset desktop",
+    startSpeed: "Start 45s speed run",
+    retrySpeed: "Retry speed run",
+    lockedSpeed: "Clear the desktop once to unlock speed run.",
+    speedReady: "Speed run unlocked. Clear all three windows in 45 seconds.",
+    speedFailed: "Time expired. The desktop is still infected.",
+    speedComplete: "Speed run complete",
+    scrub: "Scrub corruption",
+    exposed: "Bug exposed — capture it",
+    restored: "Window restored",
+    capture: "Capture bug",
+    completeTitle: "System clean.",
+    completeBody: "You cleared the noise and uncovered the person behind the build. Explore the work or start a conversation.",
+    workCta: "View selected work",
+    contactCta: "Contact Ezra",
+    zones: {
+      profile: {
+        label: "Profile terminal",
+        title: "identity.exe",
+        kicker: "Builder profile restored",
+        heading: existingCopy["hero.role"],
+        body: existingCopy["hero.subheadline"],
+        education: `${existingCopy["about.education.detail"]} — ${existingCopy["about.education.school"]}`,
+      },
+      projects: {
+        label: "Project workspace",
+        title: "selected-work/",
+        kicker: "Project index restored",
+        heading: "Three systems, three different problems.",
+      },
+      connect: {
+        label: "Connection panel",
+        title: "open-channel.cfg",
+        kicker: "Connection restored",
+        heading: existingCopy["hero.availability"],
+        body: existingCopy["contact.subtitle"],
+      },
+    },
+  },
+  id: {
+    eyebrow: "Diagnostik portfolio interaktif",
+    title: "Bug Hunt: Desktop Ezra",
+    intro: "Tiga window tertutup korupsi interface. Gosok sampai bersih, temukan setiap bug, lalu pulihkan sistem sebelum menyebar.",
+    instruction: "Mouse atau sentuh: gosok window berdebu. Keyboard: fokuskan window dan tahan Space, lalu tekan Enter saat bug muncul.",
+    fixed: "Bug diperbaiki",
+    status: "Status sistem",
+    contaminated: "Terkontaminasi",
+    clean: "Sistem bersih",
+    relaxed: "Mode eksplorasi",
+    speed: "Speed run",
+    best: "Waktu terbaik",
+    noBest: "--",
+    reset: "Reset desktop",
+    startSpeed: "Mulai speed run 45d",
+    retrySpeed: "Ulangi speed run",
+    lockedSpeed: "Bersihkan desktop sekali untuk membuka speed run.",
+    speedReady: "Speed run terbuka. Bersihkan ketiga window dalam 45 detik.",
+    speedFailed: "Waktu habis. Desktop masih terinfeksi.",
+    speedComplete: "Speed run selesai",
+    scrub: "Gosok korupsi",
+    exposed: "Bug terlihat — tangkap sekarang",
+    restored: "Window dipulihkan",
+    capture: "Tangkap bug",
+    completeTitle: "Sistem bersih.",
+    completeBody: "Kamu sudah membersihkan noise dan menemukan builder di balik sistem ini. Lihat karya pilihan atau mulai percakapan.",
+    workCta: "Lihat karya pilihan",
+    contactCta: "Hubungi Ezra",
+    zones: {
+      profile: {
+        label: "Terminal profil",
+        title: "identitas.exe",
+        kicker: "Profil builder dipulihkan",
+        heading: existingCopy["hero.role"],
+        body: existingCopy["hero.subheadline"],
+        education: `${existingCopy["about.education.detail"]} — ${existingCopy["about.education.school"]}`,
+      },
+      projects: {
+        label: "Workspace proyek",
+        title: "karya-pilihan/",
+        kicker: "Indeks proyek dipulihkan",
+        heading: "Tiga sistem, tiga masalah berbeda.",
+      },
+      connect: {
+        label: "Panel koneksi",
+        title: "kanal-terbuka.cfg",
+        kicker: "Koneksi dipulihkan",
+        heading: existingCopy["hero.availability"],
+        body: existingCopy["contact.subtitle"],
+      },
+    },
+  },
+}[lang];
+
+const config = JSON.stringify({
+  labels: {
+    contaminated: copy.contaminated,
+    clean: copy.clean,
+    relaxed: copy.relaxed,
+    speed: copy.speed,
+    noBest: copy.noBest,
+    startSpeed: copy.startSpeed,
+    retrySpeed: copy.retrySpeed,
+    lockedSpeed: copy.lockedSpeed,
+    speedReady: copy.speedReady,
+    speedFailed: copy.speedFailed,
+    speedComplete: copy.speedComplete,
+    scrub: copy.scrub,
+    exposed: copy.exposed,
+    restored: copy.restored,
+  },
+  storageKey: "ezra-bug-hunt-v1",
+});
+
+const workHref = lang === "id" ? "/id/#work" : "/#work";
+const contactHref = lang === "id" ? "/id/#contact" : "/#contact";
+---
+
+<section class="hunt" data-bug-hunt>
+  <script type="application/json" data-game-config set:html={config}></script>
+
+  <div class="hunt__intro">
+    <div>
+      <p class="eyebrow">{copy.eyebrow}</p>
+      <h1>{copy.title}</h1>
+      <p class="lede">{copy.intro}</p>
+      <p class="instruction">{copy.instruction}</p>
+    </div>
+
+    <aside class="hud" aria-label={copy.status}>
+      <div class="hud__metric">
+        <span>{copy.fixed}</span>
+        <strong><b data-fixed>0</b>/3</strong>
+      </div>
+      <div class="hud__metric">
+        <span>{copy.status}</span>
+        <strong data-system-status>{copy.contaminated}</strong>
+      </div>
+      <div class="hud__metric hud__timer">
+        <span data-mode-label>{copy.relaxed}</span>
+        <strong data-timer>--</strong>
+      </div>
+      <div class="hud__metric">
+        <span>{copy.best}</span>
+        <strong data-best>{copy.noBest}</strong>
+      </div>
+      <div class="hud__actions">
+        <button type="button" data-reset>{copy.reset}</button>
+        <button type="button" data-speed disabled>{copy.startSpeed}</button>
+      </div>
+      <p data-hud-message>{copy.lockedSpeed}</p>
+    </aside>
+  </div>
+
+  <div class="desktop" data-desktop>
+    <div class="desktop__bar" aria-hidden="true">
+      <span>EZRA_OS / LOCAL WORKSPACE</span>
+      <span data-clock>20:26</span>
+    </div>
+
+    <div class="desktop__grid">
+      <article class="window window--profile" data-zone="profile" tabindex="0" aria-label={`${copy.zones.profile.label}: ${copy.scrub}`}>
+        <header class="window__bar">
+          <span class="window__lights" aria-hidden="true"><i></i><i></i><i></i></span>
+          <strong>{copy.zones.profile.title}</strong>
+          <span data-zone-state>{copy.scrub}</span>
+        </header>
+        <div class="window__body terminal">
+          <div class="reveal" data-reveal aria-hidden="true" inert>
+            <p>{copy.zones.profile.kicker}</p>
+            <h2>{copy.zones.profile.heading}</h2>
+            <span>{copy.zones.profile.body}</span>
+            <small class="education-line">{copy.zones.profile.education}</small>
+            <ul>
+              {skillLines.map((line) => <li>{line}</li>)}
+            </ul>
+          </div>
+          <canvas data-dust aria-hidden="true"></canvas>
+          <button class="bug" type="button" data-bug disabled aria-label={copy.capture}><span aria-hidden="true">✳</span><b>{copy.capture}</b></button>
+          <div class="clean-progress" aria-hidden="true"><i data-progress></i></div>
+        </div>
+      </article>
+
+      <article class="window window--projects" data-zone="projects" tabindex="0" aria-label={`${copy.zones.projects.label}: ${copy.scrub}`}>
+        <header class="window__bar">
+          <span class="window__lights" aria-hidden="true"><i></i><i></i><i></i></span>
+          <strong>{copy.zones.projects.title}</strong>
+          <span data-zone-state>{copy.scrub}</span>
+        </header>
+        <div class="window__body project-window">
+          <div class="reveal" data-reveal aria-hidden="true" inert>
+            <p>{copy.zones.projects.kicker}</p>
+            <h2>{copy.zones.projects.heading}</h2>
+            <div class="project-list">
+              {selectedProjects.map((project) => (
+                <a href={`${lang === "id" ? "/id" : ""}/work/${project.slug}/`} tabindex="-1">
+                  <span>{project.statusLabel}</span>
+                  <strong>{project.title}</strong>
+                  <small>{project.role}</small>
+                </a>
+              ))}
+            </div>
+          </div>
+          <canvas data-dust aria-hidden="true"></canvas>
+          <button class="bug" type="button" data-bug disabled aria-label={copy.capture}><span aria-hidden="true">✳</span><b>{copy.capture}</b></button>
+          <div class="clean-progress" aria-hidden="true"><i data-progress></i></div>
+        </div>
+      </article>
+
+      <article class="window window--connect" data-zone="connect" tabindex="0" aria-label={`${copy.zones.connect.label}: ${copy.scrub}`}>
+        <header class="window__bar">
+          <span class="window__lights" aria-hidden="true"><i></i><i></i><i></i></span>
+          <strong>{copy.zones.connect.title}</strong>
+          <span data-zone-state>{copy.scrub}</span>
+        </header>
+        <div class="window__body connect-window">
+          <div class="reveal" data-reveal aria-hidden="true" inert>
+            <p>{copy.zones.connect.kicker}</p>
+            <h2>{copy.zones.connect.heading}</h2>
+            <span>{copy.zones.connect.body}</span>
+            <div class="connection-links">
+              <a href={`mailto:${SITE.email}`} tabindex="-1">Email</a>
+              <a href={SITE.github} target="_blank" rel="noreferrer" tabindex="-1">GitHub</a>
+              <a href={SITE.linkedin} target="_blank" rel="noreferrer" tabindex="-1">LinkedIn</a>
+              <a href={SITE.cvUrl} target="_blank" rel="noreferrer" tabindex="-1">CV ↗</a>
+            </div>
+          </div>
+          <canvas data-dust aria-hidden="true"></canvas>
+          <button class="bug" type="button" data-bug disabled aria-label={copy.capture}><span aria-hidden="true">✳</span><b>{copy.capture}</b></button>
+          <div class="clean-progress" aria-hidden="true"><i data-progress></i></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="complete-panel" data-complete-panel aria-hidden="true">
+      <p>03 / 03</p>
+      <h2>{copy.completeTitle}</h2>
+      <span>{copy.completeBody}</span>
+      <div>
+        <a href={workHref}>{copy.workCta}</a>
+        <a href={contactHref}>{copy.contactCta}</a>
+      </div>
+    </div>
+  </div>
+
+  <p class="sr-only" aria-live="polite" data-live></p>
+</section>
+
+<script>
+  type Labels = {
+    contaminated: string; clean: string; relaxed: string; speed: string; noBest: string;
+    startSpeed: string; retrySpeed: string; lockedSpeed: string; speedReady: string;
+    speedFailed: string; speedComplete: string; scrub: string; exposed: string; restored: string;
+  };
+  type SavedGame = { completed?: boolean; best?: number };
+  type ZoneState = {
+    root: HTMLElement; canvas: HTMLCanvasElement; ctx: CanvasRenderingContext2D;
+    cells: boolean[]; cleaned: number; exposed: boolean; captured: boolean; pointerId: number | null;
+  };
+
+  function initBugHunt() {
+    const rootNode = document.querySelector<HTMLElement>("[data-bug-hunt]");
+    if (!rootNode || rootNode.dataset.ready === "true") return;
+    const root = rootNode;
+    root.dataset.ready = "true";
+    const configNode = root.querySelector<HTMLScriptElement>("[data-game-config]");
+    if (!configNode?.textContent) return;
+    const config = JSON.parse(configNode.textContent) as { labels: Labels; storageKey: string };
+    const labels = config.labels;
+    const columns = 12;
+    const rows = 8;
+    const threshold = 0.7;
+    const duration = 45;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const fixedNode = root.querySelector<HTMLElement>("[data-fixed]");
+    const statusNode = root.querySelector<HTMLElement>("[data-system-status]");
+    const timerNode = root.querySelector<HTMLElement>("[data-timer]");
+    const modeNode = root.querySelector<HTMLElement>("[data-mode-label]");
+    const bestNode = root.querySelector<HTMLElement>("[data-best]");
+    const messageNode = root.querySelector<HTMLElement>("[data-hud-message]");
+    const speedButton = root.querySelector<HTMLButtonElement>("[data-speed]");
+    const completePanel = root.querySelector<HTMLElement>("[data-complete-panel]");
+    const liveNode = root.querySelector<HTMLElement>("[data-live]");
+    let saved: SavedGame = {};
+    let mode: "relaxed" | "speed" = "relaxed";
+    let speedActive = false;
+    let deadline = 0;
+    let hiddenAt = 0;
+    let frame = 0;
+
+    try { saved = JSON.parse(localStorage.getItem(config.storageKey) ?? "{}"); } catch { saved = {}; }
+
+    const save = () => {
+      try { localStorage.setItem(config.storageKey, JSON.stringify(saved)); } catch { /* storage is optional */ }
+    };
+
+    const seedFor = (id: string) => [...id].reduce((value, char) => value + char.charCodeAt(0), 17);
+    const randomFor = (seed: number) => () => {
+      seed = (seed * 1664525 + 1013904223) >>> 0;
+      return seed / 4294967296;
+    };
+
+    const zones: ZoneState[] = Array.from(root.querySelectorAll<HTMLElement>("[data-zone]")).map((zoneRoot) => {
+      const canvas = zoneRoot.querySelector<HTMLCanvasElement>("[data-dust]")!;
+      const ctx = canvas.getContext("2d")!;
+      return { root: zoneRoot, canvas, ctx, cells: Array(columns * rows).fill(false), cleaned: 0, exposed: false, captured: false, pointerId: null };
+    });
+
+    function formatTime(value: number) {
+      return `${Math.max(0, value).toFixed(1)}s`;
+    }
+
+    function paintDust(zone: ZoneState) {
+      const rect = zone.canvas.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      zone.canvas.width = Math.round(rect.width * dpr);
+      zone.canvas.height = Math.round(rect.height * dpr);
+      zone.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const ctx = zone.ctx;
+      const random = randomFor(seedFor(zone.root.dataset.zone ?? "zone"));
+      ctx.clearRect(0, 0, rect.width, rect.height);
+      ctx.fillStyle = "rgba(48, 39, 22, .88)";
+      ctx.fillRect(0, 0, rect.width, rect.height);
+      for (let index = 0; index < 150; index += 1) {
+        const x = random() * rect.width;
+        const y = random() * rect.height;
+        const radius = 1 + random() * 8;
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(${150 + random() * 65}, ${105 + random() * 45}, ${45 + random() * 25}, ${.12 + random() * .34})`;
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalCompositeOperation = "destination-out";
+      const cellWidth = rect.width / columns;
+      const cellHeight = rect.height / rows;
+      zone.cells.forEach((clean, index) => {
+        if (!clean) return;
+        const x = (index % columns + .5) * cellWidth;
+        const y = (Math.floor(index / columns) + .5) * cellHeight;
+        ctx.beginPath();
+        ctx.arc(x, y, Math.max(cellWidth, cellHeight) * .86, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.globalCompositeOperation = "source-over";
+    }
+
+    function updateZone(zone: ZoneState) {
+      const ratio = zone.cleaned / zone.cells.length;
+      const progress = zone.root.querySelector<HTMLElement>("[data-progress]");
+      if (progress) progress.style.width = `${Math.min(100, ratio * 100)}%`;
+      if (ratio >= threshold && !zone.exposed) {
+        zone.exposed = true;
+        zone.root.classList.add("is-exposed");
+        const bug = zone.root.querySelector<HTMLButtonElement>("[data-bug]");
+        if (bug) bug.disabled = false;
+        const state = zone.root.querySelector<HTMLElement>("[data-zone-state]");
+        if (state) state.textContent = labels.exposed;
+        zone.root.setAttribute("aria-label", labels.exposed);
+        if (liveNode) liveNode.textContent = labels.exposed;
+      }
+    }
+
+    function cleanAt(zone: ZoneState, clientX: number, clientY: number) {
+      if (zone.captured || (mode === "speed" && !speedActive)) return;
+      const rect = zone.canvas.getBoundingClientRect();
+      if (clientX < rect.left || clientX > rect.right || clientY < rect.top || clientY > rect.bottom) return;
+      const column = Math.floor(((clientX - rect.left) / rect.width) * columns);
+      const row = Math.floor(((clientY - rect.top) / rect.height) * rows);
+      for (let y = Math.max(0, row - 1); y <= Math.min(rows - 1, row + 1); y += 1) {
+        for (let x = Math.max(0, column - 1); x <= Math.min(columns - 1, column + 1); x += 1) {
+          const index = y * columns + x;
+          if (!zone.cells[index]) { zone.cells[index] = true; zone.cleaned += 1; }
+        }
+      }
+      paintDust(zone);
+      updateZone(zone);
+    }
+
+    function keyboardClean(zone: ZoneState) {
+      if (zone.captured || (mode === "speed" && !speedActive)) return;
+      let added = 0;
+      for (let index = 0; index < zone.cells.length && added < 7; index += 1) {
+        if (!zone.cells[index]) { zone.cells[index] = true; zone.cleaned += 1; added += 1; }
+      }
+      paintDust(zone);
+      updateZone(zone);
+    }
+
+    function capture(zone: ZoneState) {
+      if (!zone.exposed || zone.captured || (mode === "speed" && !speedActive)) return;
+      zone.captured = true;
+      zone.root.classList.add("is-restored");
+      zone.root.removeAttribute("tabindex");
+      zone.canvas.style.pointerEvents = "none";
+      const bug = zone.root.querySelector<HTMLButtonElement>("[data-bug]");
+      if (bug) { bug.disabled = true; bug.setAttribute("aria-hidden", "true"); }
+      const reveal = zone.root.querySelector<HTMLElement>("[data-reveal]");
+      reveal?.setAttribute("aria-hidden", "false");
+      reveal?.removeAttribute("inert");
+      reveal?.querySelectorAll<HTMLElement>("a").forEach((link) => link.removeAttribute("tabindex"));
+      const state = zone.root.querySelector<HTMLElement>("[data-zone-state]");
+      if (state) state.textContent = labels.restored;
+      zone.root.setAttribute("aria-label", labels.restored);
+      if (navigator.vibrate) navigator.vibrate(35);
+      if (liveNode) liveNode.textContent = labels.restored;
+      updateHud();
+    }
+
+    function updateHud() {
+      const fixed = zones.filter((zone) => zone.captured).length;
+      if (fixedNode) fixedNode.textContent = String(fixed);
+      if (fixed === zones.length) finishRun();
+    }
+
+    function finishRun() {
+      speedActive = false;
+      cancelAnimationFrame(frame);
+      const wasSpeed = mode === "speed";
+      if (wasSpeed) {
+        const elapsed = Math.min(duration, duration - Math.max(0, (deadline - performance.now()) / 1000));
+        if (!saved.best || elapsed < saved.best) saved.best = elapsed;
+        if (messageNode) messageNode.textContent = `${labels.speedComplete}: ${formatTime(elapsed)}`;
+      } else {
+        saved.completed = true;
+        if (messageNode) messageNode.textContent = labels.speedReady;
+      }
+      save();
+      syncSavedState();
+      if (statusNode) statusNode.textContent = labels.clean;
+      root.classList.add("is-complete");
+      completePanel?.setAttribute("aria-hidden", "false");
+      if (liveNode) liveNode.textContent = labels.clean;
+    }
+
+    function syncSavedState() {
+      if (speedButton) {
+        speedButton.disabled = !saved.completed;
+        speedButton.textContent = mode === "speed" ? labels.retrySpeed : labels.startSpeed;
+      }
+      if (bestNode) bestNode.textContent = saved.best ? formatTime(saved.best) : labels.noBest;
+      if (saved.completed && mode === "relaxed" && messageNode) messageNode.textContent = labels.speedReady;
+    }
+
+    function resetZones() {
+      root.classList.remove("is-complete");
+      completePanel?.setAttribute("aria-hidden", "true");
+      zones.forEach((zone) => {
+        zone.cells.fill(false); zone.cleaned = 0; zone.exposed = false; zone.captured = false; zone.pointerId = null;
+        zone.root.classList.remove("is-exposed", "is-restored");
+        zone.root.setAttribute("tabindex", "0");
+        zone.root.setAttribute("aria-label", labels.scrub);
+        zone.canvas.style.pointerEvents = "auto";
+        const reveal = zone.root.querySelector<HTMLElement>("[data-reveal]");
+        reveal?.setAttribute("aria-hidden", "true");
+        reveal?.setAttribute("inert", "");
+        zone.root.querySelectorAll<HTMLElement>("[data-reveal] a").forEach((link) => link.setAttribute("tabindex", "-1"));
+        const bug = zone.root.querySelector<HTMLButtonElement>("[data-bug]");
+        if (bug) { bug.disabled = true; bug.removeAttribute("aria-hidden"); }
+        const state = zone.root.querySelector<HTMLElement>("[data-zone-state]");
+        if (state) state.textContent = labels.scrub;
+        const progress = zone.root.querySelector<HTMLElement>("[data-progress]");
+        if (progress) progress.style.width = "0%";
+        paintDust(zone);
+      });
+      if (fixedNode) fixedNode.textContent = "0";
+      if (statusNode) statusNode.textContent = labels.contaminated;
+    }
+
+    function resetRelaxed() {
+      speedActive = false;
+      cancelAnimationFrame(frame);
+      mode = "relaxed";
+      if (modeNode) modeNode.textContent = labels.relaxed;
+      if (timerNode) timerNode.textContent = "--";
+      if (messageNode) messageNode.textContent = saved.completed ? labels.speedReady : labels.lockedSpeed;
+      resetZones();
+      syncSavedState();
+    }
+
+    function timerLoop() {
+      if (!speedActive) return;
+      const remaining = Math.max(0, (deadline - performance.now()) / 1000);
+      if (timerNode) timerNode.textContent = formatTime(remaining);
+      if (remaining <= 0) {
+        speedActive = false;
+        if (messageNode) messageNode.textContent = labels.speedFailed;
+        if (liveNode) liveNode.textContent = labels.speedFailed;
+        if (speedButton) speedButton.textContent = labels.retrySpeed;
+        return;
+      }
+      frame = requestAnimationFrame(timerLoop);
+    }
+
+    function startSpeedRun() {
+      if (!saved.completed) return;
+      mode = "speed";
+      resetZones();
+      speedActive = true;
+      deadline = performance.now() + duration * 1000;
+      if (modeNode) modeNode.textContent = labels.speed;
+      if (messageNode) messageNode.textContent = labels.speedReady;
+      if (speedButton) speedButton.textContent = labels.retrySpeed;
+      timerLoop();
+    }
+
+    zones.forEach((zone) => {
+      const surface = zone.canvas;
+      surface.addEventListener("pointerdown", (event) => {
+        if (zone.exposed) return;
+        event.preventDefault();
+        zone.pointerId = event.pointerId;
+        surface.setPointerCapture(event.pointerId);
+        cleanAt(zone, event.clientX, event.clientY);
+      });
+      surface.addEventListener("pointermove", (event) => {
+        if (zone.pointerId !== event.pointerId || !(event.buttons || event.pointerType === "touch")) return;
+        cleanAt(zone, event.clientX, event.clientY);
+      });
+      const endPointer = (event: PointerEvent) => {
+        if (zone.pointerId === event.pointerId) zone.pointerId = null;
+      };
+      surface.addEventListener("pointerup", endPointer);
+      surface.addEventListener("pointercancel", endPointer);
+      zone.root.addEventListener("selectstart", (event) => {
+        if (!zone.captured) event.preventDefault();
+      });
+      zone.root.addEventListener("dragstart", (event) => {
+        if (!zone.captured) event.preventDefault();
+      });
+      zone.root.addEventListener("keydown", (event) => {
+        if (event.key === " " && !zone.exposed) { event.preventDefault(); keyboardClean(zone); }
+        if (event.key === "Enter" && zone.exposed) { event.preventDefault(); capture(zone); }
+      });
+      zone.root.querySelector("[data-bug]")?.addEventListener("click", () => capture(zone));
+    });
+
+    root.querySelector("[data-reset]")?.addEventListener("click", resetRelaxed);
+    speedButton?.addEventListener("click", startSpeedRun);
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && speedActive) hiddenAt = performance.now();
+      if (!document.hidden && speedActive && hiddenAt) { deadline += performance.now() - hiddenAt; hiddenAt = 0; }
+    });
+    window.addEventListener("resize", () => zones.forEach(paintDust));
+    root.querySelector<HTMLElement>("[data-clock]")!.textContent = new Intl.DateTimeFormat(undefined, { hour: "2-digit", minute: "2-digit" }).format(new Date());
+    if (reduceMotion) root.classList.add("reduce-motion");
+    resetRelaxed();
+  }
+
+  document.addEventListener("astro:page-load", initBugHunt);
+  if (document.readyState !== "loading") initBugHunt();
+  else document.addEventListener("DOMContentLoaded", initBugHunt, { once: true });
+</script>
+
+<style>
+  .hunt {
+    --ink: #f7f4e8;
+    --muted: #aaa99d;
+    --panel: #10120d;
+    --panel-deep: #090a07;
+    --line: rgba(244, 255, 114, .22);
+    --lime: #f4ff72;
+    --amber: #c58a35;
+    --bug: #ff604d;
+    min-height: 100svh;
+    padding: 8.5rem max(1rem, calc((100vw - 1500px) / 2)) 5rem;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 18% 12%, rgba(197, 138, 53, .12), transparent 24rem),
+      radial-gradient(circle at 88% 72%, rgba(76, 119, 126, .14), transparent 30rem),
+      #080a07;
+  }
+
+  .hunt__intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 390px);
+    gap: clamp(2rem, 6vw, 7rem);
+    align-items: end;
+    margin-bottom: 2rem;
+  }
+
+  .eyebrow,
+  .reveal > p,
+  .hud span,
+  .window__bar,
+  .complete-panel > p {
+    font: 700 .72rem/1.3 var(--font-mono);
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow { color: var(--lime); }
+  h1 {
+    max-width: 900px;
+    margin: .45rem 0 1rem;
+    font: 800 clamp(3.8rem, 8.7vw, 8.6rem)/.82 var(--font-display);
+    letter-spacing: -.07em;
+  }
+  .lede { max-width: 760px; margin: 0; color: #d0cec2; font-size: clamp(1rem, 1.6vw, 1.3rem); line-height: 1.55; }
+  .instruction { max-width: 720px; margin: 1rem 0 0; color: #7f8178; font: .76rem/1.55 var(--font-mono); }
+
+  .hud {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid var(--line);
+    background: rgba(9, 11, 7, .84);
+    box-shadow: 0 22px 80px rgba(0, 0, 0, .25);
+  }
+  .hud__metric { display: grid; gap: .4rem; padding: 1rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .hud__metric:nth-child(even) { border-right: 0; }
+  .hud span { color: var(--lime); }
+  .hud strong { font: 700 1.45rem/1 var(--font-display); }
+  .hud__actions { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; padding: .8rem; }
+  .hud button,
+  .complete-panel a {
+    min-height: 44px;
+    border: 1px solid rgba(244, 255, 114, .34);
+    color: var(--ink);
+    background: #161a0f;
+    font: 700 .72rem var(--font-mono);
+    letter-spacing: .05em;
+    cursor: pointer;
+  }
+  .hud button:hover:not(:disabled), .hud button:focus-visible, .complete-panel a:hover { border-color: var(--lime); background: var(--lime); color: #111406; }
+  .hud button:disabled { cursor: not-allowed; opacity: .35; }
+  .hud > p { grid-column: 1 / -1; min-height: 2.7rem; margin: 0; padding: .7rem 1rem; border-top: 1px solid var(--line); color: #8e9085; font: .7rem/1.4 var(--font-mono); }
+
+  .desktop { position: relative; overflow: hidden; border: 1px solid rgba(244, 255, 114, .25); background: #0d110d; box-shadow: 0 40px 100px rgba(0, 0, 0, .38); }
+  .desktop::before { content: ""; position: absolute; inset: 40px 0 0; opacity: .2; pointer-events: none; background-image: radial-gradient(rgba(244,255,114,.32) .7px, transparent .7px); background-size: 18px 18px; }
+  .desktop__bar { position: relative; z-index: 2; display: flex; justify-content: space-between; padding: .8rem 1rem; border-bottom: 1px solid var(--line); color: #8b8e7f; background: #080a07; font: .68rem var(--font-mono); letter-spacing: .1em; }
+  .desktop__grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr .95fr; grid-template-rows: minmax(270px, 1fr) minmax(240px, .8fr); gap: 1rem; min-height: 720px; padding: clamp(1rem, 2.8vw, 2.5rem); }
+  .window { min-width: 0; overflow: hidden; border: 1px solid rgba(247, 244, 232, .2); background: var(--panel-deep); box-shadow: 0 18px 50px rgba(0, 0, 0, .3); transition: border-color .25s, transform .25s, box-shadow .25s; }
+  .window:not(.is-restored),
+  .window:not(.is-restored) * { -webkit-user-select: none; user-select: none; }
+  .window--profile { grid-row: 1 / 3; }
+  .window:focus-visible { outline: 2px solid var(--lime); outline-offset: 4px; }
+  .window.is-exposed { border-color: rgba(255, 96, 77, .8); box-shadow: 0 0 0 1px rgba(255,96,77,.15), 0 18px 50px rgba(0,0,0,.3); }
+  .window.is-restored { border-color: rgba(244, 255, 114, .58); transform: translateY(-3px); }
+  .window__bar { display: grid; grid-template-columns: auto 1fr auto; gap: .8rem; align-items: center; min-height: 38px; padding: .55rem .75rem; border-bottom: 1px solid rgba(247, 244, 232, .14); color: #b8b7aa; background: #151710; }
+  .window__bar > span:last-child { color: var(--amber); font-size: .59rem; }
+  .is-exposed .window__bar > span:last-child { color: var(--bug); }
+  .is-restored .window__bar > span:last-child { color: var(--lime); }
+  .window__lights { display: flex; gap: 4px; }
+  .window__lights i { width: 7px; height: 7px; border-radius: 50%; background: #55574f; }
+  .window__lights i:first-child { background: var(--bug); }
+  .window__lights i:nth-child(2) { background: var(--amber); }
+  .window__lights i:last-child { background: #6f8d6e; }
+  .window__body { position: relative; min-height: calc(100% - 38px); }
+  .window canvas { position: absolute; z-index: 4; inset: 0; width: 100%; height: 100%; cursor: crosshair; touch-action: none; transition: opacity .45s; }
+  .is-exposed canvas { pointer-events: none; opacity: .22; }
+  .is-restored canvas { opacity: 0; }
+  .reveal { position: relative; z-index: 1; display: flex; flex-direction: column; justify-content: center; min-height: 100%; padding: clamp(1.3rem, 3vw, 2.5rem); opacity: .16; filter: blur(4px) grayscale(1); transition: opacity .55s, filter .55s; }
+  .is-restored .reveal { opacity: 1; filter: none; }
+  .reveal > p { margin: 0 0 .7rem; color: var(--lime); }
+  .reveal h2 { max-width: 760px; margin: 0 0 1rem; font: 700 clamp(1.7rem, 3vw, 3.4rem)/.98 var(--font-display); letter-spacing: -.04em; }
+  .reveal > span { max-width: 640px; color: var(--muted); line-height: 1.55; }
+  .terminal ul { display: grid; gap: .5rem; margin: 1.5rem 0 0; padding: 0; list-style: none; color: #c7c5b8; font: .76rem var(--font-mono); }
+  .terminal li::before { content: "> "; color: var(--lime); }
+  .education-line { margin-top: 1rem; color: #8f9185; font: .68rem/1.5 var(--font-mono); }
+  .bug { position: absolute; z-index: 6; left: 58%; top: 44%; display: none; place-items: center; width: 74px; height: 74px; padding: 0; border: 1px solid var(--bug); border-radius: 50%; color: #fff; background: rgba(80, 16, 10, .94); box-shadow: 0 0 0 7px rgba(255,96,77,.12), 0 0 45px rgba(255,96,77,.34); cursor: crosshair; }
+  .bug span { font-size: 1.8rem; animation: bug-twitch .85s steps(2) infinite; }
+  .bug b { position: absolute; top: calc(100% + .55rem); width: 130px; color: #ffb0a6; font: 700 .62rem var(--font-mono); text-transform: uppercase; }
+  .is-exposed .bug { display: grid; animation: bug-arrive .3s ease-out both; }
+  .is-restored .bug { display: none; }
+  .clean-progress { position: absolute; z-index: 7; right: 1rem; bottom: 1rem; width: 92px; height: 3px; background: rgba(247,244,232,.17); pointer-events: none; }
+  .clean-progress i { display: block; width: 0; height: 100%; background: var(--amber); transition: width .12s; }
+  .is-exposed .clean-progress i { background: var(--bug); }
+  .is-restored .clean-progress { opacity: 0; }
+  .project-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: .55rem; margin-top: 1rem; }
+  .project-list a { display: grid; gap: .35rem; min-width: 0; padding: .8rem; border: 1px solid rgba(247,244,232,.16); color: inherit; text-decoration: none; background: rgba(255,255,255,.025); }
+  .project-list a:hover { border-color: var(--lime); }
+  .project-list span, .project-list small { overflow: hidden; color: #909285; font: .58rem var(--font-mono); text-overflow: ellipsis; white-space: nowrap; }
+  .project-list strong { font: 700 .95rem var(--font-display); }
+  .connection-links { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.25rem; }
+  .connection-links a { padding: .6rem .75rem; border: 1px solid rgba(244,255,114,.3); color: var(--ink); font: 700 .65rem var(--font-mono); text-decoration: none; }
+  .connection-links a:hover { color: #111406; background: var(--lime); }
+  .complete-panel { position: absolute; z-index: 10; inset: 40px 0 0; display: grid; place-content: center; justify-items: start; padding: clamp(1.5rem, 8vw, 8rem); visibility: hidden; opacity: 0; background: rgba(8,10,7,.93); backdrop-filter: blur(12px); transition: opacity .5s, visibility .5s; }
+  .complete-panel[aria-hidden="false"] { visibility: visible; opacity: 1; }
+  .complete-panel > p { color: var(--lime); }
+  .complete-panel h2 { margin: .4rem 0 1rem; font: 800 clamp(4rem, 10vw, 9rem)/.82 var(--font-display); letter-spacing: -.07em; }
+  .complete-panel > span { max-width: 620px; color: #b6b5aa; font-size: 1.05rem; line-height: 1.55; }
+  .complete-panel > div { display: flex; gap: .7rem; margin-top: 1.5rem; }
+  .complete-panel a { display: inline-grid; place-items: center; min-width: 170px; padding: 0 1rem; text-decoration: none; }
+  .complete-panel a:first-child { color: #111406; background: var(--lime); }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+
+  @keyframes bug-twitch { 50% { transform: translate(3px, -2px) rotate(10deg); } }
+  @keyframes bug-arrive { from { opacity: 0; transform: scale(.4); } to { opacity: 1; transform: scale(1); } }
+
+  @media (max-width: 900px) {
+    .hunt__intro { grid-template-columns: 1fr; }
+    .desktop__grid { grid-template-columns: 1fr; grid-template-rows: repeat(3, minmax(310px, auto)); min-height: 0; }
+    .window--profile { grid-row: auto; }
+  }
+  @media (max-width: 560px) {
+    .hunt { padding-top: 7rem; }
+    h1 { font-size: clamp(3.4rem, 18vw, 5.4rem); }
+    .hud__actions { grid-template-columns: 1fr; }
+    .desktop__grid { gap: .65rem; padding: .65rem; grid-template-rows: repeat(3, minmax(340px, auto)); }
+    .window__bar { grid-template-columns: auto 1fr; }
+    .window__bar > span:last-child { grid-column: 1 / -1; }
+    .project-list { grid-template-columns: 1fr; }
+    .complete-panel { align-content: center; padding: 1.5rem; }
+    .complete-panel > div { width: 100%; flex-direction: column; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hunt *, .hunt *::before, .hunt *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  }
+</style>

@@ -904,15 +904,15 @@ export const additionalProjects: Project[] = [
   {
     slug: "finance-tracker",
     title: "Finance Tracker",
-    category: "Full-Stack / Web Framework Deployment Final Project",
+    category: "Laravel Full-Stack / Web Framework Deployment Final Project",
     description:
-      "A personal finance tracking and management web application built with modern deployment practices. Built as a Web Framework Deployment course final project.",
+      "A Laravel personal finance tracking and management web application built with modern deployment practices. Built as a Web Framework Deployment course final project.",
     problem:
       "Personal finance data becomes scattered across accounts, subscriptions, budgets, and due dates without a single control surface.",
     targetUsers: "Individual users managing personal finances",
     role: "Developer",
     contribution:
-      "Designed and built the full-stack finance tracking application including deployment pipeline, database design, and responsive frontend.",
+      "Designed and built the Laravel full-stack finance tracking application including deployment pipeline, database design, Blade views, and responsive frontend.",
     technologies: ["Laravel", "PHP", "Blade", "Tailwind CSS", "MySQL"],
     status: "academic",
     statusLabel: "Academic Final Project",

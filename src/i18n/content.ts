@@ -769,14 +769,14 @@ const projectIdLocales: Record<string, ProjectLocale> = {
   },
   "finance-tracker": {
     title: "Pelacak Keuangan",
-    category: "Full-Stack / Tugas Akhir Deployment Web Framework",
+    category: "Laravel Full-Stack / Tugas Akhir Deployment Web Framework",
     description:
-      "Aplikasi web untuk tracking dan manajemen keuangan pribadi yang dibangun dengan praktik deployment modern.",
+      "Aplikasi Laravel untuk tracking dan manajemen keuangan pribadi yang dibangun dengan praktik deployment modern.",
     problem: "Pengguna individu butuh cara sederhana untuk mencatat dan memahami arus keuangan pribadi.",
     targetUsers: "Pengguna individu yang mengelola keuangan pribadi",
     role: "Developer",
     contribution:
-      "Merancang dan membangun aplikasi finance tracker full-stack, termasuk pipeline deployment, desain database, dan frontend responsif.",
+      "Merancang dan membangun aplikasi finance tracker full-stack berbasis Laravel, termasuk pipeline deployment, desain database, Blade views, dan frontend responsif.",
     statusLabel: "Tugas Akhir Akademik",
     githubLabel: "Repo GitHub",
     detail: {

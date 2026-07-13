@@ -3,6 +3,7 @@ export type Lang = "en" | "id";
 export const translations = {
   en: {
     "nav.work": "Work",
+    "nav.play": "Play",
     "nav.experience": "Experience",
     "nav.about": "About",
     "nav.contact": "Contact",
@@ -60,8 +61,7 @@ export const translations = {
     "capabilities.title": "Technical Capabilities",
     "capabilities.subtitle": "Grouped by domain, not ranked as equally proficient.",
 
-    "contact.heading":
-      'Have an idea <br class="hidden sm:block" />or a messy workflow?',
+    "contact.heading": "Have an idea or messy workflow?",
     "contact.subtitle":
       "I'm open to internships, collaborations, and opportunities to build AI-powered systems for ambitious students, builders, and early-stage entrepreneurs.",
     "contact.sendEmail": "Send an Email",
@@ -96,6 +96,7 @@ export const translations = {
 
   id: {
     "nav.work": "Karya",
+    "nav.play": "Main",
     "nav.experience": "Pengalaman",
     "nav.about": "Tentang",
     "nav.contact": "Kontak",
@@ -154,8 +155,7 @@ export const translations = {
     "capabilities.subtitle":
       "Dikelompokkan berdasarkan domain, tidak diurutkan berdasarkan tingkat mahir.",
 
-    "contact.heading":
-      'Punya ide<br class="hidden sm:block" />atau workflow berantakan?',
+    "contact.heading": "Punya ide atau workflow berantakan?",
     "contact.subtitle":
       "Saya terbuka untuk magang, kolaborasi, dan peluang membangun sistem bertenaga AI untuk mahasiswa ambisius, builder, dan entrepreneur tahap awal.",
     "contact.sendEmail": "Kirim Email",
