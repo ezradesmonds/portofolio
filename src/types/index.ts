@@ -49,6 +49,7 @@ export interface ProjectDetail {
   productStrategy?: string;
   userFlow?: string;
   systemArchitecture?: string;
+  productDiscovery?: ProjectProductDiscovery;
   aiSystem?: ProjectAiSystem;
   keyFeatures: string[];
   implementation?: string;
@@ -56,6 +57,35 @@ export interface ProjectDetail {
   results?: string;
   lessonsLearned?: string[];
   relatedProjects?: string[];
+}
+
+export interface ProjectProductDiscovery {
+  problemStatement: string;
+  hypothesis: string;
+  persona: {
+    name: string;
+    role: string;
+    context: string;
+    pains: string[];
+    goals: string[];
+  };
+  journey: Array<{
+    stage: string;
+    friction: string;
+    response: string;
+  }>;
+  valueProposition: {
+    customerJobs: string[];
+    pains: string[];
+    gains: string[];
+    productsAndServices: string[];
+    painRelievers: string[];
+    gainCreators: string[];
+  };
+  businessModel: Array<{
+    label: string;
+    items: string[];
+  }>;
 }
 
 export interface ProjectMetric {

@@ -1,0 +1,370 @@
+---
+import type { ProjectProductDiscovery } from "../../types";
+
+interface Props {
+  discovery: ProjectProductDiscovery;
+  lang: "en" | "id";
+}
+
+const { discovery, lang } = Astro.props;
+const copy = lang === "id"
+  ? {
+      eyebrow: "Product discovery",
+      title: "Dari masalah operasional ke keputusan produk",
+      framing: "Problem framing",
+      hypothesis: "Hipotesis",
+      persona: "Persona utama",
+      pains: "Pain points",
+      goals: "Tujuan",
+      journey: "Customer journey & respons produk",
+      friction: "Friction",
+      response: "Respons produk",
+      valueCanvas: "Value Proposition Canvas",
+      customer: "Customer profile",
+      solution: "Value map",
+      jobs: "Jobs",
+      gains: "Gains",
+      products: "Produk & layanan",
+      relievers: "Pain relievers",
+      creators: "Gain creators",
+      businessCanvas: "Business Model Canvas",
+    }
+  : {
+      eyebrow: "Product discovery",
+      title: "From operational friction to a product decision",
+      framing: "Problem framing",
+      hypothesis: "Hypothesis",
+      persona: "Primary persona",
+      pains: "Pain points",
+      goals: "Goals",
+      journey: "Customer journey & product response",
+      friction: "Friction",
+      response: "Product response",
+      valueCanvas: "Value Proposition Canvas",
+      customer: "Customer profile",
+      solution: "Value map",
+      jobs: "Jobs",
+      gains: "Gains",
+      products: "Products & services",
+      relievers: "Pain relievers",
+      creators: "Gain creators",
+      businessCanvas: "Business Model Canvas",
+    };
+---
+
+<section class="product-discovery" aria-labelledby="product-discovery-title">
+  <header>
+    <p>{copy.eyebrow}</p>
+    <h2 id="product-discovery-title">{copy.title}</h2>
+  </header>
+
+  <div class="framing-grid">
+    <article>
+      <span>01</span>
+      <h3>{copy.framing}</h3>
+      <p>{discovery.problemStatement}</p>
+    </article>
+    <article>
+      <span>02</span>
+      <h3>{copy.hypothesis}</h3>
+      <p>{discovery.hypothesis}</p>
+    </article>
+  </div>
+
+  <article class="persona-card">
+    <div class="persona-identity">
+      <p>{copy.persona}</p>
+      <h3>{discovery.persona.name}</h3>
+      <strong>{discovery.persona.role}</strong>
+      <span>{discovery.persona.context}</span>
+    </div>
+    <div>
+      <h4>{copy.pains}</h4>
+      <ul>{discovery.persona.pains.map((item) => <li>{item}</li>)}</ul>
+    </div>
+    <div>
+      <h4>{copy.goals}</h4>
+      <ul>{discovery.persona.goals.map((item) => <li>{item}</li>)}</ul>
+    </div>
+  </article>
+
+  <div class="journey-block">
+    <h3>{copy.journey}</h3>
+    <ol>
+      {discovery.journey.map((step, index) => (
+        <li>
+          <span>{String(index + 1).padStart(2, "0")}</span>
+          <h4>{step.stage}</h4>
+          <p><strong>{copy.friction}:</strong> {step.friction}</p>
+          <p><strong>{copy.response}:</strong> {step.response}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+
+  <div class="canvas-block">
+    <h3>{copy.valueCanvas}</h3>
+    <div class="value-canvas">
+      <article>
+        <p>{copy.customer}</p>
+        {[
+          { title: copy.jobs, items: discovery.valueProposition.customerJobs },
+          { title: copy.pains, items: discovery.valueProposition.pains },
+          { title: copy.gains, items: discovery.valueProposition.gains },
+        ].map((group) => (
+          <div class="canvas-list">
+            <h4>{group.title}</h4>
+            <ul>{group.items.map((item) => <li>{item}</li>)}</ul>
+          </div>
+        ))}
+      </article>
+      <article>
+        <p>{copy.solution}</p>
+        {[
+          { title: copy.products, items: discovery.valueProposition.productsAndServices },
+          { title: copy.relievers, items: discovery.valueProposition.painRelievers },
+          { title: copy.creators, items: discovery.valueProposition.gainCreators },
+        ].map((group) => (
+          <div class="canvas-list">
+            <h4>{group.title}</h4>
+            <ul>{group.items.map((item) => <li>{item}</li>)}</ul>
+          </div>
+        ))}
+      </article>
+    </div>
+  </div>
+
+  <div class="canvas-block">
+    <h3>{copy.businessCanvas}</h3>
+    <div class="business-canvas">
+      {discovery.businessModel.map((block) => (
+        <article>
+          <h4>{block.label}</h4>
+          <ul>{block.items.map((item) => <li>{item}</li>)}</ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .product-discovery {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  header p,
+  .persona-identity > p,
+  .value-canvas > article > p {
+    color: var(--color-accent-cyan);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+
+  header h2 {
+    max-width: 38rem;
+    margin-top: 0.45rem;
+    color: var(--color-text-primary);
+    font-family: var(--font-display);
+    font-size: clamp(1.65rem, 4vw, 2.65rem);
+    font-weight: 900;
+    line-height: 1.05;
+  }
+
+  .framing-grid,
+  .value-canvas {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .framing-grid article,
+  .persona-card,
+  .journey-block,
+  .canvas-block {
+    border: 1px solid rgba(244, 255, 114, 0.14);
+    border-radius: 1rem;
+    background: linear-gradient(145deg, rgba(18, 21, 12, 0.88), rgba(8, 10, 6, 0.94));
+  }
+
+  .framing-grid article {
+    position: relative;
+    padding: 1.15rem;
+  }
+
+  .framing-grid article > span {
+    position: absolute;
+    right: 1rem;
+    top: 0.85rem;
+    color: rgba(244, 255, 114, 0.22);
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 900;
+  }
+
+  h3,
+  h4 {
+    color: var(--color-text-primary);
+    font-weight: 800;
+  }
+
+  .framing-grid h3,
+  .journey-block > h3,
+  .canvas-block > h3 {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .framing-grid p,
+  .persona-identity span,
+  .journey-block p {
+    margin-top: 0.6rem;
+    color: var(--color-text-secondary);
+    font-size: 0.86rem;
+    line-height: 1.6;
+  }
+
+  .persona-card {
+    display: grid;
+    gap: 1.25rem;
+    padding: 1.25rem;
+  }
+
+  .persona-identity h3 {
+    margin-top: 0.55rem;
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 900;
+  }
+
+  .persona-identity strong {
+    display: block;
+    margin-top: 0.2rem;
+    color: var(--color-text-primary);
+    font-size: 0.82rem;
+  }
+
+  .persona-card h4,
+  .canvas-list h4,
+  .business-canvas h4 {
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .persona-card ul,
+  .canvas-list ul,
+  .business-canvas ul {
+    display: grid;
+    gap: 0.42rem;
+    margin-top: 0.6rem;
+  }
+
+  .persona-card li,
+  .canvas-list li,
+  .business-canvas li {
+    position: relative;
+    color: var(--color-text-secondary);
+    font-size: 0.78rem;
+    line-height: 1.45;
+    padding-left: 0.85rem;
+  }
+
+  .persona-card li::before,
+  .canvas-list li::before,
+  .business-canvas li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.52rem;
+    width: 0.3rem;
+    height: 0.3rem;
+    border-radius: 999px;
+    background: var(--color-accent-cyan);
+  }
+
+  .journey-block,
+  .canvas-block {
+    padding: 1.25rem;
+  }
+
+  .journey-block ol {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .journey-block li {
+    border-left: 2px solid rgba(244, 255, 114, 0.34);
+    background: rgba(244, 255, 114, 0.035);
+    padding: 0.85rem;
+  }
+
+  .journey-block li > span {
+    color: var(--color-accent-cyan);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 900;
+  }
+
+  .journey-block h4 {
+    margin-top: 0.2rem;
+    font-size: 0.9rem;
+  }
+
+  .journey-block strong {
+    color: var(--color-text-primary);
+  }
+
+  .value-canvas {
+    margin-top: 1rem;
+  }
+
+  .value-canvas > article {
+    display: grid;
+    gap: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.85rem;
+    background: rgba(255, 255, 255, 0.025);
+    padding: 1rem;
+  }
+
+  .canvas-list + .canvas-list {
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    padding-top: 0.9rem;
+  }
+
+  .business-canvas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .business-canvas article {
+    border-top: 2px solid rgba(244, 255, 114, 0.35);
+    background: rgba(244, 255, 114, 0.035);
+    padding: 0.85rem;
+  }
+
+  @media (min-width: 700px) {
+    .framing-grid,
+    .value-canvas {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .persona-card {
+      grid-template-columns: 1.15fr 1fr 1fr;
+    }
+
+    .journey-block ol {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+  }
+</style>

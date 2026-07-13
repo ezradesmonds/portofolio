@@ -384,6 +384,118 @@ export const projects: Project[] = [
         "Upgraded the Streamlit management pages with operational charts and clearer decision surfaces.",
         "Created the user persona, journey, and value proposition used to frame the product.",
       ],
+      productDiscovery: {
+        problemStatement:
+          "How might we distribute each project across available tailors so the cooperative can improve production efficiency while responding to order urgency and quantity?",
+        hypothesis:
+          "If the system combines historical performance profiles with order context and current workload, admins can move from memory-based assignment toward faster, fairer, and more explainable decisions.",
+        persona: {
+          name: "Bu Herman",
+          role: "Senior cooperative admin",
+          context:
+            "Manages incoming orders and coordinates a large tailor network under deadline pressure, currently relying on intuition, fragmented records, and worker updates through WhatsApp.",
+          pains: [
+            "Unfair workload distribution and bottlenecks around favorite tailors",
+            "Difficulty remembering individual speed, neatness, and availability",
+            "No integrated view of active work and leftover material",
+            "Missed deadlines and high manual coordination overhead",
+          ],
+          goals: [
+            "Efficient and fair allocation",
+            "Data-driven decision support",
+            "Real-time production and inventory visibility",
+            "Less manual managerial work",
+          ],
+        },
+        journey: [
+          {
+            stage: "Receive a bulk order",
+            friction: "The admin accepts a high-volume request without an immediate capacity view.",
+            response: "Capture category, quantity, and deadline as structured allocation inputs.",
+          },
+          {
+            stage: "Check material readiness",
+            friction: "Leftover fabric is tracked manually and may become ghost inventory.",
+            response: "Surface stock, purchases, and material requirements in the same management system.",
+          },
+          {
+            stage: "Distribute the workload",
+            friction: "The admin must remember who is fast, neat, nearby, and currently free.",
+            response: "Rank tailors through profiling, context-aware weights, logistics rules, and live status.",
+          },
+          {
+            stage: "Track production",
+            friction: "Active jobs and deadlines are scattered across messages and manual notes.",
+            response: "Connect assignments to progress, status, and operational dashboards.",
+          },
+          {
+            stage: "Close and recycle capacity",
+            friction: "Finished work and leftover material are difficult to reconcile for the next order.",
+            response: "Return completed tailors to the available pool and update remaining stock.",
+          },
+        ],
+        valueProposition: {
+          customerJobs: ["Manage bulk orders", "Control inventory", "Distribute workloads", "Monitor progress"],
+          pains: ["Human-memory dependency", "Uneven assignments", "Ghost inventory", "Production bottlenecks"],
+          gains: ["Fair allocation", "Faster decisions", "Visible capacity", "Managerial automation"],
+          productsAndServices: ["Smart Tailor Allocation System", "Integrated cooperative dashboard"],
+          painRelievers: ["ML-based tailor profiling", "Live workload checks", "Inventory and progress records"],
+          gainCreators: ["Specialization-aware matching", "Adaptive scoring", "System-driven operations"],
+        },
+        businessModel: [
+          {
+            label: "Customer segments",
+            items: ["Tailor cooperatives", "Cooperative admins and managers", "Member tailors", "Bulk uniform buyers"],
+          },
+          {
+            label: "Value propositions",
+            items: ["Fair workload distribution", "Deadline-adaptive recommendations", "Integrated production and stock visibility"],
+          },
+          {
+            label: "Key resources",
+            items: ["Curated tailor profiles", "Allocation logic", "Python, Streamlit, SQLite, and scikit-learn"],
+          },
+          {
+            label: "Key activities",
+            items: ["Tailor profiling", "Algorithmic assignment", "Inventory tracking", "Production and wage monitoring"],
+          },
+          {
+            label: "Partners & channels",
+            items: ["Fabric suppliers", "Tailor communities", "Institutions placing bulk orders", "Web-based office dashboard"],
+          },
+          {
+            label: "Cost structure",
+            items: ["Hosting and maintenance", "Tailor skill-data updates", "Operational inventory data entry"],
+          },
+        ],
+      },
+      featureStatus: [
+        {
+          name: "Smart tailor profiling",
+          status: "prototype",
+          note: "Historical speed, neatness, punctuality, distance, and related attributes inform operational clusters.",
+        },
+        {
+          name: "Context-aware allocation scoring",
+          status: "prototype",
+          note: "Urgent orders weight speed at 70%; relaxed orders shift emphasis toward neatness at 40%.",
+        },
+        {
+          name: "Distance-aware logistics",
+          status: "prototype",
+          note: "Small orders under 20 pieces favor nearby tailors, while orders over 50 pieces tolerate more distance for production efficiency.",
+        },
+        {
+          name: "Real-time load balancing",
+          status: "prototype",
+          note: "Busy tailors remain visible but receive a strong ranking penalty so idle candidates rise first.",
+        },
+        {
+          name: "Split-order fallback",
+          status: "prototype",
+          note: "The system can simulate splitting work when one tailor cannot safely meet the required capacity.",
+        },
+      ],
       keyFeatures: [
         "Smart tailor-allocation workflow",
         "Operational dashboard for cooperative managers",
@@ -398,20 +510,20 @@ export const projects: Project[] = [
       ],
       aiSystem: {
         provider:
-          "Machine-learning signals plus a rule-based allocation layer inside a Streamlit prototype.",
+          "A three-layer decision system: unsupervised tailor profiling, adaptive rule-based scoring, and database-backed workload balancing inside a Streamlit prototype.",
         pipeline: [
-          "Raw cooperative tailor data is cleaned to remove inconsistent, incomplete, or unusable operational records.",
-          "Feature engineering transforms tailor attributes into allocation-ready signals such as speed, status, distance, specialty, and capacity.",
-          "Unsupervised clustering groups tailors by operational profile so similar working patterns can be compared.",
-          "Order inputs define category, quantity, and deadline pressure, then the allocation layer ranks feasible candidates.",
-          "If single-tailor capacity is unsafe, the system simulates split-order alternatives.",
+          "Layer 1 - Smart profiling: clean historical data and cluster tailors by speed, neatness, punctuality, distance, specialty, and related performance patterns.",
+          "Layer 2 - Adaptive scoring: translate category, quantity, and deadline into changing weights; urgent work emphasizes speed, while relaxed work gives neatness more influence.",
+          "Layer 2 - Logistics context: favor nearby tailors for small jobs and accept more distance for large-volume work where transport can be consolidated.",
+          "Layer 3 - Load balancing: check active assignments in operational data and apply a strong busy penalty without hiding candidates.",
+          "Rank the complete candidate list, calculate target output per day, and simulate split-order alternatives when single-tailor capacity is unsafe.",
         ],
         dataFlow:
-          "The AIML workflow produces clustering/allocation signals, while the cooperative management system uses those signals inside dashboards, tailor management, and smart allocation flows.",
+          "Tailor history produces reusable profiles; the current order adds urgency, quantity, category, and logistics context; live assignment data then adjusts the final ranking shown in the cooperative dashboard.",
         validation:
-          "Recommendations are checked against deadline math, capacity, current status, specialty, distance, and cluster-based feasibility signals.",
+          "Recommendations are checked against deadline math, required daily output, capacity, current status, specialty, distance, and cluster-based feasibility signals. The ranked list stays visible so an admin can review the reasoning rather than accept a hidden decision.",
         failureHandling:
-          "When no single tailor is enough, the system proposes a custom split order instead of forcing one assignment.",
+          "Busy tailors are deprioritized rather than deleted, preserving admin override options. When no single tailor is enough, the system proposes a custom split order instead of forcing one assignment.",
         limitations:
           "Competition prototype using an academic dataset whose raw, cleaned, and model-used row counts are not claimed here. The allocation logic needs real-world feedback before it can claim production-grade accuracy.",
       },

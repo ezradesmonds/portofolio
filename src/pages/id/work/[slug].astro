@@ -5,6 +5,7 @@ import { SITE } from "../../../data/site";
 import TechBadge from "../../../components/ui/TechBadge.astro";
 import EvidenceMetrics from "../../../components/projects/EvidenceMetrics.astro";
 import FeatureStatusTable from "../../../components/projects/FeatureStatusTable.astro";
+import ProductDiscovery from "../../../components/projects/ProductDiscovery.astro";
 import { localizeProject } from "../../../i18n/content";
 
 export function getStaticPaths() {
@@ -145,6 +146,10 @@ const projectStructuredData = {
                 ))}
               </ul>
             </section>
+          )}
+
+          {detail.productDiscovery && (
+            <ProductDiscovery discovery={detail.productDiscovery} lang={lang} />
           )}
 
           <section>

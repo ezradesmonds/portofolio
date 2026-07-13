@@ -316,6 +316,118 @@ const projectIdLocales: Record<string, ProjectLocale> = {
         "Meningkatkan halaman-halaman manajemen Streamlit dengan chart operasional dan decision surface yang lebih jelas.",
         "Menyusun user persona, journey, dan value proposition untuk membingkai produk.",
       ],
+      productDiscovery: {
+        problemStatement:
+          "Bagaimana membagi setiap project ke penjahit yang tersedia agar koperasi dapat meningkatkan efisiensi produksi sesuai urgensi dan jumlah order?",
+        hypothesis:
+          "Jika sistem menggabungkan profil performa historis, konteks order, dan workload aktif, admin dapat beralih dari keputusan berbasis ingatan ke keputusan yang lebih cepat, adil, dan dapat dijelaskan.",
+        persona: {
+          name: "Bu Herman",
+          role: "Admin senior koperasi",
+          context:
+            "Mengelola order masuk dan jaringan penjahit besar di bawah tekanan deadline dengan mengandalkan intuisi, catatan yang terpisah, dan update pekerja melalui WhatsApp.",
+          pains: [
+            "Distribusi kerja tidak merata dan bottleneck pada penjahit favorit",
+            "Sulit mengingat speed, kerapian, dan ketersediaan setiap penjahit",
+            "Tidak ada tampilan terintegrasi untuk pekerjaan aktif dan sisa material",
+            "Risiko deadline terlewat dan koordinasi manual yang tinggi",
+          ],
+          goals: [
+            "Alokasi yang efisien dan adil",
+            "Decision support berbasis data",
+            "Visibilitas produksi dan inventori secara real-time",
+            "Mengurangi pekerjaan manajerial manual",
+          ],
+        },
+        journey: [
+          {
+            stage: "Menerima order besar",
+            friction: "Admin menerima order volume tinggi tanpa gambaran kapasitas langsung.",
+            response: "Mencatat kategori, jumlah, dan deadline sebagai input alokasi terstruktur.",
+          },
+          {
+            stage: "Memeriksa kesiapan material",
+            friction: "Sisa kain dilacak manual dan dapat menjadi ghost inventory.",
+            response: "Menampilkan stok, pembelian, dan kebutuhan material dalam sistem manajemen yang sama.",
+          },
+          {
+            stage: "Membagi workload",
+            friction: "Admin harus mengingat siapa yang cepat, rapi, dekat, dan sedang tersedia.",
+            response: "Meranking penjahit lewat profiling, bobot adaptif, aturan logistik, dan status aktif.",
+          },
+          {
+            stage: "Memantau produksi",
+            friction: "Pekerjaan aktif dan deadline tersebar di pesan dan catatan manual.",
+            response: "Menghubungkan assignment dengan progress, status, dan dashboard operasional.",
+          },
+          {
+            stage: "Menutup dan memakai ulang kapasitas",
+            friction: "Pekerjaan selesai dan sisa material sulit direkonsiliasi untuk order berikutnya.",
+            response: "Mengembalikan penjahit selesai ke pool tersedia dan memperbarui sisa stok.",
+          },
+        ],
+        valueProposition: {
+          customerJobs: ["Mengelola bulk order", "Mengontrol inventori", "Membagi workload", "Memantau progress"],
+          pains: ["Ketergantungan pada ingatan", "Assignment tidak merata", "Ghost inventory", "Bottleneck produksi"],
+          gains: ["Alokasi adil", "Keputusan lebih cepat", "Kapasitas terlihat", "Otomatisasi manajerial"],
+          productsAndServices: ["Smart Tailor Allocation System", "Dashboard koperasi terintegrasi"],
+          painRelievers: ["Profiling penjahit berbasis ML", "Pemeriksaan workload aktif", "Catatan inventori dan progress"],
+          gainCreators: ["Matching berbasis spesialisasi", "Adaptive scoring", "Operasi berbasis sistem"],
+        },
+        businessModel: [
+          {
+            label: "Customer segments",
+            items: ["Koperasi penjahit", "Admin dan manajer koperasi", "Mitra penjahit", "Pemesan seragam skala besar"],
+          },
+          {
+            label: "Value propositions",
+            items: ["Distribusi kerja adil", "Rekomendasi adaptif terhadap deadline", "Visibilitas produksi dan stok terintegrasi"],
+          },
+          {
+            label: "Key resources",
+            items: ["Profil penjahit terkurasi", "Logika alokasi", "Python, Streamlit, SQLite, dan scikit-learn"],
+          },
+          {
+            label: "Key activities",
+            items: ["Profiling penjahit", "Assignment algoritmis", "Tracking inventori", "Monitoring produksi dan upah"],
+          },
+          {
+            label: "Partners & channels",
+            items: ["Supplier kain", "Komunitas penjahit", "Institusi pemesan bulk order", "Dashboard web di browser kantor"],
+          },
+          {
+            label: "Cost structure",
+            items: ["Hosting dan maintenance", "Pembaruan data skill penjahit", "Input data inventori operasional"],
+          },
+        ],
+      },
+      featureStatus: [
+        {
+          name: "Smart profiling penjahit",
+          status: "prototype",
+          note: "Data speed, kerapian, ketepatan waktu, jarak, dan atribut terkait membentuk cluster operasional.",
+        },
+        {
+          name: "Context-aware allocation scoring",
+          status: "prototype",
+          note: "Order urgent memberi bobot speed 70%; order relaxed menggeser fokus ke kerapian sebesar 40%.",
+        },
+        {
+          name: "Logistik berbasis jarak",
+          status: "prototype",
+          note: "Order di bawah 20 pcs memprioritaskan penjahit terdekat, sedangkan order di atas 50 pcs mengizinkan jarak lebih jauh demi efisiensi produksi.",
+        },
+        {
+          name: "Load balancing real-time",
+          status: "prototype",
+          note: "Penjahit busy tetap terlihat tetapi mendapat penalti ranking besar agar kandidat idle naik lebih dulu.",
+        },
+        {
+          name: "Fallback split order",
+          status: "prototype",
+          note: "Sistem mensimulasikan pembagian pekerjaan saat satu penjahit tidak aman menanggung seluruh kapasitas.",
+        },
+      ],
       keyFeatures: [
         "Workflow smart allocation untuk penjahit",
         "Dashboard operasional untuk manajer koperasi",
@@ -330,21 +442,20 @@ const projectIdLocales: Record<string, ProjectLocale> = {
       ],
       aiSystem: {
         provider:
-          "Sinyal machine learning plus allocation layer berbasis rule di dalam prototype Streamlit.",
+          "Sistem keputusan tiga layer: profiling penjahit unsupervised, adaptive scoring berbasis rule, dan load balancing berbasis database dalam prototype Streamlit.",
         pipeline: [
-          "Dataset koperasi dibersihkan dan distandardisasi sebelum feature engineering.",
-          "Fitur operasional dibentuk dari data penjahit seperti speed, status, jarak, spesialisasi, dan kapasitas.",
-          "Clustering unsupervised mengelompokkan penjahit berdasarkan profil operasional agar pola kerja serupa bisa dibandingkan.",
-          "Input order mendefinisikan kategori, jumlah pcs, dan tekanan deadline.",
-          "Layer alokasi menghitung kebutuhan produksi harian dan meranking penjahit yang feasible.",
-          "Jika kapasitas satu penjahit tidak aman, sistem mensimulasikan opsi split order.",
+          "Layer 1 - Smart profiling: membersihkan data historis dan mengelompokkan penjahit berdasarkan speed, kerapian, ketepatan waktu, jarak, spesialisasi, dan pola performa terkait.",
+          "Layer 2 - Adaptive scoring: menerjemahkan kategori, jumlah, dan deadline menjadi bobot yang berubah; pekerjaan urgent menekankan speed, sementara pekerjaan relaxed memberi pengaruh lebih besar pada kerapian.",
+          "Layer 2 - Konteks logistik: memprioritaskan penjahit dekat untuk order kecil dan menerima jarak lebih jauh pada order volume besar yang dapat mengonsolidasikan transportasi.",
+          "Layer 3 - Load balancing: memeriksa assignment aktif dan memberi busy penalty besar tanpa menyembunyikan kandidat.",
+          "Meranking seluruh kandidat, menghitung target output per hari, dan mensimulasikan split order saat kapasitas satu penjahit tidak aman.",
         ],
         dataFlow:
-          "Workflow AIML menghasilkan sinyal clustering dan alokasi, lalu sistem manajemen koperasi memakai sinyal itu di dashboard, manajemen penjahit, dan smart allocation.",
+          "Riwayat penjahit menghasilkan profil yang dapat dipakai ulang; order aktif menambahkan konteks urgensi, jumlah, kategori, dan logistik; data assignment aktif kemudian menyesuaikan ranking final di dashboard koperasi.",
         validation:
-          "Rekomendasi dicek terhadap deadline math, kapasitas, status saat ini, spesialisasi, jarak, dan sinyal kelayakan berbasis cluster.",
+          "Rekomendasi dicek terhadap deadline math, target produksi harian, kapasitas, status aktif, spesialisasi, jarak, dan sinyal kelayakan berbasis cluster. Daftar ranking tetap terlihat agar admin dapat meninjau alasan, bukan menerima keputusan tersembunyi.",
         failureHandling:
-          "Saat satu penjahit tidak cukup, sistem menawarkan custom split order alih-alih memaksa satu assignment.",
+          "Penjahit busy diturunkan prioritasnya alih-alih dihapus, sehingga opsi override tetap ada. Saat satu penjahit tidak cukup, sistem menawarkan custom split order alih-alih memaksa satu assignment.",
         limitations:
           "Prototype kompetisi memakai dataset akademik yang jumlah raw, cleaned, dan model-used row-nya tidak diklaim di sini. Logika alokasi masih butuh feedback deployment nyata sebelum bisa mengklaim akurasi produksi.",
       },
