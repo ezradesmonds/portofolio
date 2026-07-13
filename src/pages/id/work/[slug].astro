@@ -235,7 +235,7 @@ const projectStructuredData = {
         <section class="mt-16 pt-8 border-t border-dark-border">
           <h2 class="text-sm font-mono font-bold uppercase tracking-widest text-accent-cyan mb-5">{label.proof}</h2>
           {project.proofArtifacts?.length ? (
-            <div class="proof-gallery">
+            <div class:list={["proof-gallery", { "proof-gallery--mobile": project.slug === "servisin" }]}>
               {project.proofArtifacts.map((artifact) => (
                 <figure class="proof-artifact">
                   {artifact.kind === "video" ? (
@@ -407,12 +407,18 @@ const projectStructuredData = {
   .proof-artifact img,
   .proof-artifact video {
     width: 100%;
-    height: clamp(18rem, 44vw, 36rem);
-    object-fit: contain;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
     object-position: top center;
     display: block;
     border-bottom: 1px solid rgba(244, 255, 114, 0.12);
     background: #050604;
+  }
+
+  .proof-gallery--mobile .proof-artifact img,
+  .proof-gallery--mobile .proof-artifact video {
+    aspect-ratio: 9 / 19.5;
+    object-fit: contain;
   }
 
   .proof-artifact figcaption,
