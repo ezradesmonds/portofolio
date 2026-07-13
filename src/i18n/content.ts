@@ -1106,7 +1106,7 @@ const awardIdLocales: Partial<Award>[] = [
   },
   {
     description:
-      "Mendapat penghargaan Harapan 2 dalam kompetisi Indonesia Rookie Guest List.",
+      "Meraih Harapan 2 dalam kompetisi rally berbasis logika yang memadukan permainan, soal pemecahan masalah, dan babak cerdas cermat.",
   },
   {
     title: "Favorit",

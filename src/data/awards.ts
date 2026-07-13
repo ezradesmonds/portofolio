@@ -51,11 +51,11 @@ export const awards: Award[] = [
   },
   {
     title: "Harapan 2",
-    event: "IRGL (Indonesia Rookie Guest List)",
+    event: "IRGL (Informatics Rally Games and Competition)",
     year: "2023",
     description:
-      "Recognized as Runner-Up Hope Prize in the Indonesia Rookie Guest List competition.",
-    category: "creative",
+      "Earned Harapan 2 in a logic-based rally competition combining games, problem-solving challenges, and quiz-bowl rounds.",
+    category: "engineering",
   },
   {
     title: "Most Favorite",
