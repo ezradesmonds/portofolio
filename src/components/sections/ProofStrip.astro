@@ -1,5 +1,6 @@
 ---
 import { resolveLang, t } from "../../i18n/utils";
+import { PORTFOLIO_FACTS } from "../../data/facts";
 
 const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname);
 ---
@@ -12,11 +13,11 @@ const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname)
         <div class="signal-label" set:html={t(lang, "proof.hackathon")}></div>
       </div>
       <div class="signal-proof">
-        <div class="signal-value" data-count-to="10" data-count-suffix="+">10+</div>
+        <div class="signal-value" data-count-to={String(PORTFOLIO_FACTS.portfolio.documentedBuilds)}>{PORTFOLIO_FACTS.portfolio.documentedBuilds}</div>
         <div class="signal-label" set:html={t(lang, "proof.products")}></div>
       </div>
       <div class="signal-proof">
-        <div class="signal-value" data-count-to="3.76" data-count-decimals="2">3.76</div>
+        <div class="signal-value" data-count-to={String(PORTFOLIO_FACTS.academics.cumulativeGpa)} data-count-decimals="2">{PORTFOLIO_FACTS.academics.cumulativeGpa.toFixed(2)}</div>
         <div class="signal-label" set:html={t(lang, "proof.gpa")}></div>
       </div>
     </div>
@@ -29,9 +30,9 @@ const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname)
     if (!strip) return;
 
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const values = Array.from(strip.querySelectorAll(".signal-value"));
+    const values = Array.from(strip.querySelectorAll<HTMLElement>(".signal-value"));
 
-    function animateValue(el) {
+    function animateValue(el: HTMLElement) {
       const finalText = el.getAttribute("data-count-final");
       if (finalText) {
         el.textContent = prefersReduced ? finalText : "...";
@@ -47,7 +48,7 @@ const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname)
       const duration = prefersReduced ? 1 : 900;
       const start = performance.now();
 
-      function tick(now) {
+      function tick(now: number) {
         const progress = Math.min(1, (now - start) / duration);
         const eased = 1 - Math.pow(1 - progress, 3);
         const value = target * eased;

@@ -10,9 +10,10 @@ interface Props {
 
 const { lang } = Astro.props;
 const homeHref = localizedPath(lang, "/");
-const currentLangLabel = lang.toUpperCase();
+const destinationLangLabel = lang === "en" ? "ID" : "EN";
 const switcherHref = alternateLangPath(lang, Astro.url.pathname);
 const switcherTitle = lang === "en" ? "Switch to Bahasa Indonesia" : "Switch to English";
+const hasLocalizedAlternate = !Astro.url.pathname.startsWith("/404");
 
 const navItems: { href: string; key: TranslationKey }[] = [
   { href: `${homeHref}#work`, key: "nav.work" },
@@ -37,14 +38,16 @@ const navItems: { href: string; key: TranslationKey }[] = [
         <img src="/ezra-mark.png" alt="" width="28" height="28" class="brand-mark" loading="eager" decoding="async" />
         <span class="brand-name">Ezra<span class="text-accent-cyan">.</span></span>
       </a>
-      <a
-        href={switcherHref}
-        class="language-toggle"
-        title={switcherTitle}
-        aria-label={switcherTitle}
-      >
-        {currentLangLabel}
-      </a>
+      {hasLocalizedAlternate && (
+        <a
+          href={switcherHref}
+          class="language-toggle"
+          title={switcherTitle}
+          aria-label={switcherTitle}
+        >
+          {destinationLangLabel}
+        </a>
+      )}
     </div>
 
     <div class="hidden md:flex items-center space-x-1">

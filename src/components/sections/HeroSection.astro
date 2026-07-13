@@ -91,11 +91,11 @@ const stagesJson = JSON.stringify(board.stages).replace(/</g, "\\u003c");
         <a href={`${homeHref}#work`} class="btn btn-primary">
           {t(lang, "hero.ctaPrimary")}
         </a>
-        <a href={`mailto:${SITE.email}`} class="btn btn-secondary">
-          {t(lang, "hero.ctaSecondary")}
-        </a>
         <a href={SITE.cvUrl} class="btn btn-cv" download>
           {t(lang, "hero.ctaCv")}
+        </a>
+        <a href={`mailto:${SITE.email}`} class="hero-contact-link">
+          {t(lang, "hero.ctaSecondary")} &rarr;
         </a>
       </div>
 
@@ -213,34 +213,43 @@ const stagesJson = JSON.stringify(board.stages).replace(/</g, "\\u003c");
 </section>
 
 <script>
+  interface SignalStage {
+    key: string;
+    state: string;
+    label: string;
+    chaos: string;
+    clarity: string;
+    action: string;
+  }
+
   function initSignalDesk() {
-    const desks = document.querySelectorAll("[data-signal-desk]");
+    const desks = document.querySelectorAll<HTMLElement>("[data-signal-desk]");
     if (!desks.length) return;
 
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     desks.forEach((desk) => {
-      const config = desk.querySelector("[data-signal-stages]");
-      const stages = JSON.parse(config?.textContent || "[]");
-      const cards = Array.from(desk.querySelectorAll("[data-signal-card]"));
-      const logs = Array.from(desk.querySelectorAll("[data-log-row]"));
-      const runButton = desk.querySelector("[data-sim-run]");
-      const resetButton = desk.querySelector("[data-sim-reset]");
-      const stateEl = desk.querySelector("[data-board-state]");
-      const stageLabel = desk.querySelector("[data-stage-label]");
-      const chaosValue = desk.querySelector("[data-chaos-value]");
-      const clarityValue = desk.querySelector("[data-clarity-value]");
-      const chaosBar = desk.querySelector("[data-chaos-bar]");
-      const clarityBar = desk.querySelector("[data-clarity-bar]");
-      const nextAction = desk.querySelector("[data-next-action]");
-      let timers = [];
+      const config = desk.querySelector<HTMLScriptElement>("[data-signal-stages]");
+      const stages = JSON.parse(config?.textContent || "[]") as SignalStage[];
+      const cards = Array.from(desk.querySelectorAll<HTMLElement>("[data-signal-card]"));
+      const logs = Array.from(desk.querySelectorAll<HTMLElement>("[data-log-row]"));
+      const runButton = desk.querySelector<HTMLButtonElement>("[data-sim-run]");
+      const resetButton = desk.querySelector<HTMLButtonElement>("[data-sim-reset]");
+      const stateEl = desk.querySelector<HTMLElement>("[data-board-state]");
+      const stageLabel = desk.querySelector<HTMLElement>("[data-stage-label]");
+      const chaosValue = desk.querySelector<HTMLElement>("[data-chaos-value]");
+      const clarityValue = desk.querySelector<HTMLElement>("[data-clarity-value]");
+      const chaosBar = desk.querySelector<HTMLElement>("[data-chaos-bar]");
+      const clarityBar = desk.querySelector<HTMLElement>("[data-clarity-bar]");
+      const nextAction = desk.querySelector<HTMLElement>("[data-next-action]");
+      let timers: number[] = [];
 
       function clearTimers() {
         timers.forEach((timer) => window.clearTimeout(timer));
         timers = [];
       }
 
-      function setStage(index) {
+      function setStage(index: number) {
         const stage = stages[index] || stages[0];
         if (!stage) return;
 
@@ -270,7 +279,7 @@ const stagesJson = JSON.stringify(board.stages).replace(/</g, "\\u003c");
           return;
         }
 
-        stages.forEach((_, index) => {
+        stages.forEach((_: SignalStage, index: number) => {
           timers.push(window.setTimeout(() => setStage(index), index * 720));
         });
       }
@@ -279,12 +288,12 @@ const stagesJson = JSON.stringify(board.stages).replace(/</g, "\\u003c");
         const activateCard = () => {
           clearTimers();
           const key = card.getAttribute("data-signal-card");
-          const index = stages.findIndex((stage) => stage.key === key);
+          const index = stages.findIndex((stage: SignalStage) => stage.key === key);
           setStage(index >= 0 ? index : 0);
         };
 
         card.addEventListener("click", activateCard);
-        card.addEventListener("keydown", (event) => {
+        card.addEventListener("keydown", (event: KeyboardEvent) => {
           if (event.key !== "Enter" && event.key !== " ") return;
           event.preventDefault();
           activateCard();
@@ -297,7 +306,7 @@ const stagesJson = JSON.stringify(board.stages).replace(/</g, "\\u003c");
         setStage(0);
       });
 
-      desk.addEventListener("pointermove", (event) => {
+      desk.addEventListener("pointermove", (event: PointerEvent) => {
         const rect = desk.getBoundingClientRect();
         desk.style.setProperty("--spot-x", `${event.clientX - rect.left}px`);
         desk.style.setProperty("--spot-y", `${event.clientY - rect.top}px`);
@@ -432,6 +441,24 @@ const stagesJson = JSON.stringify(board.stages).replace(/</g, "\\u003c");
     border-color: rgba(244, 255, 114, 0.7);
     background: rgba(244, 255, 114, 0.14);
     transform: translateY(-1px);
+  }
+
+  .hero-contact-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 800;
+    padding: 0.35rem 0.2rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  .hero-contact-link:hover,
+  .hero-contact-link:focus-visible {
+    color: var(--color-accent-cyan);
+    transform: translateX(0.15rem);
   }
 
   .execution-board {

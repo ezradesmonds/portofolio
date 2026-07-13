@@ -1,5 +1,6 @@
 ---
 import { resolveLang, t } from "../../i18n/utils";
+import { FORMATTED_FACTS } from "../../data/facts";
 import SectionHeading from "../ui/SectionHeading.astro";
 
 const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname);
@@ -11,64 +12,36 @@ const aboutColumns = lang === "id"
   ? [
       [
         [
-          { text: "Ezra Desmond Sutanto adalah " },
-          { text: "mahasiswa Informatika di Universitas Kristen Petra Surabaya", strong: true },
-          { text: ", saat ini semester empat dengan " },
-          { text: "IPK 3.76 / 4.00", strong: true },
-          { text: ". Ia adalah " },
-          { text: "AI dan full-stack builder", strong: true },
-          { text: " yang fokus menciptakan sistem untuk membantu orang ambisius bekerja dengan lebih jelas dan mengeksekusi ide lebih cepat. Karyanya mencakup full-stack web development, kecerdasan buatan, sistem produktivitas, business tools, eksperimen teknologi finansial, dan desain produk." },
-        ],
-        [
-          { text: "Ia ingin membangun sistem yang membantu orang ambisius " },
-          { text: "bergerak lebih cepat, berpikir lebih jernih, dan mencapai lebih banyak hal", strong: true },
-          { text: ". Saat ini, ia memulai dari " },
+          { text: "Saya adalah " },
+          { text: "mahasiswa Informatika di Universitas Kristen Petra", strong: true },
+          { text: ` dengan IPK kumulatif ${FORMATTED_FACTS.cumulativeGpa} / ${FORMATTED_FACTS.gpaScale}. Saya membangun produk AI-assisted dan full-stack untuk ` },
           { text: "mahasiswa ambisius, builder muda, dan entrepreneur tahap awal", strong: true },
-          { text: ": orang-orang dengan ambisi kuat yang sering terhambat oleh alat yang terpencar, information overload, dan kesulitan mengubah ide menjadi aksi yang konsisten." },
+          { text: "." },
         ],
       ],
       [
         [
-          { text: "Melalui produk bertenaga AI, Ezra ingin membantu orang " },
-          { text: "mengurangi kekacauan, mengambil keputusan lebih baik, dan bergerak dari niat menuju eksekusi", strong: true },
-          { text: ". Proyek-proyek sebelumnya di akuntansi, commerce, credit intelligence, edukasi kesehatan, operasional event, riset finansial, marketplace jasa, manajemen koperasi, dan workflow berbasis AI kini menjadi bagian dari arah yang lebih luas: membangun execution systems." },
-        ],
-        [
-          { text: "Di luar engineering, Ezra tertarik pada musik dan gitar, product building, pasar finansial, dan kewirausahaan teknologi. Ia terbuka untuk " },
-          { text: "magang, kolaborasi, dan peluang membangun sistem bertenaga AI", strong: true },
-          { text: " yang menghemat waktu, meningkatkan kejelasan, mempercepat eksekusi, dan membantu lebih banyak ide menjadi kenyataan." },
+          { text: "Saya mengubah workflow yang berantakan menjadi " },
+          { text: "keputusan yang lebih jelas dan sistem yang bisa dipakai", strong: true },
+          { text: ". Bukti saya mencakup commerce live, prototype alokasi tenaga kerja pemenang kompetisi, platform event full-stack, dan eksperimen SaaS akuntansi. Saya terbuka untuk magang software/AI, kolaborasi, dan product engineering." },
         ],
       ],
     ]
   : [
       [
         [
-          { text: "Ezra Desmond Sutanto is an " },
+          { text: "I am an " },
           { text: "Informatics student at Petra Christian University", strong: true },
-          { text: ", Surabaya, currently in the fourth semester with a " },
-          { text: "GPA of 3.76 / 4.00", strong: true },
-          { text: ". He is an " },
-          { text: "AI and full-stack builder", strong: true },
-          { text: " focused on creating systems that help ambitious people work with more clarity and execute their ideas faster. His work spans full-stack web development, artificial intelligence, productivity systems, business tools, financial technology experiments, and product design." },
-        ],
-        [
-          { text: "He wants to build systems that help ambitious people " },
-          { text: "move faster, think clearer, and achieve more", strong: true },
-          { text: ". Today, he is starting with " },
+          { text: ` with a ${FORMATTED_FACTS.cumulativeGpa} / ${FORMATTED_FACTS.gpaScale} cumulative GPA. I build AI-assisted and full-stack products for ` },
           { text: "students, young builders, and early-stage entrepreneurs", strong: true },
-          { text: ": people with strong ambitions who are often limited by scattered tools, information overload, and difficulty turning ideas into consistent action." },
+          { text: "." },
         ],
       ],
       [
         [
-          { text: "Through AI-powered products, Ezra wants to help people " },
-          { text: "reduce chaos, make better decisions, and move from intention to execution", strong: true },
-          { text: ". His past projects across accounting, commerce, credit intelligence, health education, event operations, financial research, service marketplaces, cooperative management, and AI-assisted workflows are now part of that broader execution-systems direction." },
-        ],
-        [
-          { text: "Outside engineering, Ezra is interested in music and guitar, product building, financial markets, and technology entrepreneurship. He is open to " },
-          { text: "internships, collaborations, and opportunities to build AI-powered systems", strong: true },
-          { text: " that save time, improve clarity, accelerate execution, and help more ideas become reality." },
+          { text: "I turn messy workflows into " },
+          { text: "clearer decisions and usable systems", strong: true },
+          { text: ". My proof spans live commerce, an award-winning workforce-allocation prototype, a full-stack event platform, and an accounting SaaS experiment. I am open to software/AI internships, collaborations, and product-engineering work." },
         ],
       ],
     ];
@@ -117,14 +90,14 @@ const aboutColumns = lang === "id"
 
 <script>
   function initIdentityScramble() {
-    const notes = document.querySelectorAll("[data-scramble-note]");
+    const notes = document.querySelectorAll<HTMLElement>("[data-scramble-note]");
     if (!notes.length) return;
 
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/<>-_";
-    const timers = new WeakMap();
+    const timers = new WeakMap<HTMLElement, number>();
 
-    function scramble(el) {
+    function scramble(el: HTMLElement) {
       if (prefersReduced) return;
 
       const target = el.getAttribute("data-scramble-text") || el.textContent || "";
@@ -137,7 +110,7 @@ const aboutColumns = lang === "id"
         const progress = frame / total;
         el.textContent = target
           .split("")
-          .map((char, index) => {
+          .map((char: string, index: number) => {
             if (char === " ") return " ";
             if (index / target.length < progress) return char;
             return chars[Math.floor(Math.random() * chars.length)];
@@ -154,14 +127,14 @@ const aboutColumns = lang === "id"
     }
 
     notes.forEach((note) => {
-      const rows = Array.from(note.querySelectorAll("[data-scramble-text]"));
+      const rows = Array.from(note.querySelectorAll<HTMLElement>("[data-scramble-text]"));
 
       rows.forEach((row) => {
         row.addEventListener("mouseenter", () => scramble(row));
         row.addEventListener("focus", () => scramble(row));
       });
 
-      note.addEventListener("pointermove", (event) => {
+      note.addEventListener("pointermove", (event: PointerEvent) => {
         const rect = note.getBoundingClientRect();
         note.style.setProperty("--note-x", `${event.clientX - rect.left}px`);
         note.style.setProperty("--note-y", `${event.clientY - rect.top}px`);

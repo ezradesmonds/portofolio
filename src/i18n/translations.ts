@@ -1,3 +1,5 @@
+import { FORMATTED_FACTS, PORTFOLIO_FACTS } from "../data/facts";
+
 export type Lang = "en" | "id";
 
 export const translations = {
@@ -13,11 +15,11 @@ export const translations = {
     "nav.closeMenu": "Close menu",
 
     "hero.headline": "Ezra Desmond Sutanto",
-    "hero.role": "AI Engineer & Full-Stack Builder",
+    "hero.role": "Informatics Student · AI & Full-Stack Builder",
     "hero.subheadline":
-      "I build practical AI-powered web systems: accounting SaaS, RAG commerce assistants, ML dashboards, event platforms, and automation workflows.",
+      "I build practical AI-assisted and full-stack products that turn messy workflows into clearer decisions and usable systems.",
     "hero.availability": "Open for internships and work.",
-    "hero.ctaPrimary": "View Selected Work",
+    "hero.ctaPrimary": "View 4 Flagship Projects",
     "hero.ctaSecondary": "Get in Touch",
     "hero.ctaCv": "Download CV",
     "hero.github": "GitHub",
@@ -29,28 +31,20 @@ export const translations = {
     "hero.codeBlock.approach": "Think clearer.\n       Ship faster.",
 
     "proof.hackathon": "2nd Place International<br />Hackathon 2026",
-    "proof.products": "Shipped AI/full-stack<br />Systems",
-    "proof.gpa": "Semester Informatics<br />GPA 3.76 / 4.00",
+    "proof.products": `${PORTFOLIO_FACTS.portfolio.documentedBuilds} documented AI/full-stack<br />builds`,
+    "proof.gpa": `Official cumulative GPA<br />${FORMATTED_FACTS.cumulativeGpa} / ${FORMATTED_FACTS.gpaScale}`,
     "proof.local": "Students, Builders<br />& Early Founders",
     "proof.availability": "Open for internships and work<br />Surabaya, Indonesia",
 
     "about.title": "About Ezra",
     "about.education.label": "Education",
     "about.education.school": "Petra Christian University, Surabaya",
-    "about.education.detail": "Informatics, 4th Semester · GPA 3.76 / 4.00",
-    "about.p1":
-      "Ezra Desmond Sutanto is an Informatics student at Petra Christian University, Surabaya, currently in the fourth semester with a GPA of 3.76 / 4.00. He is an AI and full-stack builder focused on creating systems that help ambitious people work with more clarity and execute their ideas faster. His work spans full-stack web development, artificial intelligence, productivity systems, business tools, financial technology experiments, and product design.",
-    "about.p2":
-      "He wants to build systems that help ambitious people move faster, think clearer, and achieve more. Today, he is starting with students, young builders, and early-stage entrepreneurs: people with strong ambitions who are often limited by scattered tools, information overload, and difficulty turning ideas into consistent action.",
-    "about.p3":
-      "Through AI-powered products, Ezra wants to help people reduce chaos, make better decisions, and move from intention to execution. His past projects across accounting, commerce, event operations, financial research, service marketplaces, cooperative management, and AI-assisted workflows are now part of that broader execution-systems direction.",
-    "about.p4":
-      "Outside engineering, Ezra is interested in music and guitar, product building, financial markets, and technology entrepreneurship. He is open to internships, collaborations, and opportunities to build AI-powered systems that save time, improve clarity, accelerate execution, and help more ideas become reality.",
+    "about.education.detail": `Informatics, 4th Semester · GPA ${FORMATTED_FACTS.cumulativeGpa} / ${FORMATTED_FACTS.gpaScale}`,
 
     "work.title": "Selected Work",
     "work.subtitle":
       "Case files from the systems, products, and experiments behind the positioning.",
-    "work.moreProjects": "More Projects",
+    "work.moreProjects": "Explore More Builds",
 
     "experience.title": "Experience & Leadership",
     "experience.subtitle":
@@ -81,7 +75,7 @@ export const translations = {
     "contact.form.or": "or reach me via",
 
     "footer.tagline":
-      "AI engineer and full-stack builder shipping practical web systems across SaaS, commerce, ML dashboards, events, and automation.",
+      "Informatics student building practical AI-assisted and full-stack products across SaaS, decision support, events, and automation.",
     "footer.navigation": "Navigation",
     "footer.links": "Links",
     "footer.email": "Email",
@@ -89,9 +83,9 @@ export const translations = {
 
     "skipLink": "Skip to main content",
 
-    "seo.title": "Ezra Desmond Sutanto - AI Engineer & Full-Stack Builder",
+    "seo.title": "Ezra Desmond Sutanto - Informatics Student & AI/Full-Stack Builder",
     "seo.description":
-      "Portfolio of Ezra Desmond Sutanto, an AI engineer and full-stack builder shipping practical AI-powered web systems.",
+      "Portfolio of Ezra Desmond Sutanto, an Informatics student building practical AI-assisted and full-stack products.",
   },
 
   id: {
@@ -106,11 +100,11 @@ export const translations = {
     "nav.closeMenu": "Tutup menu",
 
     "hero.headline": "Ezra Desmond Sutanto",
-    "hero.role": "AI Engineer & Full-Stack Builder",
+    "hero.role": "Mahasiswa Informatika · AI & Full-Stack Builder",
     "hero.subheadline":
-      "Saya membangun sistem web bertenaga AI yang praktis: SaaS akuntansi, asisten commerce berbasis RAG, dashboard ML, platform event, dan workflow otomasi.",
+      "Saya membangun produk AI-assisted dan full-stack yang mengubah workflow berantakan menjadi keputusan yang lebih jelas dan sistem yang bisa dipakai.",
     "hero.availability": "Terbuka untuk magang dan kerja.",
-    "hero.ctaPrimary": "Lihat Karya Pilihan",
+    "hero.ctaPrimary": "Lihat 4 Proyek Unggulan",
     "hero.ctaSecondary": "Hubungi Saya",
     "hero.ctaCv": "Unduh CV",
     "hero.github": "GitHub",
@@ -122,28 +116,20 @@ export const translations = {
     "hero.codeBlock.approach": "Berpikir jernih.\n       Bergerak cepat.",
 
     "proof.hackathon": "Juara 2 International<br />Hackathon 2026",
-    "proof.products": "Sistem AI/full-stack<br />Terkirim",
-    "proof.gpa": "Semester 4 Informatika<br />IPK 3.76 / 4.00",
+    "proof.products": `${PORTFOLIO_FACTS.portfolio.documentedBuilds} build AI/full-stack<br />terdokumentasi`,
+    "proof.gpa": `IPK kumulatif resmi<br />${FORMATTED_FACTS.cumulativeGpa} / ${FORMATTED_FACTS.gpaScale}`,
     "proof.local": "Mahasiswa, Builder<br />& Founder Awal",
     "proof.availability": "Terbuka untuk magang dan kerja<br />Surabaya, Indonesia",
 
     "about.title": "Tentang Ezra",
     "about.education.label": "Pendidikan",
     "about.education.school": "Universitas Kristen Petra, Surabaya",
-    "about.education.detail": "Informatika, Semester 4 · IPK 3.76 / 4.00",
-    "about.p1":
-      "Ezra Desmond Sutanto adalah mahasiswa Informatika di Universitas Kristen Petra Surabaya, saat ini semester empat dengan IPK 3.76 / 4.00. Ia adalah AI dan full-stack builder yang fokus menciptakan sistem untuk membantu orang ambisius bekerja dengan lebih jelas dan mengeksekusi ide lebih cepat. Karyanya mencakup full-stack web development, kecerdasan buatan, sistem produktivitas, business tools, eksperimen teknologi finansial, dan desain produk.",
-    "about.p2":
-      "Ia ingin membangun sistem yang membantu orang ambisius bergerak lebih cepat, berpikir lebih jernih, dan mencapai lebih banyak hal. Saat ini, ia memulai dari mahasiswa ambisius, builder muda, dan entrepreneur tahap awal: orang-orang dengan ambisi kuat yang sering terhambat oleh alat yang terpencar, information overload, dan kesulitan mengubah ide menjadi aksi yang konsisten.",
-    "about.p3":
-      "Melalui produk bertenaga AI, Ezra ingin membantu orang mengurangi kekacauan, mengambil keputusan lebih baik, dan bergerak dari niat menuju eksekusi. Proyek-proyek sebelumnya di akuntansi, commerce, operasional event, riset finansial, marketplace jasa, manajemen koperasi, dan workflow berbasis AI kini menjadi bagian dari arah yang lebih luas: membangun execution systems.",
-    "about.p4":
-      "Di luar engineering, Ezra tertarik pada musik dan gitar, product building, pasar finansial, dan kewirausahaan teknologi. Ia terbuka untuk magang, kolaborasi, dan peluang membangun sistem bertenaga AI yang menghemat waktu, meningkatkan kejelasan, mempercepat eksekusi, dan membantu lebih banyak ide menjadi kenyataan.",
+    "about.education.detail": `Informatika, Semester 4 · IPK ${FORMATTED_FACTS.cumulativeGpa} / ${FORMATTED_FACTS.gpaScale}`,
 
     "work.title": "Karya Pilihan",
     "work.subtitle":
       "Case file dari sistem, produk, dan eksperimen yang membentuk positioning ini.",
-    "work.moreProjects": "Proyek Lainnya",
+    "work.moreProjects": "Jelajahi Build Lainnya",
 
     "experience.title": "Pengalaman & Kepemimpinan",
     "experience.subtitle":
@@ -175,7 +161,7 @@ export const translations = {
     "contact.form.or": "atau hubungi via",
 
     "footer.tagline":
-      "AI engineer dan full-stack builder yang mengirim sistem web praktis untuk SaaS, commerce, dashboard ML, event, dan otomasi.",
+      "Mahasiswa Informatika yang membangun produk AI-assisted dan full-stack untuk SaaS, decision support, event, dan otomasi.",
     "footer.navigation": "Navigasi",
     "footer.links": "Tautan",
     "footer.email": "Email",
@@ -183,9 +169,9 @@ export const translations = {
 
     "skipLink": "Langsung ke konten utama",
 
-    "seo.title": "Ezra Desmond Sutanto - AI Engineer & Full-Stack Builder",
+    "seo.title": "Ezra Desmond Sutanto - Mahasiswa Informatika & AI/Full-Stack Builder",
     "seo.description":
-      "Portofolio Ezra Desmond Sutanto, AI engineer dan full-stack builder yang mengirim sistem web bertenaga AI secara praktis.",
+      "Portofolio Ezra Desmond Sutanto, mahasiswa Informatika yang membangun produk AI-assisted dan full-stack yang praktis.",
   },
 } as const;
 

@@ -22,7 +22,7 @@
   let mouseY = 0;
   let keyLight: THREE.PointLight;
   let rimLight: THREE.PointLight;
-  const clock = new THREE.Clock();
+  const timer = new THREE.Timer();
   let isPaused = false;
 
   function createEnvironment() {
@@ -217,14 +217,15 @@
     animate();
   }
 
-  function animate() {
+  function animate(timestamp?: number) {
     if (isPaused) {
       animFrame = 0;
       return;
     }
 
     animFrame = requestAnimationFrame(animate);
-    const dt = Math.min(clock.getDelta(), 0.1);
+    timer.update(timestamp);
+    const dt = Math.min(timer.getDelta(), 0.1);
     const time = Date.now() * 0.0005;
 
     // Ultra-smooth mouse interpolation (low lerp = smooth)

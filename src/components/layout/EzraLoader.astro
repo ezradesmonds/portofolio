@@ -39,24 +39,25 @@ const ariaLabel = lang === "id" ? "Memuat portofolio Ezra" : "Loading Ezra portf
 
 <script>
   function initEzraLoader() {
-    const loader = document.querySelector("[data-ezra-loader]");
+    const loader = document.querySelector<HTMLElement>("[data-ezra-loader]");
     if (!loader) return;
+    const activeLoader = loader;
 
     const root = document.documentElement;
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const visibleFor = prefersReduced ? 120 : 1850;
+    const visibleFor = prefersReduced ? 80 : 950;
     let finished = false;
 
     function finish() {
       if (finished) return;
       finished = true;
-      loader.classList.add("is-leaving");
+      activeLoader.classList.add("is-leaving");
       root.classList.remove("loader-active");
 
       window.setTimeout(() => {
-        loader.remove();
+        activeLoader.remove();
         root.classList.remove("loader-enabled");
-      }, prefersReduced ? 80 : 720);
+      }, prefersReduced ? 60 : 420);
     }
 
     const scheduleFinish = () => window.setTimeout(finish, visibleFor);
@@ -67,7 +68,7 @@ const ariaLabel = lang === "id" ? "Memuat portofolio Ezra" : "Loading Ezra portf
       window.addEventListener("load", scheduleFinish, { once: true });
     }
 
-    window.setTimeout(finish, prefersReduced ? 700 : 4200);
+    window.setTimeout(finish, prefersReduced ? 500 : 2500);
   }
 
   document.addEventListener("DOMContentLoaded", initEzraLoader, { once: true });

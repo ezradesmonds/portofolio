@@ -1,4 +1,5 @@
 import type { Project } from "../types";
+import { PORTFOLIO_FACTS } from "./facts";
 
 export const projects: Project[] = [
   {
@@ -19,7 +20,7 @@ export const projects: Project[] = [
       "Tailwind CSS",
       "Supabase",
       "PostgreSQL",
-      "Stripe",
+      "Mayar",
       "OpenRouter",
       "Zod",
       "Recharts",
@@ -27,7 +28,7 @@ export const projects: Project[] = [
     status: "in-development",
     statusLabel: "In Development",
     outcome:
-      "Pre-launch: built full accounting workflow including chart of accounts, double-entry validation, financial reports, AI assistant, receipt OCR, and subscription management.",
+      "Pre-launch: built the core accounting workflow, financial reports, AI assistant, a receipt-OCR prototype, and Mayar subscription surfaces.",
     screenshot: "/assets/case-studies/akun-ai-dashboard.webp",
     githubUrl: "https://github.com/ezradesmonds/SaaS_akun.ai",
     githubLabel: "GitHub Repo",
@@ -59,10 +60,10 @@ export const projects: Project[] = [
       },
     ],
     featured: true,
-    sortOrder: 1,
+    sortOrder: 4,
     detail: {
       overview:
-        "Akun.AI is an AI-assisted accounting SaaS built for Indonesian SMEs. It combines modern bookkeeping with AI capabilities including an accounting assistant, receipt OCR, and automated financial reporting.",
+        "Akun.AI is a pre-launch, AI-assisted accounting SaaS for Indonesian SMEs. It combines bookkeeping workflows, an accounting assistant, automated financial reporting, and a receipt-OCR prototype that still requires production validation.",
       mySpecificBuilds: [
         "Designed the accounting workspace architecture, including chart of accounts, ledger flows, reporting surfaces, and tenant-aware data boundaries.",
         "Built the full-stack SaaS flow across onboarding, dashboard, transactions, invoices, inventory, reports, AI assistant, and subscription surfaces.",
@@ -74,9 +75,31 @@ export const projects: Project[] = [
         "Profit and loss reports and balance sheets",
         "CSV export and printable reports",
         "AI accounting assistant via OpenRouter",
-        "Receipt OCR for automatic transaction entry",
-        "Team access and subscription management with Stripe",
+        "Receipt OCR prototype for assisted transaction entry",
+        "Team access and subscription management with Mayar",
         "Row-Level Security for data isolation",
+      ],
+      featureStatus: [
+        {
+          name: "Core bookkeeping and financial reports",
+          status: "working",
+          note: "Implemented across the current pre-launch workspace; production accounting and compliance behavior still need validation.",
+        },
+        {
+          name: "AI accounting assistant",
+          status: "prototype",
+          note: "Connected to workspace context with deterministic validation around saved accounting actions.",
+        },
+        {
+          name: "Receipt OCR",
+          status: "prototype",
+          note: "The extraction flow exists, but accuracy and failure handling are not yet production-validated.",
+        },
+        {
+          name: "Mayar billing",
+          status: "unvalidated",
+          note: "Mayar is the configured billing provider; end-to-end payment and webhook reliability are not claimed here.",
+        },
       ],
       challenges: [
         "Designing accounting workflows that are accessible to non-accountants",
@@ -84,9 +107,9 @@ export const projects: Project[] = [
         "Building AI prompts that produce reliable, audit-ready accounting responses",
       ],
       aiSystem: {
-        provider: "OpenRouter-configurable LLM layer with planned OCR ingestion for receipt capture.",
+        provider: "OpenRouter-configurable LLM layer with prototype OCR ingestion for receipt capture.",
         pipeline: [
-          "Business transactions, invoices, inventory changes, and receipt OCR outputs enter the ledger workspace.",
+          "Business transactions, invoices, inventory changes, and prototype receipt-OCR outputs enter the ledger workspace.",
           "Structured transaction data is validated against chart-of-accounts rules before it reaches reports.",
           "The AI assistant answers from workspace context and summarizes financial state instead of acting as an unconstrained chatbot.",
           "Reports, CSV exports, and dashboard cards are generated from persisted accounting records.",
@@ -103,38 +126,30 @@ export const projects: Project[] = [
       lessonsLearned: [
         "Accounting domain modeling requires deep understanding of Indonesian accounting standards",
         "AI integration for financial data needs careful grounding and validation",
-        "Stripe integration with Indonesian business use cases has unique considerations",
+        "Mayar billing integration requires explicit webhook and failure-path validation",
       ],
     },
   },
   {
     slug: "tokokaret",
     title: "TokoKaret.com",
-    category: "E-Commerce / AI Product Recommendation",
+    category: "E-Commerce / Guided Product Recommendation",
     description:
-      "A live commerce platform for rubber and industrial products with an AI-assisted consultation experience.",
+      "A live commerce platform for rubber and industrial products with a guided, symptom-based consultation flow.",
     problem:
       "Industrial and rubber product buyers need guided product selection and consultation, but traditional e-commerce lacks the expertise to recommend products based on symptoms and use cases.",
     targetUsers:
       "Industrial buyers, workshops, and businesses needing rubber and industrial products",
     role: "Product builder and designer",
     contribution:
-      "Designed and built the landing experience, consultation journey, sales pathways, and AI-assisted recommendation flow.",
-    technologies: ["Astro", "TypeScript", "Tailwind CSS", "RAG", "AI Recommendation"],
+      "Designed and built the landing experience, consultation journey, marketplace pathways, and client-side symptom-to-category recommendation helper.",
+    technologies: ["Astro", "TypeScript", "Tailwind CSS", "Rule-Based Recommendation"],
     status: "live",
     statusLabel: "Live",
     outcome:
-      "Conversion-focused landing experience serving a business with over 4,000 customers and 50,000+ items represented.",
+      `Built for Puka Mobil, a marketplace seller that has served ${PORTFOLIO_FACTS.tokokaret.historicalCustomers.toLocaleString("en-US")}+ customers and sold approximately ${PORTFOLIO_FACTS.tokokaret.historicalMarketplaceItems.toLocaleString("en-US")} items across Shopee and Tokopedia; website-attributed conversion remains unmeasured.`,
     screenshot: "/assets/case-studies/tokokaret-landing.webp",
     liveUrl: "https://www.tokokaret.com",
-    githubUrl: "https://github.com/ezradesmonds/Tokokaretastro",
-    githubLabel: "Current Live Repo",
-    githubLinks: [
-      {
-        label: "Current Live Repo",
-        url: "https://github.com/ezradesmonds/Tokokaretastro",
-      },
-    ],
     proofStatus: "available",
     proofArtifacts: [
       {
@@ -157,18 +172,18 @@ export const projects: Project[] = [
       },
     ],
     featured: true,
-    sortOrder: 2,
+    sortOrder: 1,
     detail: {
       overview:
-        "TokoKaret.com is a commerce platform bridging the gap between industrial product catalogs and informed purchase decisions. Its RAG-assisted recommendation flow helps customers turn car symptoms or product needs into an initial rubber-part direction before human WhatsApp confirmation.",
+        "TokoKaret.com is a live commerce platform bridging industrial product catalogs and informed purchase decisions. Its client-side symptom matcher gives an initial rubber-part category direction before human WhatsApp confirmation; it is not presented as a retrieval or model-backed AI system.",
       mySpecificBuilds: [
         "Built the live Astro storefront, product-first landing sections, consultation CTAs, and mobile-first buyer journey.",
-        "Designed the RAG-assisted intake flow that turns car model plus symptom text into a constrained product-category recommendation.",
-        "Connected AI guidance to WhatsApp handoff so final compatibility confirmation still uses human review and photo evidence.",
+        "Built the structured intake flow that maps car model and symptom keywords to a constrained product-category direction.",
+        "Connected the guidance flow to WhatsApp so final compatibility confirmation still uses human review and photo evidence.",
       ],
       keyFeatures: [
         "Conversion-focused landing experience",
-        "RAG-assisted symptom-to-product recommendation",
+        "Client-side symptom-to-category recommendation helper",
         "WhatsApp and marketplace sales pathway integration",
         "Customer consultation journey with structured intake",
         "Responsive design optimized for mobile-first Indonesian users",
@@ -179,24 +194,24 @@ export const projects: Project[] = [
         "Integrating AI recommendations with offline sales workflows",
       ],
       aiSystem: {
-        provider: "RAG-assisted recommendation layer for symptom-to-category guidance.",
+        provider: "Client-side keyword and category matching; no active retrieval backend or model call is claimed.",
         pipeline: [
           "User enters car model plus complaint or use case in a structured form.",
-          "The system retrieves relevant product/category context before producing a constrained recommendation.",
-          "The answer maps symptoms to likely product categories instead of claiming a guaranteed SKU match.",
-          "Sales follow-up uses the AI result plus photo verification for final product matching.",
+          "The browser matches the input against constrained symptom and category keywords.",
+          "The helper maps symptoms to likely product categories instead of claiming a guaranteed SKU match.",
+          "Sales follow-up uses the suggestion plus photo verification for final product matching.",
         ],
         dataFlow:
-          "Form input stays lightweight: model, symptom, retrieved category context, and recommendation output are used to guide WhatsApp handoff.",
+          "Form input stays in the client-side flow: model and symptom keywords guide a category suggestion and WhatsApp handoff.",
         validation:
-          "AI is intentionally positioned as initial guidance; final size/type confirmation still happens through human consultation and photo evidence.",
+          "The helper is intentionally positioned as initial guidance; final size/type confirmation happens through human consultation and photo evidence.",
         failureHandling:
-          "When uncertainty is high, the interface pushes the user to continue consultation rather than overclaiming a product fit.",
+          "When no constrained match is available, the interface pushes the user to continue consultation rather than overclaiming a product fit.",
         limitations:
-          "The AI flow recommends categories, not guaranteed part compatibility. Physical photo confirmation remains necessary.",
+          "The keyword helper recommends categories, not guaranteed part compatibility. Physical photo confirmation remains necessary, and website-attributed conversion is not yet measured.",
       },
       results:
-        "The platform serves as the digital storefront for a business with over 4,000 customers and supports product discovery across a catalog of 50,000+ items.",
+        `The storefront supports Puka Mobil, a marketplace seller that has served ${PORTFOLIO_FACTS.tokokaret.historicalCustomers.toLocaleString("en-US")}+ customers and sold approximately ${PORTFOLIO_FACTS.tokokaret.historicalMarketplaceItems.toLocaleString("en-US")} items across Shopee and Tokopedia. These are business-history figures, not website-attributed results.`,
     },
   },
   {
@@ -253,7 +268,7 @@ export const projects: Project[] = [
           "News engine with provider status, fallback mode, dedupe count, and headline sentiment tags.",
       },
     ],
-    featured: true,
+    featured: false,
     sortOrder: 3,
     detail: {
       overview:
@@ -305,10 +320,10 @@ export const projects: Project[] = [
     problem:
       "Cooperative managers lack data-driven tools to assign work to the most efficient tailors and manage operations across multiple business functions.",
     targetUsers: "Cooperative managers and operational staff",
-    role: "Cross-functional team member",
+    role: "AI allocation and dashboard developer",
     contribution:
-      "Worked across the product process, led financial-model and IRR validation, contributed to system architecture, backend and administration design, and developed the operational interface.",
-    technologies: ["Python", "Machine Learning", "Laravel", "MySQL"],
+      "Built the smart tailor-allocation workflow, upgraded the Streamlit management pages with operational charts, and contributed the user persona, journey, and value proposition.",
+    technologies: ["Python", "Streamlit", "SQLite", "Machine Learning"],
     status: "competition",
     statusLabel: "Competition — 2nd Place",
     outcome:
@@ -360,21 +375,21 @@ export const projects: Project[] = [
       },
     ],
     featured: true,
-    sortOrder: 4,
+    sortOrder: 2,
     detail: {
       overview:
-        "A dual-module system combining machine learning for workforce efficiency prediction with a full cooperative management platform. Modules include tailor efficiency prediction, operational dashboard, tailor management, stock management, supplier management, and purchase management.",
+        "A competition prototype combining a smart tailor-allocation workflow with a Streamlit/SQLite cooperative management system. It supports operational dashboards, tailor management, stock, suppliers, purchases, and split-order planning.",
       mySpecificBuilds: [
-        "Cleaned and shaped cooperative tailor data into allocation-ready signals including speed, status, distance, specialty, and capacity.",
-        "Built the unsupervised clustering and smart-allocation workflow used to rank feasible tailors for deadline-sensitive orders.",
-        "Connected the ML output to a cooperative management dashboard with tailor analytics, production metrics, and split-order fallback simulation.",
+        "Built the smart allocation flow for matching production orders with feasible tailors.",
+        "Upgraded the Streamlit management pages with operational charts and clearer decision surfaces.",
+        "Created the user persona, journey, and value proposition used to frame the product.",
       ],
       keyFeatures: [
-        "Unsupervised clustering workflow over 200 cooperative tailor records",
+        "Smart tailor-allocation workflow",
         "Operational dashboard for cooperative managers",
         "Tailor, stock, supplier, and purchase management modules",
         "Cooperative operational workflow automation",
-        "Financial model and IRR validation",
+        "User persona, journey, and value-proposition artifacts",
       ],
       challenges: [
         "Cleaning and structuring cooperative tailor data before feature engineering",
@@ -383,7 +398,7 @@ export const projects: Project[] = [
       ],
       aiSystem: {
         provider:
-          "Unsupervised machine-learning clustering plus a rule-based allocation layer over 200 cooperative tailor records.",
+          "Machine-learning signals plus a rule-based allocation layer inside a Streamlit prototype.",
         pipeline: [
           "Raw cooperative tailor data is cleaned to remove inconsistent, incomplete, or unusable operational records.",
           "Feature engineering transforms tailor attributes into allocation-ready signals such as speed, status, distance, specialty, and capacity.",
@@ -398,7 +413,7 @@ export const projects: Project[] = [
         failureHandling:
           "When no single tailor is enough, the system proposes a custom split order instead of forcing one assignment.",
         limitations:
-          "Competition prototype using 200 cooperative tailor records. The clustering logic needs longer real-world feedback loops before it can claim production-grade allocation accuracy.",
+          "Competition prototype using an academic dataset whose raw, cleaned, and model-used row counts are not claimed here. The allocation logic needs real-world feedback before it can claim production-grade accuracy.",
       },
       results:
         "Awarded 2nd Place at the SUTD × Petra Christian University International Hackathon, recognized for combining technical depth with operational practicality.",
@@ -447,7 +462,7 @@ export const projects: Project[] = [
           "Demo video artifact for the end-to-end credit application and analysis experience.",
       },
     ],
-    featured: true,
+    featured: false,
     sortOrder: 5,
     detail: {
       overview:
@@ -571,7 +586,7 @@ export const projects: Project[] = [
     title: "Innofashion Show 8 Event Platform",
     category: "Full-Stack Event Technology",
     description:
-      "A full-stack event platform supporting participant registration, administration, QR-based ticketing, and event operations for 100+ participants.",
+      `A full-stack event platform supporting ${PORTFOLIO_FACTS.innofashion.competitionRegistrations} competition registrations, ${PORTFOLIO_FACTS.innofashion.competitionApproved} approved competition participants, and ${PORTFOLIO_FACTS.innofashion.eventParticipants} event participants.`,
     problem:
       "Large-scale student events need reliable, custom-built registration and administration tools that off-the-shelf solutions cannot adapt to quickly.",
     targetUsers: "Event participants, administrators, and operations staff",
@@ -582,7 +597,7 @@ export const projects: Project[] = [
     status: "live",
     statusLabel: "Delivered",
     outcome:
-      "Successfully supported 100+ participants across registration, ticketing, and event-day operations.",
+      `Supported ${PORTFOLIO_FACTS.innofashion.competitionRegistrations} competition registrations, ${PORTFOLIO_FACTS.innofashion.competitionApproved} approved competition participants, and ${PORTFOLIO_FACTS.innofashion.eventParticipants} event participants; QR attendance recorded ${PORTFOLIO_FACTS.innofashion.eventCheckIns.join(", ")} check-ins across three events.`,
     screenshot: "/assets/case-studies/innofashion-dashboard.webp",
     liveUrl: "https://innofashionshow.petra.ac.id",
     githubUrl: "https://github.com/innofashion-8/frontend",
@@ -619,14 +634,24 @@ export const projects: Project[] = [
       },
     ],
     featured: true,
-    sortOrder: 7,
+    sortOrder: 3,
     detail: {
       overview:
         "A custom full-stack event management platform built for the Innofashion Show 8, a major student-run event. The system handled participant registration, QR-based ticketing, admin dashboards, and real-time event operations.",
       mySpecificBuilds: [
         "Led the IT division and coordinated technical delivery across registration, dashboard, validation, and event-day workflows.",
         "Built and integrated participant registration, competition/event flows, QR ticketing, admin statistics, and validation surfaces.",
-        "Managed deployment and reliability concerns for a live student event with 100+ participants.",
+        "Managed deployment and event-day support across competition, registration, validation, and QR attendance workflows.",
+      ],
+      metrics: [
+        { value: String(PORTFOLIO_FACTS.innofashion.competitionRegistrations), label: "Competition registrations" },
+        { value: String(PORTFOLIO_FACTS.innofashion.competitionApproved), label: "Approved competition participants" },
+        { value: String(PORTFOLIO_FACTS.innofashion.eventParticipants), label: "Event participants" },
+        {
+          value: PORTFOLIO_FACTS.innofashion.eventCheckIns.join(" / "),
+          label: "QR check-ins by event",
+          context: "Attendance records across three events; not a unique-person total.",
+        },
       ],
       keyFeatures: [
         "Participant registration and data management",
@@ -642,7 +667,7 @@ export const projects: Project[] = [
         "Ensuring system stability during live event operations",
       ],
       results:
-        "The platform processed 100+ participants and ran reliably throughout the event. The technical team delivered under the coordination of the IT division head.",
+        `The platform recorded ${PORTFOLIO_FACTS.innofashion.competitionRegistrations} competition registrations, ${PORTFOLIO_FACTS.innofashion.competitionApproved} approvals, and ${PORTFOLIO_FACTS.innofashion.eventParticipants} event participants. QR attendance logs recorded ${PORTFOLIO_FACTS.innofashion.eventCheckIns.join(", ")} check-ins across three events.`,
     },
   },
   {
@@ -705,7 +730,7 @@ export const projects: Project[] = [
           "Subscription model screen for recurring service benefits and plan upgrade.",
       },
     ],
-    featured: true,
+    featured: false,
     sortOrder: 8,
     detail: {
       overview:
@@ -746,7 +771,6 @@ export const additionalProjects: Project[] = [
     technologies: ["Odoo ERP", "E-Commerce"],
     status: "case-study",
     statusLabel: "Case Study",
-    liveUrl: "https://byribkachyntya1.odoo.com/",
     screenshot: "/assets/case-studies/wedding-rental-landing.webp",
     proofStatus: "available",
     proofArtifacts: [
@@ -917,8 +941,6 @@ export const additionalProjects: Project[] = [
     status: "academic",
     statusLabel: "Academic Final Project",
     screenshot: "/assets/case-studies/finance-tracker-landing.webp",
-    githubUrl: "https://github.com/ezradesmonds/FinanceTracker",
-    githubLabel: "GitHub Repo",
     proofStatus: "available",
     proofArtifacts: [
       {
@@ -952,7 +974,7 @@ export const additionalProjects: Project[] = [
           "Calendar view for tracking recurring bill due dates and overdue/upcoming items.",
       },
     ],
-    featured: true,
+    featured: false,
     sortOrder: 6,
     detail: {
       overview:

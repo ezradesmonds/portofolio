@@ -17,7 +17,7 @@
 
     (window as any).__lenis = lenis;
 
-    function raf(time) {
+    function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
@@ -33,7 +33,7 @@
         const isSamePage = url.pathname === window.location.pathname;
         if (!isSamePage || !url.hash) return;
 
-        const target = document.querySelector(url.hash);
+        const target = document.querySelector<HTMLElement>(url.hash);
         if (!target) return;
 
         event.preventDefault();

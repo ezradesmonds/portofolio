@@ -1,5 +1,6 @@
 import type { Award, CapabilityGroup, Experience, Project, ProjectDetail } from "../types";
 import type { Lang } from "./translations";
+import { PORTFOLIO_FACTS } from "../data/facts";
 
 type ProjectLocale = Partial<
   Pick<
@@ -36,20 +37,47 @@ const projectIdLocales: Record<string, ProjectLocale> = {
       "Perencanaan produk, arsitektur sistem, frontend, backend, alur akuntansi, integrasi AI, laporan keuangan, dan pengalaman pengguna.",
     statusLabel: "Dalam Pengembangan",
     outcome:
-      "Pra-peluncuran: alur akuntansi penuh sudah dibangun, termasuk chart of accounts, validasi double-entry, laporan keuangan, asisten AI, OCR struk, dan manajemen langganan.",
+      "Pra-peluncuran: alur inti akuntansi, laporan keuangan, asisten AI, prototype OCR struk, dan surface langganan Mayar sudah dibangun.",
     githubLabel: "Repo GitHub",
     detail: {
       overview:
-        "Akun.AI adalah SaaS akuntansi berbantuan AI untuk bisnis Indonesia. Sistem ini menggabungkan pembukuan modern dengan asisten akuntansi, OCR struk, dan laporan keuangan otomatis.",
+        "Akun.AI adalah SaaS akuntansi berbantuan AI berstatus pre-launch untuk bisnis Indonesia. Sistem ini menggabungkan pembukuan, asisten akuntansi, laporan otomatis, dan prototype OCR struk yang masih memerlukan validasi produksi.",
+      mySpecificBuilds: [
+        "Merancang arsitektur workspace akuntansi, termasuk chart of accounts, flow ledger, laporan, dan batas data per tenant.",
+        "Membangun flow SaaS full-stack untuk onboarding, dashboard, transaksi, invoice, inventory, laporan, asisten AI, dan surface langganan.",
+        "Mengintegrasikan asisten AI sebagai helper finansial berbasis konteks workspace, sementara aksi akuntansi yang disimpan tetap dijaga validasi deterministik.",
+      ],
       keyFeatures: [
         "Onboarding bisnis dan chart of accounts",
         "Akuntansi double-entry dengan validasi",
         "Laporan laba rugi dan neraca",
         "Ekspor CSV dan laporan siap cetak",
         "Asisten akuntansi AI melalui OpenRouter",
-        "OCR struk untuk input transaksi otomatis",
-        "Akses tim dan manajemen langganan dengan Stripe",
+        "Prototype OCR struk untuk membantu input transaksi",
+        "Akses tim dan manajemen langganan dengan Mayar",
         "Row-Level Security untuk isolasi data",
+      ],
+      featureStatus: [
+        {
+          name: "Pembukuan inti dan laporan keuangan",
+          status: "working",
+          note: "Sudah diimplementasikan di workspace pre-launch; perilaku akuntansi dan compliance produksi masih perlu divalidasi.",
+        },
+        {
+          name: "Asisten akuntansi AI",
+          status: "prototype",
+          note: "Terhubung ke konteks workspace dengan validasi deterministik untuk aksi akuntansi yang disimpan.",
+        },
+        {
+          name: "OCR struk",
+          status: "prototype",
+          note: "Flow ekstraksi tersedia, tetapi akurasi dan failure handling belum tervalidasi untuk produksi.",
+        },
+        {
+          name: "Billing Mayar",
+          status: "unvalidated",
+          note: "Mayar adalah provider billing yang dikonfigurasi; reliabilitas pembayaran dan webhook end-to-end belum diklaim.",
+        },
       ],
       challenges: [
         "Merancang alur akuntansi yang tetap mudah dipahami non-akuntan",
@@ -62,9 +90,9 @@ const projectIdLocales: Record<string, ProjectLocale> = {
         "Integrasi pembayaran untuk use case bisnis Indonesia punya pertimbangan tersendiri",
       ],
       aiSystem: {
-        provider: "Layer LLM melalui OpenRouter, dengan rencana OCR untuk membaca struk.",
+        provider: "Layer LLM melalui OpenRouter, dengan ingestion OCR berstatus prototype untuk membaca struk.",
         pipeline: [
-          "Transaksi, invoice, perubahan stok, dan hasil OCR struk masuk ke workspace ledger.",
+          "Transaksi, invoice, perubahan stok, dan hasil prototype OCR struk masuk ke workspace ledger.",
           "Data transaksi terstruktur divalidasi terhadap aturan chart of accounts sebelum masuk laporan.",
           "Asisten AI menjawab dari konteks workspace dan merangkum kondisi finansial, bukan chatbot bebas tanpa batas.",
           "Laporan, ekspor CSV, dan kartu dashboard dibuat dari catatan akuntansi yang tersimpan.",
@@ -107,59 +135,57 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     ],
   },
   tokokaret: {
-    category: "E-Commerce / Rekomendasi Produk AI",
+    category: "E-Commerce / Rekomendasi Produk Terarah",
     description:
-      "Platform commerce live untuk produk karet dan industri dengan pengalaman konsultasi berbantuan AI.",
+      "Platform commerce live untuk produk karet dan industri dengan flow konsultasi berbasis gejala yang terarah.",
     problem:
       "Pembeli produk karet dan industri sering butuh arahan teknis, sementara e-commerce biasa tidak cukup pintar untuk memberi rekomendasi berdasarkan gejala dan kebutuhan pemakaian.",
     targetUsers: "Pembeli industri, bengkel, dan bisnis yang membutuhkan produk karet atau industri",
     role: "Pembangun produk dan desainer",
     contribution:
-      "Merancang dan membangun landing experience, alur konsultasi, jalur penjualan, dan flow rekomendasi berbantuan AI.",
+      "Merancang dan membangun landing experience, alur konsultasi, jalur marketplace, dan helper rekomendasi gejala-ke-kategori di sisi client.",
     statusLabel: "Sudah Live",
     outcome:
-      "Landing experience berfokus konversi untuk bisnis dengan 4.000+ pelanggan dan 50.000+ item yang direpresentasikan.",
-    githubLabel: "Repo Live Saat Ini",
-    githubLinks: [
-      {
-        label: "Repo Live Saat Ini",
-        url: "https://github.com/ezradesmonds/Tokokaretastro",
-      },
-    ],
+      `Dibangun untuk Puka Mobil, seller marketplace yang telah melayani ${PORTFOLIO_FACTS.tokokaret.historicalCustomers.toLocaleString("id-ID")}+ pelanggan dan menjual sekitar ${PORTFOLIO_FACTS.tokokaret.historicalMarketplaceItems.toLocaleString("id-ID")} item melalui Shopee dan Tokopedia; konversi yang berasal dari website belum diukur.`,
     detail: {
       overview:
-        "TokoKaret.com adalah platform commerce yang menjembatani katalog produk industri dengan keputusan pembelian yang lebih terarah. Flow rekomendasi berbantuan RAG membantu pelanggan mengubah gejala mobil atau kebutuhan produk menjadi arahan awal part karet sebelum dikonfirmasi lewat WhatsApp.",
+        "TokoKaret.com adalah platform commerce live yang menjembatani katalog produk industri dengan keputusan pembelian yang lebih terarah. Matcher gejala di sisi client memberi arahan awal kategori part karet sebelum konfirmasi manusia melalui WhatsApp; sistem aktif tidak diklaim memakai retrieval atau model AI.",
+      mySpecificBuilds: [
+        "Membangun storefront Astro live, section product-first, CTA konsultasi, dan buyer journey mobile-first.",
+        "Membangun flow intake terstruktur yang memetakan model mobil dan keyword gejala ke arahan kategori produk yang dibatasi.",
+        "Menghubungkan helper rekomendasi ke WhatsApp agar kecocokan akhir tetap dikonfirmasi manusia melalui bukti foto.",
+      ],
       keyFeatures: [
         "Landing experience berfokus konversi",
-        "Rekomendasi dari gejala ke produk berbantuan RAG",
+        "Helper rekomendasi gejala-ke-kategori berbasis aturan",
         "Integrasi jalur penjualan WhatsApp dan marketplace",
         "Alur konsultasi pelanggan dengan intake terstruktur",
         "Desain responsif untuk pengguna Indonesia yang mobile-first",
       ],
       challenges: [
         "Menerjemahkan spesifikasi teknis produk industri menjadi rekomendasi yang mudah dipahami pelanggan",
-        "Membangun flow retrieval yang membatasi rekomendasi ke konteks produk dan kategori yang relevan",
-        "Menghubungkan rekomendasi AI dengan alur penjualan offline",
+        "Membatasi arahan ke kategori yang tersedia tanpa mengklaim kecocokan SKU pasti",
+        "Menghubungkan rekomendasi terarah dengan alur penjualan offline",
       ],
       aiSystem: {
-        provider: "Layer rekomendasi berbantuan RAG untuk arahan gejala ke kategori produk.",
+        provider: "Pencocokan keyword dan kategori di sisi client; tidak ada backend retrieval atau model aktif yang diklaim.",
         pipeline: [
           "User memasukkan model mobil dan keluhan atau kebutuhan lewat form terstruktur.",
-          "Query mengambil konteks produk/kategori yang relevan sebelum sistem menyusun arahan awal.",
-          "Jawaban dibatasi untuk memetakan gejala ke kategori produk yang mungkin, bukan mengarang SKU pasti.",
-          "Follow-up penjualan memakai hasil AI plus verifikasi foto untuk finalisasi kecocokan produk.",
+          "Browser mencocokkan input dengan keyword gejala dan kategori yang dibatasi.",
+          "Helper memetakan gejala ke kategori produk yang mungkin, bukan mengarang SKU pasti.",
+          "Follow-up penjualan memakai hasil arahan plus verifikasi foto untuk finalisasi kecocokan produk.",
         ],
         dataFlow:
-          "Input form dibuat ringan: model, gejala, konteks hasil retrieval, dan hasil kategori dipakai untuk mengarahkan handoff ke WhatsApp.",
+          "Input form tetap di flow client-side: model dan keyword gejala mengarahkan saran kategori dan handoff WhatsApp.",
         validation:
-          "AI sengaja diposisikan sebagai arahan awal; ukuran dan tipe final tetap dikonfirmasi lewat konsultasi manusia dan bukti foto.",
+          "Helper diposisikan sebagai arahan awal; ukuran dan tipe final tetap dikonfirmasi lewat konsultasi manusia dan bukti foto.",
         failureHandling:
-          "Saat ketidakpastian tinggi, interface mendorong user lanjut konsultasi alih-alih memaksakan rekomendasi produk.",
+          "Saat tidak ada kecocokan yang dibatasi, interface mendorong user lanjut konsultasi alih-alih memaksakan rekomendasi produk.",
         limitations:
-          "Flow AI merekomendasikan kategori, bukan menjamin kecocokan part. Konfirmasi foto fisik tetap diperlukan.",
+          "Helper keyword merekomendasikan kategori, bukan menjamin kecocokan part. Konfirmasi foto fisik tetap diperlukan dan konversi website belum diukur.",
       },
       results:
-        "Platform ini menjadi storefront digital untuk bisnis dengan 4.000+ pelanggan dan mendukung discovery produk dari katalog 50.000+ item.",
+        `Storefront ini mendukung Puka Mobil, seller marketplace yang telah melayani ${PORTFOLIO_FACTS.tokokaret.historicalCustomers.toLocaleString("id-ID")}+ pelanggan dan menjual sekitar ${PORTFOLIO_FACTS.tokokaret.historicalMarketplaceItems.toLocaleString("id-ID")} item melalui Shopee dan Tokopedia. Angka tersebut adalah riwayat bisnis, bukan hasil yang diatribusikan ke website.`,
     },
     proofArtifacts: [
       {
@@ -170,9 +196,9 @@ const projectIdLocales: Record<string, ProjectLocale> = {
       },
       {
         src: "/assets/case-studies/tokokaret-ai-check.webp",
-        alt: "Form asisten AI TokoKaret.com untuk input model mobil dan gejala produk.",
+        alt: "Form helper rekomendasi TokoKaret.com untuk input model mobil dan gejala produk.",
         caption:
-          "Flow konsultasi AI: user menjelaskan gejala dan mendapat arahan kategori produk awal.",
+          "Flow konsultasi terarah: user menjelaskan gejala dan mendapat arahan kategori produk awal.",
       },
       {
         src: "/assets/case-studies/tokokaret-products.webp",
@@ -265,9 +291,9 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     problem:
       "Manajer koperasi kekurangan alat berbasis data untuk membagi pekerjaan ke penjahit paling efisien dan mengelola berbagai fungsi operasional.",
     targetUsers: "Manajer koperasi dan staf operasional",
-    role: "Anggota tim lintas fungsi",
+    role: "Pengembang AI allocation dan dashboard",
     contribution:
-      "Terlibat dalam proses produk, memimpin validasi model finansial dan IRR, berkontribusi pada arsitektur sistem, desain backend dan administrasi, serta mengembangkan interface operasional.",
+      "Membangun workflow smart allocation untuk penjahit, meningkatkan halaman-halaman manajemen Streamlit dengan chart operasional, serta menyusun user persona, journey, dan value proposition.",
     statusLabel: "Kompetisi - Juara 2",
     outcome:
       "Juara 2 - SUTD x Petra Christian University International Hackathon, Januari 2026.",
@@ -282,15 +308,20 @@ const projectIdLocales: Record<string, ProjectLocale> = {
         url: "https://github.com/ezradesmonds/koperasi_app",
       },
     ],
-    detail: {
+      detail: {
       overview:
-        "Sistem dua modul yang menggabungkan workflow clustering unsupervised dari 200 data penjahit koperasi dengan platform manajemen koperasi. Modulnya mencakup cleaning data, feature engineering, sinyal alokasi, dashboard operasional, manajemen penjahit, stok, supplier, dan pembelian.",
+        "Prototype kompetisi yang menggabungkan workflow smart allocation dengan sistem manajemen koperasi berbasis Streamlit/SQLite. Modulnya mencakup dashboard operasional, manajemen penjahit, stok, supplier, pembelian, dan perencanaan split order.",
+      mySpecificBuilds: [
+        "Membangun flow smart allocation untuk mencocokkan order produksi dengan penjahit yang feasible.",
+        "Meningkatkan halaman-halaman manajemen Streamlit dengan chart operasional dan decision surface yang lebih jelas.",
+        "Menyusun user persona, journey, dan value proposition untuk membingkai produk.",
+      ],
       keyFeatures: [
-        "Workflow clustering unsupervised dari 200 data penjahit koperasi",
+        "Workflow smart allocation untuk penjahit",
         "Dashboard operasional untuk manajer koperasi",
         "Modul manajemen penjahit, stok, supplier, dan pembelian",
         "Otomatisasi alur kerja operasional koperasi",
-        "Validasi model finansial dan IRR",
+        "Artifact user persona, journey, dan value proposition",
       ],
       challenges: [
         "Membersihkan dataset koperasi dan membentuk fitur operasional yang cukup bermakna untuk clustering",
@@ -299,7 +330,7 @@ const projectIdLocales: Record<string, ProjectLocale> = {
       ],
       aiSystem: {
         provider:
-          "Clustering machine learning unsupervised plus allocation layer berbasis rule di atas 200 data penjahit koperasi.",
+          "Sinyal machine learning plus allocation layer berbasis rule di dalam prototype Streamlit.",
         pipeline: [
           "Dataset koperasi dibersihkan dan distandardisasi sebelum feature engineering.",
           "Fitur operasional dibentuk dari data penjahit seperti speed, status, jarak, spesialisasi, dan kapasitas.",
@@ -315,7 +346,7 @@ const projectIdLocales: Record<string, ProjectLocale> = {
         failureHandling:
           "Saat satu penjahit tidak cukup, sistem menawarkan custom split order alih-alih memaksa satu assignment.",
         limitations:
-          "Prototype kompetisi memakai 200 data penjahit koperasi. Logika clustering masih butuh feedback deployment nyata sebelum bisa mengklaim akurasi alokasi produksi.",
+          "Prototype kompetisi memakai dataset akademik yang jumlah raw, cleaned, dan model-used row-nya tidak diklaim di sini. Logika alokasi masih butuh feedback deployment nyata sebelum bisa mengklaim akurasi produksi.",
       },
       results:
         "Mendapat Juara 2 di SUTD x Petra Christian University International Hackathon karena menggabungkan kedalaman teknis dengan kegunaan operasional.",
@@ -495,7 +526,7 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     title: "Platform Event Innofashion Show 8",
     category: "Teknologi Event Full-Stack",
     description:
-      "Platform event full-stack untuk registrasi peserta, administrasi, ticketing berbasis QR, dan operasi acara untuk 100+ peserta.",
+      `Platform event full-stack untuk ${PORTFOLIO_FACTS.innofashion.competitionRegistrations} registrasi kompetisi, ${PORTFOLIO_FACTS.innofashion.competitionApproved} peserta kompetisi yang disetujui, dan ${PORTFOLIO_FACTS.innofashion.eventParticipants} peserta event.`,
     problem:
       "Event mahasiswa berskala besar butuh sistem registrasi dan administrasi custom yang reliabel, sementara solusi umum tidak selalu bisa diadaptasi cepat.",
     targetUsers: "Peserta event, administrator, dan staf operasional",
@@ -504,7 +535,7 @@ const projectIdLocales: Record<string, ProjectLocale> = {
       "Memimpin divisi teknis, merancang arsitektur sistem dan interface produk, mengimplementasikan banyak bagian frontend dan backend, mengoordinasikan kontributor teknis, mengelola deployment, dan menjaga reliabilitas saat event berlangsung.",
     statusLabel: "Terkirim",
     outcome:
-      "Berhasil mendukung 100+ peserta dalam registrasi, ticketing, dan operasi hari-H.",
+      `Mendukung ${PORTFOLIO_FACTS.innofashion.competitionRegistrations} registrasi kompetisi, ${PORTFOLIO_FACTS.innofashion.competitionApproved} peserta kompetisi yang disetujui, dan ${PORTFOLIO_FACTS.innofashion.eventParticipants} peserta event; presensi QR mencatat ${PORTFOLIO_FACTS.innofashion.eventCheckIns.join(", ")} check-in di tiga event.`,
     githubLabel: "Repo Frontend",
     githubLinks: [
       {
@@ -519,6 +550,21 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     detail: {
       overview:
         "Platform manajemen event custom untuk Innofashion Show 8, event besar yang dijalankan mahasiswa. Sistem ini menangani registrasi peserta, ticketing berbasis QR, dashboard admin, dan operasi event real-time.",
+      mySpecificBuilds: [
+        "Memimpin divisi IT dan mengoordinasikan pengiriman teknis untuk registrasi, dashboard, validasi, dan workflow hari-H.",
+        "Membangun dan mengintegrasikan registrasi peserta, flow kompetisi/event, ticketing QR, statistik admin, dan surface validasi.",
+        "Mengelola deployment dan dukungan hari-H untuk workflow kompetisi, registrasi, validasi, dan presensi QR.",
+      ],
+      metrics: [
+        { value: String(PORTFOLIO_FACTS.innofashion.competitionRegistrations), label: "Registrasi kompetisi" },
+        { value: String(PORTFOLIO_FACTS.innofashion.competitionApproved), label: "Peserta kompetisi disetujui" },
+        { value: String(PORTFOLIO_FACTS.innofashion.eventParticipants), label: "Peserta event" },
+        {
+          value: PORTFOLIO_FACTS.innofashion.eventCheckIns.join(" / "),
+          label: "Check-in QR per event",
+          context: "Catatan presensi dari tiga event; bukan total orang unik.",
+        },
+      ],
       keyFeatures: [
         "Registrasi peserta dan manajemen data",
         "Sistem ticketing berbasis QR",
@@ -533,7 +579,7 @@ const projectIdLocales: Record<string, ProjectLocale> = {
         "Menjaga stabilitas sistem saat operasi live event",
       ],
       results:
-        "Platform memproses 100+ peserta dan berjalan reliabel sepanjang event. Tim teknis mengirim sistem di bawah koordinasi kepala divisi IT.",
+        `Platform mencatat ${PORTFOLIO_FACTS.innofashion.competitionRegistrations} registrasi kompetisi, ${PORTFOLIO_FACTS.innofashion.competitionApproved} approval, dan ${PORTFOLIO_FACTS.innofashion.eventParticipants} peserta event. Log presensi QR mencatat ${PORTFOLIO_FACTS.innofashion.eventCheckIns.join(", ")} check-in di tiga event.`,
     },
     proofArtifacts: [
       {

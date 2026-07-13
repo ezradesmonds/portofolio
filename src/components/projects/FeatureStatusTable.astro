@@ -1,0 +1,89 @@
+---
+import type { ProjectFeatureStatus } from "../../types";
+
+interface Props {
+  items: ProjectFeatureStatus[];
+  title: string;
+  statusLabels: Record<ProjectFeatureStatus["status"], string>;
+}
+
+const { items, title, statusLabels } = Astro.props;
+---
+
+<section class="feature-status" aria-labelledby="feature-status-title">
+  <h2 id="feature-status-title">{title}</h2>
+  <div class="status-list">
+    {items.map((item) => (
+      <article>
+        <div>
+          <h3>{item.name}</h3>
+          {item.note && <p>{item.note}</p>}
+        </div>
+        <span class={`status status-${item.status}`}>{statusLabels[item.status]}</span>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .feature-status {
+    border: 1px solid rgba(63, 142, 255, 0.2);
+    border-radius: 1rem;
+    background: linear-gradient(145deg, rgba(13, 17, 15, 0.9), rgba(9, 10, 7, 0.94));
+    padding: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  .feature-status > h2 {
+    margin-bottom: 1rem;
+    color: var(--color-accent-cyan);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .status-list {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  article {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 0.75rem;
+  }
+
+  h3 {
+    color: var(--color-text-primary);
+    font-size: 0.92rem;
+    font-weight: 750;
+  }
+
+  p {
+    max-width: 42rem;
+    margin-top: 0.25rem;
+    color: var(--color-text-secondary);
+    font-size: 0.78rem;
+    line-height: 1.5;
+  }
+
+  .status {
+    flex: 0 0 auto;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 800;
+    padding: 0.25rem 0.5rem;
+    text-transform: uppercase;
+  }
+
+  .status-working { color: rgb(104, 255, 185); }
+  .status-prototype { color: rgb(117, 180, 255); }
+  .status-planned { color: rgb(244, 255, 114); }
+  .status-unvalidated { color: rgb(255, 171, 126); }
+</style>

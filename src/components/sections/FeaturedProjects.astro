@@ -21,19 +21,67 @@ const othersSorted = [...localizedProjects.filter((p) => !p.featured), ...locali
       subtitle={t(lang, "work.subtitle")}
     />
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+    <div class="grid sm:grid-cols-2 gap-4 sm:gap-6">
       {featured.map((project) => <ProjectCard project={project} lang={lang} />)}
     </div>
 
     {othersSorted.length > 0 && (
-      <>
-        <h3 class="text-xs sm:text-sm font-mono font-bold uppercase tracking-widest text-text-muted mt-14 sm:mt-20 mb-6 sm:mb-8">
-          {t(lang, "work.moreProjects")}
-        </h3>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+      <details class="more-builds mt-14 sm:mt-20">
+        <summary>
+          <span>{t(lang, "work.moreProjects")}</span>
+          <small>{othersSorted.length}</small>
+        </summary>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-6 sm:mt-8">
           {othersSorted.map((project) => <ProjectCard project={project} lang={lang} />)}
         </div>
-      </>
+      </details>
     )}
   </div>
 </section>
+
+<style>
+  .more-builds {
+    border-top: 1px solid rgba(244, 255, 114, 0.14);
+    padding-top: 1rem;
+  }
+
+  .more-builds summary {
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    list-style: none;
+    text-transform: uppercase;
+  }
+
+  .more-builds summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .more-builds summary::before {
+    content: "+";
+    color: var(--color-accent-cyan);
+    font-size: 1rem;
+  }
+
+  .more-builds[open] summary::before {
+    content: "−";
+  }
+
+  .more-builds small {
+    display: grid;
+    min-width: 1.65rem;
+    height: 1.65rem;
+    place-items: center;
+    border: 1px solid rgba(244, 255, 114, 0.2);
+    border-radius: 999px;
+    color: var(--color-accent-cyan);
+    font-size: 0.68rem;
+  }
+</style>

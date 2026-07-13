@@ -43,6 +43,8 @@ export interface ProjectArtifact {
 export interface ProjectDetail {
   overview: string;
   mySpecificBuilds?: string[];
+  metrics?: ProjectMetric[];
+  featureStatus?: ProjectFeatureStatus[];
   constraints?: string;
   productStrategy?: string;
   userFlow?: string;
@@ -54,6 +56,18 @@ export interface ProjectDetail {
   results?: string;
   lessonsLearned?: string[];
   relatedProjects?: string[];
+}
+
+export interface ProjectMetric {
+  value: string;
+  label: string;
+  context?: string;
+}
+
+export interface ProjectFeatureStatus {
+  name: string;
+  status: "working" | "prototype" | "planned" | "unvalidated";
+  note?: string;
 }
 
 export interface ProjectAiSystem {

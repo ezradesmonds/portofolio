@@ -12,11 +12,6 @@ const { project, lang } = Astro.props;
 const projectHref = localizedPath(lang, `/work/${project.slug}/`);
 const viewLabel = lang === "id" ? "Buka Studi Kasus" : "View Case Study";
 const liveLabel = lang === "id" ? "Situs live" : "Live";
-const proofLabel = project.proofStatus === "available"
-  ? (lang === "id" ? "Bukti visual" : "Proof added")
-  : project.proofStatus === "pending"
-    ? (lang === "id" ? "Bukti batch 2" : "Proof pending")
-    : null;
 
 const statusColorMap: Record<string, string> = {
   live: "border-green-500/40 text-green-400 bg-green-500/10",
@@ -50,19 +45,12 @@ const statusColor = statusColorMap[project.status] ?? statusColorMap.prototype;
     </span>
   </div>
 
-  {(proofLabel || project.liveUrl) && (
+  {project.liveUrl && (
     <div class="evidence-row">
-      {project.liveUrl && (
-        <span class="live-chip">
-          <span class="live-dot" aria-hidden="true"></span>
-          {liveLabel}
-        </span>
-      )}
-      {proofLabel && (
-        <span class={`proof-chip ${project.proofStatus === "pending" ? "is-pending" : ""}`}>
-          {proofLabel}
-        </span>
-      )}
+      <span class="live-chip">
+        <span class="live-dot" aria-hidden="true"></span>
+        {liveLabel}
+      </span>
     </div>
   )}
 
@@ -136,7 +124,6 @@ const statusColor = statusColorMap[project.status] ?? statusColorMap.prototype;
     margin-bottom: 0.85rem;
   }
 
-  .proof-chip,
   .live-chip {
     display: inline-flex;
     align-items: center;
@@ -166,12 +153,6 @@ const statusColor = statusColorMap[project.status] ?? statusColorMap.prototype;
     border-radius: 999px;
     background: currentColor;
     box-shadow: 0 0 0.7rem currentColor;
-  }
-
-  .proof-chip.is-pending {
-    border-color: rgba(255, 255, 255, 0.12);
-    background: rgba(255, 255, 255, 0.045);
-    color: var(--color-text-muted);
   }
 
   .case-card::before {

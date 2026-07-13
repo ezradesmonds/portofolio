@@ -1,0 +1,79 @@
+---
+import type { ProjectMetric } from "../../types";
+
+interface Props {
+  metrics: ProjectMetric[];
+  title: string;
+}
+
+const { metrics, title } = Astro.props;
+---
+
+<section class="evidence-metrics" aria-labelledby="evidence-metrics-title">
+  <h2 id="evidence-metrics-title">{title}</h2>
+  <dl>
+    {metrics.map((metric) => (
+      <div>
+        <dt>{metric.label}</dt>
+        <dd>{metric.value}</dd>
+        {metric.context && <p>{metric.context}</p>}
+      </div>
+    ))}
+  </dl>
+</section>
+
+<style>
+  .evidence-metrics {
+    border: 1px solid rgba(244, 255, 114, 0.16);
+    border-radius: 1rem;
+    background: rgba(16, 18, 11, 0.68);
+    padding: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  h2 {
+    margin-bottom: 1rem;
+    color: var(--color-accent-cyan);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: 0.75rem;
+  }
+
+  dl > div {
+    border-left: 2px solid rgba(244, 255, 114, 0.4);
+    padding: 0.75rem 0.85rem;
+    background: rgba(244, 255, 114, 0.035);
+  }
+
+  dt {
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1.35;
+    text-transform: uppercase;
+  }
+
+  dd {
+    margin-top: 0.35rem;
+    color: var(--color-text-primary);
+    font-family: var(--font-display);
+    font-size: clamp(1.45rem, 3vw, 2.25rem);
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  p {
+    margin-top: 0.4rem;
+    color: var(--color-text-secondary);
+    font-size: 0.72rem;
+    line-height: 1.4;
+  }
+</style>

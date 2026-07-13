@@ -3,6 +3,8 @@ import BaseLayout from "../../components/layout/BaseLayout.astro";
 import { projects, additionalProjects } from "../../data/projects";
 import { SITE } from "../../data/site";
 import TechBadge from "../../components/ui/TechBadge.astro";
+import EvidenceMetrics from "../../components/projects/EvidenceMetrics.astro";
+import FeatureStatusTable from "../../components/projects/FeatureStatusTable.astro";
 import { localizeProject } from "../../i18n/content";
 import { localizedPath, resolveLang } from "../../i18n/utils";
 
@@ -50,6 +52,8 @@ const label = {
   users: lang === "id" ? "Target Pengguna" : "Target Users",
   role: lang === "id" ? "Peran Saya" : "My Role",
   contribution: lang === "id" ? "Kontribusi spesifik saya" : "My exact contribution",
+  evidence: lang === "id" ? "Metrik terverifikasi" : "Verified evidence",
+  featureStatus: lang === "id" ? "Status fitur" : "Feature status",
   features: lang === "id" ? "Fitur Utama" : "Key Features",
   challenges: lang === "id" ? "Tantangan & Trade-off" : "Challenges & Trade-offs",
   lessons: lang === "id" ? "Pelajaran" : "Lessons Learned",
@@ -72,6 +76,9 @@ const label = {
   all: lang === "id" ? "Semua Proyek" : "All Projects",
   contact: lang === "id" ? "Hubungi Saya" : "Get in Touch",
 };
+const featureStatusLabels = lang === "id"
+  ? { working: "Berfungsi", prototype: "Prototype", planned: "Direncanakan", unvalidated: "Belum tervalidasi" }
+  : { working: "Working", prototype: "Prototype", planned: "Planned", unvalidated: "Unvalidated" };
 
 const githubLinks = project.githubLinks?.length
   ? project.githubLinks
@@ -123,6 +130,10 @@ const githubLinks = project.githubLinks?.length
             <p class="text-text-secondary leading-relaxed">{detail.overview}</p>
           </section>
 
+          {detail.metrics && detail.metrics.length > 0 && (
+            <EvidenceMetrics metrics={detail.metrics} title={label.evidence} />
+          )}
+
           <div class="grid md:grid-cols-2 gap-12">
             <div>
               <h2 class="text-sm font-mono font-bold uppercase tracking-widest text-accent-cyan mb-4">{label.problem}</h2>
@@ -162,6 +173,10 @@ const githubLinks = project.githubLinks?.length
               ))}
             </ul>
           </section>
+
+          {detail.featureStatus && detail.featureStatus.length > 0 && (
+            <FeatureStatusTable items={detail.featureStatus} title={label.featureStatus} statusLabels={featureStatusLabels} />
+          )}
 
           {detail.aiSystem && (
             <section class="ai-system-panel">

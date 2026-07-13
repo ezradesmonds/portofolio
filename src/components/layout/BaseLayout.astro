@@ -5,7 +5,7 @@ import SiteFooter from "./SiteFooter.astro";
 import EzraLoader from "./EzraLoader.astro";
 import SmoothScroll from "../interactive/SmoothScroll.astro";
 import { SITE } from "../../data/site";
-import { resolveLang, t } from "../../i18n/utils";
+import { alternateLangPath, resolveLang, t } from "../../i18n/utils";
 import type { Lang } from "../../i18n/translations";
 
 interface Props {
@@ -21,6 +21,10 @@ const title = Astro.props.title ?? t(lang, "seo.title");
 const description = Astro.props.description ?? t(lang, "seo.description");
 const image = new URL(Astro.props.image ?? "/favicon.png", SITE.url).toString();
 const canonical = new URL(Astro.url.pathname, SITE.url).toString();
+const hasLocalizedAlternate = !Astro.url.pathname.startsWith("/404");
+const alternatePath = alternateLangPath(lang, Astro.url.pathname);
+const englishUrl = new URL(lang === "en" ? Astro.url.pathname : alternatePath, SITE.url).toString();
+const indonesianUrl = new URL(lang === "id" ? Astro.url.pathname : alternatePath, SITE.url).toString();
 const baseStructuredData = [
   {
     "@context": "https://schema.org",
@@ -76,12 +80,21 @@ const jsonLd = [...baseStructuredData, ...extraStructuredData];
     <link rel="icon" type="image/png" sizes="256x256" href="/favicon.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="canonical" href={canonical} />
+    {hasLocalizedAlternate && (
+      <>
+        <link rel="alternate" hreflang="en" href={englishUrl} />
+        <link rel="alternate" hreflang="id" href={indonesianUrl} />
+        <link rel="alternate" hreflang="x-default" href={englishUrl} />
+      </>
+    )}
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Ezra Desmond Sutanto" />
+    <meta property="og:locale" content={lang === "id" ? "id_ID" : "en_US"} />
+    <meta property="og:locale:alternate" content={lang === "id" ? "en_US" : "id_ID"} />
     <meta property="og:image" content={image} />
 
     <meta name="twitter:card" content="summary_large_image" />
@@ -96,7 +109,7 @@ const jsonLd = [...baseStructuredData, ...extraStructuredData];
       rel="stylesheet"
     />
 
-    <link rel="sitemap" href="/sitemap.xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
 
   </head>

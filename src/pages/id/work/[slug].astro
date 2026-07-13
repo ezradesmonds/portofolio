@@ -3,6 +3,8 @@ import BaseLayout from "../../../components/layout/BaseLayout.astro";
 import { projects, additionalProjects } from "../../../data/projects";
 import { SITE } from "../../../data/site";
 import TechBadge from "../../../components/ui/TechBadge.astro";
+import EvidenceMetrics from "../../../components/projects/EvidenceMetrics.astro";
+import FeatureStatusTable from "../../../components/projects/FeatureStatusTable.astro";
 import { localizeProject } from "../../../i18n/content";
 
 export function getStaticPaths() {
@@ -36,6 +38,8 @@ const githubLinks = project.githubLinks?.length
 const label = {
   proof: "Bukti Visual",
   contribution: "Kontribusi spesifik saya",
+  evidence: "Metrik terverifikasi",
+  featureStatus: "Status fitur",
   proofPending: "Artifact untuk project ini akan ditambahkan di batch 2.",
   aiSystem: "Catatan Sistem AI",
   provider: "Provider / Model",
@@ -47,6 +51,12 @@ const label = {
   github: "Lihat di GitHub",
   githubProfile: "Profil GitHub",
 };
+const featureStatusLabels = {
+  working: "Berfungsi",
+  prototype: "Prototype",
+  planned: "Direncanakan",
+  unvalidated: "Belum tervalidasi",
+} as const;
 const pageTitle = project.seoTitle ?? `${project.title} Case Study - ${SITE.name}`;
 const pageDescription = project.seoDescription ?? project.description;
 const projectImage = project.screenshot ? new URL(project.screenshot, SITE.url).toString() : undefined;
@@ -105,6 +115,10 @@ const projectStructuredData = {
             <p class="text-text-secondary leading-relaxed">{detail.overview}</p>
           </section>
 
+          {detail.metrics && detail.metrics.length > 0 && (
+            <EvidenceMetrics metrics={detail.metrics} title={label.evidence} />
+          )}
+
           <div class="grid md:grid-cols-2 gap-12">
             <div>
               <h2 class="text-sm font-mono font-bold uppercase tracking-widest text-accent-cyan mb-4">Masalah</h2>
@@ -144,6 +158,10 @@ const projectStructuredData = {
               ))}
             </ul>
           </section>
+
+          {detail.featureStatus && detail.featureStatus.length > 0 && (
+            <FeatureStatusTable items={detail.featureStatus} title={label.featureStatus} statusLabels={featureStatusLabels} />
+          )}
 
           {detail.aiSystem && (
             <section class="ai-system-panel">
