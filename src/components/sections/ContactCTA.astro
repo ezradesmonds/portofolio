@@ -3,6 +3,7 @@ import { resolveLang, t } from "../../i18n/utils";
 import { SITE } from "../../data/site";
 
 const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname);
+const contactReturnUrl = new URL(lang === "id" ? "/id/?sent=1#contact" : "/?sent=1#contact", Astro.site ?? Astro.url.origin).toString();
 ---
 
 <section id="contact" class="section">
@@ -15,7 +16,20 @@ const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname)
         {t(lang, "contact.subtitle")}
       </p>
 
-      <form id="contact-form" class="max-w-md mx-auto text-left space-y-4 mb-8">
+      <form
+        id="contact-form"
+        action={`https://formsubmit.co/${SITE.email}`}
+        method="POST"
+        class="max-w-md mx-auto text-left space-y-4 mb-8"
+      >
+        <input type="hidden" name="_captcha" value="true" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_next" value={contactReturnUrl} />
+        <input type="hidden" name="_subject" value="New portfolio contact message" />
+        <div class="cf-honeypot" aria-hidden="true">
+          <label for="cf-company">Company</label>
+          <input id="cf-company" type="text" name="_honey" tabindex="-1" autocomplete="off" />
+        </div>
         <div>
           <label for="cf-name" class="block text-xs font-mono font-bold uppercase tracking-widest text-accent-cyan mb-1.5">
             {t(lang, "contact.form.name")}
@@ -61,6 +75,12 @@ const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname)
         >
           {t(lang, "contact.form.submit")}
         </button>
+        <p class="captcha-note">
+          <span aria-hidden="true">&#9670;</span>
+          {lang === "id"
+            ? "Dilindungi reCAPTCHA. Verifikasi mungkin muncul setelah pesan dikirim."
+            : "Protected by reCAPTCHA. Verification may appear after you send your message."}
+        </p>
         <p id="cf-status" class="text-sm text-center hidden"></p>
       </form>
 
@@ -83,54 +103,48 @@ const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname)
 </section>
 
 <script>
-  const form = document.getElementById("contact-form") as HTMLFormElement | null;
   const status = document.getElementById("cf-status") as HTMLParagraphElement | null;
-  if (!form || !status) throw new Error("Contact form elements not found");
+  const params = new URLSearchParams(location.search);
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const btn = form.querySelector("button") as HTMLButtonElement;
+  if (status && params.get("sent") === "1") {
+    const isIndonesian = location.pathname === "/id" || location.pathname.startsWith("/id/");
+    status.textContent = isIndonesian
+      ? "Pesan terkirim! Saya akan membalas dalam 24 jam."
+      : "Message sent! I'll get back to you within 24 hours.";
+    status.className = "text-sm text-center text-green-400";
 
-    const lang = (() => {
-      const params = new URLSearchParams(location.search);
-      const param = params.get("lang");
-      if (param === "en" || param === "id") return param;
-      return location.pathname === "/id" || location.pathname.startsWith("/id/") ? "id" : "en";
-    })();
-
-    const msgs: Record<string, Record<string, string>> = {
-      en: { sending: "Sending...", success: "Message sent! I'll get back to you within 24 hours.", error: "Something went wrong. Please email me directly at ezradesmonds@gmail.com." },
-      id: { sending: "Mengirim...", success: "Pesan terkirim! Saya akan membalas dalam 24 jam.", error: "Terjadi kesalahan. Silakan email saya langsung di ezradesmonds@gmail.com." },
-    };
-    const m = msgs[lang] || msgs.id;
-
-    btn.disabled = true;
-    btn.textContent = m.sending;
-    status.classList.add("hidden");
-
-    const data = new FormData(form);
-    data.append("_captcha", "false");
-    data.append("_template", "table");
-
-    try {
-      const res = await fetch("https://formsubmit.co/ezradesmonds@gmail.com", {
-        method: "POST",
-        body: data,
-      });
-      if (res.ok) {
-        status.textContent = m.success;
-        status.className = "text-sm text-center text-green-400";
-        form.reset();
-      } else {
-        throw new Error("Form submission failed");
-      }
-    } catch {
-      status.textContent = m.error;
-      status.className = "text-sm text-center text-red-400";
-    }
-
-    status.classList.remove("hidden");
-    btn.disabled = false;
-    btn.textContent = lang === "en" ? "Send Message" : "Kirim Pesan";
-  });
+    params.delete("sent");
+    const query = params.toString();
+    history.replaceState({}, "", `${location.pathname}${query ? `?${query}` : ""}#contact`);
+  }
 </script>
+
+<style>
+  .cf-honeypot {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .captcha-note {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.45rem;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .captcha-note span {
+    flex: 0 0 auto;
+    color: var(--color-accent-cyan);
+    font-size: 0.55rem;
+    transform: translateY(0.2rem);
+  }
+</style>
