@@ -71,6 +71,13 @@ const ProfileCardComponent = ({
     : miniAvatarUrl || avatarUrl;
 
   useEffect(() => {
+    if (!alternateAvatarUrl) return;
+    const alternatePortrait = new Image();
+    alternatePortrait.decoding = "async";
+    alternatePortrait.src = alternateAvatarUrl;
+  }, [alternateAvatarUrl]);
+
+  useEffect(() => {
     const precisePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
