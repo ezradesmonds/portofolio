@@ -1,0 +1,180 @@
+---
+import type { Project } from "../../types";
+import EvidenceMetrics from "./EvidenceMetrics.astro";
+import ProductDiscovery from "./ProductDiscovery.astro";
+
+interface Props {
+  project: Project;
+  lang: "en" | "id";
+}
+
+const { project, lang } = Astro.props;
+const detail = project.detail!;
+const copy = lang === "id" ? {
+  snapshot: "Ringkasan proyek",
+  overview: "Ikhtisar",
+  challenge: "Tantangan",
+  strategy: "Strategi produk",
+  strategyIntro: "Empat prinsip yang menjaga rekomendasi tetap berguna dalam operasi koperasi.",
+  principles: [
+    ["Rekomendasi objektif", "Gunakan data performa dan operasional, bukan hanya ingatan pribadi."],
+    ["Keputusan adaptif", "Sesuaikan prioritas dengan urgensi, jumlah, kualitas, dan logistik order."],
+    ["Distribusi yang lebih adil", "Hindari penumpukan pekerjaan pada penjahit favorit atau yang sudah sibuk."],
+    ["Operasi terintegrasi", "Hubungkan alokasi dengan inventori, pembelian, progress, dan upah."],
+  ],
+  architecture: "Arsitektur rekomendasi",
+  architectureIntro: "Sistem hybrid ini menggabungkan profiling berbasis ML, scoring kontekstual, dan pemeriksaan workload aktif.",
+  layers: [
+    ["01 · ML-assisted profiling", "Data historis speed, kerapian, ketepatan waktu, spesialisasi, usia, dan jarak membentuk profil performa yang mudah dipahami."],
+    ["02 · Adaptive weighted scoring", "Urgensi, jumlah, speed, kerapian, spesialisasi, dan jarak mengubah bobot ranking untuk setiap order."],
+    ["03 · Real-time workload balancing", "Assignment aktif dan ketersediaan memberi busy penalty tanpa menyembunyikan kandidat dari admin."],
+  ],
+  flow: ["Data historis penjahit", "Clustering berbasis ML", "Profil performa", "Adaptive weighted scoring", "Pemeriksaan workload", "Ranking rekomendasi", "Review & keputusan admin"],
+  guardrail: "SAKTI tidak menggantikan keputusan manajerial. Sistem memberikan rekomendasi yang dapat ditinjau, dibandingkan, dan di-override oleh admin.",
+  modules: "Modul produk",
+  moduleIntro: "Prototype dirancang sebagai platform operasi koperasi terintegrasi, bukan model rekomendasi yang berdiri sendiri.",
+  moduleItems: [
+    ["Dashboard", "Indikator operasi, progress project, pengeluaran, stok, dan distribusi mitra."],
+    ["Tailor management", "Profil, skill, performa, lokasi, dan ketersediaan penjahit."],
+    ["Order & project", "Pembuatan order, deadline, tracking, dan status assignment."],
+    ["Smart allocation", "Ranking penjahit beserta faktor pembentuk skornya."],
+    ["Inventory", "Stok kain, material masuk-keluar, dan visibilitas stok menipis."],
+    ["Supplier & purchasing", "Data supplier, histori pembelian, dan restocking."],
+    ["Production & wages", "Workload aktif, progress produksi, dan pembayaran penjahit."],
+    ["Analytics", "Distribusi workload, aktivitas supplier, biaya, pendapatan, dan performa."],
+  ],
+  value: "Nilai bisnis",
+  valueText: "Admin dan manajer koperasi adalah pengguna utama; mitra penjahit menjadi penerima manfaat dari akses proyek yang lebih transparan. Platform ini dirancang untuk mempercepat alokasi, meningkatkan visibilitas inventori, dan mengurangi ketergantungan pada koordinasi manual.",
+  contribution: "Kontribusi saya",
+  outcome: "Hasil",
+  outcomeText: "Tim menghasilkan prototype fungsional dan mempresentasikannya kepada evaluator Petra Christian University dan Singapore University of Technology and Design. SAKTI meraih Juara 2 pada GEO 2026 tanpa mengklaim dampak produksi yang belum diuji melalui pilot.",
+  reflection: "Refleksi & pengembangan berikutnya",
+  reflectionIntro: "Akurasi rekomendasi saja tidak cukup; alat operasional juga harus explainable, maintainable, dan dipercaya pengguna.",
+  future: [
+    "Validasi bobot scoring dengan hasil project historis.",
+    "Ukur kualitas rekomendasi terhadap waktu selesai dan kualitas aktual.",
+    "Tampilkan breakdown skor, alasan override, dan audit log alokasi.",
+    "Pantau fairness distribusi workload dari waktu ke waktu.",
+    "Tambahkan role-based access, notifikasi, dan data operasional yang terus diperbarui.",
+    "Lakukan usability testing bersama admin koperasi sebelum deployment produksi.",
+  ],
+} : {
+  snapshot: "Project snapshot",
+  overview: "Overview",
+  challenge: "The challenge",
+  strategy: "Product strategy",
+  strategyIntro: "Four principles keep the recommendation useful inside real cooperative operations.",
+  principles: [
+    ["Objective recommendations", "Use recorded performance and operational data instead of personal memory alone."],
+    ["Adaptive decisions", "Change priorities according to order urgency, quantity, quality, and logistics."],
+    ["Fairer distribution", "Avoid repeatedly assigning work to favored or already-busy tailors."],
+    ["Integrated operations", "Connect allocation with inventory, purchasing, progress, and wages."],
+  ],
+  architecture: "Recommendation architecture",
+  architectureIntro: "This hybrid system combines ML-assisted profiling, context-aware scoring, and live workload checks.",
+  layers: [
+    ["01 · ML-assisted profiling", "Historical speed, neatness, punctuality, specialization, age, and distance produce understandable performance profiles."],
+    ["02 · Adaptive weighted scoring", "Urgency, quantity, speed, neatness, specialization, and distance reshape the ranking for each order."],
+    ["03 · Real-time workload balancing", "Active assignments and availability apply a busy penalty without hiding candidates from the administrator."],
+  ],
+  flow: ["Historical tailor data", "ML-based clustering", "Performance profiles", "Adaptive weighted scoring", "Workload check", "Ranked recommendations", "Admin review & decision"],
+  guardrail: "SAKTI does not replace managerial judgment. It provides explainable recommendations that administrators can review, compare, and override.",
+  modules: "Core product modules",
+  moduleIntro: "The prototype is an integrated cooperative operations platform, not a standalone recommendation model.",
+  moduleItems: [
+    ["Dashboard", "Operational indicators, project progress, spending, stock, and partner distribution."],
+    ["Tailor management", "Tailor profiles, skills, performance, location, and availability."],
+    ["Orders & projects", "Order creation, deadlines, tracking, and assignment status."],
+    ["Smart allocation", "Ranked recommendations with visible score factors."],
+    ["Inventory", "Fabric stock, material movement, and low-stock visibility."],
+    ["Suppliers & purchasing", "Supplier records, purchase history, and restocking."],
+    ["Production & wages", "Active workloads, production progress, and tailor payments."],
+    ["Analytics", "Workload distribution, supplier activity, costs, revenue, and performance."],
+  ],
+  value: "Business value",
+  valueText: "Cooperative administrators and managers are the primary users; member tailors benefit from more transparent access to projects. The platform is designed to accelerate allocation, improve inventory visibility, and reduce dependence on manual coordination.",
+  contribution: "My contribution",
+  outcome: "Outcome",
+  outcomeText: "The team delivered a functional prototype and presented it to evaluators from Petra Christian University and the Singapore University of Technology and Design. SAKTI earned 2nd Place at GEO 2026 without claiming production impact that has not been validated through a pilot.",
+  reflection: "Reflection & next iterations",
+  reflectionIntro: "Recommendation accuracy alone is not enough; operational tools must also be explainable, maintainable, and trusted.",
+  future: [
+    "Validate scoring weights against historical project outcomes.",
+    "Measure recommendation quality against actual completion time and quality.",
+    "Expose score breakdowns, override reasons, and allocation audit logs.",
+    "Monitor fairness across workload distribution over time.",
+    "Add role-based access, notifications, and continuously updated operational data.",
+    "Run usability tests with cooperative administrators before production deployment.",
+  ],
+};
+---
+
+<div class="sakti-story">
+  {detail.metrics && <EvidenceMetrics metrics={detail.metrics} title={copy.snapshot} />}
+
+  <section class="narrative split">
+    <div><p class="eyebrow">01 · {copy.overview}</p><p>{detail.overview}</p></div>
+    <div><p class="eyebrow">02 · {copy.challenge}</p><p>{project.problem}</p></div>
+  </section>
+
+  {detail.productDiscovery && <ProductDiscovery discovery={detail.productDiscovery} lang={lang} />}
+
+  <section class="story-section">
+    <header><p class="eyebrow">03 · {copy.strategy}</p><h2>{copy.strategy}</h2><p>{copy.strategyIntro}</p></header>
+    <div class="principle-grid">{copy.principles.map(([title, text]) => <article><h3>{title}</h3><p>{text}</p></article>)}</div>
+  </section>
+
+  <section class="architecture">
+    <header><p class="eyebrow">04 · {copy.architecture}</p><h2>{copy.architecture}</h2><p>{copy.architectureIntro}</p></header>
+    <div class="layer-grid">{copy.layers.map(([title, text]) => <article><h3>{title}</h3><p>{text}</p></article>)}</div>
+    <ol class="decision-flow">{copy.flow.map((item) => <li>{item}</li>)}</ol>
+    <p class="guardrail">{copy.guardrail}</p>
+  </section>
+
+  <section class="story-section">
+    <header><p class="eyebrow">05 · {copy.modules}</p><h2>{copy.modules}</h2><p>{copy.moduleIntro}</p></header>
+    <div class="module-grid">{copy.moduleItems.map(([title, text]) => <article><h3>{title}</h3><p>{text}</p></article>)}</div>
+  </section>
+
+  <section class="narrative split">
+    <div><p class="eyebrow">06 · {copy.value}</p><p>{copy.valueText}</p></div>
+    <div><p class="eyebrow">07 · {copy.contribution}</p><ul>{detail.mySpecificBuilds?.map((item) => <li>{item}</li>)}</ul></div>
+  </section>
+
+  <section class="outcome-grid">
+    <article><p class="eyebrow">08 · {copy.outcome}</p><p>{copy.outcomeText}</p></article>
+    <article><p class="eyebrow">09 · {copy.reflection}</p><p>{copy.reflectionIntro}</p><ul>{copy.future.map((item) => <li>{item}</li>)}</ul></article>
+  </section>
+</div>
+
+<style>
+  .sakti-story { display: grid; gap: clamp(3.5rem, 8vw, 6rem); }
+  .eyebrow { color: var(--color-accent-cyan); font-family: var(--font-mono); font-size: .7rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+  header h2 { margin-top: .5rem; color: var(--color-text-primary); font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.75rem); font-weight: 900; line-height: 1.02; }
+  header > p:last-child, .narrative p:not(.eyebrow), article p { color: var(--color-text-secondary); line-height: 1.65; }
+  header > p:last-child { max-width: 43rem; margin-top: .7rem; }
+  .split, .outcome-grid, .principle-grid, .layer-grid, .module-grid { display: grid; gap: 1rem; }
+  .narrative > div, .outcome-grid article { border-left: 2px solid rgba(244,255,114,.35); background: rgba(244,255,114,.035); padding: 1.2rem; }
+  .narrative p:not(.eyebrow), .narrative ul, .outcome-grid article > p:not(.eyebrow) { margin-top: .7rem; }
+  .principle-grid, .layer-grid, .module-grid { margin-top: 1.25rem; }
+  .principle-grid article, .layer-grid article, .module-grid article { border: 1px solid rgba(244,255,114,.14); border-radius: .9rem; background: linear-gradient(145deg, rgba(18,21,12,.88), rgba(8,10,6,.94)); padding: 1rem; }
+  h3 { color: var(--color-text-primary); font-size: .9rem; font-weight: 800; }
+  article p { margin-top: .45rem; font-size: .82rem; }
+  .architecture { position: relative; overflow: hidden; border: 1px solid rgba(244,255,114,.2); border-radius: 1.2rem; background: radial-gradient(circle at 80% 0%, rgba(83,211,255,.11), transparent 36%), rgba(8,10,6,.85); padding: clamp(1.1rem, 3vw, 2rem); }
+  .decision-flow { display: grid; gap: .65rem; margin-top: 1.2rem; }
+  .decision-flow li { position: relative; border: 1px solid rgba(255,255,255,.09); border-radius: .75rem; color: var(--color-text-secondary); font-family: var(--font-mono); font-size: .72rem; padding: .75rem 2rem .75rem .85rem; }
+  .decision-flow li:not(:last-child)::after { content: "↓"; position: absolute; right: .75rem; color: var(--color-accent-cyan); }
+  .guardrail { margin-top: 1rem; border-left: 3px solid var(--color-accent-cyan); color: var(--color-text-primary); font-weight: 700; line-height: 1.6; padding: .8rem 1rem; background: rgba(244,255,114,.06); }
+  ul { display: grid; gap: .5rem; }
+  li { color: var(--color-text-secondary); font-size: .82rem; line-height: 1.55; }
+  .narrative li, .outcome-grid li { position: relative; padding-left: 1rem; }
+  .narrative li::before, .outcome-grid li::before { content: ""; position: absolute; left: 0; top: .6rem; width: .32rem; height: .32rem; border-radius: 50%; background: var(--color-accent-cyan); }
+  @media (min-width: 720px) {
+    .split, .outcome-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .principle-grid, .layer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .module-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .decision-flow { grid-template-columns: repeat(7, minmax(0, 1fr)); align-items: stretch; }
+    .decision-flow li:not(:last-child)::after { content: "→"; top: 50%; right: -.47rem; transform: translateY(-50%); z-index: 2; }
+  }
+  @media (min-width: 980px) { .principle-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } .layer-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+</style>

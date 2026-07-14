@@ -284,19 +284,19 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     ],
   },
   "tailor-cooperative-system": {
-    title: "Sistem Prediksi Efisiensi Penjahit & Manajemen Koperasi",
-    category: "Machine Learning / Sistem Operasional",
+    title: "SAKTI — Alokasi Penjahit Berbantuan ML & Sistem Manajemen Koperasi",
+    category: "Decision Support Berbantuan ML / Operasi Koperasi",
     description:
-      "Sistem prediksi efisiensi tenaga kerja berbasis machine learning yang digabungkan dengan platform manajemen koperasi untuk keputusan operasional.",
+      "Platform decision support berbasis data untuk meningkatkan alokasi workload, visibilitas inventori, dan koordinasi operasional koperasi penjahit.",
     problem:
-      "Manajer koperasi kekurangan alat berbasis data untuk membagi pekerjaan ke penjahit paling efisien dan mengelola berbagai fungsi operasional.",
-    targetUsers: "Manajer koperasi dan staf operasional",
-    role: "Pengembang AI allocation dan dashboard",
+      "Admin membagi order ke jaringan penjahit dengan mengandalkan ingatan, kedekatan personal, dan komunikasi manual sehingga workload tidak merata, inventori sulit dipantau, dan bulk order menambah tekanan operasional.",
+    targetUsers: "Admin dan manajer koperasi; mitra penjahit sebagai penerima manfaat utama",
+    role: "ML workflow, logika alokasi, full-stack development, visualisasi data, dan presentasi",
     contribution:
-      "Membangun workflow smart allocation untuk penjahit, meningkatkan halaman-halaman manajemen Streamlit dengan chart operasional, serta menyusun user persona, journey, dan value proposition.",
+      "Menerjemahkan masalah operasional menjadi prototype decision support yang menggabungkan profiling berbantuan ML, logika alokasi adaptif, data operasional, interface Streamlit, dan analitik visual.",
     statusLabel: "Kompetisi - Juara 2",
     outcome:
-      "Juara 2 - SUTD x Petra Christian University International Hackathon, Januari 2026.",
+      "Juara 2 — PCU × SUTD GEO 2026; prototype fungsional dipresentasikan bersama Koperasi Sumber Mulia Barokah sebagai industry partner.",
     githubLabel: "Repo AIML",
     githubLinks: [
       {
@@ -305,16 +305,24 @@ const projectIdLocales: Record<string, ProjectLocale> = {
       },
       {
         label: "Repo Sistem Manajemen",
-        url: "https://github.com/ezradesmonds/koperasi_app",
+        url: "https://github.com/ezradesmonds/SAKTIkoperasiapp",
       },
     ],
       detail: {
       overview:
-        "Prototype kompetisi yang menggabungkan workflow smart allocation dengan sistem manajemen koperasi berbasis Streamlit/SQLite. Modulnya mencakup dashboard operasional, manajemen penjahit, stok, supplier, pembelian, dan perencanaan split order.",
+        "SAKTI adalah platform alokasi penjahit berbantuan ML dan manajemen koperasi yang dikembangkan pada GEO 2026, program kolaborasi Petra Christian University dan Singapore University of Technology and Design. Dibuat bersama Koperasi Sumber Mulia Barokah, prototype ini menggabungkan profiling penjahit, rekomendasi kontekstual, pemeriksaan workload aktif, inventori, project tracking, pembelian, monitoring produksi, upah, dan analitik operasional.",
+      metrics: [
+        { value: "Juara 2", label: "GEO 2026" },
+        { value: "100+", label: "Jaringan mitra penjahit" },
+        { value: "3", label: "Layer rekomendasi" },
+        { value: "6", label: "Mahasiswa multidisiplin" },
+      ],
       mySpecificBuilds: [
-        "Membangun flow smart allocation untuk mencocokkan order produksi dengan penjahit yang feasible.",
-        "Meningkatkan halaman-halaman manajemen Streamlit dengan chart operasional dan decision surface yang lebih jelas.",
-        "Menyusun user persona, journey, dan value proposition untuk membingkai produk.",
+        "Menyiapkan dan memproses data performa penjahit untuk workflow profiling berbantuan ML.",
+        "Mengembangkan logika alokasi adaptif dan workload balancing, lalu mengintegrasikan rekomendasi dengan data project operasional.",
+        "Membangun interface prototype dan visualisasi operasional menggunakan Python dan Streamlit.",
+        "Menyusun persona, journey map, storyboard, Value Proposition Canvas, dan Business Model Canvas yang membentuk arah produk.",
+        "Menerjemahkan logika teknis ke presentasi bisnis dan mempertahankan solusi saat evaluasi final.",
       ],
       productDiscovery: {
         problemStatement:
@@ -322,10 +330,10 @@ const projectIdLocales: Record<string, ProjectLocale> = {
         hypothesis:
           "Jika sistem menggabungkan profil performa historis, konteks order, dan workload aktif, admin dapat beralih dari keputusan berbasis ingatan ke keputusan yang lebih cepat, adil, dan dapat dijelaskan.",
         persona: {
-          name: "Bu Herman",
-          role: "Admin senior koperasi",
+          name: "Pengguna Utama",
+          role: "Administrator Operasional Koperasi",
           context:
-            "Mengelola order masuk dan jaringan penjahit besar di bawah tekanan deadline dengan mengandalkan intuisi, catatan yang terpisah, dan update pekerja melalui WhatsApp.",
+            "Bertanggung jawab atas order masuk, alokasi penjahit, visibilitas inventori, monitoring produksi, dan koordinasi deadline pada jaringan mitra yang besar.",
           pains: [
             "Distribusi kerja tidak merata dan bottleneck pada penjahit favorit",
             "Sulit mengingat speed, kerapian, dan ketersediaan setiap penjahit",

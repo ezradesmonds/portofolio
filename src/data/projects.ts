@@ -313,21 +313,21 @@ export const projects: Project[] = [
   },
   {
     slug: "tailor-cooperative-system",
-    title: "Tailor Efficiency Prediction & Cooperative Management System",
-    category: "Machine Learning / Operational System",
+    title: "SAKTI — ML-Assisted Tailor Allocation & Cooperative Management System",
+    category: "ML-Assisted Decision Support / Cooperative Operations",
     description:
-      "A machine-learning workforce efficiency prediction system combined with a cooperative management platform for operational decision-making.",
+      "A data-driven decision-support platform designed to improve workload allocation, inventory visibility, and operational coordination for a tailor cooperative.",
     problem:
-      "Cooperative managers lack data-driven tools to assign work to the most efficient tailors and manage operations across multiple business functions.",
-    targetUsers: "Cooperative managers and operational staff",
-    role: "AI allocation and dashboard developer",
+      "Administrators distributed orders across a large tailor network using memory, personal familiarity, and manual communication, creating uneven workloads, limited inventory visibility, and pressure during bulk orders.",
+    targetUsers: "Cooperative administrators and managers; member tailors are the primary beneficiaries",
+    role: "ML workflow, allocation logic, full-stack development, data visualization, and presentation",
     contribution:
-      "Built the smart tailor-allocation workflow, upgraded the Streamlit management pages with operational charts, and contributed the user persona, journey, and value proposition.",
-    technologies: ["Python", "Streamlit", "SQLite", "Machine Learning"],
+      "Translated the operational problem into a functional decision-support prototype spanning ML-assisted profiling, adaptive allocation logic, integrated operational data, Streamlit interfaces, and visual analytics.",
+    technologies: ["Python", "Streamlit", "Scikit-learn", "Pandas", "NumPy", "SQLite"],
     status: "competition",
     statusLabel: "Competition — 2nd Place",
     outcome:
-      "2nd Place — SUTD × Petra Christian University International Hackathon, January 2026.",
+      "2nd Place — PCU × SUTD GEO 2026; functional prototype presented with Koperasi Sumber Mulia Barokah as the industry partner.",
     screenshot: "/assets/case-studies/tailor-allocation.webp",
     githubUrl: "https://github.com/ezradesmonds/AI_tailor_smart_allocator",
     githubLabel: "AIML Repo",
@@ -338,7 +338,7 @@ export const projects: Project[] = [
       },
       {
         label: "Management System Repo",
-        url: "https://github.com/ezradesmonds/koperasi_app",
+        url: "https://github.com/ezradesmonds/SAKTIkoperasiapp",
       },
     ],
     proofStatus: "available",
@@ -378,11 +378,19 @@ export const projects: Project[] = [
     sortOrder: 2,
     detail: {
       overview:
-        "A competition prototype combining a smart tailor-allocation workflow with a Streamlit/SQLite cooperative management system. It supports operational dashboards, tailor management, stock, suppliers, purchases, and split-order planning.",
+        "SAKTI is an ML-assisted tailor allocation and cooperative management platform developed during GEO 2026, a collaborative program between Petra Christian University and the Singapore University of Technology and Design. Created with Koperasi Sumber Mulia Barokah, the functional prototype combines tailor profiling, context-aware recommendation logic, live workload checks, inventory management, project tracking, purchasing, production monitoring, wages, and operational analytics.",
+      metrics: [
+        { value: "2nd", label: "Place at GEO 2026" },
+        { value: "100+", label: "Tailor partner network" },
+        { value: "3", label: "Recommendation layers" },
+        { value: "6", label: "Multidisciplinary students" },
+      ],
       mySpecificBuilds: [
-        "Built the smart allocation flow for matching production orders with feasible tailors.",
-        "Upgraded the Streamlit management pages with operational charts and clearer decision surfaces.",
-        "Created the user persona, journey, and value proposition used to frame the product.",
+        "Prepared and processed tailor performance data for the ML-assisted profiling workflow.",
+        "Developed the adaptive allocation and workload-balancing logic, then integrated recommendations with operational project data.",
+        "Built prototype interfaces and operational visualizations using Python and Streamlit.",
+        "Created the persona, journey map, storyboard, Value Proposition Canvas, and Business Model Canvas that shaped the product direction.",
+        "Translated the technical logic into a business-oriented presentation and defended the solution during final evaluation.",
       ],
       productDiscovery: {
         problemStatement:
@@ -390,10 +398,10 @@ export const projects: Project[] = [
         hypothesis:
           "If the system combines historical performance profiles with order context and current workload, admins can move from memory-based assignment toward faster, fairer, and more explainable decisions.",
         persona: {
-          name: "Bu Herman",
-          role: "Senior cooperative admin",
+          name: "Primary User",
+          role: "Cooperative Operations Administrator",
           context:
-            "Manages incoming orders and coordinates a large tailor network under deadline pressure, currently relying on intuition, fragmented records, and worker updates through WhatsApp.",
+            "Responsible for incoming orders, tailor allocation, inventory visibility, production monitoring, and deadline coordination across a large partner network.",
           pains: [
             "Unfair workload distribution and bottlenecks around favorite tailors",
             "Difficulty remembering individual speed, neatness, and availability",
