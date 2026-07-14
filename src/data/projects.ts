@@ -160,9 +160,9 @@ export const projects: Project[] = [
       },
       {
         src: "/assets/case-studies/tokokaret-ai-check.webp",
-        alt: "TokoKaret.com AI assistant form for car model and product symptom intake.",
+        alt: "TokoKaret.com client-side rule and keyword recommendation form for car model and product symptom intake.",
         caption:
-          "AI consultation flow: users describe symptoms and receive an initial product category direction.",
+          "Rule-based recommendation flow: users describe symptoms and receive an initial product-category direction.",
       },
       {
         src: "/assets/case-studies/tokokaret-products.webp",
@@ -190,8 +190,8 @@ export const projects: Project[] = [
       ],
       challenges: [
         "Translating technical industrial product specifications into accessible user-facing recommendations",
-        "Grounding recommendations in product/category context so the AI does not overclaim exact part compatibility",
-        "Integrating AI recommendations with offline sales workflows",
+        "Constraining recommendations to product categories without overclaiming exact part compatibility",
+        "Integrating guided recommendations with offline sales workflows",
       ],
       aiSystem: {
         provider: "Client-side keyword and category matching; no active retrieval backend or model call is claimed.",
@@ -329,16 +329,16 @@ export const projects: Project[] = [
     outcome:
       "2nd Place — PCU × SUTD GEO 2026; functional prototype presented with Koperasi Sumber Mulia Barokah as the industry partner.",
     screenshot: "/assets/case-studies/tailor-allocation.webp",
-    githubUrl: "https://github.com/ezradesmonds/AI_tailor_smart_allocator",
-    githubLabel: "AIML Repo",
+    githubUrl: "https://github.com/ezradesmonds/SAKTIkoperasiapp",
+    githubLabel: "Canonical Project Repo",
     githubLinks: [
       {
-        label: "AIML Repo",
-        url: "https://github.com/ezradesmonds/AI_tailor_smart_allocator",
+        label: "Canonical Project Repo",
+        url: "https://github.com/ezradesmonds/SAKTIkoperasiapp",
       },
       {
-        label: "Management System Repo",
-        url: "https://github.com/ezradesmonds/SAKTIkoperasiapp",
+        label: "ML Component Repo",
+        url: "https://github.com/ezradesmonds/AI_tailor_smart_allocator",
       },
     ],
     proofStatus: "available",
@@ -800,9 +800,9 @@ export const projects: Project[] = [
       "Finding reliable home-appliance repair technicians is difficult for customers, and technicians lack digital channels to reach new clients.",
     targetUsers:
       "Homeowners needing appliance repair and service technicians",
-    role: "Product and business architect",
+    role: "Backend-Focused Full-Stack Developer, Product Designer & Business Architect",
     contribution:
-      "Product and business-process design, backend and administrative architecture, technician-facing workflow, financial modelling and IRR validation, customer and service-operation flows.",
+      "Owned the Laravel backend, contributed to the React Native frontend, and co-created the product and business design with the group, including user personas, customer journeys, competitor analysis, Figma prototyping, the Business Model Canvas, financial modelling, and IRR validation.",
     technologies: ["React Native", "Laravel 11", "MySQL"],
     status: "prototype",
     statusLabel: "MVP",

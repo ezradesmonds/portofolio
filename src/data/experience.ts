@@ -4,10 +4,11 @@ export const experiences: Experience[] = [
   {
     organization: "Innofashion Show 8",
     role: "Head / Coordinator of IT Division",
-    period: "2024 – 2025",
+    period: "November 2025 – Present",
     description:
       "Led the technical planning, architecture, development, and deployment of the full-stack event platform.",
     highlights: [
+      "Progressed from Web Developer for Innofashion Show 7 (2024–2025), where I built cohort-project showcase and voting flows and integrated the team's GET/POST APIs",
       "Led technical planning, architecture, interface design, development, deployment, and live-event reliability",
       "Coordinated technical contributors and non-technical event divisions",
       "Implemented a substantial portion of the frontend and backend",
@@ -31,7 +32,7 @@ export const experiences: Experience[] = [
   {
     organization: "Investalk Talkshow",
     role: "Event Chair",
-    period: "2024",
+    period: "December 2025 – May 2026",
     description:
       "Led the planning and execution of a financial-education talk show.",
     highlights: [

@@ -297,15 +297,15 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     statusLabel: "Kompetisi - Juara 2",
     outcome:
       "Juara 2 — PCU × SUTD GEO 2026; prototype fungsional dipresentasikan bersama Koperasi Sumber Mulia Barokah sebagai industry partner.",
-    githubLabel: "Repo AIML",
+    githubLabel: "Repo Proyek Utama",
     githubLinks: [
       {
-        label: "Repo AIML",
-        url: "https://github.com/ezradesmonds/AI_tailor_smart_allocator",
+        label: "Repo Proyek Utama",
+        url: "https://github.com/ezradesmonds/SAKTIkoperasiapp",
       },
       {
-        label: "Repo Sistem Manajemen",
-        url: "https://github.com/ezradesmonds/SAKTIkoperasiapp",
+        label: "Repo Komponen ML",
+        url: "https://github.com/ezradesmonds/AI_tailor_smart_allocator",
       },
     ],
       detail: {
@@ -728,9 +728,9 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     problem:
       "Pelanggan sulit menemukan teknisi perbaikan peralatan rumah yang reliabel, sementara teknisi kekurangan kanal digital untuk menjangkau klien baru.",
     targetUsers: "Pemilik rumah yang butuh perbaikan alat dan teknisi layanan",
-    role: "Arsitek produk dan bisnis",
+    role: "Full-Stack Developer Berfokus Backend, Product Designer & Business Architect",
     contribution:
-      "Desain produk dan proses bisnis, arsitektur backend dan administrasi, workflow untuk teknisi, model finansial dan validasi IRR, serta alur pelanggan dan operasi layanan.",
+      "Mengerjakan penuh backend Laravel, berkontribusi pada frontend React Native, serta bersama kelompok menyusun desain produk dan bisnis, termasuk user persona, customer journey, analisis kompetitor, prototype Figma, Business Model Canvas, model finansial, dan validasi IRR.",
     githubLabel: "Repo Frontend",
     githubLinks: [
       {
@@ -1034,10 +1034,11 @@ const experienceIdLocalesByKey: Record<string, Partial<Experience>> = {
   },
   "Innofashion Show 8::Head / Coordinator of IT Division": {
     role: "Kepala / Koordinator Divisi IT",
-    period: "2024 - 2025",
+    period: "November 2025 - Sekarang",
     description:
       "Memimpin perencanaan teknis, arsitektur, development, dan deployment platform event full-stack.",
     highlights: [
+      "Berkembang dari Web Developer Innofashion Show 7 (2024–2025), ketika saya membangun flow showcase dan voting karya angkatan serta mengintegrasikan API GET/POST milik tim",
       "Memimpin perencanaan teknis, arsitektur, desain interface, development, deployment, dan reliabilitas saat event",
       "Mengoordinasikan kontributor teknis dan divisi event non-teknis",
       "Mengimplementasikan banyak bagian frontend dan backend",
@@ -1047,6 +1048,7 @@ const experienceIdLocalesByKey: Record<string, Partial<Experience>> = {
   },
   "Investalk Talkshow::Event Chair": {
     role: "Ketua Event",
+    period: "Desember 2025 - Mei 2026",
     description:
       "Memimpin perencanaan dan eksekusi talkshow edukasi finansial.",
     highlights: [
