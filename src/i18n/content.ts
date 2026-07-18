@@ -580,27 +580,28 @@ const projectIdLocales: Record<string, ProjectLocale> = {
   "bank-tulang": {
     category: "Platform Edukasi Kesehatan Interaktif",
     description:
-      "Platform edukasi kesehatan tulang live dengan pengalaman scroll 3D, kuis adaptasi OKAT, tracking kalsium dan aktivitas yang persisten, simulator interaktif, serta media kampanye terintegrasi.",
+      "Platform edukasi kesehatan tulang live berbasis Vite, Three.js, GSAP, dan custom WebGL shaders, dilengkapi kuis adaptasi OKAT, tracking kebiasaan persisten, serta media kampanye terintegrasi.",
     problem:
       "Client mahasiswa farmasi membutuhkan platform interaktif yang jelas untuk mengomunikasikan rancangan intervensi kesehatan tulang, bukan sekadar tabel atau slide statis.",
     targetUsers: "Mahasiswa farmasi, dosen pembimbing, dan audiens presentasi akademik",
     role: "Developer client project",
     contribution:
-      "Membangun ulang microsite statis menjadi aplikasi Vite, membuat bone scene Three.js dan narasi scroll GSAP, mengimplementasikan kuis, tracker kebiasaan persisten dan simulator, serta mengintegrasikan media kampanye client ke pengalaman responsif.",
+      "Membangun ulang microsite statis menjadi aplikasi Vite modular, menulis particle scene Three.js dan custom GLSL shaders, mengorkestrasi cinematic scroll scenes dengan GSAP, serta mengimplementasikan kuis, tracker kebiasaan persisten, simulator, dan alur media kampanye.",
     statusLabel: "Live Client Project",
     outcome:
       "Menghasilkan platform edukasi live dan responsif yang memadukan storytelling kampanye, asesmen 12 item yang berfungsi, tracking kebiasaan di perangkat, simulasi, dan materi multimedia tanpa membutuhkan backend.",
     githubLabel: "Repo GitHub",
     detail: {
       overview:
-        "Bank Tulang adalah platform kampanye edukasi live yang dibangun ulang dari microsite statis sederhana menjadi pengalaman Vite yang sinematik dan interaktif. Produk ini memadukan narasi tulang 3D berbasis scroll dengan asesmen yang berfungsi, log kalsium dan aktivitas persisten, simulator skenario, dan materi edukasi multimedia milik client.",
+        "Bank Tulang adalah platform kampanye edukasi live yang dibangun ulang dari microsite statis sederhana menjadi aplikasi Vite modular. Custom GLSL shaders merender particle bone Three.js, sementara GSAP mengatur cinematic scroll scenes; aplikasi yang sama menyediakan asesmen yang berfungsi, log kebiasaan persisten, simulator skenario, dan materi edukasi multimedia milik client.",
       keyFeatures: [
-        "Particle bone scene Three.js yang tersinkron dengan scroll melalui GSAP",
+        "Renderer particle bone Three.js dengan custom GLSL vertex dan fragment shaders",
+        "Cinematic health-signal scenes yang tersinkron melalui GSAP ScrollTrigger",
+        "Arsitektur ES module untuk scene, state, tools, simulator, modal, dan media",
         "Asesmen adaptasi OKAT 12 item dengan interpretasi otomatis",
         "Log asupan kalsium dan aktivitas menumpu beban yang tersimpan di localStorage",
         "Simulator skenario yang menggabungkan input pengetahuan, kalsium, dan aktivitas",
         "Booklet, infografis, poster, audio kampanye, dan video edukasi terintegrasi",
-        "Modal responsif dan ramah keyboard dengan dukungan reduced motion",
       ],
       challenges: [
         "Mengubah tabel intervensi akademik menjadi website yang kredibel dan mudah dibaca",

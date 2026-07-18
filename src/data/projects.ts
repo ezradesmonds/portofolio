@@ -632,14 +632,14 @@ export const projects: Project[] = [
     title: "Bank Tulang",
     category: "Interactive Health Education Platform",
     description:
-      "A live, cinematic bone-health education platform with a 3D scroll experience, an adapted OKAT quiz, persistent calcium and activity tracking, an interactive simulator, and embedded campaign media.",
+      "A live, cinematic bone-health education platform built with Vite, Three.js, GSAP, and custom WebGL shaders, with an adapted OKAT quiz, persistent habit tracking, and embedded campaign media.",
     problem:
       "The pharmacy student client needed a clear, interactive platform to communicate a bone-health intervention design instead of relying on static tables or slides.",
     targetUsers: "Pharmacy students, academic supervisors, and health-promotion presentation audiences",
     role: "Client project developer",
     contribution:
-      "Rebuilt the original static microsite as a Vite application, created the Three.js bone scene and GSAP scroll narrative, implemented the quiz, persistent habit trackers and simulator, and integrated the client's campaign media into a responsive experience.",
-    technologies: ["Vite", "JavaScript", "Three.js", "GSAP", "LocalStorage", "Lucide"],
+      "Rebuilt the original static microsite as a modular Vite application, authored the Three.js particle scene and custom GLSL shaders, orchestrated cinematic scroll scenes with GSAP, and implemented the quiz, persistent habit trackers, simulator, and campaign-media workflows.",
+    technologies: ["Vite", "Three.js", "GSAP", "GLSL Shaders", "Modular JavaScript", "LocalStorage"],
     status: "live",
     statusLabel: "Live Client Project",
     outcome:
@@ -685,14 +685,15 @@ export const projects: Project[] = [
     sortOrder: 12,
     detail: {
       overview:
-        "Bank Tulang is a live educational campaign platform rebuilt from a simple static microsite into a cinematic, interactive Vite experience. It combines a scroll-driven 3D bone narrative with a working assessment, persistent calcium and activity logs, a what-if simulator, and the client's multimedia education materials.",
+        "Bank Tulang is a live educational campaign platform rebuilt from a simple static microsite into a modular Vite application. Custom GLSL shaders render its Three.js particle bones while GSAP coordinates the cinematic scroll scenes; the same application delivers a working assessment, persistent habit logs, a what-if simulator, and the client's multimedia education materials.",
       keyFeatures: [
-        "Three.js particle bone scene synchronized to scroll with GSAP",
+        "Three.js particle-bone renderer using custom GLSL vertex and fragment shaders",
+        "Cinematic health-signal scenes synchronized with GSAP ScrollTrigger",
+        "Modular ES-module architecture for scenes, state, tools, simulator, modal, and media",
         "12-item adapted OKAT assessment with automatic interpretation",
         "Calcium intake and weight-bearing activity logs persisted in localStorage",
         "What-if simulator combining knowledge, calcium, and activity inputs",
         "Embedded booklet, infographic, poster, campaign audio, and educational video",
-        "Responsive, keyboard-accessible modals with reduced-motion support",
       ],
       challenges: [
         "Turning academic intervention tables into a website that feels credible and readable",
