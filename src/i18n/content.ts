@@ -578,37 +578,37 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     ],
   },
   "bank-tulang": {
-    category: "Client Project / Platform Edukasi Kesehatan",
+    category: "Platform Edukasi Kesehatan Interaktif",
     description:
-      "Prototype promosi kesehatan tulang berbasis web untuk mahasiswa farmasi, dengan modul edukasi, kuis adaptasi OKAT, konsep tracking kalsium/aktivitas, dan simulasi kesiapan interaktif.",
+      "Platform edukasi kesehatan tulang live dengan pengalaman scroll 3D, kuis adaptasi OKAT, tracking kalsium dan aktivitas yang persisten, simulator interaktif, serta media kampanye terintegrasi.",
     problem:
       "Client mahasiswa farmasi membutuhkan platform interaktif yang jelas untuk mengomunikasikan rancangan intervensi kesehatan tulang, bukan sekadar tabel atau slide statis.",
     targetUsers: "Mahasiswa farmasi, dosen pembimbing, dan audiens presentasi akademik",
     role: "Developer client project",
     contribution:
-      "Membangun microsite interaktif, menyusun delapan modul intervensi, merancang permukaan kuis dan simulasi, serta menerjemahkan evidence akademik menjadi pengalaman web yang siap dipresentasikan.",
-    statusLabel: "Client Project",
+      "Membangun ulang microsite statis menjadi aplikasi Vite, membuat bone scene Three.js dan narasi scroll GSAP, mengimplementasikan kuis, tracker kebiasaan persisten dan simulator, serta mengintegrasikan media kampanye client ke pengalaman responsif.",
+    statusLabel: "Live Client Project",
     outcome:
-      "Menghasilkan prototype siap presentasi yang menjelaskan intervensi 8 komponen, kuis adaptasi OKAT 12 item, dan simulasi kesiapan kesehatan dalam format web-native.",
+      "Menghasilkan platform edukasi live dan responsif yang memadukan storytelling kampanye, asesmen 12 item yang berfungsi, tracking kebiasaan di perangkat, simulasi, dan materi multimedia tanpa membutuhkan backend.",
     githubLabel: "Repo GitHub",
     detail: {
       overview:
-        "Bank Tulang adalah microsite client untuk mahasiswa farmasi yang perlu mempresentasikan platform intervensi kesehatan tulang. Produk ini membingkai asesmen, skor, tracking, edukasi, target, gamification, dan social challenge dalam prototype web yang jelas.",
+        "Bank Tulang adalah platform kampanye edukasi live yang dibangun ulang dari microsite statis sederhana menjadi pengalaman Vite yang sinematik dan interaktif. Produk ini memadukan narasi tulang 3D berbasis scroll dengan asesmen yang berfungsi, log kalsium dan aktivitas persisten, simulator skenario, dan materi edukasi multimedia milik client.",
       keyFeatures: [
-        "Landing page promosi kesehatan tulang",
-        "Delapan kartu modul intervensi",
-        "Modal kuis adaptasi OKAT 12 item",
-        "Simulasi kesiapan dengan parameter yang bisa diubah",
-        "Arsitektur konten berbasis evidence",
-        "Mode presentasi responsif untuk review akademik",
+        "Particle bone scene Three.js yang tersinkron dengan scroll melalui GSAP",
+        "Asesmen adaptasi OKAT 12 item dengan interpretasi otomatis",
+        "Log asupan kalsium dan aktivitas menumpu beban yang tersimpan di localStorage",
+        "Simulator skenario yang menggabungkan input pengetahuan, kalsium, dan aktivitas",
+        "Booklet, infografis, poster, audio kampanye, dan video edukasi terintegrasi",
+        "Modal responsif dan ramah keyboard dengan dukungan reduced motion",
       ],
       challenges: [
         "Mengubah tabel intervensi akademik menjadi website yang kredibel dan mudah dibaca",
         "Menjaga produk tetap edukatif tanpa memberi kesan diagnosis medis",
-        "Menyeimbangkan visual yang energik dengan kejelasan dan aksesibilitas kesehatan",
+        "Menyeimbangkan pengalaman sinematik berbasis GPU dengan performa responsif, kejelasan kesehatan, dan aksesibilitas",
       ],
       results:
-        "Membuat prototype web-native yang membantu audiens memahami struktur intervensi dengan cepat saat presentasi akademik.",
+        "Merilis redesign ke URL publik yang sama sebagai aplikasi Vite tanpa backend dengan persistensi lokal di perangkat.",
       lessonsLearned: [
         "Client akademik membutuhkan translasi dari evidence dan modul menjadi cerita yang bisa diikuti audiens non-teknis",
         "Produk terkait kesehatan harus hati-hati dalam klaim, label, dan framing diagnosis",
@@ -616,28 +616,34 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     },
     proofArtifacts: [
       {
-        src: "/assets/case-studies/bank-tulang-landing.webp",
-        alt: "Landing page Bank Tulang dengan positioning pemantauan kesehatan tulang dan visual tulang belakang.",
+        src: "/assets/case-studies/bank-tulang-landing-2026.png",
+        alt: "Landing page live Bank Tulang dengan tulang belakang berbasis partikel dan ajakan kampanye kesehatan tulang.",
         caption:
-          "Landing experience untuk platform promosi kesehatan tulang dan framing intervensi akademik.",
+          "Landing sinematik dengan tulang belakang partikel Three.js real-time dan akses langsung ke asesmen serta simulator.",
       },
       {
-        src: "/assets/case-studies/bank-tulang-quiz.webp",
-        alt: "Modal kuis Bank Tulang dengan pertanyaan adaptasi OKAT dan opsi benar, salah, tidak tahu.",
+        src: "/assets/case-studies/bank-tulang-simulator-2026.png",
+        alt: "Simulator Bank Tulang dengan kontrol pengetahuan, kalsium, dan aktivitas serta indeks hasil perhitungan.",
         caption:
-          "Interface kuis adaptasi OKAT 12 item dengan konsep interpretasi skor otomatis.",
+          "Simulator interaktif yang memadukan skor kuis dan kebiasaan tersimpan dengan kontrol skenario yang dapat diubah.",
       },
       {
-        src: "/assets/case-studies/bank-tulang-modules.webp",
-        alt: "Delapan kartu modul intervensi Bank Tulang untuk kuis, skor, tracking kalsium, catatan aktivitas, edukasi, target, gamification, dan social challenge.",
+        src: "/assets/case-studies/bank-tulang-activity-2026.png",
+        alt: "Bagian sinyal aktivitas Bank Tulang dengan bone scene partikel animatif dan jumlah sesi mingguan.",
         caption:
-          "Delapan modul intervensi yang diterjemahkan dari rencana akademik menjadi kartu web yang mudah dibaca.",
+          "Storytelling Three.js berbasis scroll menghubungkan setiap sinyal kesehatan dengan data live di perangkat pengguna.",
       },
       {
-        src: "/assets/case-studies/bank-tulang-simulation.webp",
-        alt: "Simulasi kesiapan Bank Tulang dengan slider jawaban OKAT, kalsium, aktivitas, dan indikator kesiapan.",
+        src: "/assets/case-studies/bank-tulang-education-2026.png",
+        alt: "Library edukasi Bank Tulang dengan booklet, audio, video, infografis, dan poster acara.",
         caption:
-          "Simulasi interaktif untuk kesiapan pengetahuan, kalsium, dan aktivitas. Edukatif saja, bukan diagnosis medis.",
+          "Library media responsif untuk preview booklet, infografis, poster, audio kampanye, dan video edukasi.",
+      },
+      {
+        src: "/assets/case-studies/bank-tulang-quiz-2026.png",
+        alt: "Asesmen adaptasi OKAT Bank Tulang dengan dua belas pertanyaan benar, salah, dan tidak tahu.",
+        caption:
+          "Asesmen adaptasi OKAT 12 item yang berfungsi dengan jawaban tersimpan dan interpretasi skor edukatif otomatis.",
       },
     ],
   },

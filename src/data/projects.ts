@@ -630,71 +630,77 @@ export const projects: Project[] = [
   {
     slug: "bank-tulang",
     title: "Bank Tulang",
-    category: "Client Project / Health Education Platform",
+    category: "Interactive Health Education Platform",
     description:
-      "A web-based bone-health promotion prototype for pharmacy students, featuring education modules, an OKAT-adapted quiz, calcium/activity tracking concepts, and an interactive readiness simulation.",
+      "A live, cinematic bone-health education platform with a 3D scroll experience, an adapted OKAT quiz, persistent calcium and activity tracking, an interactive simulator, and embedded campaign media.",
     problem:
       "The pharmacy student client needed a clear, interactive platform to communicate a bone-health intervention design instead of relying on static tables or slides.",
     targetUsers: "Pharmacy students, academic supervisors, and health-promotion presentation audiences",
     role: "Client project developer",
     contribution:
-      "Built the interactive microsite, structured the eight intervention modules, designed the quiz and simulation surfaces, and translated academic evidence into a presentation-ready web experience.",
-    technologies: ["JavaScript", "HTML", "CSS", "Responsive UI", "Accessibility"],
-    status: "case-study",
-    statusLabel: "Client Project",
+      "Rebuilt the original static microsite as a Vite application, created the Three.js bone scene and GSAP scroll narrative, implemented the quiz, persistent habit trackers and simulator, and integrated the client's campaign media into a responsive experience.",
+    technologies: ["Vite", "JavaScript", "Three.js", "GSAP", "LocalStorage", "Lucide"],
+    status: "live",
+    statusLabel: "Live Client Project",
     outcome:
-      "Delivered a presentation-ready prototype that explains the eight-component intervention, 12-item adapted OKAT quiz, and health-readiness simulation in a web-native format.",
-    screenshot: "/assets/case-studies/bank-tulang-landing.webp",
+      "Delivered a live, responsive educational platform that combines campaign storytelling, a working 12-item assessment, on-device habit tracking, simulation, and multimedia resources without requiring a backend.",
+    screenshot: "/assets/case-studies/bank-tulang-landing-2026.png",
     liveUrl: "https://ezradesmonds.github.io/BankTulang/",
     githubUrl: "https://github.com/ezradesmonds/BankTulang",
     githubLabel: "GitHub Repo",
     proofStatus: "available",
     proofArtifacts: [
       {
-        src: "/assets/case-studies/bank-tulang-landing.webp",
-        alt: "Bank Tulang landing page showing bone health monitoring positioning and spine visual.",
+        src: "/assets/case-studies/bank-tulang-landing-2026.png",
+        alt: "Bank Tulang live landing page with a particle-rendered spine and bone-health campaign call to action.",
         caption:
-          "Landing experience for the bone-health promotion platform and academic intervention framing.",
+          "Cinematic landing experience with a real-time Three.js particle spine and direct paths into the assessment and simulator.",
       },
       {
-        src: "/assets/case-studies/bank-tulang-quiz.webp",
-        alt: "Bank Tulang quiz modal showing adapted OKAT questions with true, false, and don't know options.",
+        src: "/assets/case-studies/bank-tulang-simulator-2026.png",
+        alt: "Bank Tulang simulator showing knowledge, calcium, and activity controls beside a calculated index.",
         caption:
-          "12-item adapted OKAT quiz interface with automatic score interpretation concept.",
+          "Interactive simulator that combines the user's current quiz score and saved habits with adjustable what-if controls.",
       },
       {
-        src: "/assets/case-studies/bank-tulang-modules.webp",
-        alt: "Bank Tulang eight intervention module cards for quiz, score, calcium tracking, activity notes, education, targets, gamification, and social challenge.",
+        src: "/assets/case-studies/bank-tulang-activity-2026.png",
+        alt: "Bank Tulang activity signal section with an animated particle bone scene and weekly session count.",
         caption:
-          "Eight intervention modules translated from academic planning into readable web cards.",
+          "Scroll-directed Three.js storytelling connects each health signal to live data stored on the user's device.",
       },
       {
-        src: "/assets/case-studies/bank-tulang-simulation.webp",
-        alt: "Bank Tulang readiness simulation with sliders for OKAT answers, calcium, activity, and readiness indicators.",
+        src: "/assets/case-studies/bank-tulang-education-2026.png",
+        alt: "Bank Tulang education library with booklet, audio, video, infographic, and event poster media.",
         caption:
-          "Interactive simulation for knowledge, calcium, and activity readiness. Educational only, not medical diagnosis.",
+          "Responsive media library previews the campaign booklet, infographic, poster, audio, and educational video.",
+      },
+      {
+        src: "/assets/case-studies/bank-tulang-quiz-2026.png",
+        alt: "Bank Tulang adapted OKAT assessment with twelve true, false, and don't know questions.",
+        caption:
+          "Working 12-item adapted OKAT assessment with saved answers and automatic educational score interpretation.",
       },
     ],
     featured: false,
     sortOrder: 12,
     detail: {
       overview:
-        "Bank Tulang is a client microsite built for pharmacy students who needed to present a bone-health intervention platform. The product frames assessment, scoring, tracking, education, goals, gamification, and social challenge mechanics in a clear web prototype.",
+        "Bank Tulang is a live educational campaign platform rebuilt from a simple static microsite into a cinematic, interactive Vite experience. It combines a scroll-driven 3D bone narrative with a working assessment, persistent calcium and activity logs, a what-if simulator, and the client's multimedia education materials.",
       keyFeatures: [
-        "Bone-health promotion landing page",
-        "Eight intervention module cards",
-        "12-item adapted OKAT quiz modal",
-        "Readiness simulation with adjustable parameters",
-        "Evidence-forward content architecture",
-        "Responsive presentation mode for academic review",
+        "Three.js particle bone scene synchronized to scroll with GSAP",
+        "12-item adapted OKAT assessment with automatic interpretation",
+        "Calcium intake and weight-bearing activity logs persisted in localStorage",
+        "What-if simulator combining knowledge, calcium, and activity inputs",
+        "Embedded booklet, infographic, poster, campaign audio, and educational video",
+        "Responsive, keyboard-accessible modals with reduced-motion support",
       ],
       challenges: [
         "Turning academic intervention tables into a website that feels credible and readable",
         "Keeping the product educational without implying medical diagnosis",
-        "Balancing visual energy with healthcare clarity and accessibility",
+        "Balancing a GPU-rendered cinematic experience with responsive performance, healthcare clarity, and accessibility",
       ],
       results:
-        "Created a web-native prototype that helps audiences understand the intervention structure quickly during academic presentation.",
+        "Shipped the redesigned experience to the existing public URL as a backend-free Vite application with device-local persistence.",
       lessonsLearned: [
         "Academic client work needs translation from evidence and modules into a story that non-technical audiences can follow",
         "Health-related products must be careful with claims, labels, and diagnostic framing",
