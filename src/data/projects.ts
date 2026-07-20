@@ -53,6 +53,36 @@ export const projects: Project[] = [
           "Ledger preview: transactions, balances, and AI summary in one finance surface.",
       },
       {
+        src: "/assets/case-studies/akun-ai-journal.webp",
+        alt: "Akun.AI transaction journal with balanced debit and credit entries and an expanded journal detail panel.",
+        caption:
+          "Double-entry journal workspace with balanced debit-credit validation and traceable transaction detail.",
+      },
+      {
+        src: "/assets/case-studies/akun-ai-profit-loss.webp",
+        alt: "Akun.AI profit and loss report with revenue, expenses, net profit, monthly chart, and AI insight panel.",
+        caption:
+          "Profit and loss report turns ledger records into a printable performance view with contextual AI insights.",
+      },
+      {
+        src: "/assets/case-studies/akun-ai-balance-sheet.webp",
+        alt: "Akun.AI balance sheet showing assets, liabilities, equity composition, and financial health indicators.",
+        caption:
+          "Balance sheet surfaces the accounting equation, asset composition, and financial-health indicators in one view.",
+      },
+      {
+        src: "/assets/case-studies/akun-ai-receipt-ocr.webp",
+        alt: "Akun.AI receipt scanning prototype with OCR extraction, item details, accounting category, and a draft journal entry.",
+        caption:
+          "Receipt-OCR prototype converts extracted merchant and line-item data into a reviewable draft transaction.",
+      },
+      {
+        src: "/assets/case-studies/akun-ai-assistant.webp",
+        alt: "Akun.AI assistant answering a monthly profit question using workspace data and preparing a transaction draft for confirmation.",
+        caption:
+          "Context-grounded AI assistant explains financial results and prepares drafts that still require user confirmation.",
+      },
+      {
         src: "/assets/case-studies/akun-ai-pricing.webp",
         alt: "Akun.AI pricing section with Free, Starter, and Pro plans.",
         caption:

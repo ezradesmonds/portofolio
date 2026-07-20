@@ -127,6 +127,36 @@ const projectIdLocales: Record<string, ProjectLocale> = {
           "Preview ledger: transaksi, saldo, dan ringkasan AI dalam satu permukaan finansial.",
       },
       {
+        src: "/assets/case-studies/akun-ai-journal.webp",
+        alt: "Jurnal transaksi Akun.AI dengan debit dan kredit seimbang serta panel detail jurnal.",
+        caption:
+          "Workspace jurnal double-entry dengan validasi keseimbangan debit-kredit dan detail transaksi yang dapat ditelusuri.",
+      },
+      {
+        src: "/assets/case-studies/akun-ai-profit-loss.webp",
+        alt: "Laporan laba rugi Akun.AI berisi pendapatan, beban, laba bersih, grafik bulanan, dan panel insight AI.",
+        caption:
+          "Laporan laba rugi mengubah catatan ledger menjadi tampilan performa siap cetak dengan insight AI kontekstual.",
+      },
+      {
+        src: "/assets/case-studies/akun-ai-balance-sheet.webp",
+        alt: "Neraca Akun.AI yang menampilkan aset, liabilitas, komposisi ekuitas, dan indikator kesehatan finansial.",
+        caption:
+          "Neraca menyatukan persamaan akuntansi, komposisi aset, dan indikator kesehatan finansial dalam satu tampilan.",
+      },
+      {
+        src: "/assets/case-studies/akun-ai-receipt-ocr.webp",
+        alt: "Prototype pemindaian struk Akun.AI dengan ekstraksi OCR, detail item, kategori akuntansi, dan draft jurnal.",
+        caption:
+          "Prototype OCR struk mengubah data merchant dan item hasil ekstraksi menjadi draft transaksi yang dapat ditinjau.",
+      },
+      {
+        src: "/assets/case-studies/akun-ai-assistant.webp",
+        alt: "Asisten Akun.AI menjawab pertanyaan laba bulanan dari data workspace dan menyiapkan draft transaksi untuk dikonfirmasi.",
+        caption:
+          "Asisten AI berbasis konteks menjelaskan hasil finansial dan menyiapkan draft yang tetap membutuhkan konfirmasi pengguna.",
+      },
+      {
         src: "/assets/case-studies/akun-ai-pricing.webp",
         alt: "Section harga Akun.AI dengan paket Free, Starter, dan Pro.",
         caption:
