@@ -204,8 +204,8 @@ export const projects: Project[] = [
           "Six-round completion screen resolves final income and ranks all players from the shared authoritative game state.",
       },
     ],
-    featured: false,
-    sortOrder: 7,
+    featured: true,
+    sortOrder: 5,
     detail: {
       overview:
         "Market District is a private, synchronous negotiation board game for 3–5 players. It recreates the social tension of trading properties, money, and shop permits across a shared district while moving hidden information and rule enforcement into a server-authoritative online experience. It is an unofficial, non-commercial project with original branding, writing, board art, and shop art.",

@@ -19,7 +19,7 @@ export const translations = {
     "hero.subheadline":
       "I build practical AI-assisted and full-stack products that turn messy workflows into clearer decisions and usable systems.",
     "hero.availability": "Open for internships and work.",
-    "hero.ctaPrimary": "View 4 Flagship Projects",
+    "hero.ctaPrimary": "View Selected Work",
     "hero.ctaSecondary": "Get in Touch",
     "hero.ctaCv": "Download CV",
     "hero.github": "GitHub",
@@ -109,7 +109,7 @@ export const translations = {
     "hero.subheadline":
       "Saya membangun produk AI-assisted dan full-stack yang mengubah workflow berantakan menjadi keputusan yang lebih jelas dan sistem yang bisa dipakai.",
     "hero.availability": "Terbuka untuk magang dan kerja.",
-    "hero.ctaPrimary": "Lihat 4 Proyek Unggulan",
+    "hero.ctaPrimary": "Lihat Karya Pilihan",
     "hero.ctaSecondary": "Hubungi Saya",
     "hero.ctaCv": "Unduh CV",
     "hero.github": "GitHub",
