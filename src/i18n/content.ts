@@ -164,6 +164,72 @@ const projectIdLocales: Record<string, ProjectLocale> = {
       },
     ],
   },
+  "market-district": {
+    category: "Board Game Multiplayer Real-Time",
+    description:
+      "Board game negosiasi sinkron untuk 3–5 pemain dalam sesi privat jarak jauh, dibangun sebagai adaptasi web nonkomersial tidak resmi yang terinspirasi Chinatown.",
+    problem:
+      "Board game negosiasi fisik sulit dimainkan dari rumah berbeda karena informasi tersembunyi, transaksi simultan, board bersama, dan transisi ronde tidak mudah dipindahkan ke video call.",
+    targetUsers: "Kelompok kecil teman yang bermain board game online secara privat",
+    role: "Developer full-stack solo dan desainer sistem game",
+    contribution:
+      "Merancang identitas produk dan game table responsif, mengimplementasikan rules engine enam ronde, membangun multiplayer private-room dan trade atomik, serta menghubungkan client React ke backend Cloudflare Worker yang stateful.",
+    statusLabel: "Build untuk Sesi Privat",
+    outcome:
+      "Menyelesaikan flow multiplayer enam ronde untuk 3–5 pemain, termasuk lobby privat, pemilihan properti, negosiasi, penempatan toko, perhitungan pendapatan, ledger, dan final scoring. Dibagikan secara privat melalui Cloudflare Quick Tunnel sementara, bukan deployment publik permanen.",
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/market-district-trade.webp",
+        alt: "Fase trading multiplayer Market District dengan board distrik bersama, status pemain, referensi toko, hand, dan trade desk atomik.",
+        caption:
+          "Fase trade live: pemain menegosiasikan uang, lot, dan tile toko sementara state room otoritatif menjaga semua browser tetap sinkron.",
+      },
+      {
+        src: "/assets/case-studies/market-district-results.webp",
+        alt: "Hasil akhir Market District setelah enam ronde dengan ranking pemain, uang, jumlah toko, dan board distrik yang sudah terisi.",
+        caption:
+          "Layar penyelesaian enam ronde menghitung pendapatan akhir dan mengurutkan seluruh pemain dari state game bersama yang otoritatif.",
+      },
+    ],
+    detail: {
+      overview:
+        "Market District adalah board game negosiasi sinkron untuk 3–5 pemain. Game ini membawa ketegangan sosial dari transaksi properti, uang, dan izin toko ke pengalaman online dengan shared district serta aturan yang ditegakkan server. Project ini bersifat tidak resmi dan nonkomersial, dengan branding, tulisan, board art, serta shop art original.",
+      mySpecificBuilds: [
+        "Memodelkan game loop enam ronde sebagai engine TypeScript reusable untuk pemilihan properti, trading, placement, income, pause/resume, dan final scoring.",
+        "Membangun room berpassword, signed player session, state WebSocket yang dapat tersambung kembali, tampilan privat per pemain, dan host control melalui Cloudflare Workers serta Durable Objects.",
+        "Mendesain game table desktop yang padat, drawer pemain responsif, ledger, referensi toko, interaksi board, trade desk, dan pengalaman final-results.",
+      ],
+      keyFeatures: [
+        "Room privat berpassword untuk 3–5 pemain",
+        "Sinkronisasi WebSocket real-time dan session yang dapat reconnect",
+        "Rules engine enam ronde yang server-authoritative",
+        "Hand properti dan toko tersembunyi yang diproyeksikan per pemain",
+        "Trade offer atomik untuk uang, properti, dan tile toko",
+        "Board distrik interaktif dengan placement toko dan ownership state",
+        "Perhitungan income otomatis, ledger, dan ranking akhir",
+        "Site access gate serta kontrol pause, resume, dan tutup room khusus host",
+      ],
+      implementation:
+        "Monorepo memisahkan client React/Vite, shared game engine, protocol tervalidasi, reusable UI, dan Cloudflare Worker. Setiap room dimiliki satu Durable Object dengan state SQLite; client mengirim command berversi melalui WebSocket dan menerima proyeksi state khusus pemain.",
+      systemArchitecture:
+        "Client React/Vite → command protocol tervalidasi Zod → routing Cloudflare Worker → satu Durable Object dan state SQLite per room → snapshot WebSocket khusus pemain.",
+      constraints:
+        "Dibangun untuk game night privat, bukan distribusi komersial publik. Flow hosting saat ini memakai Cloudflare Quick Tunnel sementara, sehingga URL tunnel yang tidak stabil tidak ditampilkan sebagai live demo permanen.",
+      challenges: [
+        "Menjaga informasi tersembunyi tanpa membuat browser pemain keluar dari state match yang sama",
+        "Membuat trade multi-aset atomik agar uang, lot, dan tile toko tidak pernah berpindah sebagian",
+        "Menerjemahkan board fisik dan tabel referensi yang padat menjadi interface responsif yang tetap terbaca",
+        "Menangani reconnect, command duplikat, versi basi, dan host control tanpa menyebabkan desinkronisasi room",
+      ],
+      results:
+        "Menyelesaikan flow match end-to-end yang playable dengan aset visual original, automated test untuk engine dan security, serta browser coverage untuk perjalanan multiplayer inti.",
+      lessonsLearned: [
+        "UI game multiplayer harus memperlihatkan state server dengan jelas tanpa membocorkan informasi privat pemain",
+        "Rules engine murni membuat transisi ronde kompleks lebih mudah diuji dibanding logic yang tertanam di komponen React",
+        "Tunnel sementara cocok untuk validasi privat tetapi tidak boleh dipresentasikan sebagai hosting production yang permanen",
+      ],
+    },
+  },
   tokokaret: {
     category: "E-Commerce / Rekomendasi Produk Terarah",
     description:

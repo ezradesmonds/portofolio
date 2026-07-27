@@ -161,6 +161,91 @@ export const projects: Project[] = [
     },
   },
   {
+    slug: "market-district",
+    title: "Market District",
+    category: "Real-Time Multiplayer Board Game",
+    description:
+      "A private, synchronous 3–5 player negotiation board game for remote game nights, built as an unofficial non-commercial web adaptation inspired by Chinatown.",
+    problem:
+      "Physical negotiation board games are difficult to play across different homes because their hidden information, simultaneous deals, shared board state, and turn transitions do not translate cleanly to a video call.",
+    targetUsers: "Small groups of friends playing private online board-game sessions",
+    role: "Solo full-stack developer and game systems designer",
+    contribution:
+      "Designed the original product identity and responsive game table, implemented the six-round rules engine, built private-room multiplayer and atomic trade flows, and connected the React client to a stateful Cloudflare Worker backend.",
+    technologies: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Cloudflare Workers",
+      "Durable Objects",
+      "WebSockets",
+      "SQLite",
+      "Zod",
+      "Vitest",
+      "Playwright",
+    ],
+    status: "prototype",
+    statusLabel: "Private Play Build",
+    outcome:
+      "Delivered a complete six-round multiplayer flow for 3–5 players, including private lobbies, property selection, negotiation, shop placement, income resolution, ledger history, and final scoring. Shared privately through temporary Cloudflare Quick Tunnels rather than a permanent public deployment.",
+    screenshot: "/assets/case-studies/market-district-trade.webp",
+    proofStatus: "available",
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/market-district-trade.webp",
+        alt: "Market District multiplayer trade phase with the shared district board, player states, shop reference, hand, and atomic trade desk.",
+        caption:
+          "Live trade phase: players negotiate money, lots, and shop tiles while the authoritative room state keeps every browser synchronized.",
+      },
+      {
+        src: "/assets/case-studies/market-district-results.webp",
+        alt: "Market District final results after six rounds with player rankings, money, shop counts, and completed district board.",
+        caption:
+          "Six-round completion screen resolves final income and ranks all players from the shared authoritative game state.",
+      },
+    ],
+    featured: false,
+    sortOrder: 7,
+    detail: {
+      overview:
+        "Market District is a private, synchronous negotiation board game for 3–5 players. It recreates the social tension of trading properties, money, and shop permits across a shared district while moving hidden information and rule enforcement into a server-authoritative online experience. It is an unofficial, non-commercial project with original branding, writing, board art, and shop art.",
+      mySpecificBuilds: [
+        "Modeled the complete six-round game loop as a reusable TypeScript engine covering property selection, trading, placement, income, pause/resume, and final scoring.",
+        "Built password-protected rooms, signed player sessions, reconnectable WebSocket state, per-player hidden views, and host-only room controls on Cloudflare Workers and Durable Objects.",
+        "Designed the dense desktop game table, responsive player drawers, ledger, shop reference, board interactions, trade desk, and final-results experience.",
+      ],
+      keyFeatures: [
+        "Private password-protected rooms for 3–5 players",
+        "Real-time WebSocket synchronization and reconnectable sessions",
+        "Server-authoritative six-round game engine",
+        "Hidden property and shop hands projected per player",
+        "Atomic money, property, and shop-tile trade offers",
+        "Interactive district board with shop placement and ownership states",
+        "Automatic shop income, ledger history, and final ranking",
+        "Site access gate and host-only pause, resume, and room controls",
+      ],
+      implementation:
+        "The monorepo separates the React/Vite client, shared game engine, validated protocol, reusable UI, and Cloudflare Worker. Each room is owned by one SQLite-backed Durable Object; clients send versioned commands over WebSockets and receive a player-specific projection of the authoritative state.",
+      systemArchitecture:
+        "React/Vite client → Zod-validated command protocol → Cloudflare Worker routing → one Durable Object and SQLite state store per room → player-specific WebSocket snapshots.",
+      constraints:
+        "Designed for private game nights rather than public commercial distribution. The current hosted flow uses temporary Cloudflare Quick Tunnels, so no unstable tunnel URL is presented as a permanent live demo.",
+      challenges: [
+        "Preserving hidden information while keeping every browser synchronized to one authoritative match",
+        "Making multi-asset trades atomic so money, lots, and shop tiles cannot partially transfer",
+        "Translating a dense physical board and reference tables into a readable responsive interface",
+        "Handling reconnects, duplicate commands, stale versions, and host controls without desynchronizing the room",
+      ],
+      results:
+        "Completed a playable end-to-end match flow with original visual assets, automated engine and security tests, and browser-level coverage for the core multiplayer journey.",
+      lessonsLearned: [
+        "Multiplayer game UI must expose server state clearly without leaking private player information",
+        "A pure rules engine makes complex turn transitions easier to test than logic embedded in React components",
+        "Temporary tunnels are useful for private validation but should not be represented as durable production hosting",
+      ],
+    },
+  },
+  {
     slug: "tokokaret",
     title: "TokoKaret.com",
     category: "E-Commerce / Guided Product Recommendation",
