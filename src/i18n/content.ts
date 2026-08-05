@@ -176,7 +176,7 @@ const projectIdLocales: Record<string, ProjectLocale> = {
       "Merancang identitas produk dan game table responsif, mengimplementasikan rules engine enam ronde, membangun multiplayer private-room dan trade atomik, serta menghubungkan client React ke backend Cloudflare Worker yang stateful.",
     statusLabel: "Build untuk Sesi Privat",
     outcome:
-      "Menyelesaikan flow multiplayer enam ronde untuk 3–5 pemain, termasuk lobby privat, pemilihan properti, negosiasi, penempatan toko, perhitungan pendapatan, ledger, dan final scoring. Dibagikan secara privat melalui Cloudflare Quick Tunnel sementara, bukan deployment publik permanen.",
+      "Menyelesaikan flow multiplayer enam ronde dan memvalidasinya melalui UAT lima pemain sampai final scoring. Empat perbaikan interface dan kejelasan aturan berbasis feedback telah diterapkan dan diuji ulang. Dibagikan secara privat melalui Cloudflare Quick Tunnel sementara, bukan deployment publik permanen.",
     proofArtifacts: [
       {
         src: "/assets/case-studies/market-district-trade.webp",
@@ -190,10 +190,21 @@ const projectIdLocales: Record<string, ProjectLocale> = {
         caption:
           "Layar penyelesaian enam ronde menghitung pendapatan akhir dan mengurutkan seluruh pemain dari state game bersama yang otoritatif.",
       },
+      {
+        src: "/assets/case-studies/market-district-uat.png",
+        alt: "Hasil akhir UAT Market District dengan lima ranking pemain setelah menyelesaikan enam ronde.",
+        caption:
+          "UAT lima pemain mencapai ranking akhir setelah enam ronde; revisi interface berbasis feedback kemudian diuji ulang.",
+      },
     ],
     detail: {
       overview:
         "Market District adalah board game negosiasi sinkron untuk 3–5 pemain. Game ini membawa ketegangan sosial dari transaksi properti, uang, dan izin toko ke pengalaman online dengan shared district serta aturan yang ditegakkan server. Project ini bersifat tidak resmi dan nonkomersial, dengan branding, tulisan, board art, serta shop art original.",
+      metrics: [
+        { value: "5", label: "Pemain UAT" },
+        { value: "6", label: "Ronde diselesaikan" },
+        { value: "4", label: "Perbaikan diuji ulang" },
+      ],
       mySpecificBuilds: [
         "Memodelkan game loop enam ronde sebagai engine TypeScript reusable untuk pemilihan properti, trading, placement, income, pause/resume, dan final scoring.",
         "Membangun room berpassword, signed player session, state WebSocket yang dapat tersambung kembali, tampilan privat per pemain, dan host control melalui Cloudflare Workers serta Durable Objects.",
@@ -222,10 +233,11 @@ const projectIdLocales: Record<string, ProjectLocale> = {
         "Menangani reconnect, command duplikat, versi basi, dan host control tanpa menyebabkan desinkronisasi room",
       ],
       results:
-        "Menyelesaikan flow match end-to-end yang playable dengan aset visual original, automated test untuk engine dan security, serta browser coverage untuk perjalanan multiplayer inti.",
+        "Menyelesaikan flow match end-to-end yang playable dengan aset visual original, automated test untuk engine dan security, serta browser coverage. UAT lima pemain menyelesaikan seluruh enam ronde, lalu menguji ulang perbaikan format nominal dan kejelasan shop income, label hover lot dan tile, indikator seleksi yang lebih tipis, serta kamus shop.",
       lessonsLearned: [
         "UI game multiplayer harus memperlihatkan state server dengan jelas tanpa membocorkan informasi privat pemain",
         "Rules engine murni membuat transisi ronde kompleks lebih mudah diuji dibanding logic yang tertanam di komponen React",
+        "Playtesting multiplayer menemukan celah kejelasan aturan dan discoverability visual yang tidak terlihat dari automated coverage",
         "Tunnel sementara cocok untuk validasi privat tetapi tidak boleh dipresentasikan sebagai hosting production yang permanen",
       ],
     },

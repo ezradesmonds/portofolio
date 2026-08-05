@@ -187,7 +187,7 @@ export const projects: Project[] = [
     status: "prototype",
     statusLabel: "Private Play Build",
     outcome:
-      "Delivered a complete six-round multiplayer flow for 3–5 players, including private lobbies, property selection, negotiation, shop placement, income resolution, ledger history, and final scoring. Shared privately through temporary Cloudflare Quick Tunnels rather than a permanent public deployment.",
+      "Delivered a complete six-round multiplayer flow and validated it through a five-player UAT that reached final scoring. Four feedback-driven interface and rule-clarity fixes were implemented and retested. Shared privately through temporary Cloudflare Quick Tunnels rather than a permanent public deployment.",
     screenshot: "/assets/case-studies/market-district-trade.webp",
     proofStatus: "available",
     proofArtifacts: [
@@ -203,12 +203,23 @@ export const projects: Project[] = [
         caption:
           "Six-round completion screen resolves final income and ranks all players from the shared authoritative game state.",
       },
+      {
+        src: "/assets/case-studies/market-district-uat.png",
+        alt: "Market District five-player UAT final results showing all five rankings after six completed rounds.",
+        caption:
+          "Five-player UAT reached the final ranking after all six rounds; feedback-driven interface revisions were then retested.",
+      },
     ],
     featured: true,
     sortOrder: 5,
     detail: {
       overview:
         "Market District is a private, synchronous negotiation board game for 3–5 players. It recreates the social tension of trading properties, money, and shop permits across a shared district while moving hidden information and rule enforcement into a server-authoritative online experience. It is an unofficial, non-commercial project with original branding, writing, board art, and shop art.",
+      metrics: [
+        { value: "5", label: "UAT players" },
+        { value: "6", label: "Rounds completed" },
+        { value: "4", label: "Feedback fixes retested" },
+      ],
       mySpecificBuilds: [
         "Modeled the complete six-round game loop as a reusable TypeScript engine covering property selection, trading, placement, income, pause/resume, and final scoring.",
         "Built password-protected rooms, signed player sessions, reconnectable WebSocket state, per-player hidden views, and host-only room controls on Cloudflare Workers and Durable Objects.",
@@ -237,10 +248,11 @@ export const projects: Project[] = [
         "Handling reconnects, duplicate commands, stale versions, and host controls without desynchronizing the room",
       ],
       results:
-        "Completed a playable end-to-end match flow with original visual assets, automated engine and security tests, and browser-level coverage for the core multiplayer journey.",
+        "Completed a playable end-to-end match flow with original visual assets, automated engine and security tests, and browser-level coverage. A five-player UAT completed all six rounds, then retested fixes for currency input and shop-income clarity, lot and tile hover labels, thinner selection indicators, and the shop dictionary.",
       lessonsLearned: [
         "Multiplayer game UI must expose server state clearly without leaking private player information",
         "A pure rules engine makes complex turn transitions easier to test than logic embedded in React components",
+        "Multiplayer playtesting exposed rule and visual-discoverability gaps that automated coverage could not reveal",
         "Temporary tunnels are useful for private validation but should not be represented as durable production hosting",
       ],
     },
