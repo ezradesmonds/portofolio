@@ -143,6 +143,10 @@ export interface SiteConfig {
   github: string;
   linkedin: string;
   instagram: string;
+  upwork: string;
+  fiverr: string;
+  fiverrAiIntegrationGig: string;
+  superprof: string;
   cvUrl: string;
   headline: string;
   subheadline: string;

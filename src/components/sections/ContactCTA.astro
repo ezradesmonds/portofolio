@@ -16,6 +16,40 @@ const contactReturnUrl = new URL(lang === "id" ? "/id/?sent=1#contact" : "/?sent
         {t(lang, "contact.subtitle")}
       </p>
 
+      <div class="work-paths" aria-labelledby="work-paths-label">
+        <p id="work-paths-label" class="work-paths-label">{t(lang, "contact.pathsLabel")}</p>
+        <article class="work-path work-path-software">
+          <div class="work-path-copy">
+            <span class="work-path-kicker">AI / FULL-STACK</span>
+            <h3>{t(lang, "contact.softwareTitle")}</h3>
+            <p>{t(lang, "contact.softwareDescription")}</p>
+          </div>
+          <div class="work-path-actions">
+            <a href={SITE.upwork} target="_blank" rel="noopener noreferrer" class="work-path-primary">
+              {t(lang, "contact.upwork")} <span aria-hidden="true">&nearr;</span>
+            </a>
+            <a href={SITE.fiverrAiIntegrationGig} target="_blank" rel="noopener noreferrer">
+              {t(lang, "contact.fiverrGig")}
+            </a>
+            <a href={SITE.fiverr} target="_blank" rel="noopener noreferrer">
+              {t(lang, "contact.fiverrProfile")}
+            </a>
+          </div>
+        </article>
+        <article class="work-path work-path-lessons">
+          <div class="work-path-copy">
+            <span class="work-path-kicker">GUITAR LESSONS</span>
+            <h3>{t(lang, "contact.lessonsTitle")}</h3>
+            <p>{t(lang, "contact.lessonsDescription")}</p>
+          </div>
+          <div class="work-path-actions">
+            <a href={SITE.superprof} target="_blank" rel="noopener noreferrer" class="work-path-primary">
+              {t(lang, "contact.superprof")} <span aria-hidden="true">&nearr;</span>
+            </a>
+          </div>
+        </article>
+      </div>
+
       <form
         id="contact-form"
         action={`https://formsubmit.co/${SITE.email}`}
@@ -127,6 +161,109 @@ const contactReturnUrl = new URL(lang === "id" ? "/id/?sent=1#contact" : "/?sent
     overflow: hidden;
     clip-path: inset(50%);
     white-space: nowrap;
+  }
+
+  .work-paths {
+    display: grid;
+    gap: 0.75rem;
+    max-width: 48rem;
+    margin: 0 auto 2.5rem;
+    text-align: left;
+  }
+
+  .work-paths-label {
+    margin-bottom: 0.2rem;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .work-path {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.9rem;
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .work-path-software {
+    border-color: color-mix(in srgb, var(--color-accent-cyan) 28%, transparent);
+  }
+
+  .work-path-lessons {
+    border-color: color-mix(in srgb, var(--color-accent-violet) 24%, transparent);
+  }
+
+  .work-path-kicker {
+    color: var(--color-accent-cyan);
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+  }
+
+  .work-path-lessons .work-path-kicker {
+    color: var(--color-accent-violet);
+  }
+
+  .work-path h3 {
+    margin-top: 0.35rem;
+    color: white;
+    font-size: 1.05rem;
+    font-weight: 800;
+  }
+
+  .work-path-copy p {
+    max-width: 34rem;
+    margin-top: 0.35rem;
+    color: var(--color-text-secondary);
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
+
+  .work-path-actions {
+    display: flex;
+    min-width: 12.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
+  }
+
+  .work-path-actions a {
+    color: var(--color-text-secondary);
+    font-size: 0.76rem;
+    font-weight: 650;
+    transition: color 160ms ease;
+  }
+
+  .work-path-actions a:hover,
+  .work-path-actions a:focus-visible {
+    color: white;
+  }
+
+  .work-path-actions .work-path-primary {
+    color: var(--color-accent-cyan);
+  }
+
+  .work-path-lessons .work-path-primary {
+    color: var(--color-accent-violet);
+  }
+
+  @media (max-width: 640px) {
+    .work-path {
+      grid-template-columns: 1fr;
+      gap: 0.9rem;
+    }
+
+    .work-path-actions {
+      min-width: 0;
+    }
   }
 
   .captcha-note {

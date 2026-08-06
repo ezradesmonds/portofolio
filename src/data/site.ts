@@ -10,6 +10,11 @@ export const SITE: SiteConfig = {
   github: "https://github.com/ezradesmonds",
   linkedin: "https://www.linkedin.com/in/ezradesmonds/",
   instagram: "https://instagram.com/ezradesmonds",
+  upwork: "https://upwork.com/freelancers/~01581b3a41ebe44f76",
+  fiverr: "https://www.fiverr.com/s/BRqko5G",
+  fiverrAiIntegrationGig: "https://www.fiverr.com/s/ljxDkp7",
+  superprof:
+    "https://www.superprof.co.id/belajar-gitar-akustik-dan-elektrik-dari-nol-hingga-memainkan-lagu-favorit-bersama-gitaris-aktif-peraih-juara-kompetisi-band.html",
   cvUrl: "/assets/documents/ezra-desmond-sutanto-cv.pdf",
   headline: "Informatics Student & AI/Full-Stack Builder",
   subheadline:

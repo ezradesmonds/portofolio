@@ -66,6 +66,17 @@ export const translations = {
     "contact.sendEmail": "Send an Email",
     "contact.linkedin": "LinkedIn",
     "contact.github": "GitHub",
+    "contact.pathsLabel": "Ways to work together",
+    "contact.softwareTitle": "Build an AI-powered web feature",
+    "contact.softwareDescription":
+      "For scoped AI integrations and full-stack development. Review my background on Upwork or start from the packaged Fiverr service.",
+    "contact.upwork": "View Upwork profile",
+    "contact.fiverrGig": "View AI integration gig",
+    "contact.fiverrProfile": "Fiverr profile",
+    "contact.lessonsTitle": "Learn acoustic or electric guitar",
+    "contact.lessonsDescription":
+      "Beginner-friendly, structured private lessons in Surabaya or online. Rated 5/5 from 4 public reviews; Rp120,000 per hour.",
+    "contact.superprof": "View lessons on Superprof",
 
     "contact.form.name": "Your Name",
     "contact.form.namePlaceholder": "John Doe",
@@ -157,6 +168,17 @@ export const translations = {
     "contact.sendEmail": "Kirim Email",
     "contact.linkedin": "LinkedIn",
     "contact.github": "GitHub",
+    "contact.pathsLabel": "Cara bekerja bersama",
+    "contact.softwareTitle": "Bangun fitur web bertenaga AI",
+    "contact.softwareDescription":
+      "Untuk integrasi AI dan pengembangan full-stack dengan scope yang jelas. Lihat latar belakang saya di Upwork atau mulai dari layanan Fiverr.",
+    "contact.upwork": "Lihat profil Upwork",
+    "contact.fiverrGig": "Lihat gig integrasi AI",
+    "contact.fiverrProfile": "Profil Fiverr",
+    "contact.lessonsTitle": "Belajar gitar akustik atau elektrik",
+    "contact.lessonsDescription":
+      "Les privat terstruktur untuk pemula di Surabaya atau online. Rating publik 5/5 dari 4 ulasan; Rp120.000 per jam.",
+    "contact.superprof": "Lihat les di Superprof",
 
     "contact.form.name": "Nama Anda",
     "contact.form.namePlaceholder": "John Doe",
