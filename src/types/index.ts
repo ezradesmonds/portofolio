@@ -145,10 +145,19 @@ export interface SiteConfig {
   instagram: string;
   upwork: string;
   fiverr: string;
-  fiverrAiIntegrationGig: string;
+  fiverrGigs: FiverrGig[];
   superprof: string;
   cvUrl: string;
   headline: string;
   subheadline: string;
   availabilityMessage: string;
+}
+
+export interface FiverrGig {
+  url: string;
+  title: {
+    en: string;
+    id: string;
+  };
+  startingPrice: string;
 }

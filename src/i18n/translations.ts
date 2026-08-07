@@ -71,8 +71,9 @@ export const translations = {
     "contact.softwareDescription":
       "For scoped AI integrations and full-stack development. Review my background on Upwork or start from the packaged Fiverr service.",
     "contact.upwork": "View Upwork profile",
-    "contact.fiverrGig": "View AI integration gig",
-    "contact.fiverrProfile": "Fiverr profile",
+    "contact.fiverrCatalog": "Packaged services on Fiverr",
+    "contact.fiverrFrom": "From",
+    "contact.fiverrProfile": "View all Fiverr services",
     "contact.lessonsTitle": "Learn acoustic or electric guitar",
     "contact.lessonsDescription":
       "Beginner-friendly, structured private lessons in Surabaya or online. Rated 5/5 from 4 public reviews; Rp120,000 per hour.",
@@ -173,8 +174,9 @@ export const translations = {
     "contact.softwareDescription":
       "Untuk integrasi AI dan pengembangan full-stack dengan scope yang jelas. Lihat latar belakang saya di Upwork atau mulai dari layanan Fiverr.",
     "contact.upwork": "Lihat profil Upwork",
-    "contact.fiverrGig": "Lihat gig integrasi AI",
-    "contact.fiverrProfile": "Profil Fiverr",
+    "contact.fiverrCatalog": "Layanan siap-pesan di Fiverr",
+    "contact.fiverrFrom": "Mulai",
+    "contact.fiverrProfile": "Lihat semua layanan Fiverr",
     "contact.lessonsTitle": "Belajar gitar akustik atau elektrik",
     "contact.lessonsDescription":
       "Les privat terstruktur untuk pemula di Surabaya atau online. Rating publik 5/5 dari 4 ulasan; Rp120.000 per jam.",

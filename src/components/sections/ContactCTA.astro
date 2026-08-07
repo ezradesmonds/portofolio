@@ -28,11 +28,19 @@ const contactReturnUrl = new URL(lang === "id" ? "/id/?sent=1#contact" : "/?sent
             <a href={SITE.upwork} target="_blank" rel="noopener noreferrer" class="work-path-primary">
               {t(lang, "contact.upwork")} <span aria-hidden="true">&nearr;</span>
             </a>
-            <a href={SITE.fiverrAiIntegrationGig} target="_blank" rel="noopener noreferrer">
-              {t(lang, "contact.fiverrGig")}
-            </a>
-            <a href={SITE.fiverr} target="_blank" rel="noopener noreferrer">
-              {t(lang, "contact.fiverrProfile")}
+          </div>
+          <div class="fiverr-catalog">
+            <p class="fiverr-catalog-label">{t(lang, "contact.fiverrCatalog")}</p>
+            <div class="fiverr-gigs">
+              {SITE.fiverrGigs.map((gig) => (
+                <a href={gig.url} target="_blank" rel="noopener noreferrer" class="fiverr-gig">
+                  <span>{gig.title[lang]}</span>
+                  <small>{t(lang, "contact.fiverrFrom")} {gig.startingPrice} <span aria-hidden="true">&nearr;</span></small>
+                </a>
+              ))}
+            </div>
+            <a href={SITE.fiverr} target="_blank" rel="noopener noreferrer" class="fiverr-profile-link">
+              {t(lang, "contact.fiverrProfile")} <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
         </article>
@@ -193,6 +201,14 @@ const contactReturnUrl = new URL(lang === "id" ? "/id/?sent=1#contact" : "/?sent
   }
 
   .work-path-software {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .work-path-software .fiverr-catalog {
+    grid-column: 1 / -1;
+  }
+
+  .work-path-software {
     border-color: color-mix(in srgb, var(--color-accent-cyan) 28%, transparent);
   }
 
@@ -251,6 +267,70 @@ const contactReturnUrl = new URL(lang === "id" ? "/id/?sent=1#contact" : "/?sent
     color: var(--color-accent-cyan);
   }
 
+  .fiverr-catalog {
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .fiverr-catalog-label {
+    margin-bottom: 0.65rem;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    font-weight: 750;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .fiverr-gigs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .fiverr-gig {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.65rem;
+    background: rgba(0, 0, 0, 0.12);
+    color: white;
+    font-size: 0.76rem;
+    font-weight: 700;
+    line-height: 1.35;
+    transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
+  }
+
+  .fiverr-gig small {
+    color: var(--color-accent-cyan);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+  }
+
+  .fiverr-gig:hover,
+  .fiverr-gig:focus-visible {
+    border-color: color-mix(in srgb, var(--color-accent-cyan) 42%, transparent);
+    background: color-mix(in srgb, var(--color-accent-cyan) 6%, transparent);
+    transform: translateY(-2px);
+  }
+
+  .fiverr-profile-link {
+    display: inline-block;
+    margin-top: 0.7rem;
+    color: var(--color-text-secondary);
+    font-size: 0.7rem;
+    font-weight: 650;
+  }
+
+  .fiverr-profile-link:hover,
+  .fiverr-profile-link:focus-visible {
+    color: white;
+  }
+
   .work-path-lessons .work-path-primary {
     color: var(--color-accent-violet);
   }
@@ -263,6 +343,10 @@ const contactReturnUrl = new URL(lang === "id" ? "/id/?sent=1#contact" : "/?sent
 
     .work-path-actions {
       min-width: 0;
+    }
+
+    .fiverr-gigs {
+      grid-template-columns: 1fr;
     }
   }
 
