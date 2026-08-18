@@ -25,9 +25,11 @@ export const experiences: Experience[] = [
     highlights: [
       "Developed an online recruitment platform used by 100+ committee applicants during the organizing team's recruitment process",
       "Built an administrative dashboard for committee management and recruitment operations",
-      "Developed the official landing website providing information and onboarding resources for 1,000+ incoming freshmen",
+      "Developed the official landing website providing information and onboarding resources for approximately 1,300 incoming freshmen",
+      "Built the participant-facing, three-stage decision game and integrated operator-controlled state, 30-second voting windows, and live result updates through Laravel and Ably Pro for an approximately 1,300-attendee session target",
+      "Implemented subscribe-only realtime authentication, session-linked voting, duplicate-vote protection, and polling fallback; full load at approximately 1,300 concurrent users and live-event usage remain pending validation",
     ],
-    skills: ["Web Development", "Laravel", "Full-Stack Development", "Database Management"],
+    skills: ["Laravel", "Ably", "Real-Time Systems", "Full-Stack Development", "Event Technology"],
   },
   {
     organization: "Investalk Talkshow",

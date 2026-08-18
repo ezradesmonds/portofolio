@@ -342,6 +342,96 @@ export const projects: Project[] = [
     },
   },
   {
+    slug: "wgg-2026-realtime-voting-game",
+    title: "WGG 2026 Real-Time Voting Game",
+    category: "Real-Time Event Game / Audience Voting",
+    description:
+      "A three-stage, operator-controlled decision game designed for an orientation session of approximately 1,300 incoming students, with synchronized timers, Ably-powered state updates, voting, and live result visualization.",
+    problem:
+      "A large orientation audience needs to move through the same story, vote within short windows, and see aggregate results without manual refreshes or uncontrolled stage transitions.",
+    targetUsers:
+      "Approximately 1,300 incoming Informatics students and the WGG 2026 session operator",
+    role: "Participant experience and real-time integration developer",
+    contribution:
+      "Built the participant-facing three-stage game, connected Laravel frontend and admin services, integrated Ably Pro with subscribe-only browser tokens, implemented session-linked vote submission and result mapping, and helped diagnose capacity risks before the live session.",
+    technologies: ["Laravel", "PHP", "JavaScript", "Blade", "Ably Pro", "MySQL"],
+    status: "in-development",
+    statusLabel: "Event Delivery in Progress",
+    outcome:
+      "The end-to-end landing, three-stage voting, result, and ending flow is implemented with source-level tests and a polling fallback. Approximately 1,300 is the event audience target; full-scale load and live-event usage are not yet claimed.",
+    screenshot: "/assets/case-studies/wgg-wasbang-realtime-architecture.svg",
+    proofStatus: "available",
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/wgg-wasbang-realtime-architecture.svg",
+        alt: "Architecture diagram for the WGG 2026 real-time voting game showing operator controls, Ably state broadcasts, participant voting, Laravel services, database storage, and live results.",
+        caption:
+          "Current delivery architecture: operator state changes broadcast through Ably while authenticated participant votes travel through the Laravel application to persisted results.",
+      },
+    ],
+    featured: true,
+    sortOrder: 4,
+    detail: {
+      overview:
+        "The WGG 2026 Wawasan Kebangsaan experience turns three ethical and career decision scenarios into a synchronized audience game. An operator controls stage changes and 30-second voting windows; participant browsers follow the same state, submit one vote per stage, and render the aggregate A/B result.",
+      metrics: [
+        { value: "3", label: "Decision stages", context: "Defined in the event concept and implemented in the participant flow." },
+        { value: "30s", label: "Voting window", context: "Operator-triggered timer for each stage." },
+        { value: "≈1,300", label: "Audience target", context: "Approximate orientation-session target; not yet a verified live-user count." },
+      ],
+      mySpecificBuilds: [
+        "Built the mobile participant UI for landing, three decision stages, voting results, and the ending state from the event team's supplied narrative and visual assets.",
+        "Connected operator-controlled game state to participant browsers through the Ably channel and mapped backend state into the existing Blade/JavaScript UI engine.",
+        "Implemented a server-side token endpoint so browsers receive subscribe-only realtime access instead of exposing the full Ably API key.",
+        "Connected votes to the Laravel admin API using the signed-in participant identity, stage validation, voting-window checks, and one stored answer per participant, run, and stage.",
+      ],
+      keyFeatures: [
+        "Operator-controlled landing, stage, result, and ending transitions",
+        "Three decision scenarios with two voting choices each",
+        "Synchronized 30-second voting windows",
+        "Ably-powered realtime game-state updates",
+        "Subscribe-only browser token authentication",
+        "Session-linked voting and duplicate-vote protection",
+        "Aggregate A/B percentages and majority result display",
+        "Polling fallback when the realtime connection is unavailable",
+      ],
+      featureStatus: [
+        {
+          name: "Participant game flow",
+          status: "working",
+          note: "Landing, three stages, results, timer behavior, and ending flow are implemented and source-tested.",
+        },
+        {
+          name: "Ably realtime synchronization",
+          status: "working",
+          note: "Participant clients subscribe with server-issued limited tokens and receive operator/game-state events.",
+        },
+        {
+          name: "Approximately 1,300 concurrent audience capacity",
+          status: "unvalidated",
+          note: "Ably Pro is configured, but end-to-end load also depends on polling, rate limits, database contention, asset delivery, and hosting capacity. A load test at approximately 1,300 concurrent users has not been evidenced yet.",
+        },
+      ],
+      systemArchitecture:
+        "Operator controls update the Laravel admin state → Ably broadcasts game-state changes → participant browsers render the active stage and timer. Participant votes follow a separate authenticated HTTP path through the Laravel frontend proxy → admin API → database → aggregate result state.",
+      constraints:
+        "The frontend and admin repositories are private team systems, so no source link or public live URL is exposed. The event visual assets were supplied by the WGG Creative team. Portfolio claims distinguish implemented behavior from the still-unverified live-load target of approximately 1,300 users.",
+      challenges: [
+        "Keeping all participant browsers synchronized with operator-controlled transitions while retaining a degraded polling path",
+        "Protecting the Ably server credential and limiting browser clients to subscribe-only capabilities",
+        "Preventing duplicate or out-of-window votes without trusting a participant identifier supplied by the browser",
+        "Preparing for an approximately 1,300-person audience without treating realtime-provider connection capacity as proof that the full Laravel and database path can sustain the same load",
+      ],
+      results:
+        "The complete participant flow and realtime integration are implemented, with source-level frontend/admin tests and browser QA recorded in the development task. The approximately 1,300-user production load and live-event outcome remain pending and are intentionally not presented as completed impact.",
+      lessonsLearned: [
+        "Realtime capacity is an end-to-end property: provider limits, polling, HTTP rate limits, database writes, fan-out, assets, and hosting all matter.",
+        "Operator events and participant votes should follow separate paths because their frequency, authorization, and failure modes differ.",
+        "Server-issued capability tokens are safer than exposing a full realtime API key in browser code.",
+      ],
+    },
+  },
+  {
     slug: "financeos",
     title: "FinanceOS",
     category: "Quantitative Research / FinTech / AI",

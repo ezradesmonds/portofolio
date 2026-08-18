@@ -105,7 +105,7 @@ const projectStructuredData = {
       <p class="text-xl text-text-secondary leading-relaxed mb-12">{project.description}</p>
 
       {project.screenshot && (
-        <figure class="case-hero-shot mb-14">
+        <figure class:list={["case-hero-shot mb-14", { "case-hero-shot--diagram": project.slug === "wgg-2026-realtime-voting-game" }]}>
           <img src={project.screenshot} alt={`${project.title} interface preview`} loading="eager" decoding="async" />
         </figure>
       )}
@@ -311,6 +311,11 @@ const projectStructuredData = {
     max-height: 34rem;
     object-fit: cover;
     display: block;
+  }
+
+  .case-hero-shot--diagram img {
+    max-height: none;
+    object-fit: contain;
   }
 
   .ai-system-panel {

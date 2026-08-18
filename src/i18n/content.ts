@@ -316,6 +316,89 @@ const projectIdLocales: Record<string, ProjectLocale> = {
       },
     ],
   },
+  "wgg-2026-realtime-voting-game": {
+    title: "Game Voting Real-Time WGG 2026",
+    category: "Game Event Real-Time / Voting Audiens",
+    description:
+      "Game keputusan tiga tahap yang dikendalikan operator dan dirancang untuk sesi orientasi sekitar 1.300 mahasiswa baru, dengan timer tersinkron, update state melalui Ably, voting, dan visualisasi hasil live.",
+    problem:
+      "Audiens orientasi berskala besar perlu mengikuti alur cerita yang sama, voting dalam waktu singkat, dan melihat hasil agregat tanpa refresh manual atau perpindahan tahap yang tidak terkendali.",
+    targetUsers:
+      "Sekitar 1.300 mahasiswa baru Informatika dan operator sesi WGG 2026",
+    role: "Developer pengalaman peserta dan integrasi real-time",
+    contribution:
+      "Membangun game tiga tahap untuk peserta, menghubungkan service frontend dan admin Laravel, mengintegrasikan Ably Pro dengan token browser subscribe-only, mengimplementasikan vote berbasis session dan pemetaan hasil, serta membantu mendiagnosis risiko kapasitas sebelum sesi live.",
+    statusLabel: "Delivery Event Berjalan",
+    outcome:
+      "Flow landing, tiga tahap voting, hasil, dan ending sudah terimplementasi end-to-end dengan source-level test dan fallback polling. Sekitar 1.300 adalah target audiens event; load skala penuh dan penggunaan live belum diklaim.",
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/wgg-wasbang-realtime-architecture.svg",
+        alt: "Diagram arsitektur game voting real-time WGG 2026 yang menampilkan kontrol operator, broadcast state melalui Ably, voting peserta, service Laravel, penyimpanan database, dan hasil live.",
+        caption:
+          "Arsitektur delivery saat ini: perubahan state operator dibroadcast melalui Ably, sementara vote peserta yang terautentikasi melewati aplikasi Laravel menuju hasil yang tersimpan.",
+      },
+    ],
+    detail: {
+      overview:
+        "Pengalaman Wawasan Kebangsaan WGG 2026 mengubah tiga skenario keputusan etika dan karier menjadi game audiens yang tersinkron. Operator mengatur perpindahan tahap dan jendela voting 30 detik; browser peserta mengikuti state yang sama, mengirim satu vote per tahap, lalu merender hasil agregat A/B.",
+      metrics: [
+        { value: "3", label: "Tahap keputusan", context: "Ditetapkan dalam konsep event dan diimplementasikan dalam flow peserta." },
+        { value: "30 dtk", label: "Jendela voting", context: "Timer setiap tahap yang dipicu operator." },
+        { value: "≈1.300", label: "Target audiens", context: "Perkiraan target sesi orientasi, belum menjadi jumlah user live yang terverifikasi." },
+      ],
+      mySpecificBuilds: [
+        "Membangun UI mobile peserta untuk landing, tiga tahap keputusan, hasil voting, dan ending berdasarkan narasi serta aset visual yang diberikan tim event.",
+        "Menghubungkan state game yang dikendalikan operator ke browser peserta melalui channel Ably dan memetakan state backend ke engine UI Blade/JavaScript yang sudah ada.",
+        "Mengimplementasikan endpoint token server-side agar browser menerima akses realtime subscribe-only tanpa mengekspos API key penuh Ably.",
+        "Menghubungkan vote ke API admin Laravel menggunakan identitas peserta yang sudah login, validasi tahap, pengecekan waktu voting, serta satu jawaban tersimpan per peserta, run, dan tahap.",
+      ],
+      keyFeatures: [
+        "Transisi landing, tahap, hasil, dan ending yang dikendalikan operator",
+        "Tiga skenario keputusan dengan dua pilihan voting per tahap",
+        "Jendela voting 30 detik yang tersinkron",
+        "Update state game real-time melalui Ably",
+        "Autentikasi token browser subscribe-only",
+        "Voting berbasis session dan perlindungan vote duplikat",
+        "Persentase A/B agregat dan tampilan pilihan mayoritas",
+        "Fallback polling ketika koneksi realtime tidak tersedia",
+      ],
+      featureStatus: [
+        {
+          name: "Flow game peserta",
+          status: "working",
+          note: "Landing, tiga tahap, hasil, timer, dan ending sudah diimplementasikan serta diuji pada level source.",
+        },
+        {
+          name: "Sinkronisasi realtime Ably",
+          status: "working",
+          note: "Client peserta subscribe menggunakan token terbatas dari server dan menerima event state operator/game.",
+        },
+        {
+          name: "Kapasitas sekitar 1.300 audiens concurrent",
+          status: "unvalidated",
+          note: "Ably Pro sudah dikonfigurasi, tetapi load end-to-end juga bergantung pada polling, rate limit, contention database, delivery aset, dan kapasitas hosting. Bukti load test penuh untuk sekitar 1.300 user belum tersedia.",
+        },
+      ],
+      systemArchitecture:
+        "Kontrol operator memperbarui state admin Laravel → Ably membroadcast perubahan state game → browser peserta merender tahap aktif dan timer. Vote peserta memakai jalur HTTP terpisah yang terautentikasi melalui proxy frontend Laravel → API admin → database → state hasil agregat.",
+      constraints:
+        "Repo frontend dan admin adalah sistem privat milik tim, sehingga source link atau URL live publik tidak ditampilkan. Aset visual event disediakan oleh tim Creative WGG. Klaim portfolio membedakan perilaku yang sudah diimplementasikan dari target load live sekitar 1.300 user yang belum terverifikasi.",
+      challenges: [
+        "Menjaga semua browser peserta sinkron terhadap transisi operator sambil mempertahankan fallback polling",
+        "Melindungi kredensial server Ably dan membatasi client browser hanya pada capability subscribe",
+        "Mencegah vote duplikat atau di luar waktu tanpa mempercayai identifier peserta yang dikirim browser",
+        "Menyiapkan target sekitar 1.300 audiens tanpa menganggap kapasitas koneksi provider realtime sebagai bukti bahwa seluruh jalur Laravel dan database mampu menahan load yang sama",
+      ],
+      results:
+        "Flow peserta dan integrasi realtime sudah lengkap, dengan source-level test frontend/admin serta browser QA yang tercatat pada task development. Load production untuk sekitar 1.300 user dan hasil event live masih pending dan sengaja tidak dipresentasikan sebagai impact yang sudah selesai.",
+      lessonsLearned: [
+        "Kapasitas realtime adalah properti end-to-end: limit provider, polling, rate limit HTTP, write database, fan-out, aset, dan hosting sama-sama berpengaruh.",
+        "Event operator dan vote peserta sebaiknya memakai jalur terpisah karena frekuensi, otorisasi, dan failure mode-nya berbeda.",
+        "Capability token yang diterbitkan server lebih aman daripada mengekspos API key realtime penuh di kode browser.",
+      ],
+    },
+  },
   financeos: {
     category: "Riset Kuantitatif / FinTech / AI",
     description:
@@ -1143,9 +1226,11 @@ const experienceIdLocalesByKey: Record<string, Partial<Experience>> = {
     highlights: [
       "Mengembangkan platform rekrutmen online yang digunakan 100+ calon panitia selama proses rekrutmen tim penyelenggara",
       "Membangun dashboard administratif untuk manajemen panitia dan operasi rekrutmen",
-      "Mengembangkan website landing resmi berisi informasi dan resource onboarding untuk 1.000+ mahasiswa baru",
+      "Mengembangkan website landing resmi berisi informasi dan resource onboarding untuk sekitar 1.300 mahasiswa baru",
+      "Membangun game keputusan tiga tahap untuk peserta dengan kontrol operator, jendela voting 30 detik, dan update hasil live melalui Laravel serta Ably Pro untuk target sesi sekitar 1.300 orang",
+      "Mengimplementasikan autentikasi realtime subscribe-only, voting berbasis session, perlindungan vote duplikat, dan fallback polling; load sekitar 1.300 user serta penggunaan live masih menunggu validasi",
     ],
-    skills: ["Web Development", "Laravel", "Full-Stack Development", "Manajemen Database"],
+    skills: ["Laravel", "Ably", "Sistem Real-Time", "Full-Stack Development", "Teknologi Event"],
   },
   "Innofashion Show 8::Head / Coordinator of IT Division": {
     role: "Kepala / Koordinator Divisi IT",

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">WGG 2026 realtime voting architecture</title>
+  <desc id="desc">Operator controls broadcast state through Ably to an audience target of approximately thirteen hundred participants, while authenticated votes pass through Laravel services to the database and live result view.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b0d08"/>
+      <stop offset="1" stop-color="#171b10"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f4ff72"/>
+      <stop offset="1" stop-color="#76ffe0"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0 0L12 6 0 12Z" fill="#a9b48e"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g opacity=".2" stroke="#f4ff72">
+    <path d="M0 120H1600M0 240H1600M0 360H1600M0 480H1600M0 600H1600M0 720H1600M0 840H1600"/>
+    <path d="M160 0V900M320 0V900M480 0V900M640 0V900M800 0V900M960 0V900M1120 0V900M1280 0V900M1440 0V900"/>
+  </g>
+  <text x="92" y="105" fill="#f7f9ee" font-family="Arial, sans-serif" font-size="54" font-weight="800" letter-spacing="2">WGG 2026 / REAL-TIME VOTING</text>
+  <text x="94" y="150" fill="#9ba58a" font-family="monospace" font-size="24" letter-spacing="3">OPERATOR-CONTROLLED STATE + AUTHENTICATED AUDIENCE INPUT</text>
+
+  <g transform="translate(90 260)">
+    <rect width="300" height="190" rx="24" fill="#171a12" stroke="#f4ff72" stroke-width="3"/>
+    <text x="34" y="58" fill="#f4ff72" font-family="monospace" font-size="22" font-weight="700">01 / OPERATOR</text>
+    <text x="34" y="108" fill="#f7f9ee" font-family="Arial, sans-serif" font-size="30" font-weight="700">Stage &amp; timer</text>
+    <text x="34" y="148" fill="#aeb69e" font-family="Arial, sans-serif" font-size="20">Controls the shared session</text>
+  </g>
+
+  <path d="M390 355H550" stroke="#a9b48e" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="420" y="330" fill="#aeb69e" font-family="monospace" font-size="17">STATE EVENT</text>
+
+  <g transform="translate(560 260)">
+    <rect width="300" height="190" rx="24" fill="#171a12" stroke="url(#accent)" stroke-width="3"/>
+    <circle cx="150" cy="75" r="31" fill="#f4ff72" opacity=".12" filter="url(#glow)"/>
+    <circle cx="150" cy="75" r="13" fill="#f4ff72"/>
+    <text x="78" y="135" fill="#f7f9ee" font-family="Arial, sans-serif" font-size="31" font-weight="800">ABLY PRO</text>
+    <text x="44" y="168" fill="#aeb69e" font-family="monospace" font-size="17">SUBSCRIBE-ONLY TOKENS</text>
+  </g>
+
+  <path d="M860 355H1020" stroke="#a9b48e" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="890" y="330" fill="#aeb69e" font-family="monospace" font-size="17">BROADCAST</text>
+
+  <g transform="translate(1030 230)">
+    <rect width="470" height="250" rx="24" fill="#171a12" stroke="#76ffe0" stroke-width="3"/>
+    <text x="34" y="58" fill="#76ffe0" font-family="monospace" font-size="22" font-weight="700">02 / PARTICIPANTS</text>
+    <text x="34" y="112" fill="#f7f9ee" font-family="Arial, sans-serif" font-size="34" font-weight="800">≈1,300 audience target</text>
+    <text x="34" y="156" fill="#aeb69e" font-family="Arial, sans-serif" font-size="21">3 stages · 30-second voting windows</text>
+    <g fill="none" stroke="#76ffe0" stroke-width="3">
+      <rect x="36" y="190" width="76" height="34" rx="8"/><rect x="129" y="190" width="76" height="34" rx="8"/>
+      <rect x="222" y="190" width="76" height="34" rx="8"/><rect x="315" y="190" width="76" height="34" rx="8"/>
+    </g>
+  </g>
+
+  <path d="M1265 480V590H1035" stroke="#a9b48e" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+  <text x="1287" y="545" fill="#aeb69e" font-family="monospace" font-size="17">VOTE / HTTP</text>
+
+  <g transform="translate(720 550)">
+    <rect width="310" height="190" rx="24" fill="#171a12" stroke="#f4ff72" stroke-width="3"/>
+    <text x="34" y="56" fill="#f4ff72" font-family="monospace" font-size="22" font-weight="700">03 / LARAVEL</text>
+    <text x="34" y="106" fill="#f7f9ee" font-family="Arial, sans-serif" font-size="29" font-weight="700">Vote validation</text>
+    <text x="34" y="144" fill="#aeb69e" font-family="Arial, sans-serif" font-size="19">Session · stage · time window</text>
+  </g>
+
+  <path d="M720 645H550" stroke="#a9b48e" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="586" y="620" fill="#aeb69e" font-family="monospace" font-size="17">UPSERT</text>
+
+  <g transform="translate(250 550)">
+    <rect width="300" height="190" rx="24" fill="#171a12" stroke="#82916c" stroke-width="3"/>
+    <text x="34" y="56" fill="#9cac82" font-family="monospace" font-size="22" font-weight="700">04 / DATABASE</text>
+    <text x="34" y="106" fill="#f7f9ee" font-family="Arial, sans-serif" font-size="29" font-weight="700">Stored answers</text>
+    <text x="34" y="144" fill="#aeb69e" font-family="Arial, sans-serif" font-size="19">One vote / run / stage</text>
+  </g>
+
+  <path d="M400 550V500H560" stroke="#a9b48e" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+  <text x="420" y="525" fill="#aeb69e" font-family="monospace" font-size="17">RESULT STATE</text>
+
+  <text x="92" y="838" fill="#9ba58a" font-family="monospace" font-size="20">IMPLEMENTED FLOW · FULL ≈1,300 LOAD VALIDATION PENDING</text>
+  <rect x="90" y="790" width="1410" height="2" fill="url(#accent)"/>
+</svg>
