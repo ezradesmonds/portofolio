@@ -39,7 +39,6 @@ export function NameBillboard({ progressRef }: { progressRef: React.RefObject<Sc
     <group ref={group} position={[0, 2.75, 0.2]}>
       <Text
         ref={textRef}
-        text="Ezra Desmond"
         fontSize={0.46}
         letterSpacing={0.05}
         color="#F4FF72"
@@ -49,7 +48,9 @@ export function NameBillboard({ progressRef }: { progressRef: React.RefObject<Sc
         anchorX="center"
         anchorY="middle"
         textAlign="center"
-      />
+      >
+        Ezra Desmond
+      </Text>
     </group>
   );
 }

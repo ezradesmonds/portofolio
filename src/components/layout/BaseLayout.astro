@@ -4,6 +4,7 @@ import SiteHeader from "./SiteHeader.astro";
 import SiteFooter from "./SiteFooter.astro";
 import EzraLoader from "./EzraLoader.astro";
 import SmoothScroll from "../interactive/SmoothScroll.astro";
+import CustomCursor from "../interactive/CustomCursor";
 import { SITE } from "../../data/site";
 import { alternateLangPath, resolveLang, t } from "../../i18n/utils";
 import type { Lang } from "../../i18n/translations";
@@ -122,5 +123,6 @@ const jsonLd = [...baseStructuredData, ...extraStructuredData];
     </main>
     <SiteFooter lang={lang} />
     <SmoothScroll />
+    <CustomCursor client:load />
   </body>
 </html>

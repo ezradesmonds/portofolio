@@ -4,6 +4,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+export interface ScrollState {
+  progress: number;
+}
+
 export interface UseScrollProgressOptions {
   /**
    * Scroll distance for the whole sequence, measured from the top of the

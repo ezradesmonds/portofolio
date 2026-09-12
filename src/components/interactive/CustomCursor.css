@@ -1,0 +1,62 @@
+/* Hide the native cursor everywhere once the custom cursor is active. */
+.has-custom-cursor,
+.has-custom-cursor * {
+  cursor: none !important;
+}
+
+.cur-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  border-radius: 999px;
+  background: var(--color-accent-cyan);
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.cur-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9998;
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid rgba(244, 255, 114, 0.55);
+  border-radius: 999px;
+  background: rgba(244, 255, 114, 0.05);
+  pointer-events: none;
+  transition: opacity 0.2s ease, background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.cur-arrow {
+  width: 20px;
+  height: 20px;
+  color: var(--color-accent-cyan);
+  display: grid;
+  place-items: center;
+}
+
+.cur-arrow svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Fade the cursor out when the pointer leaves the window. */
+.cursor-out .cur-dot,
+.cursor-out .cur-ring {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cur-dot,
+  .cur-ring {
+    display: none;
+  }
+}

@@ -118,7 +118,7 @@ export function createHologramMaterial(texture: THREE.Texture): THREE.ShaderMate
   return new THREE.ShaderMaterial({
     vertexShader,
     fragmentShader,
-    uniforms,
+    uniforms: uniforms as unknown as Record<string, THREE.IUniform>,
     transparent: true,
     depthWrite: false,
     blending: THREE.AdditiveBlending,

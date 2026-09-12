@@ -1,0 +1,35 @@
+---
+import ScrollVelocity from "../interactive/ScrollVelocity";
+import { resolveLang } from "../../i18n/utils";
+
+const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname);
+
+const texts = lang === "id"
+  ? ["Sistem AI", "Full-Stack", "Eksekusi", "Ayo Bangun Bersama"]
+  : ["AI Systems", "Full-Stack", "Execution", "Let's Build Together"];
+---
+
+<section class="sv-marquee" aria-hidden="true">
+  <ScrollVelocity
+    client:load
+    texts={texts}
+    velocity={80}
+    className="px-6"
+    scrollerStyle={{
+      fontFamily: "var(--font-display)",
+      color: "var(--color-accent-cyan)",
+      fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+      lineHeight: "1.05",
+      letterSpacing: "-0.02em",
+    }}
+  />
+</section>
+
+<style>
+  .sv-marquee {
+    position: relative;
+    padding: 5rem 0;
+    border-block: 1px solid rgba(244, 255, 114, 0.12);
+    overflow: hidden;
+  }
+</style>
