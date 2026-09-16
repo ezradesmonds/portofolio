@@ -5,7 +5,6 @@ export type Lang = "en" | "id";
 export const translations = {
   en: {
     "nav.work": "Work",
-    "nav.play": "Play",
     "nav.experience": "Experience",
     "nav.about": "About",
     "nav.contact": "Contact",
@@ -107,7 +106,6 @@ export const translations = {
 
   id: {
     "nav.work": "Karya",
-    "nav.play": "Main",
     "nav.experience": "Pengalaman",
     "nav.about": "Tentang",
     "nav.contact": "Kontak",

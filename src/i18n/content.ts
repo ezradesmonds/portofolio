@@ -14,6 +14,7 @@ type ProjectLocale = Partial<
     | "contribution"
     | "statusLabel"
     | "outcome"
+    | "liveLinks"
     | "githubUrl"
     | "githubLabel"
     | "githubLinks"
@@ -317,21 +318,49 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     ],
   },
   "wgg-2026-realtime-voting-game": {
-    title: "Game Voting Real-Time WGG 2026",
-    category: "Game Event Real-Time / Voting Audiens",
+    title: "Platform Event & Game Voting Real-Time WGG 2026",
+    category: "Teknologi Event / Voting Audiens Real-Time",
     description:
-      "Game keputusan tiga tahap yang dikendalikan operator dan dirancang untuk sesi orientasi sekitar 1.300 mahasiswa baru, dengan timer tersinkron, update state melalui Ably, voting, dan visualisasi hasil live.",
+      "Delivery teknologi event WGG 2026 yang telah selesai: pengalaman web orientasi resmi serta game keputusan tiga tahap yang dikendalikan operator untuk audiens sekitar 1.300 mahasiswa baru, dengan timer tersinkron, update state melalui Ably, voting, dan visualisasi hasil live.",
     problem:
       "Audiens orientasi berskala besar perlu mengikuti alur cerita yang sama, voting dalam waktu singkat, dan melihat hasil agregat tanpa refresh manual atau perpindahan tahap yang tidak terkendali.",
     targetUsers:
       "Sekitar 1.300 mahasiswa baru Informatika dan operator sesi WGG 2026",
-    role: "Developer pengalaman peserta dan integrasi real-time",
+    role: "Anggota Divisi IT · developer pengalaman peserta dan integrasi real-time",
     contribution:
-      "Membangun game tiga tahap untuk peserta, menghubungkan service frontend dan admin Laravel, mengintegrasikan Ably Pro dengan token browser subscribe-only, mengimplementasikan vote berbasis session dan pemetaan hasil, serta membantu mendiagnosis risiko kapasitas sebelum sesi live.",
-    statusLabel: "Delivery Event Berjalan",
+      "Membangun game tiga tahap untuk peserta, menghubungkan service frontend dan admin Laravel, mengintegrasikan Ably Pro dengan token browser subscribe-only, serta mengimplementasikan voting berbasis session dan pemetaan hasil. Saya juga mengembangkan komponen loader dan landing page untuk platform resmi WGG, sambil mendukung sistem rekrutmen dan administratif tim.",
+    statusLabel: "Terkirim · Agustus 2026",
     outcome:
-      "Flow landing, tiga tahap voting, hasil, dan ending sudah terimplementasi end-to-end dengan source-level test dan fallback polling. Sekitar 1.300 adalah target audiens event; load skala penuh dan penggunaan live belum diklaim.",
+      "WGG 2026 selesai pada Agustus 2026. Platform resmi, flow game peserta, interface hasil live, dan sistem pendukung event telah terkirim sebagai bagian dari kerja tim IT. Sekitar 1.300 tetap merupakan target audiens orientasi, bukan pengukuran user concurrent yang diverifikasi terpisah.",
+    liveLinks: [
+      { label: "Situs Resmi WGG", url: "https://wgg.petra.ac.id" },
+      { label: "Buka Game Wasbang", url: "https://wgg.petra.ac.id/wasbang/play" },
+    ],
     proofArtifacts: [
+      {
+        src: "/assets/case-studies/wgg-wasbang-kevins-journey.png",
+        alt: "Tampilan pembuka Kevin's Journey, game peserta Wawasan Kebangsaan WGG 2026.",
+        caption:
+          "Pengalaman peserta: layar masuk game keputusan yang membingkai perjalanan audiens sebelum voting dimulai.",
+      },
+      {
+        src: "/assets/case-studies/wgg-wasbang-case-2.png",
+        alt: "Kasus keputusan kedua pada game peserta WGG 2026 dengan dua pilihan voting.",
+        caption:
+          "Tahap keputusan berbatas waktu: peserta memilih satu dari dua respons untuk skenario yang sama.",
+      },
+      {
+        src: "/assets/case-studies/wgg-wasbang-voting-results.png",
+        alt: "Layar hasil voting A dan B dari game peserta WGG 2026.",
+        caption:
+          "State hasil: persentase A/B agregat dan interpretasi pilihan mayoritas ditampilkan ke audiens.",
+      },
+      {
+        src: "/assets/case-studies/wgg-2026-official-landing.png",
+        alt: "Landing page resmi Welcome Grateful Generation 2026.",
+        caption:
+          "Platform orientasi resmi: pengalaman landing WGG dengan komponen loader dan landing page Laravel yang saya kembangkan.",
+      },
       {
         src: "/assets/case-studies/wgg-wasbang-realtime-architecture.svg",
         alt: "Diagram arsitektur game voting real-time WGG 2026 yang menampilkan kontrol operator, broadcast state melalui Ably, voting peserta, service Laravel, penyimpanan database, dan hasil live.",
@@ -341,11 +370,11 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     ],
     detail: {
       overview:
-        "Pengalaman Wawasan Kebangsaan WGG 2026 mengubah tiga skenario keputusan etika dan karier menjadi game audiens yang tersinkron. Operator mengatur perpindahan tahap dan jendela voting 30 detik; browser peserta mengikuti state yang sama, mengirim satu vote per tahap, lalu merender hasil agregat A/B.",
+        "WGG 2026 adalah program orientasi mahasiswa baru Petra Christian University yang selesai pada Agustus 2026. Dalam tim IT, saya mengembangkan komponen loader dan landing page untuk platform Laravel resmi yang melayani audiens orientasi sekitar 1.300 mahasiswa baru, serta membangun pengalaman Wawasan Kebangsaan: tiga skenario keputusan etika dan karier yang diubah menjadi game audiens tersinkron. Operator mengatur perpindahan tahap dan jendela voting 30 detik; browser peserta mengikuti state yang sama, mengirim satu vote per tahap, lalu merender hasil agregat A/B. Delivery tim yang lebih luas juga mencakup website rekrutmen untuk 100+ calon panitia dan website manajemen administratif.",
       metrics: [
         { value: "3", label: "Tahap keputusan", context: "Ditetapkan dalam konsep event dan diimplementasikan dalam flow peserta." },
         { value: "30 dtk", label: "Jendela voting", context: "Timer setiap tahap yang dipicu operator." },
-        { value: "≈1.300", label: "Target audiens", context: "Perkiraan target sesi orientasi, belum menjadi jumlah user live yang terverifikasi." },
+        { value: "≈1.300", label: "Audiens orientasi", context: "Target audiens program orientasi yang telah selesai, bukan pengukuran user concurrent yang diverifikasi terpisah." },
       ],
       mySpecificBuilds: [
         "Membangun UI mobile peserta untuk landing, tiga tahap keputusan, hasil voting, dan ending berdasarkan narasi serta aset visual yang diberikan tim event.",
@@ -377,13 +406,13 @@ const projectIdLocales: Record<string, ProjectLocale> = {
         {
           name: "Kapasitas sekitar 1.300 audiens concurrent",
           status: "unvalidated",
-          note: "Ably Pro sudah dikonfigurasi, tetapi load end-to-end juga bergantung pada polling, rate limit, contention database, delivery aset, dan kapasitas hosting. Bukti load test penuh untuk sekitar 1.300 user belum tersedia.",
+          note: "Event telah terkirim, tetapi load test end-to-end khusus atau catatan peak concurrency terukur sekitar 1.300 user tidak didokumentasikan di sini.",
         },
       ],
       systemArchitecture:
         "Kontrol operator memperbarui state admin Laravel → Ably membroadcast perubahan state game → browser peserta merender tahap aktif dan timer. Vote peserta memakai jalur HTTP terpisah yang terautentikasi melalui proxy frontend Laravel → API admin → database → state hasil agregat.",
       constraints:
-        "Repo frontend dan admin adalah sistem privat milik tim, sehingga source link atau URL live publik tidak ditampilkan. Aset visual event disediakan oleh tim Creative WGG. Klaim portfolio membedakan perilaku yang sudah diimplementasikan dari target load live sekitar 1.300 user yang belum terverifikasi.",
+        "Repo frontend dan admin adalah sistem privat milik tim, sehingga source link atau URL live publik tidak ditampilkan. Aset visual event disediakan oleh tim Creative WGG. Event selesai pada Agustus 2026; klaim portfolio membedakan perilaku yang terkirim dari peak concurrent user yang belum dicatat dan diverifikasi terpisah.",
       challenges: [
         "Menjaga semua browser peserta sinkron terhadap transisi operator sambil mempertahankan fallback polling",
         "Melindungi kredensial server Ably dan membatasi client browser hanya pada capability subscribe",
@@ -391,11 +420,83 @@ const projectIdLocales: Record<string, ProjectLocale> = {
         "Menyiapkan target sekitar 1.300 audiens tanpa menganggap kapasitas koneksi provider realtime sebagai bukti bahwa seluruh jalur Laravel dan database mampu menahan load yang sama",
       ],
       results:
-        "Flow peserta dan integrasi realtime sudah lengkap, dengan source-level test frontend/admin serta browser QA yang tercatat pada task development. Load production untuk sekitar 1.300 user dan hasil event live masih pending dan sengaja tidak dipresentasikan sebagai impact yang sudah selesai.",
+        "Delivery WGG 2026 selesai pada Agustus 2026 dengan pengalaman orientasi resmi, flow game peserta, dan integrasi realtime yang berjalan. Portfolio ini sengaja tidak mengubah rencana audiens sekitar 1.300 orang menjadi klaim user concurrent atau performa yang terukur tanpa telemetri event.",
       lessonsLearned: [
         "Kapasitas realtime adalah properti end-to-end: limit provider, polling, rate limit HTTP, write database, fan-out, aset, dan hosting sama-sama berpengaruh.",
         "Event operator dan vote peserta sebaiknya memakai jalur terpisah karena frekuensi, otorisasi, dan failure mode-nya berbeda.",
         "Capability token yang diterbitkan server lebih aman daripada mengekspos API key realtime penuh di kode browser.",
+      ],
+    },
+  },
+  rekapflow: {
+    title: "RekapFlow",
+    category: "Workflow Data di Browser / Operasi Keuangan",
+    description:
+      "Prototipe React yang live dan privacy-first untuk mengubah spreadsheet finance atau admin berulang menjadi control report, queue koreksi, dan export hasil review secara lokal—tanpa mengunggah file ke server.",
+    problem:
+      "Spreadsheet berulang sulit direview saat nama kolom, format tanggal dan nominal, serta status pembayaran tidak konsisten. Operator butuh menemukan isu struktural, memperbaiki baris secara transparan, dan menghasilkan output siap review tanpa menambah jalur paparan data.",
+    targetUsers: "Operator finance dan admin yang bekerja dari export CSV atau Excel berulang",
+    role: "Solo product builder",
+    contribution:
+      "Merancang workflow fixed-scope, membangun prototipe React/Vite, mengimplementasikan parsing di browser, mapping header bilingual, normalisasi, validasi, koreksi/undo, dan alur export lokal; sekaligus menetapkan privacy posture dan keamanan Vercel-nya.",
+    statusLabel: "Prototipe Live",
+    outcome:
+      "Demonstrator Vercel yang live dengan sample sintetis yang aman diperiksa. Menerima satu worksheet pertama CSV/XLS/XLSX sampai 2.000 baris atau 5 MB, memprosesnya hanya pada tab browser aktif, lalu menghasilkan output review lokal.",
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/rekapflow-launch.png",
+        alt: "Halaman awal RekapFlow yang menampilkan pemrosesan spreadsheet khusus browser dan audit receipt sintetis.",
+        caption:
+          "Tampilan awal prototipe live: janji privacy-first, penawaran setup 48 jam yang terukur, dan audit receipt sintetis tanpa data klien.",
+      },
+      {
+        src: "/assets/case-studies/rekapflow-correction-queue.png",
+        alt: "Correction queue RekapFlow yang menampilkan record bermasalah, formulir koreksi in-memory, dan temuan review yang belum selesai.",
+        caption:
+          "Workflow koreksi: operator memperbaiki record bermasalah, langsung melakukan revalidasi, undo dengan aman, dan mempertahankan temuan yang belum selesai untuk direview.",
+      },
+    ],
+    detail: {
+      overview:
+        "RekapFlow adalah demonstrator layanan yang sengaja dibuat sempit, bukan SaaS akuntansi umum. Aplikasi ini mengubah satu spreadsheet finance atau admin yang berulang menjadi control report di browser, queue koreksi, dan export hasil review. Data import berada di React memory dan tidak pernah dikirim ke server aplikasi; demo publik hanya menggunakan data sintetis.",
+      metrics: [
+        { value: "2.000", label: "Batas baris data", context: "Kebijakan import terukur untuk satu worksheet pertama." },
+        { value: "5 MB", label: "Batas ukuran file", context: "File ditolak sebelum parsing jika melebihi batas ini." },
+        { value: "0", label: "Penerima data", context: "Tanpa backend, analytics, cookies, akun, atau transmisi data klien." },
+      ],
+      mySpecificBuilds: [
+        "Membangun pipeline deterministik dari file atau baris manual melalui parsing, mapping header bilingual, normalisasi, validasi, reporting, hingga export lokal.",
+        "Mengimplementasikan koreksi sebagai record override in-memory, dengan revalidasi langsung dan undo kembali ke baris hasil normalisasi import.",
+        "Menambahkan pengecekan struktural untuk referensi duplikat, field hilang atau tidak valid, status tidak dikenal, nominal negatif, dan outlier sederhana.",
+        "Menetapkan batas privacy browser-only dan header Vercel, termasuk Content Security Policy dengan connect-src 'none'.",
+      ],
+      keyFeatures: [
+        "Import CSV, XLS, dan XLSX dengan penanganan worksheet pertama saja",
+        "Deteksi header Inggris dan Indonesia serta konfirmasi mapping manual",
+        "Normalisasi tanggal, nominal, status, dan nilai negatif",
+        "Queue isu dengan koreksi, revalidasi, dan undo langsung",
+        "Export records ternormalisasi, queue unresolved, JSON handoff, dan manager summary",
+        "Data demo sintetis tanpa persistence browser setelah reload atau Clear data",
+      ],
+      featureStatus: [
+        { name: "Workflow spreadsheet khusus browser", status: "working", note: "Prototipe live memproses sample sintetis secara lokal dan tidak memiliki backend upload data." },
+        { name: "Koreksi dan export lokal", status: "working", note: "Koreksi tervalidasi ulang di memory; export CSV, queue review, JSON, dan summary tersedia." },
+        { name: "Konfigurasi workflow khusus buyer", status: "prototype", note: "Produk publik adalah demonstrator terukur; schema, rules, dan handoff custom merupakan delivery fixed-scope terpisah." },
+      ],
+      systemArchitecture:
+        "File atau baris manual → kebijakan import → parse worksheet pertama → mapping kolom → normalisasi → patch koreksi in-memory → validasi → control report, review queue, dan export lokal. Parser SheetJS di-load secara lazy hanya untuk file Excel.",
+      constraints:
+        "RekapFlow sengaja tidak memiliki autentikasi, database, analytics, cloud persistence, API, OCR, bank feed, maupun klaim advis akuntansi. Review struktural bukan pembukuan, audit assurance, atau bukti bahwa data sumber benar.",
+      challenges: [
+        "Menangani konvensi spreadsheet Inggris dan Indonesia tanpa menghilangkan ambiguitas secara diam-diam",
+        "Menjaga koreksi dapat di-undo sambil memastikan setiap temuan dan total downstream dihitung ulang",
+        "Membuat ketiadaan penerima data menjadi kontrol privacy terkuat sambil tetap menyediakan export lokal yang berguna",
+      ],
+      results:
+        "Prototipe Vercel live dengan demo data sintetis. Bukti rilis repo mencatat logic test, UI/security-contract test, production build, dan audit gate yang lolos; browser acceptance mencakup import, koreksi, undo, export, responsivitas, serta ketiadaan persistence lokal.",
+      lessonsLearned: [
+        "Untuk data operasional yang sensitif, arsitektur lebih sederhana bisa menjadi keputusan produk yang lebih kuat ketika menghapus transfer dan retensi data yang tidak perlu.",
+        "Queue koreksi lebih dapat dipercaya ketika membedakan output ternormalisasi dari output yang sudah direview dan mempertahankan temuan unresolved secara eksplisit.",
       ],
     },
   },
@@ -1221,14 +1322,14 @@ const experienceIdLocalesByKey: Record<string, Partial<Experience>> = {
   "Welcome Grateful Generation 2026::Member of IT Division": {
     organization: "Welcome Grateful Generation 2026",
     role: "Anggota Divisi IT",
+    period: "Maret 2026 – Agustus 2026",
     description:
-      "Program orientasi untuk mahasiswa baru Informatika di Petra Christian University.",
+      "Program orientasi mahasiswa baru Informatika di Petra Christian University yang telah selesai.",
     highlights: [
-      "Mengembangkan platform rekrutmen online yang digunakan 100+ calon panitia selama proses rekrutmen tim penyelenggara",
-      "Membangun dashboard administratif untuk manajemen panitia dan operasi rekrutmen",
-      "Mengembangkan website landing resmi berisi informasi dan resource onboarding untuk sekitar 1.300 mahasiswa baru",
-      "Membangun game keputusan tiga tahap untuk peserta dengan kontrol operator, jendela voting 30 detik, dan update hasil live melalui Laravel serta Ably Pro untuk target sesi sekitar 1.300 orang",
-      "Mengimplementasikan autentikasi realtime subscribe-only, voting berbasis session, perlindungan vote duplikat, dan fallback polling; load sekitar 1.300 user serta penggunaan live masih menunggu validasi",
+      "Berkolaborasi dengan tim IT pada platform digital rekrutmen panitia dan kegiatan orientasi mahasiswa baru, termasuk website rekrutmen yang digunakan 100+ calon panitia serta website manajemen administratif",
+      "Mengembangkan komponen loader dan landing page Laravel untuk platform orientasi resmi bagi audiens sekitar 1.300 mahasiswa baru, serta berkoordinasi dalam testing sebelum peluncuran",
+      "Membangun game keputusan tiga tahap untuk peserta dengan kontrol operator, jendela voting 30 detik, dan update hasil live melalui Laravel serta Ably Pro",
+      "Mengimplementasikan autentikasi realtime subscribe-only, voting berbasis session, perlindungan vote duplikat, dan fallback polling; event selesai pada Agustus 2026, sementara hasil concurrency terukur sekitar 1.300 user tidak diklaim",
     ],
     skills: ["Laravel", "Ably", "Sistem Real-Time", "Full-Stack Development", "Teknologi Event"],
   },

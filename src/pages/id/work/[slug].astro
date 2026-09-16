@@ -10,12 +10,12 @@ import SaktiCaseStudy from "../../../components/projects/SaktiCaseStudy.astro";
 import { localizeProject } from "../../../i18n/content";
 
 export function getStaticPaths() {
-  const all = [...projects, ...additionalProjects];
+  const all = [...projects.filter((project) => !project.isPrivate), ...additionalProjects];
   return all.map((p) => ({ params: { slug: p.slug } }));
 }
 
 const { slug } = Astro.params;
-const all = [...projects, ...additionalProjects];
+const all = [...projects.filter((project) => !project.isPrivate), ...additionalProjects];
 const rawProject = all.find((p) => p.slug === slug);
 
 if (!rawProject) {
@@ -25,6 +25,11 @@ if (!rawProject) {
 const lang = "id";
 const project = localizeProject(rawProject, lang);
 const detail = project.detail;
+const liveLinks = project.liveLinks?.length
+  ? project.liveLinks
+  : project.liveUrl
+    ? [{ url: project.liveUrl, label: undefined }]
+    : [];
 const fallbackGithubLabel = project.githubIsGeneric ? "Profil GitHub" : "Lihat di GitHub";
 const githubLinks = project.githubLinks?.length
   ? project.githubLinks
@@ -273,11 +278,11 @@ const projectStructuredData = {
       </section>
 
       <div class="flex flex-wrap gap-4 mt-12">
-        {project.liveUrl && (
-          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-            Kunjungi Situs Live
+        {liveLinks.map((link, index) => (
+          <a href={link.url} target="_blank" rel="noopener noreferrer" class={index === 0 ? "btn btn-primary" : "btn btn-secondary"}>
+            {link.label ?? "Kunjungi Situs Live"}
           </a>
-        )}
+        ))}
         {githubLinks.map((link) => (
           <a href={link.url} target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
             {link.label ?? fallbackGithubLabel}

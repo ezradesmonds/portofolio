@@ -7,7 +7,7 @@ import ProjectCard from "../ui/ProjectCard.astro";
 
 const lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname);
 
-const localizedProjects = localizeProjects(projects, lang);
+const localizedProjects = localizeProjects(projects.filter((project) => !project.isPrivate), lang);
 const localizedAdditionalProjects = localizeProjects(additionalProjects, lang);
 const featured = localizedProjects.filter((p) => p.featured).sort((a, b) => a.sortOrder - b.sortOrder);
 const othersSorted = [...localizedProjects.filter((p) => !p.featured), ...localizedAdditionalProjects].sort((a, b) => a.sortOrder - b.sortOrder);

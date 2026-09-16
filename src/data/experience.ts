@@ -19,15 +19,14 @@ export const experiences: Experience[] = [
   {
     organization: "Welcome Grateful Generation 2026",
     role: "Member of IT Division",
-    period: "2026",
+    period: "March 2026 – August 2026",
     description:
-      "Orientation program for new Informatics students at Petra Christian University.",
+      "Completed new-student orientation program for Informatics students at Petra Christian University.",
     highlights: [
-      "Developed an online recruitment platform used by 100+ committee applicants during the organizing team's recruitment process",
-      "Built an administrative dashboard for committee management and recruitment operations",
-      "Developed the official landing website providing information and onboarding resources for approximately 1,300 incoming freshmen",
-      "Built the participant-facing, three-stage decision game and integrated operator-controlled state, 30-second voting windows, and live result updates through Laravel and Ably Pro for an approximately 1,300-attendee session target",
-      "Implemented subscribe-only realtime authentication, session-linked voting, duplicate-vote protection, and polling fallback; full load at approximately 1,300 concurrent users and live-event usage remain pending validation",
+      "Collaborated with the IT team on digital platforms for committee recruitment and freshman-orientation activities, including a recruitment website used by 100+ committee applicants and an administrative management website",
+      "Developed Laravel loader and landing-page components for the official orientation platform serving an approximately 1,300-student audience, and coordinated testing before launch",
+      "Built the participant-facing, three-stage decision game with operator-controlled state, 30-second voting windows, and live result updates through Laravel and Ably Pro",
+      "Implemented subscribe-only realtime authentication, session-linked voting, duplicate-vote protection, and polling fallback; the event concluded in August 2026, while an independently measured approximately 1,300-user concurrency result is not claimed",
     ],
     skills: ["Laravel", "Ably", "Real-Time Systems", "Full-Stack Development", "Event Technology"],
   },

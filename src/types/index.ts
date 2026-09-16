@@ -15,12 +15,15 @@ export interface Project {
   outcome?: string;
   screenshot?: string;
   liveUrl?: string;
+  liveLinks?: ProjectLink[];
   githubUrl?: string;
   githubLabel?: string;
   githubLinks?: ProjectLink[];
   githubIsGeneric?: boolean;
   proofStatus?: "available" | "partial" | "pending";
   proofArtifacts?: ProjectArtifact[];
+  /** Keeps a project in the source of truth while excluding it from public pages and generated routes. */
+  isPrivate?: boolean;
   featured: boolean;
   sortOrder: number;
   detail?: ProjectDetail;
@@ -131,6 +134,7 @@ export interface CapabilityGroup {
   items: {
     name: string;
     description?: string;
+    icon?: string;
   }[];
 }
 

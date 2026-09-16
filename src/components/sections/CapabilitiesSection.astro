@@ -24,3 +24,64 @@ const localizedCapabilities = localizeCapabilities(capabilities, lang);
     </div>
   </div>
 </section>
+
+<style>
+  :global(.capability-card) {
+    transition: opacity 650ms cubic-bezier(0.16, 1, 0.3, 1), transform 650ms cubic-bezier(0.16, 1, 0.3, 1), filter 650ms ease;
+  }
+
+  :global(.capability-card.is-pending) {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0) scale(0.985);
+    filter: blur(5px);
+  }
+
+  :global(.capability-card.is-revealed) {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+
+  :global(.capability-chip) {
+    transform: translateY(0) scale(1);
+    transition: transform 220ms ease, border-color 220ms ease, background-color 220ms ease, color 220ms ease, opacity 420ms ease;
+  }
+
+  :global(.capability-card.is-pending .capability-chip) {
+    opacity: 0;
+    transform: translateY(7px) scale(0.96);
+  }
+
+  :global(.capability-card.is-revealed .capability-chip) {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    transition-delay: calc(90ms + var(--chip-index) * 42ms);
+  }
+
+  :global(.capability-chip:hover) {
+    color: #f4ff72;
+    border-color: rgba(244, 255, 114, 0.62);
+    background: rgba(244, 255, 114, 0.1);
+    transform: translateY(-2px) scale(1.035);
+  }
+
+  :global(.capability-logo) {
+    filter: drop-shadow(0 0 7px rgba(244, 255, 114, 0.28));
+    transition: transform 220ms ease, filter 220ms ease;
+  }
+
+  :global(.capability-chip:hover .capability-logo) {
+    transform: rotate(-8deg) scale(1.18);
+    filter: drop-shadow(0 0 9px rgba(244, 255, 114, 0.6));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.capability-card),
+    :global(.capability-chip),
+    :global(.capability-logo) {
+      transition: none;
+      transform: none;
+      filter: none;
+    }
+  }
+</style>

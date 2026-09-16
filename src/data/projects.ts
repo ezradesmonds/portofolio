@@ -210,8 +210,8 @@ export const projects: Project[] = [
           "Five-player UAT reached the final ranking after all six rounds; feedback-driven interface revisions were then retested.",
       },
     ],
-    featured: true,
-    sortOrder: 5,
+    featured: false,
+    sortOrder: 7,
     detail: {
       overview:
         "Market District is a private, synchronous negotiation board game for 3–5 players. It recreates the social tension of trading properties, money, and shop permits across a shared district while moving hidden information and rule enforcement into a server-authoritative online experience. It is an unofficial, non-commercial project with original branding, writing, board art, and shop art.",
@@ -343,25 +343,53 @@ export const projects: Project[] = [
   },
   {
     slug: "wgg-2026-realtime-voting-game",
-    title: "WGG 2026 Real-Time Voting Game",
-    category: "Real-Time Event Game / Audience Voting",
+    title: "WGG 2026 Event Platform & Real-Time Voting Game",
+    category: "Event Technology / Real-Time Audience Voting",
     description:
-      "A three-stage, operator-controlled decision game designed for an orientation session of approximately 1,300 incoming students, with synchronized timers, Ably-powered state updates, voting, and live result visualization.",
+      "A completed WGG 2026 event-technology delivery: official orientation web experience plus a three-stage, operator-controlled decision game for an approximately 1,300-student audience, with synchronized timers, Ably-powered state updates, voting, and live result visualization.",
     problem:
       "A large orientation audience needs to move through the same story, vote within short windows, and see aggregate results without manual refreshes or uncontrolled stage transitions.",
     targetUsers:
       "Approximately 1,300 incoming Informatics students and the WGG 2026 session operator",
-    role: "Participant experience and real-time integration developer",
+    role: "IT Division Member · participant experience and realtime integration developer",
     contribution:
-      "Built the participant-facing three-stage game, connected Laravel frontend and admin services, integrated Ably Pro with subscribe-only browser tokens, implemented session-linked vote submission and result mapping, and helped diagnose capacity risks before the live session.",
+      "Built the participant-facing three-stage game, connected Laravel frontend and admin services, integrated Ably Pro with subscribe-only browser tokens, and implemented session-linked voting and result mapping. Also developed loader and landing-page components for the official WGG platform, while supporting the team's recruitment and administrative systems.",
     technologies: ["Laravel", "PHP", "JavaScript", "Blade", "Ably Pro", "MySQL"],
-    status: "in-development",
-    statusLabel: "Event Delivery in Progress",
+    status: "case-study",
+    statusLabel: "Delivered · August 2026",
     outcome:
-      "The end-to-end landing, three-stage voting, result, and ending flow is implemented with source-level tests and a polling fallback. Approximately 1,300 is the event audience target; full-scale load and live-event usage are not yet claimed.",
-    screenshot: "/assets/case-studies/wgg-wasbang-realtime-architecture.svg",
+      "WGG 2026 concluded in August 2026. The official platform, participant game flow, live-result interface, and supporting event systems were delivered as part of the IT team. Approximately 1,300 remains the planned orientation audience, not a separately verified concurrent-user measurement.",
+    screenshot: "/assets/case-studies/wgg-wasbang-kevins-journey.png",
+    liveLinks: [
+      { label: "Official WGG Site", url: "https://wgg.petra.ac.id" },
+      { label: "Open Wasbang Game", url: "https://wgg.petra.ac.id/wasbang/play" },
+    ],
     proofStatus: "available",
     proofArtifacts: [
+      {
+        src: "/assets/case-studies/wgg-wasbang-kevins-journey.png",
+        alt: "Opening screen for Kevin's Journey, the WGG 2026 Wawasan Kebangsaan participant game.",
+        caption:
+          "Participant experience: the decision-game entry screen that frames the audience journey before voting begins.",
+      },
+      {
+        src: "/assets/case-studies/wgg-wasbang-case-2.png",
+        alt: "Second decision case in the WGG 2026 participant game, showing two voting choices.",
+        caption:
+          "A timed decision stage: attendees choose between two responses to the same scenario.",
+      },
+      {
+        src: "/assets/case-studies/wgg-wasbang-voting-results.png",
+        alt: "Live A and B voting-result screen from the WGG 2026 participant game.",
+        caption:
+          "Result state: aggregate A/B percentages and the majority interpretation are presented to the audience.",
+      },
+      {
+        src: "/assets/case-studies/wgg-2026-official-landing.png",
+        alt: "Official Welcome Grateful Generation 2026 landing page.",
+        caption:
+          "Official orientation platform: WGG landing experience with the loader and landing-page components I developed in Laravel.",
+      },
       {
         src: "/assets/case-studies/wgg-wasbang-realtime-architecture.svg",
         alt: "Architecture diagram for the WGG 2026 real-time voting game showing operator controls, Ably state broadcasts, participant voting, Laravel services, database storage, and live results.",
@@ -373,11 +401,11 @@ export const projects: Project[] = [
     sortOrder: 4,
     detail: {
       overview:
-        "The WGG 2026 Wawasan Kebangsaan experience turns three ethical and career decision scenarios into a synchronized audience game. An operator controls stage changes and 30-second voting windows; participant browsers follow the same state, submit one vote per stage, and render the aggregate A/B result.",
+        "WGG 2026 was a completed new-student orientation program at Petra Christian University, delivered through August 2026. Within the IT team, I developed loader and landing-page components for the official Laravel platform serving an approximately 1,300-student orientation audience, and built the Wawasan Kebangsaan experience: three ethical and career decision scenarios turned into a synchronized audience game. An operator controls stage changes and 30-second voting windows; participant browsers follow the same state, submit one vote per stage, and render the aggregate A/B result. The broader team delivery also included a recruitment website used by 100+ committee applicants and an administrative management website.",
       metrics: [
         { value: "3", label: "Decision stages", context: "Defined in the event concept and implemented in the participant flow." },
         { value: "30s", label: "Voting window", context: "Operator-triggered timer for each stage." },
-        { value: "≈1,300", label: "Audience target", context: "Approximate orientation-session target; not yet a verified live-user count." },
+        { value: "≈1,300", label: "Orientation audience", context: "Planned audience for the completed orientation program; not a separately verified concurrent-user measurement." },
       ],
       mySpecificBuilds: [
         "Built the mobile participant UI for landing, three decision stages, voting results, and the ending state from the event team's supplied narrative and visual assets.",
@@ -409,13 +437,13 @@ export const projects: Project[] = [
         {
           name: "Approximately 1,300 concurrent audience capacity",
           status: "unvalidated",
-          note: "Ably Pro is configured, but end-to-end load also depends on polling, rate limits, database contention, asset delivery, and hosting capacity. A load test at approximately 1,300 concurrent users has not been evidenced yet.",
+          note: "The event was delivered, but a dedicated end-to-end load test or measured peak-concurrency record at approximately 1,300 users is not documented here.",
         },
       ],
       systemArchitecture:
         "Operator controls update the Laravel admin state → Ably broadcasts game-state changes → participant browsers render the active stage and timer. Participant votes follow a separate authenticated HTTP path through the Laravel frontend proxy → admin API → database → aggregate result state.",
       constraints:
-        "The frontend and admin repositories are private team systems, so no source link or public live URL is exposed. The event visual assets were supplied by the WGG Creative team. Portfolio claims distinguish implemented behavior from the still-unverified live-load target of approximately 1,300 users.",
+        "The frontend and admin repositories are private team systems, so no source link or public live URL is exposed. The event visual assets were supplied by the WGG Creative team. The event concluded in August 2026; portfolio claims distinguish delivered behavior from an unrecorded, independently measured concurrent-user peak.",
       challenges: [
         "Keeping all participant browsers synchronized with operator-controlled transitions while retaining a degraded polling path",
         "Protecting the Ably server credential and limiting browser clients to subscribe-only capabilities",
@@ -423,11 +451,91 @@ export const projects: Project[] = [
         "Preparing for an approximately 1,300-person audience without treating realtime-provider connection capacity as proof that the full Laravel and database path can sustain the same load",
       ],
       results:
-        "The complete participant flow and realtime integration are implemented, with source-level frontend/admin tests and browser QA recorded in the development task. The approximately 1,300-user production load and live-event outcome remain pending and are intentionally not presented as completed impact.",
+        "The WGG 2026 event delivery concluded in August 2026 with the official orientation experience, participant game flow, and realtime integration in place. The portfolio intentionally does not convert the approximately 1,300-person audience plan into a measured concurrent-user or performance claim without event telemetry.",
       lessonsLearned: [
         "Realtime capacity is an end-to-end property: provider limits, polling, HTTP rate limits, database writes, fan-out, assets, and hosting all matter.",
         "Operator events and participant votes should follow separate paths because their frequency, authorization, and failure modes differ.",
         "Server-issued capability tokens are safer than exposing a full realtime API key in browser code.",
+      ],
+    },
+  },
+  {
+    slug: "rekapflow",
+    title: "RekapFlow",
+    category: "Browser-Only Data Workflow / Finance Operations",
+    description:
+      "A live, privacy-first React prototype that turns recurring finance or admin spreadsheets into a normalized control report, correction queue, and reviewed local exports—without uploading the file to a server.",
+    problem:
+      "Recurring spreadsheets are difficult to review when column names, dates, amount formats, and payment statuses vary. Operators need to surface structural issues, correct rows transparently, and hand off review-ready outputs without creating a new data-exposure path.",
+    targetUsers: "Finance and admin operators working from recurring CSV or Excel exports",
+    role: "Solo product builder",
+    contribution:
+      "Designed the fixed-scope workflow, built the React/Vite prototype, implemented in-browser parsing, bilingual header mapping, normalization, validation, correction/undo, and local export flows; defined its privacy and Vercel security posture.",
+    technologies: ["React", "Vite", "JavaScript", "SheetJS (XLSX)", "Vercel", "CSP"],
+    status: "prototype",
+    statusLabel: "Live Prototype",
+    outcome:
+      "Live Vercel demonstrator with a synthetic safe-to-inspect sample. It accepts one CSV/XLS/XLSX first worksheet up to 2,000 rows or 5 MB, processes it only in the active browser tab, and produces local review outputs.",
+    screenshot: "/assets/case-studies/rekapflow-launch.png",
+    liveUrl: "https://rekapflow.vercel.app/",
+    proofStatus: "available",
+    proofArtifacts: [
+      {
+        src: "/assets/case-studies/rekapflow-launch.png",
+        alt: "RekapFlow launch page showing browser-only spreadsheet processing and a synthetic audit receipt.",
+        caption:
+          "Live prototype entry: a privacy-first promise, a bounded 48-hour setup offer, and a synthetic audit receipt that proves the workflow without exposing client data.",
+      },
+      {
+        src: "/assets/case-studies/rekapflow-correction-queue.png",
+        alt: "RekapFlow correction queue showing a flagged record, in-memory correction form, and unresolved review findings.",
+        caption:
+          "Correction workflow: operators repair a flagged record, immediately revalidate it, undo safely, and preserve unresolved findings for review.",
+      },
+    ],
+    featured: true,
+    sortOrder: 2,
+    detail: {
+      overview:
+        "RekapFlow is a deliberately narrow service demonstrator, not a general accounting SaaS. It turns one recurring finance or admin spreadsheet into an in-browser control report, correction queue, and reviewed exports. Imported data stays in React memory and never travels to an application server; the public demo uses synthetic data only.",
+      metrics: [
+        { value: "2,000", label: "Data-row limit", context: "Bounded import policy for one first worksheet." },
+        { value: "5 MB", label: "File-size limit", context: "Rejected before parsing when the selected file exceeds this boundary." },
+        { value: "0", label: "Data receivers", context: "No backend, analytics, cookies, account system, or client-data transmission." },
+      ],
+      mySpecificBuilds: [
+        "Built the deterministic pipeline from file or manual row through parsing, bilingual header mapping, normalization, validation, reporting, and local export.",
+        "Implemented corrections as in-memory record overrides, with immediate revalidation and undo back to the normalized imported row.",
+        "Added structural checks for duplicate references, missing or invalid fields, unknown statuses, negative amounts, and simple outliers.",
+        "Defined browser-only privacy constraints and Vercel headers, including a Content Security Policy with connect-src 'none'.",
+      ],
+      keyFeatures: [
+        "CSV, XLS, and XLSX import with first-worksheet-only handling",
+        "English and Indonesian header detection plus manual mapping confirmation",
+        "Date, currency, status, and negative-value normalization",
+        "Issue queue with immediate correction, revalidation, and undo",
+        "Normalized records, unresolved queue, JSON handoff, and manager-summary exports",
+        "Synthetic demo data and no browser persistence after reload or Clear data",
+      ],
+      featureStatus: [
+        { name: "Browser-only spreadsheet workflow", status: "working", note: "The live prototype processes its synthetic sample locally and exposes no data-upload backend." },
+        { name: "Correction and local export flow", status: "working", note: "Corrections revalidate in memory; normalized CSV, review queue, JSON, and summary exports are supported." },
+        { name: "Buyer-specific workflow configuration", status: "prototype", note: "The public product is a scoped demonstrator; any custom schema, rules, and handoff are a separate fixed-scope delivery." },
+      ],
+      systemArchitecture:
+        "File or manual row → import policy → first-sheet parse → column map → normalize → in-memory correction patches → validate → control report, review queue, and local exports. The SheetJS parser is lazy-loaded only for Excel files.",
+      constraints:
+        "RekapFlow intentionally has no authentication, database, analytics, cloud persistence, API, OCR, bank feed, or accounting-advice claim. A structural review is not bookkeeping, audit assurance, or proof that source data is correct.",
+      challenges: [
+        "Handling English and Indonesian spreadsheet conventions without silently guessing away ambiguity",
+        "Keeping corrections reversible while ensuring every downstream finding and total recalculates",
+        "Making the strongest privacy control the absence of a data receiver, while still supporting useful local exports",
+      ],
+      results:
+        "The Vercel prototype is live with synthetic demo data. Repository release evidence records passing logic, UI/security-contract, production-build, and audit gates; browser acceptance covered imports, corrections, undo, exports, responsive behavior, and the absence of local persistence.",
+      lessonsLearned: [
+        "For sensitive operational data, a simpler architecture can be a stronger product decision when it removes unnecessary data transfer and retention risk.",
+        "A correction queue is more trustworthy when it distinguishes normalized output from fully reviewed output and keeps unresolved findings explicit.",
       ],
     },
   },
@@ -459,6 +567,7 @@ export const projects: Project[] = [
     githubLabel: "GitHub Profile",
     githubIsGeneric: true,
     proofStatus: "available",
+    isPrivate: true,
     proofArtifacts: [
       {
         src: "/assets/case-studies/financeos-terminal.webp",
