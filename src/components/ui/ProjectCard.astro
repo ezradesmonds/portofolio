@@ -12,6 +12,11 @@ const { project, lang } = Astro.props;
 const projectHref = localizedPath(lang, `/work/${project.slug}/`);
 const viewLabel = lang === "id" ? "Buka Studi Kasus" : "View Case Study";
 const liveLabel = lang === "id" ? "Situs live" : "Live";
+const liveLinks = project.liveLinks?.length
+  ? project.liveLinks
+  : project.liveUrl
+    ? [{ url: project.liveUrl, label: undefined }]
+    : [];
 
 const statusColorMap: Record<string, string> = {
   live: "border-green-500/40 text-green-400 bg-green-500/10",
@@ -25,65 +30,71 @@ const statusColorMap: Record<string, string> = {
 const statusColor = statusColorMap[project.status] ?? statusColorMap.prototype;
 ---
 
-<a
-  href={projectHref}
+<article
   class="case-card block group glass-card rounded-xl p-4 sm:p-6 transition-all duration-300 hover:-translate-y-1"
   data-project-slug={project.slug}
 >
-  {project.screenshot && (
-    <div class="case-shot mb-4" aria-hidden="true">
-      <img src={project.screenshot} alt="" loading="lazy" decoding="async" />
-    </div>
-  )}
-
-  <div class="flex items-start justify-between gap-3 mb-4">
-    <span class="case-label line-clamp-1">{project.category}</span>
-    <span
-      class={`text-[9px] sm:text-[10px] font-mono font-semibold uppercase px-1.5 sm:px-2 py-0.5 rounded border ${statusColor} flex-shrink-0`}
-    >
-      {project.statusLabel}
-    </span>
-  </div>
-
-  {project.liveUrl && (
-    <div class="evidence-row">
-      <span class="live-chip">
-        <span class="live-dot" aria-hidden="true"></span>
-        {liveLabel}
-      </span>
-    </div>
-  )}
-
-  <h3 class="case-title text-xl sm:text-2xl font-black text-white mb-2 sm:mb-3 group-hover:text-accent-cyan transition-colors">
-    {project.title}
-  </h3>
-
-  <p class="text-xs sm:text-sm text-text-secondary leading-relaxed mb-5 sm:mb-6 line-clamp-3">
-    {project.description}
-  </p>
-
-  <div class="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-5">
-    {project.technologies.slice(0, 4).map((tech) => (
-      <span class="text-[10px] sm:text-[11px] font-mono text-text-muted bg-white/5 border border-white/10 px-1.5 sm:px-2 py-0.5 rounded-full">
-        {tech}
-      </span>
-    ))}
-    {project.technologies.length > 5 && (
-      <span class="text-[11px] font-mono text-text-muted">+{project.technologies.length - 5}</span>
+  <a href={projectHref} class="case-study-link block" aria-label={`${viewLabel}: ${project.title}`}>
+    {project.screenshot && (
+      <div class="case-shot mb-4" aria-hidden="true">
+        <img src={project.screenshot} alt="" loading="lazy" decoding="async" />
+      </div>
     )}
-  </div>
 
-  <div class="flex items-center gap-4 text-sm">
-    <span class="text-accent-cyan font-bold group-hover:underline">
+    <div class="flex items-start justify-between gap-3 mb-4">
+      <span class="case-label line-clamp-1">{project.category}</span>
+      <span
+        class={`text-[9px] sm:text-[10px] font-mono font-semibold uppercase px-1.5 sm:px-2 py-0.5 rounded border ${statusColor} flex-shrink-0`}
+      >
+        {project.statusLabel}
+      </span>
+    </div>
+
+    {liveLinks.length > 0 && (
+      <div class="evidence-row">
+        <span class="live-chip">
+          <span class="live-dot" aria-hidden="true"></span>
+          {liveLabel}
+        </span>
+      </div>
+    )}
+
+    <h3 class="case-title text-xl sm:text-2xl font-black text-white mb-2 sm:mb-3 group-hover:text-accent-cyan transition-colors">
+      {project.title}
+    </h3>
+
+    <p class="text-xs sm:text-sm text-text-secondary leading-relaxed mb-5 sm:mb-6 line-clamp-3">
+      {project.description}
+    </p>
+
+    <div class="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-5">
+      {project.technologies.slice(0, 4).map((tech) => (
+        <span class="text-[10px] sm:text-[11px] font-mono text-text-muted bg-white/5 border border-white/10 px-1.5 sm:px-2 py-0.5 rounded-full">
+          {tech}
+        </span>
+      ))}
+      {project.technologies.length > 5 && (
+        <span class="text-[11px] font-mono text-text-muted">+{project.technologies.length - 5}</span>
+      )}
+    </div>
+  </a>
+
+  <div class="case-actions flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+    <a href={projectHref} class="case-study-action text-accent-cyan font-bold group-hover:underline">
       {viewLabel} &rarr;
-    </span>
-    {project.liveUrl && (
-      <span class="text-text-muted text-xs ml-auto">
-        {liveLabel} &nearr;
-      </span>
-    )}
+    </a>
+    {liveLinks.map((link) => (
+      <a
+        href={link.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="live-action text-xs font-bold text-emerald-300 hover:text-emerald-200"
+      >
+        {liveLinks.length > 1 && link.label ? `${liveLabel}: ${link.label}` : liveLabel} &nearr;
+      </a>
+    ))}
   </div>
-</a>
+</article>
 
 <style>
   .case-card {
@@ -91,6 +102,19 @@ const statusColor = statusColorMap[project.status] ?? statusColorMap.prototype;
     overflow: hidden;
     min-height: 18rem;
     text-decoration: none;
+  }
+
+  .case-study-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .case-study-link:focus-visible,
+  .case-study-action:focus-visible,
+  .live-action:focus-visible {
+    outline: 2px solid var(--color-accent-cyan);
+    outline-offset: 4px;
+    border-radius: 0.25rem;
   }
 
   .case-shot {
@@ -114,6 +138,20 @@ const statusColor = statusColorMap[project.status] ?? statusColorMap.prototype;
   .case-card:hover .case-shot img {
     filter: saturate(1.05) contrast(1.08);
     transform: scale(1.045);
+  }
+
+  .case-actions {
+    position: relative;
+    z-index: 1;
+  }
+
+  .live-action {
+    text-decoration: none;
+  }
+
+  .live-action:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
 
   .evidence-row {

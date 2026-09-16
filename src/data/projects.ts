@@ -355,8 +355,8 @@ export const projects: Project[] = [
     contribution:
       "Built the participant-facing three-stage game, connected Laravel frontend and admin services, integrated Ably Pro with subscribe-only browser tokens, and implemented session-linked voting and result mapping. Also developed loader and landing-page components for the official WGG platform, while supporting the team's recruitment and administrative systems.",
     technologies: ["Laravel", "PHP", "JavaScript", "Blade", "Ably Pro", "MySQL"],
-    status: "case-study",
-    statusLabel: "Delivered · August 2026",
+    status: "live",
+    statusLabel: "Live · Delivered August 2026",
     outcome:
       "WGG 2026 concluded in August 2026. The official platform, participant game flow, live-result interface, and supporting event systems were delivered as part of the IT team. Approximately 1,300 remains the planned orientation audience, not a separately verified concurrent-user measurement.",
     screenshot: "/assets/case-studies/wgg-wasbang-kevins-journey.png",
