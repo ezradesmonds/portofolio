@@ -1,0 +1,162 @@
+---
+---
+
+<div class="section-indicator" id="section-indicator" aria-hidden="true">
+  <div class="si-label">
+    <span class="si-prefix">file /</span>
+    <span class="si-number" id="si-number">00.</span>
+  </div>
+  <div class="si-track">
+    <span class="si-fill" id="si-fill"></span>
+  </div>
+</div>
+
+<script>
+  import { gsap } from "gsap";
+
+  const SECTIONS = [
+    { id: "about",        label: "01." },
+    { id: "work",         label: "02." },
+    { id: "experience",   label: "03." },
+    { id: "awards",       label: "04." },
+    { id: "capabilities", label: "05." },
+    { id: "contact",      label: "06." },
+  ];
+
+  function initIndicator() {
+    const indicator = document.getElementById("section-indicator");
+    const numEl     = document.getElementById("si-number");
+    const fillEl    = document.getElementById("si-fill");
+    if (!indicator || !numEl || !fillEl) return;
+
+    let current = -1;
+
+    function updateTo(idx: number, label: string) {
+      if (current === idx) return;
+      current = idx;
+
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (prefersReduced) {
+        numEl!.textContent = label;
+        fillEl!.style.height = `${((idx + 1) / SECTIONS.length) * 100}%`;
+        return;
+      }
+
+      gsap.to(numEl, {
+        yPercent: -100,
+        opacity: 0,
+        duration: 0.22,
+        ease: "power2.in",
+        onComplete() {
+          numEl!.textContent = label;
+          gsap.fromTo(numEl, { yPercent: 100, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.28, ease: "power3.out" });
+        },
+      });
+
+      gsap.to(fillEl, {
+        height: `${((idx + 1) / SECTIONS.length) * 100}%`,
+        duration: 0.55,
+        ease: "power3.out",
+      });
+
+      indicator!.classList.add("is-visible");
+    }
+
+    SECTIONS.forEach((sec, idx) => {
+      const el = document.getElementById(sec.id);
+      if (!el) return;
+
+      new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) updateTo(idx, sec.label);
+        },
+        { threshold: 0.2 }
+      ).observe(el);
+    });
+
+    // Hide above first section
+    const heroEl = document.getElementById("hero");
+    if (heroEl) {
+      new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            indicator.classList.remove("is-visible");
+            current = -1;
+          }
+        },
+        { threshold: 0.3 }
+      ).observe(heroEl);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", initIndicator, { once: true });
+</script>
+
+<style>
+  .section-indicator {
+    position: fixed;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.6rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .section-indicator.is-visible {
+    opacity: 1;
+  }
+
+  .si-label {
+    display: flex;
+    align-items: baseline;
+    gap: 0.2rem;
+    overflow: hidden;
+  }
+
+  .si-prefix {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    opacity: 0.5;
+  }
+
+  .si-number {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--color-accent);
+    display: block;
+  }
+
+  .si-track {
+    width: 1px;
+    height: 3rem;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 1px;
+    overflow: hidden;
+    align-self: flex-end;
+  }
+
+  .si-fill {
+    display: block;
+    width: 100%;
+    height: 0%;
+    background: var(--color-accent);
+    border-radius: 1px;
+  }
+
+  @media (max-width: 1023px) {
+    .section-indicator { display: none; }
+  }
+</style>
