@@ -190,6 +190,7 @@ export const projects: Project[] = [
       "Delivered a complete six-round multiplayer flow and validated it through a five-player UAT that reached final scoring. Four feedback-driven interface and rule-clarity fixes were implemented and retested. Shared privately through temporary Cloudflare Quick Tunnels rather than a permanent public deployment.",
     screenshot: "/assets/case-studies/market-district-trade.webp",
     proofStatus: "available",
+    isPrivate: true,
     proofArtifacts: [
       {
         src: "/assets/case-studies/market-district-trade.webp",
