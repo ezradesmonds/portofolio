@@ -479,6 +479,7 @@ export const projects: Project[] = [
     screenshot: "/assets/case-studies/rekapflow-launch.png",
     liveUrl: "https://rekapflow.vercel.app/",
     proofStatus: "available",
+    isPrivate: true,
     proofArtifacts: [
       {
         src: "/assets/case-studies/rekapflow-launch.png",
