@@ -36,13 +36,13 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     role: "Pembangun produk solo",
     contribution:
       "Perencanaan produk, arsitektur sistem, frontend, backend, alur akuntansi, integrasi AI, laporan keuangan, dan pengalaman pengguna.",
-    statusLabel: "Dalam Pengembangan",
+    statusLabel: "Live · Dalam Pengembangan",
     outcome:
-      "Pra-peluncuran: alur inti akuntansi, laporan keuangan, asisten AI, prototype OCR struk, dan surface langganan Mayar sudah dibangun.",
+      "Rilis live yang masih dalam pengembangan dengan alur inti akuntansi, laporan keuangan, asisten AI, prototype OCR struk, dan surface langganan Mayar.",
     githubLabel: "Repo GitHub",
     detail: {
       overview:
-        "Akun.AI adalah SaaS akuntansi berbantuan AI berstatus pre-launch untuk bisnis Indonesia. Sistem ini menggabungkan pembukuan, asisten akuntansi, laporan otomatis, dan prototype OCR struk yang masih memerlukan validasi produksi.",
+        "Akun.AI adalah SaaS akuntansi berbantuan AI yang sudah live dan masih dalam pengembangan untuk bisnis Indonesia. Sistem ini menggabungkan pembukuan, asisten akuntansi, laporan otomatis, dan prototype OCR struk yang masih memerlukan validasi produksi.",
       mySpecificBuilds: [
         "Merancang arsitektur workspace akuntansi, termasuk chart of accounts, flow ledger, laporan, dan batas data per tenant.",
         "Membangun flow SaaS full-stack untuk onboarding, dashboard, transaksi, invoice, inventory, laporan, asisten AI, dan surface langganan.",

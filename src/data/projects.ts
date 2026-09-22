@@ -25,11 +25,12 @@ export const projects: Project[] = [
       "Zod",
       "Recharts",
     ],
-    status: "in-development",
-    statusLabel: "In Development",
+    status: "live",
+    statusLabel: "Live · In Development",
     outcome:
-      "Pre-launch: built the core accounting workflow, financial reports, AI assistant, a receipt-OCR prototype, and Mayar subscription surfaces.",
+      "Live in-development release with core accounting workflows, financial reports, an AI assistant, a receipt-OCR prototype, and Mayar subscription surfaces.",
     screenshot: "/assets/case-studies/akun-ai-dashboard.webp",
+    liveUrl: "https://akunai.vercel.app/",
     githubUrl: "https://github.com/ezradesmonds/SaaS_akun.ai",
     githubLabel: "GitHub Repo",
     proofStatus: "available",
@@ -93,7 +94,7 @@ export const projects: Project[] = [
     sortOrder: 4,
     detail: {
       overview:
-        "Akun.AI is a pre-launch, AI-assisted accounting SaaS for Indonesian SMEs. It combines bookkeeping workflows, an accounting assistant, automated financial reporting, and a receipt-OCR prototype that still requires production validation.",
+        "Akun.AI is a live, in-development AI-assisted accounting SaaS for Indonesian SMEs. It combines bookkeeping workflows, an accounting assistant, automated financial reporting, and a receipt-OCR prototype that still requires production validation.",
       mySpecificBuilds: [
         "Designed the accounting workspace architecture, including chart of accounts, ledger flows, reporting surfaces, and tenant-aware data boundaries.",
         "Built the full-stack SaaS flow across onboarding, dashboard, transactions, invoices, inventory, reports, AI assistant, and subscription surfaces.",
