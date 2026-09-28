@@ -1,0 +1,6 @@
+import { useState } from 'react';
+type Item={slug:string;title:string;category:string;screenshot?:string;statusLabel:string};
+export default function Archive({items,lang}:{items:Item[];lang:'en'|'id'}){
+  const [filter,setFilter]=useState('all');const visible=items.filter(p=>filter==='all'||p.category===filter);
+  return <div><div className="archive-filters enhanced-only" aria-label={lang==='id'?'Filter proyek':'Project filters'}>{['all',...new Set(items.map(p=>p.category))].map(c=><button key={c} aria-pressed={filter===c} onClick={()=>setFilter(c)}>{c==='all'?(lang==='id'?'Semua':'All'):c}</button>)}</div><p className="eyebrow" role="status">{visible.length} / {items.length} {lang==='id'?'proyek':'projects'}</p><div className="archive-grid">{visible.map(p=><a className="archive-item" key={p.slug} href={`${lang==='id'?'/id':''}/work/${p.slug}/`}>{p.screenshot&&<img src={p.screenshot} alt={p.title} width="800" height="500" loading="lazy"/>}<span className="eyebrow">{p.statusLabel}</span><h3>{p.title} <span aria-hidden="true">↗</span></h3></a>)}</div>{!visible.length&&<p>{lang==='id'?'Tidak ada proyek. Pilih Semua untuk melihat arsip.':'No projects. Choose All to view the archive.'}</p>}</div>;
+}

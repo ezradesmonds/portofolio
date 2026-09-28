@@ -1,0 +1,267 @@
+---
+import type { Lang } from "../../i18n/translations";
+import { alternateLangPath, localizedPath } from "../../i18n/utils";
+import { localizeAwards, localizeCapabilities, localizeExperiences, localizeProjects } from "../../i18n/content";
+import { projects, additionalProjects } from "../../data/projects";
+import { experiences } from "../../data/experience";
+import { capabilities } from "../../data/capabilities";
+import { awards } from "../../data/awards";
+import { PORTFOLIO_FACTS } from "../../data/facts";
+import { SITE } from "../../data/site";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const isId = lang === "id";
+const home = localizedPath(lang, "/");
+const switchHref = alternateLangPath(lang, Astro.url.pathname);
+
+const publicProjects = projects.filter((project) => !project.isPrivate);
+const localized = localizeProjects(publicProjects, lang);
+const localizedAdditional = localizeProjects(additionalProjects, lang);
+const featured = localized
+  .filter((project) => project.featured)
+  .sort((a, b) => (a.slug === "akun-ai" ? -1 : b.slug === "akun-ai" ? 1 : a.sortOrder - b.sortOrder))
+  .slice(0, 6);
+const featuredSlugs = new Set(featured.map((project) => project.slug));
+const archive = [...localized.filter((project) => !featuredSlugs.has(project.slug)), ...localizedAdditional]
+  .sort((a, b) => a.sortOrder - b.sortOrder);
+const localizedExperience = localizeExperiences(experiences, lang).slice(0, 4);
+const localizedCapabilities = localizeCapabilities(capabilities, lang);
+const localizedAwards = localizeAwards(awards, lang).slice(0, 5);
+
+const copy = isId ? {
+  enter: "Masuk ke portofolio", enterHint: "Klik untuk masuk", menu: "Menu", close: "Tutup",
+  work: "Karya", experience: "Pengalaman", about: "Tentang", contact: "Kontak", cv: "Unduh CV",
+  eyebrow: "MAHASISWA INFORMATIKA · AI / FULL-STACK / PRODUK",
+  heroA: "Saya membangun", heroB: "sistem yang", heroC: "terasa nyata.",
+  lede: "Produk AI dan full-stack yang mengubah workflow berantakan menjadi keputusan yang lebih jelas dan eksekusi yang bisa dipakai.",
+  explore: "Lihat karya", conversation: "Mulai percakapan", available: "Terbuka untuk magang dan kerja", location: "Surabaya, Indonesia",
+  proofTitle: "Bukti, bukan dekorasi.", proofBody: "Setiap karya membuka case file dengan masalah, kontribusi, status, dan artefak nyata—bukan sekadar mockup yang cantik.",
+  selected: "Karya pilihan", selectedTitle: "Sistem yang hidup di luar hero.", selectedBody: "Scroll untuk melihat produk sebagai pekerjaan nyata: konteks, keputusan, dan hasil yang dapat ditelusuri.",
+  caseFile: "Buka case file", live: "Buka live", archive: "Arsip sistem", archiveBody: "Build lain yang tetap terdokumentasi tanpa mencuri fokus dari karya utama.",
+  experienceTitle: "Dibangun bersama orang, deadline, dan operasi nyata.",
+  capability: "Kapabilitas", capabilityTitle: "Stack adalah bahan. Sistem adalah hasilnya.",
+  awards: "Sinyal tambahan", contactKicker: "Punya workflow berantakan atau ide yang belum bergerak?", contactTitle: "Mari buat sesuatu yang pantas dirasakan.",
+  email: "Kirim email", back: "Kembali ke atas", built: "Astro · TypeScript · GSAP", skipIntro: "Lewati intro",
+} : {
+  enter: "Enter the portfolio", enterHint: "Click to enter", menu: "Menu", close: "Close",
+  work: "Work", experience: "Experience", about: "About", contact: "Contact", cv: "Download CV",
+  eyebrow: "INFORMATICS STUDENT · AI / FULL-STACK / PRODUCT",
+  heroA: "I build", heroB: "systems that", heroC: "feel real.",
+  lede: "AI-assisted and full-stack products that turn messy workflows into clearer decisions and usable execution.",
+  explore: "Explore work", conversation: "Start a conversation", available: "Open for internships and work", location: "Surabaya, Indonesia",
+  proofTitle: "Proof, not decoration.", proofBody: "Every project opens into a case file with its problem, contribution, status, and real artifacts—not just a polished mockup.",
+  selected: "Selected work", selectedTitle: "Systems that live beyond the hero.", selectedBody: "Scroll through the products as real work: context, decisions, and outcomes you can inspect.",
+  caseFile: "Open case file", live: "Open live", archive: "System archive", archiveBody: "More documented builds, kept accessible without stealing focus from the main work.",
+  experienceTitle: "Built with people, deadlines, and real operations.",
+  capability: "Capabilities", capabilityTitle: "The stack is material. The system is the result.",
+  awards: "Additional signals", contactKicker: "Have a messy workflow or an idea that has not moved yet?", contactTitle: "Let’s make something worth feeling.",
+  email: "Send an email", back: "Back to top", built: "Astro · TypeScript · GSAP", skipIntro: "Skip intro",
+};
+---
+
+<div class="cinematic-portfolio" data-cinematic-root>
+  <div class="entrance" data-entrance aria-labelledby="entrance-title">
+    <div class="entrance-portrait" aria-hidden="true"></div>
+    <div class="entrance-name" aria-hidden="true"><span>EZRA</span><span>DESMOND</span></div>
+    <div class="entrance-meta"><span>PORTFOLIO / 2026</span><span>SURABAYA — ID</span></div>
+    <div class="entrance-action">
+      <p id="entrance-title">{copy.enterHint}</p>
+      <button type="button" data-enter>{copy.enter}<span aria-hidden="true">↘</span></button>
+      <button type="button" class="entrance-skip" data-enter>{copy.skipIntro}</button>
+    </div>
+  </div>
+
+  <header class="cinematic-nav" data-home-nav>
+    <a href={`${home}#top`} class="wordmark" aria-label="Ezra Desmond home">EZRA<span>®</span></a>
+    <nav aria-label="Primary navigation">
+      <a href={`${home}#work`}>{copy.work}</a><a href={`${home}#experience`}>{copy.experience}</a><a href={`${home}#about`}>{copy.about}</a><a href={`${home}#contact`}>{copy.contact}</a>
+    </nav>
+    <div class="nav-actions">
+      <a href={switchHref} class="language" aria-label={isId ? "Switch to English" : "Ganti ke Bahasa Indonesia"}>{isId ? "EN" : "ID"}</a>
+      <a href={`mailto:${SITE.email}`} class="nav-cta">{copy.conversation} ↗</a>
+      <button type="button" class="menu-toggle" data-menu-toggle aria-expanded="false" aria-controls="home-menu"><span>{copy.menu}</span><i></i></button>
+    </div>
+  </header>
+
+  <aside class="home-menu" id="home-menu" data-home-menu aria-hidden="true">
+    <div class="home-menu-top"><span>EZRA / INDEX</span><button type="button" data-menu-close>{copy.close} ×</button></div>
+    <nav>
+      {[[copy.work, "work"], [copy.experience, "experience"], [copy.about, "about"], [copy.contact, "contact"]].map(([label, id], index) => (
+        <a href={`${home}#${id}`} data-menu-link><small>0{index + 1}</small><span>{label}</span><b>↘</b></a>
+      ))}
+    </nav>
+  </aside>
+
+  <section class="portrait-hero" id="top" data-portrait-hero>
+    <div class="portrait-field" data-portrait-field aria-hidden="true"><div class="portrait-image"></div><div class="portrait-light"></div></div>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-copy">
+      <p class="hero-eyebrow">{copy.eyebrow}</p>
+      <h1><span>{copy.heroA}</span><span>{copy.heroB}</span><em>{copy.heroC}</em></h1>
+      <p class="hero-lede">{copy.lede}</p>
+      <div class="hero-actions"><a href="#work" class="button-light">{copy.explore} <span>↘</span></a><a href={SITE.cvUrl} download class="button-line">{copy.cv} ↗</a></div>
+    </div>
+    <div class="hero-status"><span><i></i>{copy.available}</span><span>{copy.location}</span></div>
+    <div class="hero-instruction" aria-hidden="true"><span>MOVE / LIGHT / REVEAL</span><i></i></div>
+  </section>
+
+  <section class="proof-scene" id="about">
+    <div class="scene-label"><span>FILE / 00</span><span>{copy.about}</span></div>
+    <div class="proof-statement"><h2>{copy.proofTitle}</h2><p>{copy.proofBody}</p></div>
+    <div class="proof-ledger">
+      <article><strong>2nd</strong><span>{isId ? "Hackathon internasional" : "International hackathon"}</span></article>
+      <article><strong>{PORTFOLIO_FACTS.portfolio.documentedBuilds}</strong><span>{isId ? "Build publik terdokumentasi" : "Documented public builds"}</span></article>
+      <article><strong>{PORTFOLIO_FACTS.academics.cumulativeGpa.toFixed(2)}</strong><span>{isId ? "IPK kumulatif / 4.00" : "Cumulative GPA / 4.00"}</span></article>
+    </div>
+  </section>
+
+  <section class="work-scene" id="work">
+    <div class="scene-label"><span>FILE / 01</span><span>{copy.selected}</span></div>
+    <header class="work-intro"><h2>{copy.selectedTitle}</h2><p>{copy.selectedBody}</p></header>
+    <div class="project-scenes">
+      {featured.map((project, index) => {
+        const image = project.screenshot ?? project.proofArtifacts?.[0]?.src;
+        const liveLinks = project.liveLinks?.length ? project.liveLinks : project.liveUrl ? [{ url: project.liveUrl, label: "Live" }] : [];
+        return (
+          <article class:list={["project-scene", index % 2 === 1 && "is-reverse"]} data-project-scene>
+            <div class="project-copy">
+              <div class="project-index"><span>{String(index + 1).padStart(2, "0")} / {String(featured.length).padStart(2, "0")}</span><span>{project.statusLabel}</span></div>
+              <h3>{project.title}</h3><p class="project-category">{project.category}</p><p class="project-description">{project.description}</p>
+              <div class="project-tech">{project.technologies.slice(0, 5).map((tech) => <span>{tech}</span>)}</div>
+              <div class="project-actions"><a href={localizedPath(lang, `/work/${project.slug}/`)}>{copy.caseFile} ↗</a>{liveLinks.slice(0, 2).map((link) => <a href={link.url} target="_blank" rel="noopener noreferrer" class="live-link">{copy.live} ↗</a>)}</div>
+            </div>
+            <a class="project-media" href={localizedPath(lang, `/work/${project.slug}/`)} aria-label={`${copy.caseFile}: ${project.title}`}>
+              {image && <img src={image} alt={`${project.title} interface preview`} loading={index < 2 ? "eager" : "lazy"} decoding="async" />}
+              <div class="project-media-overlay"><span>CASE / {String(index + 1).padStart(2, "0")}</span><b>{project.title}</b><i>↗</i></div>
+              <span class="project-progress" aria-hidden="true"></span>
+            </a>
+          </article>
+        );
+      })}
+    </div>
+    <details class="archive">
+      <summary><span><small>INDEX / 02</small>{copy.archive}<em>{copy.archiveBody}</em></span><strong>{String(archive.length).padStart(2, "0")}</strong><i>+</i></summary>
+      <div class="archive-list">{archive.map((project, index) => <a href={localizedPath(lang, `/work/${project.slug}/`)}><span>{String(index + featured.length + 1).padStart(2, "0")}</span><strong>{project.title}</strong><small>{project.category}</small><i>↗</i></a>)}</div>
+    </details>
+  </section>
+
+  <section class="experience-scene" id="experience">
+    <div class="scene-label"><span>FILE / 03</span><span>{copy.experience}</span></div>
+    <div class="experience-layout"><h2>{copy.experienceTitle}</h2><div class="experience-list">
+      {localizedExperience.map((item, index) => <article><span>0{index + 1}</span><div><small>{item.period}</small><h3>{item.role}</h3><p>{item.organization}</p><em>{item.description}</em></div></article>)}
+    </div></div>
+  </section>
+
+  <section class="capability-scene">
+    <div class="scene-label"><span>FILE / 04</span><span>{copy.capability}</span></div>
+    <div class="capability-layout"><h2>{copy.capabilityTitle}</h2><div class="capability-groups">
+      {localizedCapabilities.map((group, index) => <article><span>0{index + 1}</span><h3>{group.name}</h3><p>{group.items.map((item) => item.name).join(" · ")}</p></article>)}
+    </div></div>
+    <div class="award-strip"><span>{copy.awards}</span>{localizedAwards.map((award) => <div><strong>{award.title}</strong><small>{award.event} · {award.year}</small></div>)}</div>
+  </section>
+
+  <section class="contact-scene" id="contact">
+    <div class="scene-label"><span>FILE / 05</span><span>{copy.contact}</span></div>
+    <p>{copy.contactKicker}</p><h2>{copy.contactTitle}</h2>
+    <a href={`mailto:${SITE.email}`} class="contact-email"><span>{copy.email}</span><strong>{SITE.email}</strong><i>↗</i></a>
+    <div class="contact-links"><a href={SITE.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href={SITE.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href={SITE.instagram} target="_blank" rel="noopener noreferrer">Instagram ↗</a><a href={SITE.cvUrl} download>{copy.cv} ↗</a></div>
+  </section>
+
+  <footer class="cinematic-footer"><strong>EZRA.</strong><div><span>© {new Date().getFullYear()} EZRA DESMOND SUTANTO</span><span>{copy.built}</span><a href="#top">{copy.back} ↑</a></div></footer>
+</div>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initCinematicHome() {
+    const root = document.querySelector<HTMLElement>("[data-cinematic-root]");
+    if (!root || root.dataset.ready === "true") return;
+    root.dataset.ready = "true";
+    const entrance = root.querySelector<HTMLElement>("[data-entrance]");
+    const enterButtons = root.querySelectorAll<HTMLButtonElement>("[data-enter]");
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const alreadyEntered = sessionStorage.getItem("ezra-portfolio-entered") === "1";
+
+    const enter = () => {
+      sessionStorage.setItem("ezra-portfolio-entered", "1");
+      document.documentElement.classList.remove("intro-locked");
+      if (!entrance) return;
+      entrance.setAttribute("aria-hidden", "true");
+      entrance.inert = true;
+      gsap.to(entrance, { yPercent: reduce ? 0 : -100, autoAlpha: 0, duration: reduce ? 0.18 : 0.8, ease: "power4.inOut", onComplete: () => entrance.remove() });
+      gsap.fromTo(".hero-copy > *", { y: reduce ? 0 : 42, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.08, duration: reduce ? 0.2 : 0.75, delay: reduce ? 0 : 0.35, ease: "power3.out" });
+    };
+    if (alreadyEntered) entrance?.remove(); else { document.documentElement.classList.add("intro-locked"); enterButtons.forEach((button) => button.addEventListener("click", enter)); }
+
+    const menu = root.querySelector<HTMLElement>("[data-home-menu]");
+    const toggle = root.querySelector<HTMLButtonElement>("[data-menu-toggle]");
+    const close = () => { menu?.classList.remove("is-open"); menu?.setAttribute("aria-hidden", "true"); toggle?.setAttribute("aria-expanded", "false"); };
+    toggle?.addEventListener("click", () => { const open = !menu?.classList.contains("is-open"); menu?.classList.toggle("is-open", open); menu?.setAttribute("aria-hidden", String(!open)); toggle.setAttribute("aria-expanded", String(open)); });
+    root.querySelector("[data-menu-close]")?.addEventListener("click", close);
+    root.querySelectorAll("[data-menu-link]").forEach((link) => link.addEventListener("click", close));
+
+    const nav = root.querySelector<HTMLElement>("[data-home-nav]");
+    const updateNav = () => nav?.classList.toggle("is-scrolled", scrollY > 48);
+    updateNav(); addEventListener("scroll", updateNav, { passive: true });
+
+    const hero = root.querySelector<HTMLElement>("[data-portrait-hero]");
+    const field = root.querySelector<HTMLElement>("[data-portrait-field]");
+    if (hero && field && matchMedia("(hover: hover) and (pointer: fine)").matches && !reduce) {
+      hero.addEventListener("pointermove", (event) => { const rect = hero.getBoundingClientRect(); field.style.setProperty("--mx", `${((event.clientX - rect.left) / rect.width) * 100}%`); field.style.setProperty("--my", `${((event.clientY - rect.top) / rect.height) * 100}%`); });
+    }
+
+    if (!reduce) {
+      root.querySelectorAll<HTMLElement>("[data-project-scene]").forEach((scene) => {
+        const media = scene.querySelector<HTMLElement>(".project-media");
+        const image = scene.querySelector<HTMLElement>(".project-media img");
+        const progress = scene.querySelector<HTMLElement>(".project-progress");
+        gsap.fromTo(media, { clipPath: "inset(8% 7% round 28px)", y: 70 }, { clipPath: "inset(0% 0% round 0px)", y: 0, ease: "none", scrollTrigger: { trigger: scene, start: "top 88%", end: "center 52%", scrub: 0.7 } });
+        if (image) gsap.fromTo(image, { scale: 1.12 }, { scale: 1, ease: "none", scrollTrigger: { trigger: scene, start: "top bottom", end: "bottom top", scrub: 0.8 } });
+        if (progress) gsap.fromTo(progress, { scaleX: 0 }, { scaleX: 1, ease: "none", scrollTrigger: { trigger: scene, start: "top 75%", end: "bottom 25%", scrub: true } });
+      });
+      gsap.utils.toArray<HTMLElement>(".scene-label, .work-intro, .proof-statement, .experience-layout > h2, .capability-layout > h2").forEach((element) => gsap.from(element, { y: 32, opacity: 0, duration: 0.72, ease: "power3.out", scrollTrigger: { trigger: element, start: "top 88%" } }));
+    }
+    ScrollTrigger.refresh();
+  }
+  document.addEventListener("DOMContentLoaded", initCinematicHome);
+  document.addEventListener("astro:after-swap", initCinematicHome);
+</script>
+
+<style>
+  :global(html.intro-locked), :global(html.intro-locked body) { overflow: hidden; }
+  :global(body.cinematic-home) { margin: 0; background: #090708; color: #f1eee8; }
+  .cinematic-portfolio { --ink:#090708; --bone:#f1eee8; --red:#d4111b; --graphite:#77716f; --lime:#b8ff36; --line:rgba(241,238,232,.16); position:relative; overflow:clip; background:var(--ink); color:var(--bone); font-family:"Atkinson Hyperlegible",sans-serif; }
+  .cinematic-portfolio * { box-sizing:border-box; }
+  .entrance { position:fixed; inset:0; z-index:1000; overflow:hidden; display:grid; place-items:center; background:#070506; }
+  .entrance::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px); background-size:12.5vw 100%,100% 25vh; pointer-events:none; }
+  .entrance-portrait { position:absolute; inset:0; background:linear-gradient(90deg,rgba(9,7,8,.96) 0%,rgba(9,7,8,.18) 42%,rgba(212,17,27,.32) 100%),url('/images/profile/ezra-portrait.webp') center 22%/cover no-repeat; filter:grayscale(1) contrast(1.18); opacity:.65; }
+  .entrance-name { position:absolute; inset:12vh -2vw auto; z-index:1; display:flex; flex-direction:column; font:800 clamp(5rem,18vw,17rem)/.68 "Bricolage Grotesque",sans-serif; letter-spacing:-.08em; color:var(--bone); mix-blend-mode:difference; pointer-events:none; }
+  .entrance-name span:last-child { align-self:flex-end; }
+  .entrance-meta,.home-menu-top { position:absolute; inset:1.5rem 2rem auto; z-index:2; display:flex; justify-content:space-between; font:600 .68rem/1 "IBM Plex Mono",monospace; letter-spacing:.1em; }
+  .entrance-action { position:relative; z-index:3; display:grid; justify-items:center; gap:.75rem; margin-top:38vh; }
+  .entrance-action p { color:rgba(241,238,232,.58); font:500 .66rem "IBM Plex Mono",monospace; letter-spacing:.16em; text-transform:uppercase; }
+  .entrance-action button:first-of-type { display:flex; align-items:center; gap:2.5rem; border:1px solid rgba(241,238,232,.45); border-radius:999px; background:rgba(9,7,8,.72); color:var(--bone); padding:1rem 1.2rem 1rem 1.5rem; font-weight:700; backdrop-filter:blur(12px); cursor:pointer; transition:.25s; }
+  .entrance-action button:first-of-type:hover { background:var(--bone); color:var(--ink); transform:scale(1.03); }
+  .entrance-skip { border:0; background:none; color:rgba(241,238,232,.55); font:.65rem "IBM Plex Mono",monospace; text-decoration:underline; cursor:pointer; }
+  .cinematic-nav { position:fixed; top:0; left:0; right:0; z-index:90; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; padding:1.15rem 2rem; transition:.35s; }
+  .cinematic-nav.is-scrolled { top:.7rem; left:1rem; right:1rem; border:1px solid rgba(241,238,232,.14); border-radius:999px; background:rgba(9,7,8,.82); padding:.75rem 1.1rem; backdrop-filter:blur(18px); }
+  .wordmark { color:var(--bone); font:800 1.15rem "Bricolage Grotesque",sans-serif; text-decoration:none; letter-spacing:-.04em; }.wordmark span{color:var(--red);font-size:.55em;vertical-align:top}
+  .cinematic-nav nav { display:flex; gap:1.7rem; }.cinematic-nav nav a,.contact-links a { color:rgba(241,238,232,.68); font-size:.8rem; text-decoration:none; transition:.2s; }.cinematic-nav nav a:hover,.contact-links a:hover { color:var(--bone); }
+  .nav-actions { display:flex; justify-content:flex-end; align-items:center; gap:.8rem; }.language{display:grid;place-items:center;width:2rem;height:2rem;border:1px solid var(--line);border-radius:50%;color:var(--bone);font:.62rem "IBM Plex Mono",monospace;text-decoration:none}.nav-cta{border:1px solid var(--line);border-radius:999px;color:var(--bone);font-size:.72rem;text-decoration:none;padding:.65rem .9rem}.menu-toggle{display:none;border:0;background:none;color:var(--bone);font:600 .7rem "IBM Plex Mono",monospace}.menu-toggle i{display:block;width:1.2rem;height:1px;background:currentColor}
+  .home-menu { position:fixed; inset:0; z-index:95; display:grid; align-content:center; padding:6rem 7vw; background:var(--red); transform:translateY(-105%); transition:transform .65s cubic-bezier(.22,1,.36,1); }.home-menu.is-open{transform:none}.home-menu-top button{border:0;background:none;color:var(--bone);cursor:pointer}.home-menu nav{display:grid}.home-menu nav a{display:grid;grid-template-columns:4rem 1fr auto;align-items:center;border-bottom:1px solid rgba(241,238,232,.35);color:var(--bone);padding:.6rem 0;text-decoration:none}.home-menu nav small{font:.7rem "IBM Plex Mono",monospace}.home-menu nav span{font:800 clamp(3rem,10vw,8rem)/.95 "Bricolage Grotesque",sans-serif;letter-spacing:-.06em}.home-menu nav b{font-size:2rem}
+  .portrait-hero { position:relative; min-height:100svh; overflow:hidden; display:flex; align-items:flex-end; padding:8rem 4vw 4rem; background:#160607; }
+  .portrait-field { --mx:68%;--my:42%; position:absolute; inset:0; }.portrait-image{position:absolute;inset:0;background:url('/images/profile/ezra-portrait.webp') 67% 24%/cover no-repeat;filter:grayscale(1) contrast(1.28) brightness(.52)}.portrait-field::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(9,7,8,.96) 0%,rgba(9,7,8,.48) 42%,rgba(212,17,27,.12) 72%),linear-gradient(0deg,rgba(9,7,8,.8),transparent 45%)}.portrait-light{position:absolute;inset:0;z-index:1;background:radial-gradient(circle 18rem at var(--mx) var(--my),rgba(212,17,27,.72),rgba(212,17,27,.1) 45%,transparent 72%);mix-blend-mode:screen;transition:background .08s linear}.hero-grid{position:absolute;inset:0;background:linear-gradient(90deg,rgba(241,238,232,.08) 1px,transparent 1px),linear-gradient(rgba(241,238,232,.06) 1px,transparent 1px);background-size:12.5vw 100%,100% 25vh;mask-image:linear-gradient(to right,black,transparent 78%)}
+  .hero-copy { position:relative; z-index:2; max-width:57rem; }.hero-eyebrow,.scene-label,.project-index,.project-category{font:600 .68rem/1.4 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase}.hero-eyebrow{margin-bottom:1.3rem;color:rgba(241,238,232,.7)}.hero-copy h1{display:flex;flex-direction:column;margin:0;font:800 clamp(4rem,9.6vw,9.5rem)/.77 "Bricolage Grotesque",sans-serif;letter-spacing:-.075em}.hero-copy h1 span:nth-child(2){padding-left:8vw}.hero-copy h1 em{padding-left:3vw;color:var(--red);font-family:"Bodoni Moda",serif;font-weight:600}.hero-lede{max-width:39rem;margin:2rem 0 0;color:rgba(241,238,232,.76);font-size:clamp(1rem,1.5vw,1.25rem);line-height:1.55}.hero-actions{display:flex;gap:1rem;margin-top:2rem}.button-light,.button-line{display:inline-flex;align-items:center;gap:2rem;border-radius:999px;padding:.9rem 1.15rem;color:var(--ink);background:var(--bone);font-size:.78rem;font-weight:700;text-decoration:none}.button-line{border:1px solid rgba(241,238,232,.35);background:transparent;color:var(--bone)}.hero-status{position:absolute;z-index:2;top:7rem;right:3vw;display:grid;gap:.5rem;text-align:right;font:.62rem "IBM Plex Mono",monospace;letter-spacing:.08em}.hero-status i{display:inline-block;width:.45rem;height:.45rem;margin-right:.45rem;border-radius:50%;background:var(--lime);box-shadow:0 0 12px var(--lime)}.hero-status span:last-child{color:rgba(241,238,232,.52)}.hero-instruction{position:absolute;right:2rem;bottom:3rem;z-index:2;display:flex;align-items:center;gap:1rem;writing-mode:vertical-rl;color:rgba(241,238,232,.4);font:.57rem "IBM Plex Mono",monospace;letter-spacing:.14em}.hero-instruction i{height:4rem;width:1px;background:rgba(241,238,232,.35)}
+  .proof-scene,.work-scene,.experience-scene,.capability-scene,.contact-scene{padding:7rem 4vw}.proof-scene{background:var(--bone);color:var(--ink)}.scene-label{display:flex;gap:1rem;border-bottom:1px solid currentColor;padding-bottom:.8rem;opacity:.7}.scene-label span:first-child{color:var(--red)}.proof-statement{display:grid;grid-template-columns:1.2fr .8fr;gap:5vw;align-items:end;padding:5rem 0}.proof-statement h2,.work-intro h2,.experience-layout>h2,.capability-layout>h2,.contact-scene h2{margin:0;font:800 clamp(3rem,8vw,8rem)/.85 "Bricolage Grotesque",sans-serif;letter-spacing:-.07em}.proof-statement p,.work-intro p{max-width:35rem;font-size:1.15rem;line-height:1.65}.proof-ledger{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid}.proof-ledger article{display:grid;gap:1rem;border-right:1px solid;padding:2rem}.proof-ledger article:last-child{border:0}.proof-ledger strong{font:800 clamp(3rem,8vw,7rem)/.8 "Bricolage Grotesque",sans-serif;letter-spacing:-.07em}.proof-ledger span{font:.7rem "IBM Plex Mono",monospace;text-transform:uppercase}
+  .work-scene{background:var(--ink)}.work-intro{display:grid;grid-template-columns:1.25fr .75fr;gap:6vw;align-items:end;padding:5rem 0 8rem}.work-intro h2 em{font-family:"Bodoni Moda",serif}.work-intro p{color:rgba(241,238,232,.6)}.project-scenes{display:grid;gap:15vh}.project-scene{display:grid;grid-template-columns:.75fr 1.25fr;gap:5vw;align-items:center;min-height:82vh}.project-scene.is-reverse{grid-template-columns:1.25fr .75fr}.project-scene.is-reverse .project-copy{order:2}.project-copy{padding:2rem 0}.project-index{display:flex;justify-content:space-between;gap:1rem;color:var(--graphite)}.project-index span:last-child{color:var(--lime);text-align:right}.project-copy h3{margin:2rem 0 1rem;font:800 clamp(2.5rem,5vw,5rem)/.9 "Bricolage Grotesque",sans-serif;letter-spacing:-.06em}.project-category{color:var(--red)}.project-description{max-width:37rem;color:rgba(241,238,232,.65);line-height:1.65}.project-tech{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.5rem}.project-tech span{border-bottom:1px solid rgba(241,238,232,.25);padding:.35rem 0;color:rgba(241,238,232,.48);font:.62rem "IBM Plex Mono",monospace}.project-actions{display:flex;gap:1.2rem;margin-top:2rem}.project-actions a{color:var(--bone);font-size:.78rem;font-weight:700;text-underline-offset:.35em}.project-actions .live-link{color:var(--lime)}.project-media{position:relative;overflow:hidden;display:block;aspect-ratio:16/11;background:#1a1718;color:var(--bone);text-decoration:none;will-change:clip-path,transform}.project-media img{width:100%;height:100%;object-fit:cover;filter:saturate(.75) contrast(1.05);transition:filter .35s}.project-media:hover img{filter:saturate(1) contrast(1.03)}.project-media::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(9,7,8,.82),transparent 50%)}.project-media-overlay{position:absolute;z-index:2;inset:auto 1.2rem 1rem;display:grid;grid-template-columns:1fr auto;gap:.35rem;align-items:end}.project-media-overlay span{grid-column:1/-1;font:.6rem "IBM Plex Mono",monospace;color:var(--lime)}.project-media-overlay b{font:700 1rem "Bricolage Grotesque",sans-serif}.project-progress{position:absolute;z-index:3;bottom:0;left:0;right:0;height:3px;background:var(--red);transform-origin:left}.archive{margin-top:10rem;border-top:1px solid var(--line)}.archive summary{display:grid;grid-template-columns:1fr auto auto;gap:2rem;align-items:center;padding:2rem 0;cursor:pointer;list-style:none}.archive summary span{display:grid;gap:.35rem}.archive summary small{color:var(--lime);font:.62rem "IBM Plex Mono",monospace}.archive summary em{color:var(--graphite);font-size:.8rem}.archive summary strong{font:800 4rem "Bricolage Grotesque",sans-serif}.archive summary i{font-size:2rem}.archive[open] summary i{transform:rotate(45deg)}.archive-list a{display:grid;grid-template-columns:4rem 1fr 1fr auto;gap:1rem;align-items:center;border-top:1px solid var(--line);padding:1.1rem 0;color:var(--bone);text-decoration:none}.archive-list a:hover strong{color:var(--lime)}.archive-list span,.archive-list small{color:var(--graphite);font:.65rem "IBM Plex Mono",monospace}
+  .experience-scene{background:var(--red)}.experience-scene .scene-label span:first-child{color:var(--ink)}.experience-layout,.capability-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:7vw;padding-top:5rem}.experience-list article{display:grid;grid-template-columns:3rem 1fr;gap:1rem;border-top:1px solid rgba(241,238,232,.4);padding:1.5rem 0}.experience-list>article>span{font:.65rem "IBM Plex Mono",monospace}.experience-list small{font:.65rem "IBM Plex Mono",monospace;opacity:.65}.experience-list h3{margin:.45rem 0 0;font:700 clamp(1.3rem,2.5vw,2.3rem) "Bricolage Grotesque",sans-serif}.experience-list p{margin:.2rem 0 .8rem}.experience-list em{display:block;color:rgba(241,238,232,.7);font-size:.9rem;line-height:1.5}
+  .capability-scene{background:var(--bone);color:var(--ink)}.capability-scene .scene-label span:first-child{color:var(--red)}.capability-groups article{display:grid;grid-template-columns:3rem .7fr 1.3fr;gap:1rem;border-top:1px solid;padding:1.3rem 0}.capability-groups article>span{color:var(--red);font:.65rem "IBM Plex Mono",monospace}.capability-groups h3{margin:0;font:700 1.2rem "Bricolage Grotesque",sans-serif}.capability-groups p{margin:0;color:#5f5a59;line-height:1.55}.award-strip{display:grid;grid-template-columns:.5fr repeat(5,1fr);margin-top:7rem;border-top:1px solid}.award-strip>span,.award-strip div{padding:1.2rem;border-right:1px solid}.award-strip>span{color:var(--red);font:.65rem "IBM Plex Mono",monospace;text-transform:uppercase}.award-strip div{display:grid;gap:.5rem}.award-strip small{font-size:.62rem;color:#6e6867}
+  .contact-scene{min-height:90vh;display:flex;flex-direction:column;justify-content:space-between;background:var(--ink)}.contact-scene>p{margin:5rem 0 1rem;color:var(--lime);font:.68rem "IBM Plex Mono",monospace;text-transform:uppercase}.contact-scene h2{max-width:75rem}.contact-email{display:grid;grid-template-columns:9rem 1fr auto;align-items:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:5rem;padding:1.5rem 0;color:var(--bone);text-decoration:none}.contact-email span{color:var(--red);font:.65rem "IBM Plex Mono",monospace;text-transform:uppercase}.contact-email strong{font:700 clamp(1.2rem,3.5vw,3.2rem) "Bricolage Grotesque",sans-serif}.contact-email i{font-size:2rem}.contact-links{display:flex;gap:1.5rem;margin-top:2rem}.cinematic-footer{display:grid;grid-template-columns:1fr 1fr;align-items:end;border-top:1px solid var(--line);padding:4rem 4vw 2rem;background:var(--ink)}.cinematic-footer>strong{font:800 clamp(5rem,15vw,14rem)/.65 "Bricolage Grotesque",sans-serif;letter-spacing:-.09em}.cinematic-footer>div{display:flex;justify-content:space-between;gap:1rem;color:var(--graphite);font:.58rem "IBM Plex Mono",monospace}.cinematic-footer a{color:var(--bone)}
+  :global(.cinematic-home .skip-link){background:var(--bone);color:var(--ink)}
+  @media(max-width:900px){.cinematic-nav{grid-template-columns:1fr auto}.cinematic-nav nav,.nav-cta{display:none}.menu-toggle{display:flex;align-items:center;gap:.6rem}.hero-copy h1{font-size:clamp(3.6rem,14vw,7rem)}.proof-statement,.work-intro,.experience-layout,.capability-layout{grid-template-columns:1fr}.project-scene,.project-scene.is-reverse{grid-template-columns:1fr;min-height:0;gap:1rem}.project-scene.is-reverse .project-copy{order:0}.project-media{aspect-ratio:4/3}.project-scenes{gap:8rem}.award-strip{grid-template-columns:1fr 1fr}.award-strip>span{grid-column:1/-1}.cinematic-footer{grid-template-columns:1fr;gap:3rem}.cinematic-footer>div{flex-wrap:wrap}.hero-instruction{display:none}}
+  @media(max-width:640px){.cinematic-nav{padding:1rem}.cinematic-nav.is-scrolled{left:.5rem;right:.5rem}.entrance-meta{inset:1rem}.entrance-name{inset:18vh -3vw auto;font-size:24vw}.entrance-action{margin-top:25vh}.portrait-hero{min-height:100svh;padding:7rem 1rem 2rem;align-items:center}.portrait-image{background-position:61% 20%}.portrait-field::after{background:linear-gradient(0deg,rgba(9,7,8,.96) 0%,rgba(9,7,8,.32) 65%,rgba(212,17,27,.15))}.portrait-light{display:none}.hero-copy h1 span:nth-child(2){padding-left:5vw}.hero-copy h1 em{padding-left:0}.hero-lede{font-size:.95rem}.hero-actions{flex-wrap:wrap}.hero-status{top:auto;right:1rem;left:1rem;bottom:1.4rem;grid-template-columns:1fr auto;text-align:left}.proof-scene,.work-scene,.experience-scene,.capability-scene,.contact-scene{padding:5rem 1rem}.proof-statement{padding:3.5rem 0}.proof-ledger{grid-template-columns:1fr}.proof-ledger article{grid-template-columns:6rem 1fr;align-items:center;border-right:0;border-bottom:1px solid;padding:1.3rem 0}.proof-ledger strong{font-size:3.5rem}.work-intro{padding:3.5rem 0 5rem}.project-copy h3{font-size:2.8rem}.project-index{font-size:.56rem}.project-actions{flex-wrap:wrap}.archive{margin-top:7rem}.archive summary{grid-template-columns:1fr auto auto;gap:1rem}.archive summary strong{font-size:2.5rem}.archive-list a{grid-template-columns:2rem 1fr auto}.archive-list small{display:none}.experience-layout,.capability-layout{padding-top:3.5rem}.experience-list article{grid-template-columns:2rem 1fr}.capability-groups article{grid-template-columns:2rem 1fr}.capability-groups p{grid-column:2}.award-strip{margin-top:5rem}.contact-scene{min-height:85svh}.contact-email{grid-template-columns:1fr auto}.contact-email span{grid-column:1/-1;margin-bottom:.8rem}.contact-email strong{font-size:1.05rem}.contact-links{display:grid;grid-template-columns:1fr 1fr}.cinematic-footer{padding:4rem 1rem 2rem}.cinematic-footer>strong{font-size:28vw}.home-menu{padding:5rem 1rem}.home-menu-top{inset:1.2rem}.home-menu nav a{grid-template-columns:2rem 1fr auto}.home-menu nav span{font-size:14vw}}
+  @media(prefers-reduced-motion:reduce){.entrance,.home-menu,.cinematic-nav,.project-media,.project-media img,.portrait-light{transition:none!important}.project-media{clip-path:none!important;transform:none!important}.project-progress{transform:scaleX(1)!important}}
+</style>

@@ -1,0 +1,54 @@
+---
+import { publicProjects, selectedSlugs, displayName, artifacts, studioCopy } from '../../data/studio';
+import { localizeProjects, localizeExperiences, localizeAwards, localizeCapabilities } from '../../i18n/content';
+import { experiences } from '../../data/experience';
+import { awards } from '../../data/awards';
+import { capabilities } from '../../data/capabilities';
+import { SITE } from '../../data/site';
+import Gallery from './Gallery';
+import WorkflowDemo from './WorkflowDemo';
+import Archive from './Archive';
+const {lang='en'}=Astro.props as {lang:'en'|'id'};
+const c=studioCopy(lang), id=lang==='id', prefix=id?'/id':'';
+const all=localizeProjects(publicProjects,lang);
+const selected=selectedSlugs.map(slug=>all.find(p=>p.slug===slug)!).filter(Boolean);
+const history=localizeExperiences(experiences,lang);
+const entryYear = (period:string) => period.match(/20\d{2}/)?.[0] ?? '2026';
+---
+<section id="studio" class="opening" data-chapter data-opening>
+  <div class="opening-sticky">
+    <div class="intro-copy"><div class="intro-person"><img src="/images/profile/ezra-portrait.webp" width="80" height="80" alt="Ezra Desmond Sutanto"/><div><span>Ezra Desmond Sutanto</span><span class="eyebrow">Surabaya, Indonesia · {id?'Terbuka untuk peluang':'Open to opportunities'}</span></div></div>
+      <h1>{c.intro}</h1><div class="intro-bottom"><p>{c.subtitle}</p><div class="actions"><a class="primary" href="#work">{c.work} ↓</a><a href={SITE.cvUrl} download>CV ↗</a></div></div>
+    </div>
+    <div class="opening-stage"><div class="stage-toolbar"><span class="eyebrow">{id?'Di meja kerja':'On the desk'}</span><span class="eyebrow">{all.length} {id?'proyek publik':'public projects'}</span></div>
+      {selected.slice(0,3).map((p,i)=><a class:list={['opening-preview',i!==0&&'preview-hidden']} data-preview={i} href={`${prefix}/work/${p.slug}/`}><img src={p.screenshot} alt={`${displayName(p)} — ${p.description}`} width="1600" height="1000" loading={i===0?'eager':'lazy'} fetchpriority={i===0?'high':'auto'}/><span>{displayName(p)} <span>{c.caseStudy} ↗</span></span></a>)}
+      <div class="opening-dock enhanced-only" aria-label={id?'Pilih pratinjau':'Choose preview'}>{selected.slice(0,3).map((p,i)=><button data-preview-button={i} aria-pressed={i===0}><img src={p.screenshot} alt="" width="80" height="48"/><span>{displayName(p)}</span></button>)}</div>
+    </div>
+  </div>
+</section>
+<section id="work" class="work-section" data-chapter>
+  <header class="section-heading"><span class="eyebrow">{id?'Karya pilihan / 2024–2026':'Selected work / 2024–2026'}</span><h2>{c.selected}</h2><p>{id?'Antarmuka, keputusan teknis, dan hasil yang dapat diperiksa.':'The interfaces, engineering decisions, and outcomes you can inspect.'}</p></header>
+  {selected.map((p,i)=><>
+    <article class="project-scene" data-scene id={`project-${p.slug}`}>
+      <div class="scene-sticky"><div class="project-title"><span class="eyebrow">0{i+1} / 05 · {p.statusLabel}</span><h3>{displayName(p)}</h3><p>{p.category}</p></div>
+        <div class="scene-grid"><Gallery items={artifacts(p)} lang={lang} scene={p.slug} client:visible/>
+          <div class="scene-story"><nav class="beat-nav enhanced-only" aria-label={`${displayName(p)} ${id?'bagian':'sections'}`}>{[c.purpose,c.contribution,c.evidence].map((label,n)=><button data-beat-button={n} aria-pressed={n===0}>{label}</button>)}</nav>
+            <div class="beats">{[p.problem,p.contribution,p.outcome??p.detail?.results??p.description].map((text,n)=><section class="story-beat" data-beat={n}><span class="eyebrow">{[c.purpose,c.contribution,c.evidence][n]}</span><p>{text}</p></section>)}</div>
+            <div class="project-actions"><a class="primary" href={`${prefix}/work/${p.slug}/`}>{c.caseStudy} ↗</a>{p.liveUrl&&<a href={p.liveUrl} target="_blank" rel="noopener noreferrer">{c.live} ↗</a>}</div>
+          </div>
+        </div>
+      </div>
+    </article>
+    {i<2&&<WorkflowDemo kind={i===0?'receipt':'vote'} lang={lang} client:visible/>}
+  </>)}
+</section>
+<section id="about" class="about-section section-pad" data-chapter>
+  <header class="section-heading"><span class="eyebrow">{c.about}</span><h2>{c.background}</h2></header>
+  <div class="about-grid"><aside class="portrait-stage"><img src="/images/profile/ezra-portrait.webp" alt="Ezra Desmond Sutanto" width="1024" height="1024" loading="lazy"/><div class="portrait-caption"><h3>Ezra Desmond<br/>Sutanto.</h3><span class="timeline-year" data-year>2026</span></div><p>{id?'Mahasiswa Informatika, pengembang produk, dan musisi. Saya senang membuat sistem yang berguna bagi orang di sekitar saya.':'Informatics student, product builder, and musician. I enjoy making systems that are useful to the people around me.'}</p><a href={SITE.cvUrl} download>{id?'Unduh CV lengkap':'Download full CV'} ↗</a></aside>
+    <div class="timeline">{history.map((entry,i)=><details data-timeline data-year-value={entryYear(entry.period)} open={i===0}><summary><span class="eyebrow">{entry.period}</span><h3>{entry.organization}</h3><span>{entry.role} ↗</span></summary><p>{entry.description}</p><ul>{entry.highlights.map(h=><li>{h}</li>)}</ul></details>)}
+      <details data-timeline data-year-value="2024"><summary><span class="eyebrow">{c.education}</span><h3>Petra Christian University</h3><span>{id?'Informatika':'Informatics'} · GPA 3.76 / 4.00</span></summary><p>{id?'Studi Informatika dengan pengalaman proyek full-stack, AI, dan sistem pendukung keputusan.':'Informatics studies with project experience in full-stack development, AI, and decision support.'}</p></details>
+    </div></div>
+  <div class="award-section"><h3>{c.awards}</h3><div class="award-gallery">{localizeAwards(awards,lang).map(a=><details><summary><span class="eyebrow">{a.year} · {a.category}</span><h4>{a.title}</h4><p>{a.event}</p><span>{id?'Lihat cerita':'Read the story'} +</span></summary><p>{a.description}</p></details>)}</div></div>
+</section>
+<section id="archive" class="section-pad" data-chapter><header class="section-heading"><span class="eyebrow">{c.archive}</span><h2>{c.tools}</h2></header><div class="capabilities">{localizeCapabilities(capabilities,lang).map(group=><details><summary>{group.name} <span>+</span></summary><ul>{group.items.map(item=><li><strong>{item.name}</strong>{item.description&&<p>{item.description}</p>}<div>{all.filter(p=>p.technologies.some(t=>t.toLowerCase().includes(item.name.toLowerCase()))).slice(0,3).map(p=><a href={`${prefix}/work/${p.slug}/`}>{displayName(p)} ↗ </a>)}</div></li>)}</ul></details>)}</div><header class="section-heading archive-heading"><h2>{id?'Masih ada yang lain.':'More from the studio.'}</h2><p>{id?'Eksperimen, proyek kuliah, dan produk lainnya.':'Experiments, academic projects, and other products.'}</p></header><Archive lang={lang} items={all.filter(p=>!selectedSlugs.includes(p.slug)).map(({slug,title,category,screenshot,statusLabel})=>({slug,title,category,screenshot,statusLabel}))} client:visible/></section>
+<section id="contact" class="contact-section section-pad" data-chapter><span class="eyebrow">{c.contact} · Surabaya / UTC+7</span><h2>{c.contactTitle}</h2><a class="contact-email" href={`mailto:${SITE.email}`}>{SITE.email} ↗</a><div class="actions"><button data-copy-email={SITE.email} class="enhanced-only" data-success={c.copied} data-failure={c.copyFail}>{c.copy}</button><a href={SITE.cvUrl} download>CV ↓</a></div><p data-copy-feedback role="status"></p><div class="social-links"><a href={SITE.github}>GitHub ↗</a><a href={SITE.linkedin}>LinkedIn ↗</a><a href={SITE.instagram}>Instagram ↗</a></div><details class="services"><summary>{id?'Jasa pengembangan & les musik':'Development services & music lessons'} +</summary><div class="social-links"><a href={SITE.upwork}>Upwork ↗</a><a href={SITE.fiverr}>Fiverr ↗</a><a href={SITE.superprof}>Superprof ↗</a>{SITE.fiverrGigs.map(g=><a href={g.url}>{g.title[lang]} ↗</a>)}</div></details><footer><span>© {new Date().getFullYear()} Ezra Desmond Sutanto</span><a href="#studio">{c.top} ↑</a></footer></section>

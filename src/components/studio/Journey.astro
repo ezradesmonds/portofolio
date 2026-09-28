@@ -1,0 +1,61 @@
+---
+import { studioCopy } from '../../data/studio';
+import { SITE } from '../../data/site';
+import { alternateLangPath } from '../../i18n/utils';
+const {lang='en'}=Astro.props as {lang:'en'|'id'};
+const c=studioCopy(lang),home=lang==='id'?'/id/':'/';
+---
+<header class="studio-header"><a class="wordmark" href={home}>ezra<span>.</span></a><nav aria-label={lang==='id'?'Navigasi utama':'Main navigation'}><a href={`${home}#work`}>{c.work}</a><a href={`${home}#about`}>{c.about}</a><a href={`${home}#contact`}>{c.contact}</a><a href={SITE.cvUrl} download>CV ↗</a></nav><div class="header-tools"><a href={alternateLangPath(lang,Astro.url.pathname)} lang={lang==='id'?'en':'id'}>{lang==='id'?'EN':'ID'}</a><button class="motion-toggle enhanced-only" data-motion-toggle data-pause={c.pause} data-resume={c.resume} aria-pressed="false">{c.pause}</button></div></header>
+<nav class="journey-rail" aria-label={lang==='id'?'Bab perjalanan':'Journey chapters'}>{[['studio',c.meet],['work',c.work],['about',c.about],['archive',c.archive],['contact',c.contact]].map(([anchor,label])=><a data-chapter-link={anchor} href={`${home}#${anchor}`}><span class="rail-dot"></span>{label}</a>)}<progress data-journey-progress value="0" max="100" aria-label={lang==='id'?'Kemajuan membaca':'Reading progress'}></progress></nav>
+<script>
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
+let dispose: (()=>void)|undefined;
+function setup(){
+ dispose?.();
+ const html=document.documentElement;html.classList.add('studio-enhanced');
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ let paused=false;try{paused=sessionStorage.getItem('studio-motion')==='paused';}catch{}
+ const abort=new AbortController(), signal=abort.signal;
+ let context:gsap.Context|undefined;
+ const configure=()=>{
+   context?.revert();
+   html.dataset.motion=paused||reduced.matches?'paused':'active';
+   const button=document.querySelector<HTMLButtonElement>('[data-motion-toggle]');
+   if(button){button.textContent=paused?button.dataset.resume!:button.dataset.pause!;button.setAttribute('aria-pressed',String(paused));}
+   window.dispatchEvent(new Event('studio:motion'));
+   context=gsap.context(()=>{
+    if(paused||reduced.matches)return;
+    const mm=gsap.matchMedia();
+    mm.add('(min-width: 1024px)',()=>{
+      const opening=document.querySelector('[data-opening]');
+      if(opening){const tl=gsap.timeline({scrollTrigger:{trigger:opening,start:'top top',end:'bottom bottom',scrub:true}});tl.to('.intro-copy',{y:-35,opacity:.15,ease:'none'},0).to('.opening-stage',{y:-90,scale:1.025,ease:'none'},0);}
+      document.querySelectorAll<HTMLElement>('[data-scene]').forEach(scene=>{
+       let previous=-1, active=false;
+       ScrollTrigger.create({trigger:scene,start:'top 100px',end:'bottom bottom',onUpdate:self=>{const beat=Math.min(2,Math.floor(self.progress*3));if(previous!==beat||active!==self.isActive){previous=beat;active=self.isActive;scene.dataset.activeBeat=String(beat);scene.dispatchEvent(new CustomEvent('studio:beat',{detail:{beat,active}}));scene.querySelectorAll('[data-beat-button]').forEach((b,i)=>b.setAttribute('aria-pressed',String(i===beat)));}},onLeave:()=>scene.dispatchEvent(new CustomEvent('studio:beat',{detail:{beat:2,active:false}})),onLeaveBack:()=>scene.dispatchEvent(new CustomEvent('studio:beat',{detail:{beat:0,active:false}}))});
+      });
+      return()=>{document.querySelectorAll<HTMLElement>('[data-active-beat]').forEach(el=>delete el.dataset.activeBeat);};
+    });
+   });
+   ScrollTrigger.refresh();
+ };
+ document.querySelector('[data-motion-toggle]')?.addEventListener('click',()=>{paused=!paused;try{sessionStorage.setItem('studio-motion',paused?'paused':'active');}catch{}configure();},{signal});
+ reduced.addEventListener('change',configure,{signal});
+ document.querySelectorAll<HTMLButtonElement>('[data-preview-button]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll<HTMLElement>('[data-preview]').forEach(el=>el.classList.toggle('preview-hidden',el.dataset.preview!==button.dataset.previewButton));document.querySelectorAll('[data-preview-button]').forEach(el=>el.setAttribute('aria-pressed',String(el===button)));},{signal}));
+ document.querySelectorAll<HTMLElement>('[data-beat-button]').forEach(button=>button.addEventListener('click',()=>{const scene=button.closest<HTMLElement>('[data-scene]')!;const n=Number(button.dataset.beatButton);if(innerWidth>=1024&&html.dataset.motion==='active'){const top=scene.getBoundingClientRect().top+scrollY-100;const distance=Math.max(0,scene.offsetHeight-innerHeight+100);window.scrollTo({top:top+distance*(n+.15)/3,behavior:'smooth'});}else scene.querySelector(`[data-beat="${n}"]`)?.scrollIntoView({behavior:'instant',block:'center'});},{signal}));
+ const links=[...document.querySelectorAll<HTMLAnchorElement>('[data-chapter-link]')];
+ const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){links.forEach(link=>{if(link.dataset.chapterLink===entry.target.id)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});}}),{rootMargin:'-15% 0px -65% 0px'});
+ document.querySelectorAll('[data-chapter]').forEach(el=>observer.observe(el));
+ const timeline=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){const year=document.querySelector('[data-year]');if(year)year.textContent=(entry.target as HTMLElement).dataset.yearValue!;}}),{rootMargin:'-20% 0px -50% 0px'});
+ document.querySelectorAll('[data-timeline]').forEach(el=>timeline.observe(el));
+ let frame=0;const progress=()=>{if(frame)return;frame=requestAnimationFrame(()=>{frame=0;const el=document.querySelector<HTMLProgressElement>('[data-journey-progress]');if(el)el.value=100*scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight);});};
+ window.addEventListener('scroll',progress,{passive:true,signal});progress();
+ document.querySelector<HTMLButtonElement>('[data-copy-email]')?.addEventListener('click',async e=>{const button=e.currentTarget as HTMLButtonElement;const feedback=document.querySelector('[data-copy-feedback]');try{await navigator.clipboard.writeText(button.dataset.copyEmail!);if(feedback)feedback.textContent=button.dataset.success!;}catch{if(feedback)feedback.textContent=button.dataset.failure!;}},{signal});
+ const refresh=()=>ScrollTrigger.refresh();document.fonts.ready.then(()=>{if(!signal.aborted)refresh();});
+ document.querySelectorAll('img').forEach(img=>img.addEventListener('load',refresh,{once:true,signal}));
+ configure();
+ dispose=()=>{abort.abort();context?.revert();observer.disconnect();timeline.disconnect();cancelAnimationFrame(frame);};
+}
+setup();document.addEventListener('astro:page-load',setup);document.addEventListener('astro:before-swap',()=>dispose?.());
+</script>

@@ -1,5 +1,10 @@
 ---
 import "../../styles/global.css";
+import "../../styles/studio.css";
+import '@fontsource-variable/space-grotesk';
+import '@fontsource-variable/source-sans-3';
+import '@fontsource/ibm-plex-mono/latin-400.css';
+import Journey from '../studio/Journey.astro';
 import SiteHeader from "./SiteHeader.astro";
 import SiteFooter from "./SiteFooter.astro";
 import EzraLoader from "./EzraLoader.astro";
@@ -14,9 +19,11 @@ interface Props {
   description?: string;
   image?: string;
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
+  cinematicHome?: boolean;
 }
 
 const lang: Lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname);
+const cinematicHome = Astro.props.cinematicHome ?? false;
 
 const title = Astro.props.title ?? t(lang, "seo.title");
 const description = Astro.props.description ?? t(lang, "seo.description");
@@ -103,26 +110,16 @@ const jsonLd = [...baseStructuredData, ...extraStructuredData];
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={image} />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
 
     <link rel="sitemap" href="/sitemap-index.xml" />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
 
   </head>
-  <body class="bg-dark-base text-text-primary font-sans antialiased bg-mesh bg-noise">
-    <EzraLoader lang={lang} />
+  <body class:list={['studio-site', !cinematicHome && 'case-page']}>
     <a href="#main-content" class="skip-link">{t(lang, "skipLink")}</a>
-    <SiteHeader lang={lang} />
+    <Journey lang={lang}/>
     <main id="main-content">
       <slot />
     </main>
-    <SiteFooter lang={lang} />
-    <SmoothScroll />
-    <CustomCursor client:load />
   </body>
 </html>
