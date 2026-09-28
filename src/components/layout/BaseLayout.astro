@@ -4,6 +4,8 @@ import "../../styles/studio.css";
 import '@fontsource-variable/space-grotesk';
 import '@fontsource-variable/source-sans-3';
 import '@fontsource/ibm-plex-mono/latin-400.css';
+import '@fontsource-variable/manrope';
+import '@fontsource-variable/dm-sans';
 import Journey from '../studio/Journey.astro';
 import SiteHeader from "./SiteHeader.astro";
 import SiteFooter from "./SiteFooter.astro";
@@ -115,9 +117,9 @@ const jsonLd = [...baseStructuredData, ...extraStructuredData];
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)}></script>
 
   </head>
-  <body class:list={['studio-site', !cinematicHome && 'case-page']}>
+  <body class:list={[cinematicHome ? 'reference-site' : 'studio-site case-page']}>
     <a href="#main-content" class="skip-link">{t(lang, "skipLink")}</a>
-    <Journey lang={lang}/>
+    {!cinematicHome && <Journey lang={lang}/>}
     <main id="main-content">
       <slot />
     </main>

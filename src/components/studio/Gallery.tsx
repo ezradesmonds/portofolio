@@ -31,7 +31,7 @@ export default function Gallery({items, lang, scene, priority=false}: {items:Pro
     <p className="media-caption"><span>{String(index+1).padStart(2,'0')} / {String(items.length).padStart(2,'0')}</span> {items[index].caption}</p>
     {scene&&<button className="text-button enhanced-only" disabled={!manual} onClick={()=>{setManual(false);setIndex(beat.current%items.length);}}>{manual?`${c.manual} · ${c.follow} ↻`:c.follow}</button>}
     <noscript><div className="fallback-artifacts">{items.slice(1).map(a=><a key={a.src} href={a.src}>{a.caption} ↗</a>)}</div></noscript>
-    <dialog ref={dialog} className="media-dialog" onClick={e=>{if(e.target===dialog.current)dialog.current.close();}} onClose={()=>{dialog.current?.querySelectorAll('video').forEach(v=>v.pause());}}>
+    <dialog ref={dialog} className="media-dialog" aria-label={items[index].caption || c.enlarge} onClick={e=>{if(e.target===dialog.current)dialog.current.close();}} onClose={()=>{dialog.current?.querySelectorAll('video').forEach(v=>v.pause());}}>
       <button autoFocus onClick={()=>dialog.current?.close()}>{c.close} ×</button>{media(true)}<p>{items[index].caption}</p>
       <button onClick={()=>choose(index-1)}>{c.previous}</button><button onClick={()=>choose(index+1)}>{c.next}</button>
     </dialog>

@@ -1,0 +1,68 @@
+/* Aaron layout and choreography, ported to Astro with Ezra's real project records. */
+.reference-site{background:#d2cebf;color:#20211f;font-family:var(--body);overflow-x:clip}
+.reference-site>main{margin:0;padding:0;max-width:none}
+.reference-portfolio .section-heading{padding:0}
+.reference-portfolio .section-heading .eyebrow{font-size:11px;line-height:1.5}
+.reference-portfolio .contact-grid{grid-template-columns:1fr 1fr;min-width:0}
+.reference-portfolio .contact-grid>*{min-width:0}
+.reference-portfolio .language a{display:inline-flex;align-items:center;justify-content:center;min-width:32px;min-height:44px;color:#4d5047}
+.reference-portfolio .language a[aria-current]{color:#20211f;text-decoration:underline;text-underline-offset:4px}
+.reference-portfolio .hero-stage{isolation:isolate}
+.reference-portfolio .hero-name svg{width:100%;height:auto}
+.reference-portfolio .hero-main{z-index:2}
+.reference-portfolio .hero-nav{z-index:3}
+.reference-portfolio .hero-topline{position:relative;z-index:4}
+.reference-portfolio .hero-bottomline a{min-height:44px;display:flex;align-items:center}
+.reference-portfolio .hero-bottomline{align-items:center;bottom:8px}
+.reference-portfolio .sidebar .wordmark{max-width:118px}
+.reference-portfolio .sidebar .desktop-wordmark{width:100%;height:auto}
+.reference-portfolio .journey-year>span{font-size:clamp(58px,6vw,105px);color:#46493e}
+.reference-portfolio .milestone-image{width:100%;aspect-ratio:16/9;object-fit:cover;object-position:top;margin-top:24px;border-radius:5px}
+.reference-portfolio .journey-meta{display:block}
+.reference-portfolio .journey-meta>span{display:block;margin-bottom:12px}
+.reference-portfolio summary{cursor:pointer;list-style:none;min-height:44px}
+.reference-portfolio summary::-webkit-details-marker{display:none}
+.reference-portfolio summary:focus-visible{outline:3px solid #596700;outline-offset:4px}
+.reference-portfolio .journey-meta summary{background:#eeede4;padding:12px 16px;border-radius:5px;display:inline-flex;font-size:12px}
+.reference-portfolio .journey-meta details p{font-size:14px;margin-top:16px;line-height:1.65}
+.reference-portfolio .full-history{margin:50px 0 10px}
+.reference-portfolio .full-history>summary{display:flex;justify-content:space-between;padding:24px 0;border-block:1px solid var(--line);font-size:20px}
+.reference-portfolio .full-history details{border-bottom:1px solid var(--line);padding:20px 0}
+.reference-portfolio .full-history p,.reference-portfolio .full-history li{font-size:16px;margin-top:15px}
+.reference-portfolio .full-history ul{padding-left:20px;list-style:disc}
+.reference-portfolio .full-history>h3{margin:45px 0 20px}
+.reference-portfolio .history-portrait{width:250px;aspect-ratio:1;object-fit:cover;object-position:50% 25%;border-radius:5px;margin:25px 0}
+.reference-portfolio .portrait-study{width:100%;object-fit:cover;object-position:50% 25%;padding:0}
+.reference-portfolio .capability{display:block}
+.reference-portfolio .capability>summary{display:flex;align-items:center;gap:25px}
+.reference-portfolio .capability summary svg{width:38px;flex-shrink:0}
+.reference-portfolio .capability summary>span{margin-left:auto}
+.reference-portfolio .capability-tools{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:25px 0 0 64px}
+.reference-portfolio .capability-tools strong{font-size:15px}
+.reference-portfolio .studio-site{--canvas:#eeede6;--paper:#eeede6;--ink:#20211f;--secondary:#595b52;--blue:#465519;--line:#c3c3b8;--font-display:var(--display);--font-sans:var(--body);background:transparent;font:16px/1.55 var(--body)}
+.reference-portfolio .demo-inset{margin-top:40px}
+.reference-portfolio .workflow{background:#e3e2d8;border-color:var(--line);margin-bottom:25px;padding:30px}
+.reference-portfolio .archive-inset{margin-top:40px}
+.reference-portfolio .studio-site .archive-item img{background:#d2cebf;border-color:#d2cebf}
+.reference-portfolio .studio-site .archive-item h3{font-size:24px}
+.reference-portfolio .studio-site .archive-filters button{font-size:12px;background:#e3e2d8;border-color:#c3c3b8}
+.reference-portfolio .studio-site .archive-filters button[aria-pressed=true]{background:#f2ff52;color:#20211f}
+.reference-portfolio .reference-contact-side>img{width:100%;aspect-ratio:16/10;object-fit:cover;object-position:center 25%;border-radius:6px;margin-bottom:24px}
+.reference-contact-side details{margin-top:25px;font-size:14px}
+.reference-contact-side details a{display:block;padding:10px 0;text-decoration:underline;text-underline-offset:4px}
+.reference-portfolio .contact-link{overflow-wrap:anywhere}
+.reference-portfolio .footer-name{font-size:clamp(120px,25vw,450px)}
+.reference-portfolio .footer-name>span{font-size:30px}
+.reference-portfolio .project-visual>img{object-fit:contain!important;background:#d2cebf;padding:12px}
+.reference-portfolio .project-view{box-shadow:0 2px 15px #0002}
+.reference-portfolio .project-caption{color:#eeede6}
+.reference-portfolio .project-caption h3{color:#eeede6}
+.reference-portfolio .project-list:focus-visible{outline:2px solid var(--accent);outline-offset:6px}
+.reference-portfolio .journey-card{backdrop-filter:none!important}
+.reference-site ::selection{background:#f2ff52;color:#20211f}
+@media(max-width:650px){.reference-portfolio .contact-grid{grid-template-columns:1fr}}
+html[data-motion=paused]{scroll-behavior:auto}
+html[data-motion=paused] .reference-portfolio *,html[data-motion=paused] .reference-portfolio *::before{transition:none!important;animation:none!important}
+@media(min-width:1000px){.reference-portfolio:not([data-desktop-motion=on]) .project-list{width:100%;overflow-x:auto}.reference-portfolio:not([data-desktop-motion=on]) .sidebar{opacity:1;visibility:visible;transform:none}.reference-portfolio:not([data-desktop-motion=on]) .hero{margin-left:245px}.reference-portfolio:not([data-desktop-motion=on]) .hero-name{width:96%;left:2%}.reference-portfolio .hero-art{width:64%;left:23%;top:13%}.reference-portfolio .hero-main{left:39%;width:45%}.reference-portfolio .hero-skillcard-design{left:18.5%}.reference-portfolio .hero-nav>div{gap:18px}.reference-portfolio .hero-nav a{font-size:13px}.reference-portfolio .hero-bottom>p:last-child{width:21%}.reference-portfolio .hero-title{font-size:clamp(52px,4.6vw,84px)}.reference-portfolio .projects .gallery-controls{top:165px}.reference-portfolio .projects h2{color:#eeede6}.reference-portfolio .projects .section-heading{width:70%}}
+@media(max-width:999px){.reference-portfolio .hero-art{width:120%;left:-6%;top:18%}.reference-portfolio .hero-main{left:28%;top:43%}.reference-portfolio .hero-title{font-size:clamp(48px,7.5vw,70px)}.reference-portfolio .gallery-controls{display:none}.reference-portfolio .projects .project-list{width:100%}.reference-portfolio .projects h2{color:#eeede6}.reference-portfolio .journey-year>span{font-size:60px}}
+@media(max-width:650px){.reference-portfolio .hero{min-height:810px}.reference-portfolio .hero-art{width:205%;left:-52%;top:20%}.reference-portfolio .hero-main{left:7%;top:40%;width:87%}.reference-portfolio .hero-title{font-size:clamp(50px,13vw,70px)}.reference-portfolio .hero-bottom>p:last-child{background:#20231dcf;padding:10px;border-radius:3px;max-width:73%;font-size:11px}.reference-portfolio .hero-bottomline{bottom:12px}.reference-portfolio .hero-bottomline a{font-size:9px}.reference-portfolio .capability-tools{grid-template-columns:1fr 1fr;padding-left:0}.reference-portfolio .capability>summary{gap:15px}.reference-portfolio .capability summary svg{width:25px}.reference-portfolio .workflow{padding:22px 16px}.reference-portfolio .demo-grid{gap:20px}.reference-portfolio .footer-name{font-size:30vw}.reference-portfolio .full-history>summary{font-size:18px}.reference-portfolio .journey-card{min-width:0}.reference-portfolio .journey-year>span{font-size:58px}}

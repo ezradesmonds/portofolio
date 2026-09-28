@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function WorkflowDemo({kind,lang}:{kind:'receipt'|'vote';lang:'en'|'id'}) {
   const id=lang==='id';

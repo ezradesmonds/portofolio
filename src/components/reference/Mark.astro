@@ -1,0 +1,4 @@
+---
+const {variant=0}=Astro.props;
+---
+<svg viewBox="0 0 48 48" fill="none" aria-hidden="true">{variant%3===0?<path d="M24 3v42M3 24h42M9 9l30 30M9 39 39 9" stroke="currentColor" stroke-width="7"/>:variant%3===1?<><rect x="6" y="6" width="14" height="14" rx="7" fill="currentColor"/><rect x="28" y="6" width="14" height="14" rx="7" fill="currentColor"/><rect x="6" y="28" width="14" height="14" rx="7" fill="currentColor"/><rect x="28" y="28" width="14" height="14" rx="7" fill="currentColor"/></>:<path d="M5 39 20 9h13L18 39zm19 0L39 9h7L31 39z" fill="currentColor"/>}</svg>
