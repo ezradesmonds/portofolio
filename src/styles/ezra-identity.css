@@ -1,0 +1,43 @@
+/* Porcelain, midnight and cobalt. No geometry here that changes scroll ownership. */
+.reference-portfolio{--sidebar-surface:#f3f5fa;--sidebar-text:#111c32;--sidebar-border:#c7d1e2}
+.reference-portfolio .button,.reference-portfolio .project-view{border-radius:2px}
+.reference-portfolio .button.accent,.reference-portfolio .project-view{color:#fff;background:#2457e7}
+.reference-portfolio .button.accent:hover,.reference-portfolio .project-view:hover{background:#1644c8;color:#fff}
+.reference-portfolio .wordmark{background:transparent;color:var(--sidebar-text,#111c32);padding:0;letter-spacing:-1.5px}
+.reference-portfolio .hero-name{color:#2457e7;opacity:.95}
+.reference-portfolio .hero-title{letter-spacing:-.065em;font-weight:600;text-shadow:0 2px 22px #0b173255}
+.reference-portfolio .hero-title>span{width:fit-content;background:#111c32;color:#f3f5fa;padding:0 .12em .06em;margin-bottom:2px;text-shadow:none}
+.reference-portfolio .hero-role{background:#111c32;color:#f3f5fa}
+.reference-portfolio .hero-bottomline a{background:#f3f5fa;color:#111c32;padding:0 12px;border:1px solid #c7d1e2}
+.reference-portfolio .hero-role{font-family:'IBM Plex Mono',monospace;letter-spacing:.035em}
+.reference-portfolio .hero-art{filter:drop-shadow(20px 28px 20px #10244c30)}
+.reference-portfolio .art-caption{color:#dce8ff;left:26%;top:35%;font-family:'IBM Plex Mono',monospace;font-size:8px}
+.reference-portfolio .hero-topline,.reference-portfolio .hero-bottomline,.reference-portfolio .eyebrow,.reference-portfolio .project-number{font-family:'IBM Plex Mono',monospace}
+.reference-portfolio .profile-panel,.reference-portfolio .nav-panel,.reference-portfolio .sidebar-traits,.reference-portfolio .sidebar-settings,.reference-portfolio .sidebar-email{border-radius:2px;box-shadow:none;background:var(--sidebar-surface);border-color:var(--sidebar-border);color:var(--sidebar-text)}
+.reference-portfolio .profile-panel{border-top:3px solid #2457e7}
+.reference-portfolio .nav-panel{padding:8px 0}
+.reference-portfolio .nav-panel a{border-radius:0;border-left:2px solid transparent;padding-left:14px;font-weight:500;letter-spacing:.015em}
+.reference-portfolio .nav-panel a:hover,.reference-portfolio .nav-panel a[aria-current]{background:#2457e714;border-left-color:#2457e7;color:var(--sidebar-text)}
+.reference-portfolio .nav-symbol{display:none}
+.reference-portfolio .nav-index{display:inline-block;color:inherit;opacity:.6;padding-right:8px;font-family:'IBM Plex Mono',monospace}
+.reference-portfolio .social-square{background:transparent;box-shadow:none;backdrop-filter:none;border:1px solid var(--sidebar-border);border-radius:50%}
+.reference-portfolio .social-square::after{display:none}
+.reference-portfolio .hero-skillcard{background:#f3f5faec!important;border:1px solid #b8c9e6!important;border-radius:2px!important;box-shadow:8px 10px 0 #10244c14!important;color:#193466!important;backdrop-filter:none!important}
+.reference-portfolio .journey-card{border-radius:2px;background:#edf1f8;border:1px solid #c7d1e2;border-top:3px solid #2457e7;box-shadow:none}
+.reference-portfolio .journey-year>span{font-weight:500;letter-spacing:-.08em;color:#2457e7}
+.reference-portfolio .journey-line{color:#8aa6d3}
+.reference-portfolio .journey-dot{background:#2457e7;border-color:#f3f5fa}
+.reference-portfolio .journey-meta summary{border-radius:2px;border:1px solid #c7d1e2}
+.reference-portfolio .milestone-image,.reference-portfolio .project-visual{border-radius:2px}
+.reference-portfolio .project-visual>img{background:#e5ebf5;padding:16px}
+.reference-portfolio .project-badge{background:#f3f5fa;color:#111c32;border:1px solid #c7d1e2;border-radius:2px}
+.reference-portfolio .project-caption h3{font-weight:500;letter-spacing:-.05em}
+.reference-portfolio .project-view{box-shadow:none}
+.reference-portfolio .cta{background:#dce7ff;border-radius:2px;color:#111c32}
+.reference-portfolio .footer-name{color:#2457e7;font-weight:600}
+.reference-portfolio .studio-site .archive-filters button[aria-pressed=true]{color:#fff;background:#2457e7}
+.reference-portfolio .language a{color:inherit}
+.reference-portfolio .language a[aria-current]{color:inherit}
+.reference-site ::selection{background:#2457e7;color:#fff}
+.reference-portfolio :focus-visible{outline-color:#5486ff}
+@media(max-width:999px){.reference-portfolio .mobile-header{background:#f3f5faf5;border-color:#c7d1e2;border-radius:2px}.reference-portfolio .mobile-menu{border-radius:2px}.reference-portfolio .hero-name{top:108px}}

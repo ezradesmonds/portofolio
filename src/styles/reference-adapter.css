@@ -10,6 +10,8 @@
 .reference-portfolio .hero-stage{isolation:isolate}
 .reference-portfolio .hero-name svg{width:100%;height:auto}
 .reference-portfolio .hero-main{z-index:2}
+.reference-portfolio .hero-title{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.reference-portfolio .hero-main{top:70%}
 .reference-portfolio .hero-nav{z-index:3}
 .reference-portfolio .hero-topline{position:relative;z-index:4}
 .reference-portfolio .hero-bottomline a{min-height:44px;display:flex;align-items:center}
@@ -53,6 +55,8 @@
 .reference-portfolio .contact-link{overflow-wrap:anywhere}
 .reference-portfolio .footer-name{font-size:clamp(120px,25vw,450px)}
 .reference-portfolio .footer-name>span{font-size:30px}
+@media(max-width:999px){.reference-portfolio.reference-portfolio .hero-main{top:61%}}
+@media(max-width:650px){.reference-portfolio.reference-portfolio .hero-main{top:57%}}
 .reference-portfolio .project-visual>img{object-fit:contain!important;background:#d2cebf;padding:12px}
 .reference-portfolio .project-view{box-shadow:0 2px 15px #0002}
 .reference-portfolio .project-caption{color:#eeede6}

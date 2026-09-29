@@ -22,7 +22,7 @@ function setup(){
   context=gsap.context(()=>{
    if(off)return;
    if(desktop.matches)cleanupMotion=desktopMotion(root);
-   else gsap.from('.hero-title>span',{y:25,opacity:0,duration:.65,stagger:.1,clearProps:'all'});
+   else gsap.from('.hero-actions',{y:25,opacity:0,duration:.65,clearProps:'all'});
   },root);
   ScrollTrigger.refresh();
  };

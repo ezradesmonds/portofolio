@@ -1,0 +1,51 @@
+---
+import '../../styles/product-portfolio.css';
+import {publicProjects,selectedSlugs,displayName} from '../../data/studio';
+import {experiences} from '../../data/experience';
+import {awards} from '../../data/awards';
+import {capabilities} from '../../data/capabilities';
+import {localizeProjects,localizeExperiences,localizeAwards,localizeCapabilities} from '../../i18n/content';
+import {SITE} from '../../data/site';
+import Archive from '../studio/Archive';
+import WorkflowDemo from '../studio/WorkflowDemo';
+const {lang='en'}=Astro.props as {lang:'en'|'id'};
+const id=lang==='id',prefix=id?'/id':'';
+const copy=(en:string,indo:string)=>id?indo:en;
+const all=localizeProjects(publicProjects,lang);
+const selected=selectedSlugs.map(slug=>all.find(p=>p.slug===slug)!).filter(Boolean);
+const previews=[selected[0],selected[2],selected[3]];
+const nav=[['work',copy('Work','Karya')],['approach',copy('Approach','Pendekatan')],['about',copy('About','Tentang')],['contact',copy('Contact','Kontak')]];
+---
+<div class="product-portfolio" data-product-home>
+  <header class="pp-header">
+    <a class="pp-brand" href="#home">Ezra Desmond<span>Software & AI</span></a>
+    <nav aria-label={copy('Main navigation','Navigasi utama')}>{nav.map(([key,label])=><a href={`#${key}`}>{label}</a>)}</nav>
+    <div class="pp-utilities"><a href={id?'/':'/id/'} lang={id?'en':'id'} aria-label={copy('Switch to Indonesian','Ganti ke bahasa Inggris')}>{id?'EN':'ID'}</a><button data-pp-motion data-pause={copy('Pause motion','Jeda animasi')} data-resume={copy('Resume motion','Lanjutkan animasi')} aria-pressed="false">{copy('Pause motion','Jeda animasi')}</button></div>
+  </header>
+  <section id="home" class="pp-opening">
+    <span id="hero"></span><span id="studio"></span>
+    <div class="pp-intro">
+      <div><p class="pp-meta" data-entrance>{copy('SOFTWARE ENGINEERING / AI / PRODUCT','REKAYASA PERANGKAT LUNAK / AI / PRODUK')}</p><h1 data-entrance>{copy('From a real problem','Dari masalah nyata')}<br/><em>{copy('to a working product.','menjadi produk berguna.')}</em></h1></div>
+      <div class="pp-intro-note" data-entrance><p>{copy('I’m Ezra. I build software that connects interfaces, data, and the work people need to get done.','Saya Ezra. Saya membangun software yang menghubungkan antarmuka, data, dan pekerjaan yang perlu diselesaikan.')}</p><a class="pp-text-link" href={SITE.cvUrl} download>{copy('Download CV','Unduh CV')} <span>↓</span></a></div>
+    </div>
+    <div class="pp-aperture" data-aperture>
+      <div class="pp-preview-media">{previews.map((p,i)=><a href={`${prefix}/work/${p.slug}/`} data-preview-panel={i} class:list={['pp-preview-panel',{'is-current':i===0}]} aria-label={`${copy('Case study','Studi kasus')}: ${p.title}`} tabindex={i===0?undefined:-1} aria-hidden={i!==0?'true':undefined}><img src={p.screenshot} alt={p.title} width="1600" height="1000" loading={i===0?'eager':'lazy'} fetchpriority={i===0?'high':undefined}/><span class="pp-preview-action">{copy('Explore the case study','Buka studi kasus')} ↗</span></a>)}</div>
+      <div class="pp-preview-dock"><div class="pp-preview-label"><span class="pp-meta">{copy('A LOOK INSIDE THE WORK','LIHAT KARYANYA')}</span><span>{copy('Select a project →','Pilih proyek →')}</span></div><div class="pp-preview-options" aria-label={copy('Featured project previews','Pratinjau proyek pilihan')}>{previews.map((p,i)=><button data-preview-select={i} aria-pressed={i===0}><span>{displayName(p)}</span><small>{p.statusLabel}</small></button>)}</div></div>
+    </div>
+    <div class="pp-opening-foot"><span>{copy('Based in Surabaya, Indonesia','Berbasis di Surabaya, Indonesia')}</span><a href="#work">{copy('Explore selected work','Jelajahi karya pilihan')} ↓</a><span>{copy('Open to internships & projects','Terbuka untuk magang & proyek')}</span></div>
+  </section>
+  <section id="work" class="pp-work pp-section">
+    <span id="projects"></span><div class="pp-section-head"><p class="pp-meta">{copy('SELECTED WORK','KARYA PILIHAN')} / {selected.length}</p><h2>{copy('Different problems.','Beragam masalah.')}<br/>{copy('A connected way of thinking.','Cara berpikir yang terhubung.')}</h2><p>{copy('Accounting, commerce, and event operations. Explore what I built, the decisions behind it, and what the evidence supports.','Akuntansi, perdagangan, dan operasional acara. Telusuri hasil kerja, keputusan di baliknya, dan bukti yang tersedia.')}</p></div>
+    <div class="pp-work-grid">{selected.map((p,i)=><article class:list={['pp-project',{'pp-project-lead':i===0}]}>
+      <a class="pp-project-media" data-media-reveal href={`${prefix}/work/${p.slug}/`} aria-label={`${copy('Case study','Studi kasus')}: ${p.title}`}><img src={p.screenshot} alt={p.title} width="1440" height="1000" loading="lazy"/><span class="pp-open">↗</span></a>
+      <div class="pp-project-copy"><div class="pp-project-heading"><h3><a href={`${prefix}/work/${p.slug}/`}>{displayName(p)}</a></h3><span class="pp-status">{p.statusLabel}</span></div><p>{p.description}</p><details><summary>{copy('My contribution & evidence','Kontribusi & bukti')} <span>+</span></summary><p>{p.contribution}</p>{p.outcome&&<p>{p.outcome}</p>}</details><div class="pp-project-links"><a href={`${prefix}/work/${p.slug}/`}>{copy('Read case study','Baca studi kasus')} ↗</a>{p.liveUrl&&<a href={p.liveUrl} target="_blank" rel="noopener noreferrer">{copy('Live site','Situs langsung')} ↗</a>}{p.liveLinks?.filter(link=>link.url!==p.liveUrl).map(link=><a href={link.url} target="_blank" rel="noopener noreferrer">{link.label} ↗</a>)}</div></div>
+    </article>)}</div>
+  </section>
+  <section id="approach" class="pp-approach pp-section"><div class="pp-section-head"><p class="pp-meta">{copy('BEHIND THE INTERFACE','DI BALIK ANTARMUKA')}</p><h2>{copy('A useful interface is','Antarmuka yang berguna')}<br/>{copy('only half the story.','baru separuh cerita.')}</h2><p>{copy('Inputs need validation. Decisions need context. Try two small, synthetic examples from the work. No account required.','Input perlu validasi. Keputusan perlu konteks. Coba dua contoh sintetis kecil dari proyek ini. Tanpa akun.')}</p></div><div class="pp-demo-list studio-site"><details open><summary>Akun.AI <span>{copy('Receipt → balanced journal','Struk → jurnal seimbang')} +</span></summary><WorkflowDemo kind="receipt" lang={lang} client:visible/></details><details><summary>WGG <span>{copy('Choice → lock → result','Pilihan → kunci → hasil')} +</span></summary><WorkflowDemo kind="vote" lang={lang} client:visible/></details></div>
+    <div id="capabilities" class="pp-tools"><p class="pp-meta">{copy('TOOLS, WITH CONTEXT','ALAT, BESERTA KONTEKS')}</p>{localizeCapabilities(capabilities,lang).map(group=><details><summary>{group.name}<span>+</span></summary><div>{group.items.map(item=><p><strong>{item.name}</strong>{item.description&&<span> — {item.description}</span>}</p>)}</div></details>)}</div>
+  </section>
+  <section id="about" class="pp-about pp-section"><div class="pp-person"><img src="/images/profile/ezra-portrait.webp" alt="Ezra Desmond Sutanto" width="1000" height="1000" loading="lazy"/><p class="pp-meta">EZRA DESMOND SUTANTO / SURABAYA</p></div><div class="pp-background"><p class="pp-meta">{copy('THE PERSON BEHIND THE PRODUCTS','ORANG DI BALIK PRODUK')}</p><h2>{copy('Engineering the details.','Mengerjakan detailnya.')}<br/>{copy('Understanding the bigger picture.','Memahami gambaran besarnya.')}</h2><p>{copy('I study Informatics at Petra Christian University. My projects bring together software engineering, AI/ML, full-stack development, and the practical needs of a business or a team.','Saya belajar Informatika di Petra Christian University. Proyek saya menggabungkan software engineering, AI/ML, pengembangan full-stack, dan kebutuhan nyata bisnis atau tim.')}</p><p class="pp-education">Petra Christian University · Informatics<br/>GPA 3.76 / 4.00</p><div id="experience" class="pp-experience"><h3>{copy('Experience','Pengalaman')}</h3>{localizeExperiences(experiences,lang).map(e=><details><summary><span>{e.organization}<small>{e.role}</small></span><span>{e.period} +</span></summary><p>{e.description}</p><ul>{e.highlights.map(h=><li>{h}</li>)}</ul></details>)}</div><details id="awards" class="pp-awards"><summary>{copy('Awards & achievements','Penghargaan & pencapaian')} <span>+</span></summary>{localizeAwards(awards,lang).map(a=><article><p class="pp-meta">{a.year} / {a.title}</p><h3>{a.event}</h3><p>{a.description}</p></article>)}</details></div></section>
+  <section id="archive" class="pp-archive pp-section"><div class="pp-section-head"><p class="pp-meta">{all.length} {copy('PUBLIC PROJECTS IN TOTAL','TOTAL PROYEK PUBLIK')}</p><h2>{copy('The wider collection.','Koleksi lainnya.')}</h2><p>{copy('Smaller builds, academic explorations, and other projects. Filter by domain.','Proyek kecil, eksplorasi akademik, dan karya lainnya. Filter menurut bidang.')}</p></div><div class="studio-site"><Archive items={all.filter(p=>!selectedSlugs.includes(p.slug)).map(({slug,title,category,screenshot,statusLabel})=>({slug,title,category,screenshot,statusLabel}))} lang={lang} client:visible/></div></section>
+  <footer id="contact" class="pp-contact pp-section"><p class="pp-meta">{copy('LET’S WORK ON SOMETHING USEFUL','MARI MEMBANGUN SESUATU YANG BERGUNA')}</p><h2>{copy('What needs','Apa yang perlu')}<br/><em>{copy('figuring out?','diselesaikan?')}</em></h2><a class="pp-email" href={`mailto:${SITE.email}`}>{SITE.email}<span>↗</span></a><div class="pp-contact-links"><a href={SITE.linkedin}>LinkedIn ↗</a><a href={SITE.github}>GitHub ↗</a><a href={SITE.cvUrl} download>{copy('Download CV','Unduh CV')} ↓</a><a href={SITE.upwork}>Upwork ↗</a><a href={SITE.fiverr}>Fiverr ↗</a></div><div class="pp-colophon"><span>© {new Date().getFullYear()} Ezra Desmond Sutanto</span><a href="#home">{copy('Back to top','Kembali ke atas')} ↑</a></div></footer>
+</div>
+<script src="./productController.ts"></script>
