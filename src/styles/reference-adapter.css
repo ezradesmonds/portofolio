@@ -62,6 +62,8 @@
 .reference-portfolio .contact-link{overflow-wrap:anywhere}
 .reference-portfolio .footer-name{font-size:clamp(120px,25vw,450px)}
 .reference-portfolio .footer-name>span{font-size:30px}
+.reference-portfolio .footer-minimal{display:flex;justify-content:flex-end;padding:30px 0}
+.reference-portfolio .footer-minimal>a{display:inline-flex;align-items:center;min-height:44px;font-size:12px;text-decoration:underline;text-underline-offset:4px}
 @media(max-width:999px){.reference-portfolio.reference-portfolio .hero-main{top:61%}}
 @media(max-width:650px){.reference-portfolio.reference-portfolio .hero-main{top:57%}}
 .reference-portfolio .project-visual>img{object-fit:contain!important;background:#d2cebf;padding:12px}
