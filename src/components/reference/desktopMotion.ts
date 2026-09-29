@@ -70,9 +70,6 @@ export function desktopMotion(root: HTMLElement) {
   };
   gsap.set(sidebar, { x: 0 });
   morph('.hero-name', '.sidebar .desktop-wordmark');
-  morph('.hero-actions .accent', '.sidebar > .accent');
-  morph('.hero-skillcard-design', '.sidebar-traits > div:first-child');
-  morph('.hero-skillcard-build', '.sidebar-traits > div:last-child');
   select('.hero-nav a').forEach((link: HTMLElement) => {
     morph(`.hero-nav a[href="${link.getAttribute('href')}"]`, `.nav-panel a[href="${link.getAttribute('href')}"] .nav-label`);
   });
