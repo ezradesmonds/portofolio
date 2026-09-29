@@ -41,6 +41,13 @@
 .reference-portfolio .capability summary>span{margin-left:auto}
 .reference-portfolio .capability-tools{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:25px 0 0 64px}
 .reference-portfolio .capability-tools strong{font-size:15px}
+.reference-portfolio .capability-tool{display:flex;align-items:flex-start;gap:12px;min-width:0}
+.reference-portfolio .capability-tool-logo{display:grid;place-items:center;flex:none;width:36px;height:36px;border:1px solid #b9baad;border-radius:5px;background:#e3e2d8}
+.reference-portfolio .capability-tool-logo img{display:block;width:22px;height:22px;object-fit:contain}
+.reference-portfolio .capability-tool-logo svg{width:22px;height:22px}
+.reference-portfolio .capability-tool>div{min-width:0;padding-top:5px}
+.reference-portfolio .capability-tool strong{display:block;line-height:1.35}
+.reference-portfolio .capability-tool p{margin-top:4px}
 .reference-portfolio .studio-site{--canvas:#eeede6;--paper:#eeede6;--ink:#20211f;--secondary:#595b52;--blue:#465519;--line:#c3c3b8;--font-display:var(--display);--font-sans:var(--body);background:transparent;font:16px/1.55 var(--body)}
 .reference-portfolio .demo-inset{margin-top:40px}
 .reference-portfolio .workflow{background:#e3e2d8;border-color:var(--line);margin-bottom:25px;padding:30px}
