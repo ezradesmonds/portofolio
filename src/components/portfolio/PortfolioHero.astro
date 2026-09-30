@@ -1,5 +1,6 @@
 ---
 import { SITE } from '../../data/site';
+import TextLoop from './TextLoop';
 const { lang } = Astro.props as { lang: 'en' | 'id' };
 const id = lang === 'id';
 ---
@@ -11,7 +12,7 @@ const id = lang === 'id';
     <div class="hero-fact"><svg class="fact-globe" viewBox="0 0 40 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><ellipse cx="20" cy="12" rx="18" ry="9"/><ellipse cx="20" cy="12" rx="10" ry="9"/><ellipse cx="20" cy="12" rx="4" ry="9"/><path d="M2 12h36M5 7h30M5 17h30"/></svg><p><strong>{id ? 'TERSEDIA UNTUK BEKERJA' : 'AVAILABLE FOR WORK'}</strong><span>{id ? 'DAN MAGANG' : 'AND INTERNSHIP'}</span></p></div>
     <div class="hero-fact"><svg class="fact-role" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m12 2 3 2 3.5.5.5 3.5 2 4-2 3-.5 3.5-3.5.5-3 2-3-2-3.5-.5L5 15l-2-3 2-4 .5-3.5L9 4Z"/><path d="m8 12 2.5 2.5L16 9"/></svg><p><span>{id ? 'MAHASISWA INFORMATIKA' : 'INFORMATICS STUDENT'}</span><strong>AI & FULL-STACK BUILDER</strong></p></div>
   </div>
-  <div class="hero-introduction"><p>{id ? 'Saya membangun produk dan sistem yang membantu orang bergerak dari proses rumit menuju tindakan yang jelas.' : 'I build products and systems that move people from messy processes to clear action.'}</p><a href="#work" aria-label={id ? 'Gulir ke karya pilihan' : 'Scroll to selected work'}>↓</a></div>
+  <div class="hero-introduction hero-loop-introduction"><TextLoop client:load text={id ? 'Saya membangun produk dan sistem yang membantu orang bergerak dari proses rumit menuju tindakan yang jelas.' : 'I build products and systems that move people from messy processes to clear action.'} shape="wave" curviness={18} fontSize={30} fontWeight={600} letterSpacing={0} uppercase={false} speed={55} ribbonWidth={64} ribbonColor="#d99b75" color="#0b0d0d" pauseLabel={id ? 'Jeda animasi teks' : 'Pause text animation'} resumeLabel={id ? 'Lanjutkan animasi teks' : 'Resume text animation'}/><a href="#work" aria-label={id ? 'Gulir ke karya pilihan' : 'Scroll to selected work'}>↓</a></div>
   <div class="hero-film" aria-hidden="true"><div class="film-frame"><img src="/assets/case-studies/tokokaret-landing.webp" alt="" width="1600" height="1000" fetchpriority="high"/></div><span>01 / WORK IN THE WILD</span><span>EZRA DESMOND © 2026</span></div>
   <a class="hero-cv" href={SITE.cvUrl} download>{id ? 'Unduh CV' : 'Download CV'} ↗</a>
 </section>
