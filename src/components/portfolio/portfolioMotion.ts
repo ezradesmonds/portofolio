@@ -66,7 +66,7 @@ function setupPortfolio() {
   updateProgress();
 
   const links = [
-    ...root.querySelectorAll<HTMLAnchorElement>(".desktop-links a"),
+    ...root.querySelectorAll<HTMLAnchorElement>(".menu-links a"),
   ];
   observer = new IntersectionObserver(
     (entries) => {
@@ -84,23 +84,46 @@ function setupPortfolio() {
   root
     .querySelectorAll<HTMLElement>("section[id],#experience")
     .forEach((section) => observer?.observe(section));
-  const mobile = root.querySelector<HTMLDetailsElement>(".mobile-navigation");
-  mobile?.querySelectorAll("a").forEach((link) =>
-    link.addEventListener(
-      "click",
-      () => {
-        if (mobile) mobile.open = false;
-      },
-      { signal },
-    ),
-  );
-  addEventListener(
-    "keydown",
-    (event) => {
-      if (event.key === "Escape" && mobile) mobile.open = false;
-    },
-    { signal },
-  );
+  const menu = root.querySelector<HTMLDialogElement>('.portfolio-menu');
+  const menuToggle = root.querySelector<HTMLButtonElement>('[data-open-menu]');
+  let closeTimer: ReturnType<typeof setTimeout> | undefined;
+  let pendingAnchor: HTMLAnchorElement | undefined;
+  const previousOverflow = document.documentElement.style.overflow;
+  const finishClose = () => {
+    clearTimeout(closeTimer);
+    menu?.close();
+    menu?.classList.remove('is-closing');
+    document.documentElement.style.overflow = previousOverflow;
+    lenis?.start();
+    menuToggle?.setAttribute('aria-expanded', 'false');
+    if (pendingAnchor) {
+      const target = root.querySelector<HTMLElement>(pendingAnchor.hash);
+      if (target) {
+        if (lenis) lenis.scrollTo(target, { offset: -25 });
+        else target.scrollIntoView({ behavior: reduced.matches ? 'instant' : 'smooth' });
+        history.pushState(null, '', pendingAnchor.hash);
+      }
+      pendingAnchor = undefined;
+    }
+  };
+  const closeMenu = () => {
+    if (!menu?.open || menu.classList.contains('is-closing')) return;
+    menu.classList.add('is-closing');
+    closeTimer = setTimeout(finishClose, reduced.matches ? 0 : 500);
+  };
+  menuToggle?.addEventListener('click', () => {
+    if (!menu || menu.open) return;
+    menu.showModal();
+    menuToggle.setAttribute('aria-expanded', 'true');
+    document.documentElement.style.overflow = 'hidden';
+    lenis?.stop();
+  }, { signal });
+  menu?.querySelector('[data-close-menu]')?.addEventListener('click', closeMenu, { signal });
+  menu?.addEventListener('cancel', event => { event.preventDefault(); closeMenu(); }, { signal });
+  menu?.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach(link => link.addEventListener('click', event => {
+    event.preventDefault(); event.stopPropagation();
+    pendingAnchor = link; closeMenu();
+  }, { signal }));
   root.addEventListener(
     "click",
     (event) => {
@@ -251,6 +274,7 @@ function setupPortfolio() {
   reduced.addEventListener("change", configure, { signal });
   fineDesktop.addEventListener("change", configure, { signal });
   dispose = () => {
+    finishClose();
     hideCursor();
     abort.abort();
     observer?.disconnect();
