@@ -84,6 +84,7 @@ function setupPortfolio() {
   root
     .querySelectorAll<HTMLElement>("section[id],#experience")
     .forEach((section) => observer?.observe(section));
+  const cue = root.querySelector<HTMLElement>("[data-pointer-cue]");
   const menu = root.querySelector<HTMLDialogElement>('.portfolio-menu');
   const menuToggle = root.querySelector<HTMLButtonElement>('[data-open-menu]');
   let closeTimer: ReturnType<typeof setTimeout> | undefined;
@@ -92,6 +93,7 @@ function setupPortfolio() {
   const finishClose = () => {
     clearTimeout(closeTimer);
     menu?.close();
+    if (cue) root.append(cue);
     menu?.classList.remove('is-closing');
     document.documentElement.style.overflow = previousOverflow;
     lenis?.start();
@@ -113,6 +115,7 @@ function setupPortfolio() {
   };
   menuToggle?.addEventListener('click', () => {
     if (!menu || menu.open) return;
+    if (cue) menu.append(cue);
     menu.showModal();
     menuToggle.setAttribute('aria-expanded', 'true');
     document.documentElement.style.overflow = 'hidden';
@@ -154,7 +157,7 @@ function setupPortfolio() {
     { signal },
   );
 
-  const cue = root.querySelector<HTMLElement>("[data-pointer-cue]");
+
   const hideCursor = () => {
     root.classList.remove("has-portfolio-cursor");
     if (cue) { cue.style.opacity = "0"; cue.classList.remove("is-view"); }
