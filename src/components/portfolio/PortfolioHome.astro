@@ -1,0 +1,44 @@
+---
+import '../../styles/portfolio.css';
+import '@fontsource-variable/space-grotesk';
+import '@fontsource-variable/source-sans-3';
+import '@fontsource/ibm-plex-mono/latin-400.css';
+import { publicProjects, selectedSlugs } from '../../data/studio';
+import { localizeProjects } from '../../i18n/content';
+import { SITE } from '../../data/site';
+import PortfolioHero from './PortfolioHero.astro';
+import PortfolioWork from './PortfolioWork.astro';
+import PortfolioPerson from './PortfolioPerson.astro';
+import PortfolioElsewhere from './PortfolioElsewhere.astro';
+
+const { lang = 'en' } = Astro.props as { lang: 'en' | 'id' };
+const id = lang === 'id';
+const prefix = id ? '/id' : '';
+const all = localizeProjects(publicProjects, lang);
+const featured = selectedSlugs.map(slug => all.find(project => project.slug === slug)).filter((project): project is typeof all[number] => Boolean(project));
+const navigation = [
+  { href: '#work', label: id ? 'Karya' : 'Work' },
+  { href: '#experience', label: id ? 'Pengalaman' : 'Experience' },
+  { href: '#about', label: id ? 'Tentang' : 'About' },
+  { href: '#contact', label: id ? 'Kontak' : 'Contact' },
+];
+---
+<div class="evidence-home studio-site" data-portfolio-home>
+  <div class="entry-curtain" aria-hidden="true"><span>EZRA / DESMOND</span><span>PORTFOLIO 2026</span></div>
+  <div class="reading-line" aria-hidden="true"><span data-reading-progress></span></div>
+  <header class="portfolio-header">
+    <a class="portfolio-brand" href="#top" aria-label={id ? 'Ezra — kembali ke atas' : 'Ezra — back to top'}><strong>EZRA<span>.</span></strong><small>DESMOND SUTANTO</small></a>
+    <nav class="desktop-links" aria-label={id ? 'Navigasi utama' : 'Main navigation'}>{navigation.map(item => <a href={item.href}>{item.label}</a>)}</nav>
+    <div class="header-actions"><div class="language-switch" aria-label={id ? 'Bahasa' : 'Language'}><a href="/" aria-current={!id ? 'page' : undefined}>EN</a><span>/</span><a href="/id/" aria-current={id ? 'page' : undefined}>ID</a></div><a class="header-cv" href={SITE.cvUrl} download>CV <span aria-hidden="true">↗</span></a></div>
+    <details class="mobile-navigation"><summary>{id ? 'Menu' : 'Menu'} <span aria-hidden="true">＋</span></summary><nav aria-label={id ? 'Navigasi seluler' : 'Mobile navigation'}>{navigation.map(item => <a href={item.href}>{item.label}</a>)}</nav></details>
+  </header>
+  <div class="portfolio-flow">
+    <PortfolioHero lang={lang}/>
+    <section class="portfolio-manifesto" aria-label={id ? 'Pengantar' : 'Introduction'}><span class="chapter-index">00 / {id ? 'PENGANTAR' : 'INTRODUCTION'}</span><p>{id ? <>DARI IDE KE SISTEM.<br/>DARI SISTEM KE <em>PENGGUNAAN NYATA.</em></> : <>FROM IDEA TO SYSTEM.<br/>FROM SYSTEM TO <em>REAL USE.</em></>}</p><div><span>{id ? 'Mahasiswa Informatika · AI & Full-Stack Builder' : 'Informatics Student · AI & Full-Stack Builder'}</span><span>{id ? 'Saya mengerjakan produk dari pertanyaan awal hingga antarmuka, logika, dan operasi yang dapat diuji.' : 'I work across the question, the interface, the logic, and the operating reality of a product.'}</span></div></section>
+    <PortfolioWork lang={lang} featured={featured} prefix={prefix}/>
+    <PortfolioPerson lang={lang}/>
+    <PortfolioElsewhere lang={lang} all={all} prefix={prefix}/>
+  </div>
+  <span class="pointer-cue" aria-hidden="true" data-pointer-cue></span>
+</div>
+<script src="./portfolioMotion.ts"></script>

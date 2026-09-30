@@ -22,10 +22,12 @@ interface Props {
   image?: string;
   structuredData?: Record<string, unknown> | Record<string, unknown>[];
   cinematicHome?: boolean;
+  editorialCase?: boolean;
 }
 
 const lang: Lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname);
 const cinematicHome = Astro.props.cinematicHome ?? false;
+const editorialCase = Astro.props.editorialCase ?? false;
 
 const title = Astro.props.title ?? t(lang, "seo.title");
 const description = Astro.props.description ?? t(lang, "seo.description");
@@ -119,7 +121,7 @@ const jsonLd = [...baseStructuredData, ...extraStructuredData];
   </head>
   <body class:list={[cinematicHome ? 'reference-site' : 'studio-site case-page']}>
     <a href="#main-content" class="skip-link">{t(lang, "skipLink")}</a>
-    {!cinematicHome && <Journey lang={lang}/>}
+    {!cinematicHome && !editorialCase && <Journey lang={lang}/>}
     <main id="main-content">
       <slot />
     </main>

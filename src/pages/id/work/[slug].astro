@@ -8,4 +8,4 @@ export function getStaticPaths(){return publicProjects.map(project=>({params:{sl
 const project=localizeProject(Astro.props.project,'id');
 const structuredData={'@context':'https://schema.org','@type':project.githubUrl?'SoftwareSourceCode':'CreativeWork',name:project.title,description:project.description,url:new URL(Astro.url.pathname,SITE.url).toString(),creator:{'@type':'Person',name:SITE.name},codeRepository:project.githubUrl??project.githubLinks?.[0]?.url};
 ---
-<BaseLayout title={project.seoTitle??project.title+' — '+SITE.name} description={project.seoDescription??project.description} image={project.screenshot} structuredData={structuredData}><StudioCase project={project} lang="id"/></BaseLayout>
+<BaseLayout editorialCase title={project.seoTitle??project.title+' — '+SITE.name} description={project.seoDescription??project.description} image={project.screenshot} structuredData={structuredData}><StudioCase project={project} lang="id"/></BaseLayout>

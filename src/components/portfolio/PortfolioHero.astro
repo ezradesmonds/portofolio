@@ -1,0 +1,12 @@
+---
+import { SITE } from '../../data/site';
+const { lang } = Astro.props as { lang: 'en' | 'id' };
+const id = lang === 'id';
+---
+<section id="top" class="portfolio-hero" aria-labelledby="hero-heading">
+  <div class="hero-topline"><span><i aria-hidden="true"></i>{id ? 'PORTOFOLIO / 2026' : 'PORTFOLIO / 2026'}</span><span>SURABAYA, INDONESIA · UTC+7</span></div>
+  <h1 id="hero-heading" aria-label="Ezra Desmond Sutanto"><span class="hero-name-line"><span>EZRA</span><small>DESMOND<br/>SUTANTO</small></span><span class="hero-name-line hero-name-second"><span>DESMOND</span></span></h1>
+  <div class="hero-baseline"><p>{id ? 'Mahasiswa Informatika' : 'Informatics Student'}<br/><strong>AI & Full-Stack Builder</strong></p><p>{id ? 'Saya membangun produk dan sistem yang membantu orang bergerak dari proses rumit menuju tindakan yang jelas.' : 'I build products and systems that move people from messy processes to clear action.'}</p><a href="#work" aria-label={id ? 'Gulir ke karya pilihan' : 'Scroll to selected work'}>↓</a></div>
+  <div class="hero-film" aria-hidden="true"><div class="film-frame"><img src="/assets/case-studies/tokokaret-landing.webp" alt="" width="1600" height="1000" fetchpriority="high"/></div><span>01 / WORK IN THE WILD</span><span>EZRA DESMOND SUTANTO © 2026</span></div>
+  <a class="hero-cv" href={SITE.cvUrl} download>{id ? 'Unduh CV' : 'Download CV'} ↗</a>
+</section>

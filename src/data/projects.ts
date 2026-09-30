@@ -360,7 +360,7 @@ export const projects: Project[] = [
     statusLabel: "Live · Delivered August 2026",
     outcome:
       "WGG 2026 concluded in August 2026. The official platform, participant game flow, live-result interface, and supporting event systems were delivered as part of the IT team. Approximately 1,300 remains the planned orientation audience, not a separately verified concurrent-user measurement.",
-    screenshot: "/assets/case-studies/wgg-wasbang-kevins-journey.png",
+    screenshot: "/assets/case-studies/wgg-wasbang-kevins-journey.webp",
     liveLinks: [
       { label: "Official WGG Site", url: "https://wgg.petra.ac.id" },
       { label: "Open Wasbang Game", url: "https://wgg.petra.ac.id/wasbang/play" },
@@ -368,19 +368,19 @@ export const projects: Project[] = [
     proofStatus: "available",
     proofArtifacts: [
       {
-        src: "/assets/case-studies/wgg-wasbang-kevins-journey.png",
+        src: "/assets/case-studies/wgg-wasbang-kevins-journey.webp",
         alt: "Opening screen for Kevin's Journey, the WGG 2026 Wawasan Kebangsaan participant game.",
         caption:
           "Participant experience: the decision-game entry screen that frames the audience journey before voting begins.",
       },
       {
-        src: "/assets/case-studies/wgg-wasbang-case-2.png",
+        src: "/assets/case-studies/wgg-wasbang-case-2.webp",
         alt: "Second decision case in the WGG 2026 participant game, showing two voting choices.",
         caption:
           "A timed decision stage: attendees choose between two responses to the same scenario.",
       },
       {
-        src: "/assets/case-studies/wgg-wasbang-voting-results.png",
+        src: "/assets/case-studies/wgg-wasbang-voting-results.webp",
         alt: "Live A and B voting-result screen from the WGG 2026 participant game.",
         caption:
           "Result state: aggregate A/B percentages and the majority interpretation are presented to the audience.",
@@ -972,14 +972,14 @@ export const projects: Project[] = [
     statusLabel: "Live Client Project",
     outcome:
       "Delivered a live, responsive educational platform that combines campaign storytelling, a working 12-item assessment, on-device habit tracking, simulation, and multimedia resources without requiring a backend.",
-    screenshot: "/assets/case-studies/bank-tulang-landing-2026.png",
+    screenshot: "/assets/case-studies/bank-tulang-landing-2026.webp",
     liveUrl: "https://ezradesmonds.github.io/BankTulang/",
     githubUrl: "https://github.com/ezradesmonds/BankTulang",
     githubLabel: "GitHub Repo",
     proofStatus: "available",
     proofArtifacts: [
       {
-        src: "/assets/case-studies/bank-tulang-landing-2026.png",
+        src: "/assets/case-studies/bank-tulang-landing-2026.webp",
         alt: "Bank Tulang live landing page with a particle-rendered spine and bone-health campaign call to action.",
         caption:
           "Cinematic landing experience with a real-time Three.js particle spine and direct paths into the assessment and simulator.",
@@ -991,7 +991,7 @@ export const projects: Project[] = [
           "Interactive simulator that combines the user's current quiz score and saved habits with adjustable what-if controls.",
       },
       {
-        src: "/assets/case-studies/bank-tulang-activity-2026.png",
+        src: "/assets/case-studies/bank-tulang-activity-2026.webp",
         alt: "Bank Tulang activity signal section with an animated particle bone scene and weekly session count.",
         caption:
           "Scroll-directed Three.js storytelling connects each health signal to live data stored on the user's device.",
