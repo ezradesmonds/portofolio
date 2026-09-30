@@ -8,7 +8,7 @@ const phases = [
   { name: 'LAUNCH', image: 'launch', text: id ? 'Meluncurkan produk secara efisien dan terus meningkatkan kinerjanya melalui iterasi.' : 'Launching products efficiently and continuously improving performance through iteration.' },
 ];
 ---
-<section class="portfolio-approach" aria-label={id ? 'Tiga tahap pendekatan' : 'Three-phase approach'}>
+<section id="approach" class="portfolio-approach" aria-label={id ? 'Tiga tahap pendekatan' : 'Three-phase approach'}>
   <div class="approach-rail" aria-hidden="true">{phases.map((_, index) => <span>0{index + 1}</span>)}</div>
   <div class="approach-grid">{phases.map((phase, index) => <article class="approach-phase"><img src={`/assets/approach/${phase.image}.avif`} alt="" width="96" height="96" loading="lazy" decoding="async"/><h3><span class="phase-number">0{index + 1} / </span>{phase.name}</h3><p>{phase.text}</p></article>)}</div>
 </section>

@@ -22,6 +22,11 @@ function setupPortfolio() {
   let focusResize: ResizeObserver | undefined;
 
   const progress = root.querySelector<HTMLElement>("[data-reading-progress]");
+  const sidebar = root.querySelector<HTMLElement>('[data-section-sidebar]');
+  const hero = root.querySelector<HTMLElement>('.portfolio-hero');
+  const sidebarSections = [...(sidebar?.querySelectorAll<HTMLAnchorElement>('a') ?? [])]
+    .map(link => ({ link, section: root.querySelector<HTMLElement>(link.hash) }))
+    .filter((item): item is { link: HTMLAnchorElement; section: HTMLElement } => Boolean(item.section));
   let frame = 0;
   const updateProgress = () => {
     cancelAnimationFrame(frame);
@@ -32,6 +37,28 @@ function setupPortfolio() {
       );
       if (progress)
         progress.style.transform = `scaleX(${Math.min(1, Math.max(0, scrollY / max))})`;
+      if (sidebar && hero && sidebarSections.length) {
+        const visible = hero.getBoundingClientRect().bottom <= 0;
+        sidebar.classList.toggle('is-visible', visible);
+        sidebar.inert = !visible;
+        const readingPosition = innerHeight * 0.3;
+        const starts = sidebarSections.map(({ section }) => section.getBoundingClientRect().top);
+        let active = 0;
+        starts.forEach((top, index) => { if (top <= readingPosition) active = index; });
+        if (scrollY >= max - 2) active = sidebarSections.length - 1;
+        const start = starts[active];
+        const end = starts[active + 1] ?? document.documentElement.scrollHeight - scrollY;
+        const sectionProgress = Math.min(1, Math.max(0, (readingPosition - start) / Math.max(1, end - start)));
+        sidebarSections.forEach(({ link }, index) => {
+          if (index === active) {
+            link.setAttribute('aria-current', 'location');
+            link.style.setProperty('--section-progress', String(sectionProgress));
+          } else {
+            link.removeAttribute('aria-current');
+            link.style.removeProperty('--section-progress');
+          }
+        });
+      }
     });
   };
   addEventListener("scroll", updateProgress, { passive: true, signal });

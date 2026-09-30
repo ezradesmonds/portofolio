@@ -24,6 +24,15 @@ const navigation = [
   { href: '#about', label: id ? 'Tentang' : 'About' },
   { href: '#contact', label: id ? 'Kontak' : 'Contact' },
 ];
+const sectionNavigation = [
+  { href: '#introduction', label: id ? 'Pengantar' : 'Introduction' },
+  { href: '#approach', label: id ? 'Pendekatan' : 'Approach' },
+  { href: '#work', label: id ? 'Karya' : 'Work' },
+  { href: '#about', label: id ? 'Tentang' : 'About' },
+  { href: '#experience', label: id ? 'Pengalaman' : 'Experience' },
+  { href: '#archive', label: 'Stack & Tools' },
+  { href: '#contact', label: id ? 'Kontak' : 'Contact' },
+];
 ---
 <div class="evidence-home studio-site" data-portfolio-home>
   <div class="entry-curtain" aria-hidden="true"><span class="entry-title">{['EZRA', 'DESMOND'].map((word, wordIndex) => <><span class="entry-word">{[...word].map((letter, index) => <span class="entry-letter" style={`--letter-delay: ${((index + wordIndex * 2) % 4) * 45}ms`}>{letter}</span>)}</span>{wordIndex === 0 && <span class="entry-separator"> / </span>}</>)}</span><span class="entry-caption">PORTFOLIO 2026</span></div>
@@ -34,9 +43,12 @@ const navigation = [
     <div class="header-actions"><div class="language-switch" aria-label={id ? 'Bahasa' : 'Language'}><a href="/" aria-current={!id ? 'page' : undefined}>EN</a><span>/</span><a href="/id/" aria-current={id ? 'page' : undefined}>ID</a></div><a class="header-cv" href={SITE.cvUrl} download>CV <span aria-hidden="true">↗</span></a></div>
     <details class="mobile-navigation"><summary>{id ? 'Menu' : 'Menu'} <span aria-hidden="true">＋</span></summary><nav aria-label={id ? 'Navigasi seluler' : 'Mobile navigation'}>{navigation.map(item => <a href={item.href}>{item.label}</a>)}</nav></details>
   </header>
+  <nav class="section-sidebar" data-section-sidebar inert aria-label={id ? 'Navigasi section' : 'Section navigation'}>
+    {sectionNavigation.map((item, index) => <a href={item.href} aria-label={item.label}><span class="section-marker" aria-hidden="true"><i/></span><span class="section-label"><small>{String(index + 1).padStart(2, '0')}</small>{item.label}</span></a>)}
+  </nav>
   <div class="portfolio-flow">
     <PortfolioHero lang={lang}/>
-    <section class="portfolio-manifesto" aria-label={id ? 'Pengantar' : 'Introduction'}><span class="chapter-index">00 / {id ? 'PENGANTAR' : 'INTRODUCTION'}</span><p class="true-focus" data-true-focus aria-label={manifestoLines.join(' ')}>{manifestoLines.map((line, index) => <>{index > 0 && <br/>}<span class="focus-word" aria-hidden="true">{line}</span></>)}<span class="focus-frame" aria-hidden="true"><i/><i/><i/><i/></span></p><div><span>{id ? 'Mahasiswa Informatika · AI & Full-Stack Builder' : 'Informatics Student · AI & Full-Stack Builder'}</span><span>{id ? 'Saya mengerjakan produk dari pertanyaan awal hingga antarmuka, logika, dan operasi yang dapat diuji.' : 'I work across the question, the interface, the logic, and the operating reality of a product.'}</span></div></section>
+    <section id="introduction" class="portfolio-manifesto" aria-label={id ? 'Pengantar' : 'Introduction'}><span class="chapter-index">00 / {id ? 'PENGANTAR' : 'INTRODUCTION'}</span><p class="true-focus" data-true-focus aria-label={manifestoLines.join(' ')}>{manifestoLines.map((line, index) => <>{index > 0 && <br/>}<span class="focus-word" aria-hidden="true">{line}</span></>)}<span class="focus-frame" aria-hidden="true"><i/><i/><i/><i/></span></p><div><span>{id ? 'Mahasiswa Informatika · AI & Full-Stack Builder' : 'Informatics Student · AI & Full-Stack Builder'}</span><span>{id ? 'Saya mengerjakan produk dari pertanyaan awal hingga antarmuka, logika, dan operasi yang dapat diuji.' : 'I work across the question, the interface, the logic, and the operating reality of a product.'}</span></div></section>
     <PortfolioApproach lang={lang}/>
     <PortfolioWork lang={lang} featured={featured} prefix={prefix}/>
     <PortfolioPerson lang={lang}/>

@@ -1592,6 +1592,28 @@ body.reference-site {
   .hero-loop-introduction > a { right: 22px; }
 }
 .hero-loop-introduction .text-loop-static { max-width: 60ch; margin: 25px auto; }
+.section-sidebar { position: fixed; z-index: 40; left: 5px; top: 50%; transform: translateY(-50%) translateX(-8px); opacity: 0; visibility: hidden; transition: opacity .3s ease, transform .3s ease, visibility .3s; }
+.section-sidebar.is-visible { opacity: 1; visibility: visible; transform: translateY(-50%); }
+.section-sidebar a { position: relative; display: flex; align-items: center; width: 40px; height: 42px; padding: 8px; }
+.section-marker { position: relative; display: block; width: 18px; height: 2px; background: #90938f; opacity: .3; transition: width .25s ease, opacity .25s ease; box-shadow: 0 1px 2px #0006; }
+.section-marker i { position: absolute; inset: 0; background: #fff; transform: scaleX(0); transform-origin: left; }
+.section-sidebar a[aria-current] .section-marker { width: 26px; opacity: 1; background: #fff; height: 3px; }
+.section-sidebar a[aria-current] .section-marker i { top: 6px; height: 1px; opacity: .65; transform: scaleX(var(--section-progress, 0)); }
+.section-sidebar a:hover .section-marker, .section-sidebar a:focus-visible .section-marker { opacity: 1; }
+.section-label { position: absolute; left: 44px; white-space: nowrap; padding: 9px 12px; background: #0b0d0de8; color: #fff; border-radius: 4px; font: 12px var(--mono); opacity: 0; visibility: hidden; transform: translateX(-5px); transition: opacity .2s, transform .2s; pointer-events: none; }
+.section-label small { margin-right: 10px; color: #a9aaa3; }
+.section-sidebar a:hover .section-label, .section-sidebar a:focus-visible .section-label { opacity: 1; visibility: visible; transform: none; }
+.section-sidebar a:focus-visible { outline: 1px solid #fff; outline-offset: -3px; border-radius: 4px; }
+@media (max-width: 900px) {
+  .section-sidebar { left: 0; }
+  .section-sidebar a { width: 24px; height: 32px; padding: 6px; }
+  .section-marker { width: 9px; }
+  .section-sidebar a[aria-current] .section-marker { width: 12px; }
+  .section-label { left: 26px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .section-sidebar, .section-marker, .section-label { transition: none; }
+}
 @media (max-width: 700px) {
   .hero-introduction.hero-loop-introduction { padding-bottom: 55px; }
   .hero-loop-introduction astro-island { width: 100%; }
