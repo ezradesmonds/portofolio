@@ -30,16 +30,50 @@ body.reference-site {
   background: var(--accent);
   color: #0b0d0d;
   pointer-events: none;
-  animation: entry-out 0.9s 0.25s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  animation: entry-out 0.8s 1.35s cubic-bezier(0.76, 0, 0.24, 1) forwards;
 }
-.entry-curtain span:first-child {
+.entry-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
   font: 800 clamp(2.5rem, 8vw, 9rem)/0.9 var(--display);
   letter-spacing: -0.09em;
 }
-.entry-curtain span:last-child {
-  font: 11px var(--mono);
-  align-self: end;
+.entry-word {
+  display: inline-flex;
   white-space: nowrap;
+}
+.entry-letter {
+  display: inline-grid;
+  place-items: center;
+  width: 0.76em;
+  height: 1em;
+  letter-spacing: -0.025em;
+  /* Fixed cells keep the name still while each glyph changes its silhouette. */
+  animation: entry-type 1s steps(1, end) var(--letter-delay) both;
+}
+.entry-separator {
+  margin: 0 0.16em;
+}
+.entry-caption {
+  position: absolute;
+  right: 3.4vw;
+  bottom: 3.4vw;
+  font: 11px var(--mono);
+  white-space: nowrap;
+}
+@keyframes entry-type {
+  0%, 100% { font-family: var(--display); font-weight: 800; font-style: normal; transform: none; }
+  16% { font-family: Georgia, "Times New Roman", serif; font-weight: 700; font-style: italic; transform: scaleX(0.9); }
+  32% { font-family: Impact, "Arial Narrow", sans-serif; font-weight: 400; font-style: normal; transform: scaleX(0.85); }
+  48% { font-family: var(--mono); font-weight: 400; font-style: normal; transform: none; }
+  64% { font-family: "Space Grotesk Variable", sans-serif; font-weight: 600; font-style: normal; transform: scaleX(1.06); }
+  80% { font-family: Georgia, "Times New Roman", serif; font-weight: 700; font-style: normal; transform: none; }
+}
+@media (max-width: 600px) {
+  .entry-title { flex-direction: column; gap: 0.12em; font-size: clamp(44px, 16vw, 80px); }
+  .entry-separator { display: none; }
+  .entry-caption { right: 22px; bottom: 22px; }
 }
 @keyframes entry-out {
   to {
