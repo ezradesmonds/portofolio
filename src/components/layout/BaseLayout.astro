@@ -31,7 +31,7 @@ const editorialCase = Astro.props.editorialCase ?? false;
 
 const title = Astro.props.title ?? t(lang, "seo.title");
 const description = Astro.props.description ?? t(lang, "seo.description");
-const image = new URL(Astro.props.image ?? "/favicon-e-clean.png", SITE.url).toString();
+const image = new URL(Astro.props.image ?? "/favicon-e-transparent.png", SITE.url).toString();
 const canonical = new URL(Astro.url.pathname, SITE.url).toString();
 const hasLocalizedAlternate = !Astro.url.pathname.startsWith("/404");
 const alternatePath = alternateLangPath(lang, Astro.url.pathname);
@@ -89,8 +89,8 @@ const jsonLd = [...baseStructuredData, ...extraStructuredData];
 
     <title>{title}</title>
 
-    <link rel="icon" type="image/png" sizes="256x256" href="/favicon-e-clean.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-e-clean.png" />
+    <link rel="icon" type="image/png" sizes="256x256" href="/favicon-e-transparent.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-e-transparent.png" />
     <link rel="canonical" href={canonical} />
     {hasLocalizedAlternate && (
       <>
