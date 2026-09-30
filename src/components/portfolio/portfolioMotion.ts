@@ -19,6 +19,7 @@ function setupPortfolio() {
   let lenis: Lenis | undefined;
   let ticker: ((time: number) => void) | undefined;
   let observer: IntersectionObserver | undefined;
+  let focusResize: ResizeObserver | undefined;
 
   const progress = root.querySelector<HTMLElement>("[data-reading-progress]");
   let frame = 0;
@@ -124,6 +125,8 @@ function setupPortfolio() {
   function configure() {
     hideCursor();
     context?.revert();
+    focusResize?.disconnect();
+    root?.querySelector('[data-true-focus]')?.classList.remove('focus-enhanced');
     if (ticker) gsap.ticker.remove(ticker);
     lenis?.destroy();
     ticker = undefined;
@@ -142,6 +145,35 @@ function setupPortfolio() {
     }
 
     context = gsap.context(() => {
+      // True Focus treatment: blur surrounding words and move corner brackets.
+      const focus = root?.querySelector<HTMLElement>('[data-true-focus]');
+      const words = [...(focus?.querySelectorAll<HTMLElement>('.focus-word') ?? [])];
+      const bracket = focus?.querySelector<HTMLElement>('.focus-frame');
+      if (focus && bracket && words.length) {
+        let current = 0;
+        const position = () => {
+          const parent = focus.getBoundingClientRect();
+          const word = words[current].getBoundingClientRect();
+          gsap.to(bracket, { x: word.left - parent.left - 7, y: word.top - parent.top - 5,
+            width: word.width + 14, height: word.height + 10, duration: 0.5, overwrite: true });
+        };
+        focus.classList.add('focus-enhanced');
+        const advance = () => {
+          words.forEach((word, index) => word.classList.toggle('is-focused', index === current));
+          position();
+          current = (current + 1) % words.length;
+        };
+        const cycle = gsap.timeline({ repeat: -1, paused: true }).call(advance).to({}, { duration: 1.5 });
+        ScrollTrigger.create({ trigger: focus, start: 'top bottom', end: 'bottom top',
+          onEnter: () => cycle.play(), onEnterBack: () => cycle.play(),
+          onLeave: () => cycle.pause(), onLeaveBack: () => cycle.pause() });
+        focusResize = new ResizeObserver(() => {
+          const active = words.findIndex(word => word.classList.contains('is-focused'));
+          const next = current;
+          current = Math.max(0, active); position(); current = next;
+        });
+        focusResize.observe(focus);
+      }
       gsap.to(".hero-film img", {
         yPercent: -8,
         ease: "none",
@@ -186,6 +218,7 @@ function setupPortfolio() {
     hideCursor();
     abort.abort();
     observer?.disconnect();
+    focusResize?.disconnect();
     context?.revert();
     if (ticker) gsap.ticker.remove(ticker);
     lenis?.destroy();

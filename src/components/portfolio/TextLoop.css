@@ -22,10 +22,8 @@
 }
 
 .text-loop-static { display: none; }
-.text-loop-toggle { position: absolute; right: 16px; bottom: 0; z-index: 1; width: 32px; height: 32px; border: 1px solid var(--line); border-radius: 50%; background: var(--canvas); color: var(--ink); cursor: pointer; }
-.text-loop-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) {
   .text-loop { transform: none; }
-  .text-loop-svg, .text-loop-toggle { display: none; }
+  .text-loop-svg { display: none; }
   .text-loop-static { display: block; }
 }

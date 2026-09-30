@@ -65,8 +65,6 @@ const TextLoop = ({
   ribbonColor = '#5227FF',
   ribbonWidth = 86,
   pauseOnHover = true,
-  pauseLabel = 'Pause text animation',
-  resumeLabel = 'Resume text animation',
   className = '',
   style = {}
 }) => {
@@ -75,15 +73,8 @@ const TextLoop = ({
   const measureRef = useRef(null);
   const headRef = useRef(null);
   const tailRef = useRef(null);
-  const tweenRef = useRef(null);
-  const pausedRef = useRef(false);
 
   const [metrics, setMetrics] = useState({ length: 0, reps: 1 });
-  const [paused, setPaused] = useState(false);
-  useEffect(() => {
-    pausedRef.current = paused;
-    tweenRef.current?.paused(paused);
-  }, [paused]);
 
   const rawId = useId();
   const pathId = `text-loop-${rawId.replace(/:/g, '')}`;
@@ -158,14 +149,12 @@ const TextLoop = ({
       duration: length / speed,
       ease: 'none',
       repeat: -1,
-      paused: pausedRef.current,
       onUpdate: () => apply(state.offset)
     });
 
     const root = rootRef.current;
     const pause = () => tween.pause();
-    tweenRef.current = tween;
-    const resume = () => { if (!pausedRef.current) tween.resume(); };
+    const resume = () => tween.resume();
 
     if (pauseOnHover && root) {
       root.addEventListener('pointerenter', pause);
@@ -174,7 +163,6 @@ const TextLoop = ({
 
     return () => {
       tween.kill();
-      tweenRef.current = null;
       if (pauseOnHover && root) {
         root.removeEventListener('pointerenter', pause);
         root.removeEventListener('pointerleave', resume);
@@ -188,7 +176,7 @@ const TextLoop = ({
   return (
     <div ref={rootRef} className={`text-loop ${className}`.trim()} style={style}>
       <p className="text-loop-static">{text}</p>
-      <button className="text-loop-toggle" type="button" aria-label={paused ? resumeLabel : pauseLabel} aria-pressed={paused} onClick={() => setPaused(value => !value)}>{paused ? '▶' : 'Ⅱ'}</button>
+
       <svg
         className="text-loop-svg"
         viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}

@@ -15,6 +15,7 @@ import PortfolioApproach from './PortfolioApproach.astro';
 const { lang = 'en' } = Astro.props as { lang: 'en' | 'id' };
 const id = lang === 'id';
 const prefix = id ? '/id' : '';
+const manifestoLines = id ? ['DARI IDE KE SISTEM.', 'DARI SISTEM KE PENGGUNAAN NYATA.'] : ['FROM IDEA TO SYSTEM.', 'FROM SYSTEM TO REAL USE.'];
 const all = localizeProjects(publicProjects, lang);
 const featured = selectedSlugs.map(slug => all.find(project => project.slug === slug)).filter((project): project is typeof all[number] => Boolean(project));
 const navigation = [
@@ -35,7 +36,7 @@ const navigation = [
   </header>
   <div class="portfolio-flow">
     <PortfolioHero lang={lang}/>
-    <section class="portfolio-manifesto" aria-label={id ? 'Pengantar' : 'Introduction'}><span class="chapter-index">00 / {id ? 'PENGANTAR' : 'INTRODUCTION'}</span><p>{id ? <>DARI IDE KE SISTEM.<br/>DARI SISTEM KE <em>PENGGUNAAN NYATA.</em></> : <>FROM IDEA TO SYSTEM.<br/>FROM SYSTEM TO <em>REAL USE.</em></>}</p><div><span>{id ? 'Mahasiswa Informatika · AI & Full-Stack Builder' : 'Informatics Student · AI & Full-Stack Builder'}</span><span>{id ? 'Saya mengerjakan produk dari pertanyaan awal hingga antarmuka, logika, dan operasi yang dapat diuji.' : 'I work across the question, the interface, the logic, and the operating reality of a product.'}</span></div></section>
+    <section class="portfolio-manifesto" aria-label={id ? 'Pengantar' : 'Introduction'}><span class="chapter-index">00 / {id ? 'PENGANTAR' : 'INTRODUCTION'}</span><p class="true-focus" data-true-focus aria-label={manifestoLines.join(' ')}>{manifestoLines.map((line, index) => <>{index > 0 && <br/>}{line.split(' ').map(word => <><span class="focus-word" aria-hidden="true">{word}</span>{' '}</>)}</>)}<span class="focus-frame" aria-hidden="true"><i/><i/><i/><i/></span></p><div><span>{id ? 'Mahasiswa Informatika · AI & Full-Stack Builder' : 'Informatics Student · AI & Full-Stack Builder'}</span><span>{id ? 'Saya mengerjakan produk dari pertanyaan awal hingga antarmuka, logika, dan operasi yang dapat diuji.' : 'I work across the question, the interface, the logic, and the operating reality of a product.'}</span></div></section>
     <PortfolioApproach lang={lang}/>
     <PortfolioWork lang={lang} featured={featured} prefix={prefix}/>
     <PortfolioPerson lang={lang}/>

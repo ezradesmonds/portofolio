@@ -1593,14 +1593,39 @@ body.reference-site {
 .hero-introduction { display: flex; align-items: center; justify-content: center; gap: 35px; padding: 20px 0 40px; }
 .hero-introduction p { max-width: 48ch; font: 400 clamp(18px, 1.7vw, 25px)/1.35 var(--body); text-align: center; color: var(--ink); }
 .hero-introduction a { display: grid; place-items: center; flex: 0 0 45px; height: 45px; border: 1px solid var(--line); border-radius: 50%; font-size: 24px; }
-.hero-loop-introduction { gap: 20px; padding: 0 0 40px; }
-.hero-loop-introduction astro-island { display: block; width: calc(100% - 65px); min-width: 0; }
+.hero-loop-introduction { position: relative; display: block; width: calc(100% + 6.8vw); margin-inline: -3.4vw; overflow: hidden; padding: 0 0 55px; }
+.hero-loop-introduction astro-island { display: block; width: 100%; min-width: 0; }
+.hero-loop-introduction .text-loop { width: 106%; margin-left: -3%; }
+.hero-loop-introduction > a { position: absolute; right: 3.4vw; bottom: 5px; }
+@media (max-width: 900px) {
+  .hero-loop-introduction { width: calc(100% + 44px); margin-inline: -22px; }
+  .hero-loop-introduction > a { right: 22px; }
+}
 .hero-loop-introduction .text-loop-static { max-width: 60ch; margin: 25px auto; }
-.hero-loop-introduction .text-loop-toggle { display: grid; place-items: center; padding: 0; background: #0b0d0d; color: #f2f1eb; border-radius: 50%; }
 @media (max-width: 700px) {
-  .hero-loop-introduction { flex-wrap: wrap; }
+  .hero-introduction.hero-loop-introduction { padding-bottom: 55px; }
   .hero-loop-introduction astro-island { width: 100%; }
   .hero-loop-introduction .text-loop-svg { width: 200%; max-width: none; margin-left: -50%; }
+}
+
+.portfolio-manifesto .true-focus { position: relative; }
+.true-focus .focus-word { display: inline-block; transition: filter .5s ease, color .5s ease; }
+.true-focus.focus-enhanced .focus-word { filter: blur(4px); }
+.true-focus.focus-enhanced .focus-word.is-focused { filter: none; color: var(--accent); }
+.true-focus .focus-frame { display: none; position: absolute; top: 0; left: 0; pointer-events: none; }
+.true-focus.focus-enhanced .focus-frame { display: block; }
+.focus-frame i { position: absolute; width: 14px; height: 14px; border: solid var(--accent); }
+.focus-frame i:nth-child(1) { top: 0; left: 0; border-width: 2px 0 0 2px; }
+.focus-frame i:nth-child(2) { top: 0; right: 0; border-width: 2px 2px 0 0; }
+.focus-frame i:nth-child(3) { bottom: 0; left: 0; border-width: 0 0 2px 2px; }
+.focus-frame i:nth-child(4) { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+.portfolio-person .chapter-intro p:first-of-type { max-width: 42ch; font-weight: 650; text-transform: uppercase; }
+.portfolio-person .chapter-intro .person-about-detail { margin-top: 22px; max-width: 62ch; }
+.person-portrait > a { display: inline-flex; align-items: center; justify-content: center; min-height: 54px; padding: 15px 30px; border: 0; border-radius: 999px; background: var(--ink); color: var(--canvas); font: 700 16px var(--body); }
+.person-portrait > a:hover { background: var(--accent); color: var(--canvas); }
+@media (prefers-reduced-motion: reduce) {
+  .true-focus.focus-enhanced .focus-word { filter: none; }
+  .true-focus.focus-enhanced .focus-frame { display: none; }
 }
 .latest-intro { display: grid; grid-template-columns: 1.5fr .7fr auto; align-items: end; gap: 5vw; padding: clamp(100px, 11vw, 180px) 3.4vw 70px; }
 .latest-intro h2 { font: 800 clamp(48px, 7.5vw, 120px)/.85 var(--display); letter-spacing: -.075em; }
