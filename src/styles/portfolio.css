@@ -1631,29 +1631,3 @@ body.reference-site {
   .latest-project:nth-child(2) { padding-top: 0; }
   .latest-project:nth-child(n) .latest-image .feature-media-inner { aspect-ratio: 1.52; }
 }
-
-/* Centered portrait introduction, followed by a separate experience ledger. */
-.portfolio-person { --canvas: #0b0d0d; --ink: #f2f1eb; --muted: #a9aaa3; --line: #3c413e; --accent: #d99b75; }
-.person-introduction { padding: clamp(100px, 12vw, 190px) 22px 100px; text-align: center; }
-.person-title { font-size: clamp(35px, 5vw, 80px); line-height: .95; position: relative; z-index: 1; }
-.person-introduction .person-portrait { position: relative; top: auto; width: min(38vw, 460px); margin: 30px auto 0; overflow: hidden; border-radius: 14px; }
-.person-introduction .person-portrait img { aspect-ratio: 4/5; filter: grayscale(1); }
-.person-biography { max-width: 830px; margin: 65px auto 0; }
-.person-biography h3 { font-size: clamp(20px, 2vw, 30px); line-height: 1.15; text-transform: uppercase; letter-spacing: -.04em; }
-.person-biography p { max-width: 68ch; margin: 28px auto 0; color: var(--muted); }
-.person-resume { display: inline-block; margin-top: 35px; padding: 13px 25px; border-radius: 50px; background: var(--ink); color: var(--canvas) !important; font: 700 14px var(--body); }
-.person-resume:hover { background: var(--accent); }
-.person-layout { grid-template-columns: .6fr 1.4fr; padding-top: 60px; }
-.person-record { padding-top: 0; }
-.person-record-title { font-size: clamp(22px, 2vw, 32px); }
-.contact-portrait { position: relative; }
-.contact-portrait canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; image-rendering: pixelated; filter: grayscale(1) contrast(1.05); mix-blend-mode: multiply; pointer-events: none; }
-@media (hover: hover) and (pointer: fine) {
-  .contact-portrait.pixels-ready:hover canvas { opacity: 1; }
-  .contact-portrait.pixels-ready:hover img { opacity: 0; }
-}
-@media (max-width: 700px) {
-  .person-introduction .person-portrait { width: min(75vw, 400px); }
-  .person-layout { grid-template-columns: 1fr; gap: 35px; padding-inline: 22px; }
-  .person-biography { margin-top: 40px; }
-}

@@ -104,22 +104,6 @@ function setupPortfolio() {
   );
 
   const cue = root.querySelector<HTMLElement>("[data-pointer-cue]");
-  const portrait = root.querySelector<HTMLElement>("[data-pixel-portrait]");
-  const portraitImage = portrait?.querySelector("img");
-  const pixelCanvas = portrait?.querySelector("canvas");
-  const drawPortrait = () => {
-    const drawing = pixelCanvas?.getContext("2d");
-    if (!drawing || !portraitImage?.naturalWidth || !pixelCanvas) return;
-    const ratio = pixelCanvas.width / pixelCanvas.height;
-    const width = Math.min(portraitImage.naturalWidth, portraitImage.naturalHeight * ratio);
-    const height = width / ratio;
-    drawing.drawImage(portraitImage, (portraitImage.naturalWidth - width) / 2,
-      (portraitImage.naturalHeight - height) * 0.28, width, height,
-      0, 0, pixelCanvas.width, pixelCanvas.height);
-    portrait?.classList.add("pixels-ready");
-  };
-  if (portraitImage?.complete) drawPortrait();
-  else portraitImage?.addEventListener("load", drawPortrait, { once: true, signal });
   const hideCursor = () => {
     root.classList.remove("has-portfolio-cursor");
     if (cue) { cue.style.opacity = "0"; cue.classList.remove("is-view"); }
@@ -178,15 +162,10 @@ function setupPortfolio() {
           scrub: true,
         },
       });
-      gsap.from(".person-title", {
-        y: 60,
-        opacity: 0.25,
-        ease: "none",
-        scrollTrigger: { trigger: ".person-introduction", start: "top 85%", end: "top 35%", scrub: 0.6 },
-      });
-      gsap.from(".person-portrait", {
-        y: 85,
-        scale: 0.9,
+      if (!fineDesktop.matches) return;
+      gsap.from(".person-portrait img", {
+        clipPath: "inset(0 0 20% 0)",
+        scale: 1.06,
         ease: "none",
         scrollTrigger: {
           trigger: ".person-portrait",
@@ -194,14 +173,6 @@ function setupPortfolio() {
           end: "top 20%",
           scrub: 0.6,
         },
-      });
-      gsap.from(".person-biography > *", {
-        y: 35,
-        opacity: 0,
-        stagger: 0.08,
-        duration: 0.7,
-        ease: "power2.out",
-        scrollTrigger: { trigger: ".person-biography", start: "top 85%", once: true },
       });
     }, root!);
     document.fonts.ready.then(() => {
