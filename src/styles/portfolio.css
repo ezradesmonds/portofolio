@@ -1635,9 +1635,9 @@ body.reference-site {
 .portfolio-person .chapter-intro .person-about-detail { margin-top: 22px; max-width: 62ch; }
 .person-portrait > a { display: inline-flex; align-items: center; justify-content: center; min-height: 54px; padding: 15px 30px; border: 1px solid var(--ink); border-radius: 999px; background: var(--ink); color: var(--canvas); font: 700 16px var(--body); transition: background .25s ease, color .25s ease; }
 .person-portrait > a:hover, .person-portrait > a:focus-visible { background: transparent; color: var(--ink); }
-.latest-caption > span, .archive-arrow, .journey-carousel a i { display: inline-block; transition: transform .3s cubic-bezier(.2,.8,.2,1); }
+.latest-caption > span, .archive-arrow { display: inline-block; transition: transform .3s cubic-bezier(.2,.8,.2,1); }
 .latest-card:hover .latest-caption > span, .latest-card:focus-visible .latest-caption > span { transform: translateX(5px); }
-.archive-row:hover .archive-arrow, .archive-row:focus-visible .archive-arrow, .journey-carousel a:hover i { transform: translate(3px, -3px); }
+.archive-row:hover .archive-arrow, .archive-row:focus-visible .archive-arrow { transform: translate(3px, -3px); }
 .person-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; padding: 70px 3.4vw; border-bottom: 1px solid var(--line); }
 .person-stats strong { display: block; font: 700 clamp(42px, 5vw, 80px)/1 var(--display); letter-spacing: -.06em; }
 .person-stats strong small { font-size: .45em; letter-spacing: -.02em; }
@@ -1645,21 +1645,24 @@ body.reference-site {
 .journey-award { margin-top: 35px; }
 .other-awards { margin-top: 25px; border-top: 1px solid var(--line); }
 .other-awards > summary { display: flex; justify-content: space-between; padding: 20px 0; cursor: pointer; color: var(--muted); font: 12px var(--mono); }
-.journey-showcase { padding: 55px 3.4vw 85px; }
-.journey-showcase > header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
-.journey-showcase header button { width: 44px; height: 44px; padding: 0; margin-left: 8px; border: 1px solid var(--line); border-radius: 50%; background: transparent; color: var(--ink); font-size: 22px; cursor: pointer; }
-.journey-carousel { display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--muted) transparent; padding-bottom: 20px; }
-.journey-carousel a { display: block; flex: 0 0 23%; min-width: 240px; scroll-snap-align: start; }
-.journey-carousel img { display: block; width: 100%; aspect-ratio: 1.35; object-fit: cover; border-radius: 8px; }
-.journey-carousel a > span { display: flex; justify-content: space-between; margin-top: 12px; font-size: 14px; }
+.portfolio-person .person-layout { padding-bottom: 28px; }
+.journey-showcase { padding: 12px 0 55px; }
+.journey-carousel { overflow: hidden; }
+.journey-track { display: flex; width: max-content; animation: journey-drift 42s linear infinite; }
+.journey-group { display: flex; gap: 22px; padding-right: 22px; flex-shrink: 0; }
+.journey-carousel img { display: block; flex-shrink: 0; width: clamp(240px, 23vw, 380px); height: auto; aspect-ratio: 1.35; object-fit: cover; border-radius: 8px; }
+@keyframes journey-drift { to { transform: translateX(-50%); } }
 .contact-aside img.contact-certificate { aspect-ratio: 1600/1069; object-fit: contain; filter: none; mix-blend-mode: normal; border-radius: 6px; }
 @media (max-width: 700px) {
   .person-stats { grid-template-columns: repeat(2, 1fr); gap: 40px 20px; padding: 45px 22px; }
-  .journey-showcase { padding: 40px 22px 60px; }
-  .journey-carousel a { flex-basis: 82%; }
+  .journey-showcase { padding: 8px 0 35px; }
+  .journey-carousel img { width: 70vw; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .latest-caption > span, .archive-arrow, .journey-carousel a i, .person-portrait > a { transition: none; }
+  .latest-caption > span, .archive-arrow, .person-portrait > a { transition: none; }
+  .journey-track { animation: none; width: 100%; }
+  .journey-group { flex-wrap: wrap; justify-content: center; width: 100%; padding: 0 22px; }
+  .journey-group[aria-hidden] { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .true-focus.focus-enhanced .focus-word { filter: none; }

@@ -117,14 +117,6 @@ function setupPortfolio() {
   );
 
   const copy = root.querySelector<HTMLButtonElement>("[data-copy-email]");
-  const carousel = root.querySelector<HTMLElement>('[data-project-carousel]');
-  root.querySelectorAll<HTMLButtonElement>('[data-carousel-step]').forEach(button => {
-    button.addEventListener('click', () => {
-      if (!carousel) return;
-      carousel.scrollBy({ left: Number(button.dataset.carouselStep) * carousel.clientWidth * 0.8,
-        behavior: reduced.matches ? 'instant' : 'smooth' });
-    }, { signal });
-  });
   copy?.addEventListener(
     "click",
     async () => {
@@ -146,7 +138,7 @@ function setupPortfolio() {
   };
   root.addEventListener("pointermove", event => {
     if (!cue || !finePointer.matches || reduced.matches || event.pointerType !== "mouse") return;
-    const view = event.target instanceof Element && Boolean(event.target.closest(".latest-card,.archive-row,.journey-carousel a"));
+    const view = event.target instanceof Element && Boolean(event.target.closest(".latest-card,.archive-row"));
     cue.textContent = view ? "VIEW" : "";
     cue.classList.toggle("is-view", view);
     cue.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0) translate(-50%, -50%)`;
