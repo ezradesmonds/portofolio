@@ -210,7 +210,7 @@ function setupPortfolio() {
         });
         focusResize.observe(focus);
       }
-      gsap.to(".hero-film img", {
+      gsap.to(".montage-wall", {
         yPercent: -8,
         ease: "none",
         scrollTrigger: {
