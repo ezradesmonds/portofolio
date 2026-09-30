@@ -394,7 +394,6 @@ body.reference-site {
   display: grid;
   grid-template-columns: 20% 1fr;
   gap: 3vw;
-  border-bottom: 1px solid var(--line);
 }
 .chapter-index {
   color: var(--muted);
@@ -437,15 +436,6 @@ body.reference-site {
   grid-template-columns: repeat(3, 1fr);
   padding: 0 17% 90px;
   position: relative;
-}
-.approach-rail::before {
-  content: "";
-  position: absolute;
-  left: 28%;
-  right: 28%;
-  top: 16px;
-  height: 1px;
-  background: var(--line);
 }
 .approach-rail span {
   z-index: 1;
