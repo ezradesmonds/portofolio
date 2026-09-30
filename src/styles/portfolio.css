@@ -1729,7 +1729,7 @@ body.reference-site {
 .nav-contact { justify-self:end; border:1.5px solid currentColor; border-radius:50px; padding:10px 22px; font:750 clamp(12px,1.2vw,20px)/1.2 var(--display); letter-spacing:-.04em; white-space:nowrap; transition:background .3s,color .3s; }
 .evidence-home .nav-contact:hover,.nav-contact:focus-visible { background:var(--ink); color:var(--canvas); }
 .portfolio-menu { position:fixed; inset:0; width:100%; height:100dvh; max-width:none; max-height:none; margin:0; padding:0; border:0; color:var(--ink); background-color:var(--canvas); background-image:conic-gradient(#ffffff03 25%,transparent 0 50%,#ffffff03 0 75%,transparent 0); background-size:6px 6px; overflow:auto; overscroll-behavior:contain; }
-.portfolio-menu::backdrop { background:#0b0d0d; }
+.portfolio-menu::backdrop { background:transparent; }
 .portfolio-menu[open] { display:flex; flex-direction:column; animation:menu-enter .65s cubic-bezier(.76,0,.24,1) both; }
 .menu-header { flex-shrink:0; height:116px; padding:0 3.4vw; display:grid; grid-template-columns:1fr 60px 1fr; align-items:center; }
 .menu-logo { width:40px; }
