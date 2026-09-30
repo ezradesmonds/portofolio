@@ -1,22 +1,22 @@
 ---
 import type { Project } from '../../types';
-import { artifacts, displayName } from '../../data/studio';
+import { displayName } from '../../data/studio';
 const { lang, featured, prefix } = Astro.props as { lang: 'en' | 'id'; featured: Project[]; prefix: string };
 const id = lang === 'id';
 ---
 <section id="work" class="portfolio-work" aria-labelledby="work-heading">
-  <header class="chapter-intro"><span class="chapter-index">01 / {id ? 'KARYA PILIHAN' : 'SELECTED WORK'} <span>2024 — 2026</span></span><div><h2 id="work-heading">{id ? <>PORTFOLIO<br/>TERBARU</> : <>LATEST<br/>PORTFOLIO</>}</h2><p>{id ? 'Pilihan produk digital yang dirancang untuk menghadirkan kejelasan, kemudahan penggunaan, dan pengalaman pengguna yang dapat berkembang.' : 'A curated selection of digital products designed to deliver clarity, usability, and scalable user experiences.'}</p></div></header>
-  <div class="featured-projects">
-    {featured.map((project, index) => {
-      const media = artifacts(project);
-      return <article class="feature-project" id={`project-${project.slug}`} data-feature-project>
-        <div class="feature-heading"><span>0{index + 1} / 0{featured.length}</span><span>{project.category}</span><span>{project.statusLabel}</span></div>
-        <a class="feature-media" href={`${prefix}/work/${project.slug}/`} aria-label={`${id ? 'Baca studi kasus' : 'Read case study'}: ${displayName(project)}`}>
-          <div class="feature-media-inner"><img src={project.screenshot} alt={`${displayName(project)} — ${project.description}`} width="1600" height="1000" loading="lazy" decoding="async"/><span class="media-open" aria-hidden="true">↗</span></div>
-        </a>
-        <div class="feature-story"><div><span class="feature-label">{id ? 'PROYEK' : 'PROJECT'} / 0{index + 1}</span><h3>{displayName(project)}</h3></div><div class="feature-story-side"><p>{project.description}</p><div class="feature-meta"><span>{id ? 'PERAN' : 'ROLE'}</span><span>{project.contribution}</span></div><div class="feature-meta"><span>{id ? 'HASIL / STATUS' : 'OUTCOME / STATUS'}</span><span>{project.outcome ?? project.statusLabel}</span></div><div class="feature-actions"><a class="case-action" href={`${prefix}/work/${project.slug}/`}>{id ? 'Jelajahi studi kasus' : 'Explore case study'} <span aria-hidden="true">↗</span></a>{project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">{id ? 'Lihat situs' : 'View live'} ↗</a>}</div></div></div>
-        {media[1] && <div class="feature-detail-image"><img src={media[1].src} alt={media[1].alt} width="1200" height="750" loading="lazy" decoding="async"/><span>{media[1].caption}</span></div>}
-      </article>;
-    })}
+  <header class="latest-intro">
+    <h2 id="work-heading">{id ? <>PORTFOLIO<br/>TERBARU</> : <>LATEST<br/>PORTFOLIO</>}</h2>
+    <p>{id ? 'Pilihan produk digital yang dirancang untuk menghadirkan kejelasan, kemudahan penggunaan, dan pengalaman pengguna yang dapat berkembang.' : 'A curated selection of digital products designed to deliver clarity, usability, and scalable user experiences.'}</p>
+    <a href="#archive">{id ? 'LIHAT SEMUA' : 'VIEW ALL'}</a>
+  </header>
+  <div class="latest-grid">
+    {featured.map(project => <article class="latest-project" id={`project-${project.slug}`}>
+      <a class="latest-card" href={`${prefix}/work/${project.slug}/`} aria-label={`${id ? 'Baca studi kasus' : 'Read case study'}: ${displayName(project)}`}>
+        <div class="latest-image feature-media"><div class="feature-media-inner"><img src={project.screenshot} alt={`${displayName(project)} — ${project.description}`} width="1600" height="1000" loading="lazy" decoding="async"/></div></div>
+        <div class="latest-caption"><h3>{displayName(project)}</h3><span aria-hidden="true">→</span></div>
+        <p class="latest-category">{project.category}</p>
+      </a>
+    </article>)}
   </div>
 </section>

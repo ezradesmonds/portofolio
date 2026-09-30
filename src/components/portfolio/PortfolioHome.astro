@@ -28,7 +28,7 @@ const navigation = [
   <div class="entry-curtain" aria-hidden="true"><span class="entry-title">{['EZRA', 'DESMOND'].map((word, wordIndex) => <><span class="entry-word">{[...word].map((letter, index) => <span class="entry-letter" style={`--letter-delay: ${((index + wordIndex * 2) % 4) * 45}ms`}>{letter}</span>)}</span>{wordIndex === 0 && <span class="entry-separator"> / </span>}</>)}</span><span class="entry-caption">PORTFOLIO 2026</span></div>
   <div class="reading-line" aria-hidden="true"><span data-reading-progress></span></div>
   <header class="portfolio-header">
-    <a class="portfolio-brand" href="#top" aria-label={id ? 'Ezra — kembali ke atas' : 'Ezra — back to top'}><strong>EZRA<span>.</span></strong><small>DESMOND SUTANTO</small></a>
+    <a class="portfolio-brand" href="#top" aria-label={id ? 'Ezra — kembali ke atas' : 'Ezra — back to top'}><strong>EZRA<span>.</span></strong></a>
     <nav class="desktop-links" aria-label={id ? 'Navigasi utama' : 'Main navigation'}>{navigation.map(item => <a href={item.href}>{item.label}</a>)}</nav>
     <div class="header-actions"><div class="language-switch" aria-label={id ? 'Bahasa' : 'Language'}><a href="/" aria-current={!id ? 'page' : undefined}>EN</a><span>/</span><a href="/id/" aria-current={id ? 'page' : undefined}>ID</a></div><a class="header-cv" href={SITE.cvUrl} download>CV <span aria-hidden="true">↗</span></a></div>
     <details class="mobile-navigation"><summary>{id ? 'Menu' : 'Menu'} <span aria-hidden="true">＋</span></summary><nav aria-label={id ? 'Navigasi seluler' : 'Mobile navigation'}>{navigation.map(item => <a href={item.href}>{item.label}</a>)}</nav></details>

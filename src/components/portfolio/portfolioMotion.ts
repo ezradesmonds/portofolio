@@ -110,7 +110,7 @@ function setupPortfolio() {
   };
   root.addEventListener("pointermove", event => {
     if (!cue || !finePointer.matches || reduced.matches || event.pointerType !== "mouse") return;
-    const view = event.target instanceof Element && Boolean(event.target.closest(".feature-media,.archive-row"));
+    const view = event.target instanceof Element && Boolean(event.target.closest(".latest-card,.archive-row"));
     cue.textContent = view ? "VIEW" : "";
     cue.classList.toggle("is-view", view);
     cue.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0) translate(-50%, -50%)`;
@@ -149,7 +149,7 @@ function setupPortfolio() {
         ease: "power4.out",
         clearProps: "transform",
       });
-      gsap.from(".hero-topline,.hero-baseline", {
+      gsap.from(".hero-topline,.hero-facts,.hero-introduction", {
         opacity: 0,
         y: 22,
         duration: 0.7,
@@ -187,48 +187,6 @@ function setupPortfolio() {
         },
       });
       if (!fineDesktop.matches) return;
-      gsap.utils.toArray<HTMLElement>(".feature-project").forEach((project) => {
-        const media = project.querySelector<HTMLElement>(
-          ".feature-media-inner",
-        );
-        const title = project.querySelector<HTMLElement>("h3");
-        if (media) {
-          gsap.fromTo(
-            media,
-            { clipPath: "inset(8% 0 8% 0)" },
-            {
-              clipPath: "inset(0% 0 0% 0%)",
-              ease: "none",
-              scrollTrigger: {
-                trigger: project,
-                start: "top 88%",
-                end: "top 30%",
-                scrub: 0.6,
-              },
-            },
-          );
-          const image = media.querySelector("img");
-          if (image)
-            gsap.to(image, {
-              yPercent: -5,
-              ease: "none",
-              scrollTrigger: {
-                trigger: media,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: true,
-              },
-            });
-        }
-        if (title)
-          gsap.from(title, {
-            y: 50,
-            opacity: 0.2,
-            duration: 0.8,
-            ease: "power3.out",
-            scrollTrigger: { trigger: title, start: "top 88%", once: true },
-          });
-      });
       gsap.from(".person-portrait img", {
         clipPath: "inset(0 0 20% 0)",
         scale: 1.06,
