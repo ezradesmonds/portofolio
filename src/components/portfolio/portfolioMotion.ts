@@ -14,6 +14,7 @@ function setupPortfolio() {
   const { signal } = abort;
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
   const fineDesktop = matchMedia("(min-width: 901px) and (pointer: fine)");
+  const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
   let context: gsap.Context | undefined;
   let lenis: Lenis | undefined;
   let ticker: ((time: number) => void) | undefined;
@@ -103,37 +104,25 @@ function setupPortfolio() {
   );
 
   const cue = root.querySelector<HTMLElement>("[data-pointer-cue]");
-  if (cue && fineDesktop.matches && !reduced.matches) {
-    root
-      .querySelectorAll<HTMLElement>(".feature-media,.archive-item")
-      .forEach((target) => {
-        target.addEventListener(
-          "pointerenter",
-          () => {
-            cue.textContent = "OPEN PROJECT ↗";
-            cue.style.opacity = "1";
-          },
-          { signal },
-        );
-        target.addEventListener(
-          "pointerleave",
-          () => {
-            cue.style.opacity = "0";
-          },
-          { signal },
-        );
-        target.addEventListener(
-          "pointermove",
-          (event) => {
-            cue.style.left = `${event.clientX}px`;
-            cue.style.top = `${event.clientY}px`;
-          },
-          { passive: true, signal },
-        );
-      });
-  }
+  const hideCursor = () => {
+    root.classList.remove("has-portfolio-cursor");
+    if (cue) { cue.style.opacity = "0"; cue.classList.remove("is-view"); }
+  };
+  root.addEventListener("pointermove", event => {
+    if (!cue || !finePointer.matches || reduced.matches || event.pointerType !== "mouse") return;
+    const view = event.target instanceof Element && Boolean(event.target.closest(".feature-media,.archive-row"));
+    cue.textContent = view ? "VIEW" : "";
+    cue.classList.toggle("is-view", view);
+    cue.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0) translate(-50%, -50%)`;
+    cue.style.opacity = "1";
+    root.classList.add("has-portfolio-cursor");
+  }, { passive: true, signal });
+  root.addEventListener("pointerleave", hideCursor, { signal });
+  addEventListener("blur", hideCursor, { signal });
+  finePointer.addEventListener("change", hideCursor, { signal });
 
   function configure() {
+    hideCursor();
     context?.revert();
     if (ticker) gsap.ticker.remove(ticker);
     lenis?.destroy();
@@ -260,6 +249,7 @@ function setupPortfolio() {
   reduced.addEventListener("change", configure, { signal });
   fineDesktop.addEventListener("change", configure, { signal });
   dispose = () => {
+    hideCursor();
     abort.abort();
     observer?.disconnect();
     context?.revert();

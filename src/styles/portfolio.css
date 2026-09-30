@@ -411,6 +411,58 @@ body.reference-site {
 .portfolio-work {
   background: var(--canvas);
 }
+.portfolio-approach {
+  padding: 0 3.4vw;
+  color: var(--ink);
+  background: radial-gradient(circle, #ffffff08 0.6px, transparent 0.8px) 0 0 / 4px 4px;
+}
+.approach-rail {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0 17% 90px;
+  position: relative;
+}
+.approach-rail::before {
+  content: "";
+  position: absolute;
+  left: 28%;
+  right: 28%;
+  top: 16px;
+  height: 1px;
+  background: var(--line);
+}
+.approach-rail span {
+  z-index: 1;
+  justify-self: center;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #262828;
+  font: 750 12px var(--display);
+}
+.approach-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid #ffffff0d;
+}
+.approach-phase {
+  padding: 65px 30px 55px;
+  text-align: center;
+}
+.approach-phase + .approach-phase { border-left: 1px solid #ffffff0d; }
+.approach-phase img { width: 96px; height: 96px; object-fit: contain; margin: 0 auto 35px; }
+.evidence-home .approach-phase h3 { font-size: 24px; line-height: 1.2; letter-spacing: -0.045em; }
+.approach-phase p { max-width: 28ch; margin: 18px auto 0; font-size: 20px; line-height: 1.4; color: var(--muted); }
+.phase-number { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+@media (max-width: 600px) {
+  .portfolio-approach { padding: 0 22px; }
+  .approach-rail { display: none; }
+  .approach-grid { grid-template-columns: 1fr; }
+  .approach-phase { padding: 60px 25px; }
+  .approach-phase + .approach-phase { border-left: 0; border-top: 1px solid #ffffff0d; }
+}
 .chapter-intro {
   padding: clamp(110px, 11vw, 190px) 3.4vw clamp(70px, 8vw, 135px);
   display: grid;
@@ -976,12 +1028,24 @@ body.reference-site {
   z-index: 120;
   pointer-events: none;
   opacity: 0;
-  background: var(--accent);
+  width: 16px;
+  height: 16px;
+  display: grid;
+  place-items: center;
+  border-radius: 100px;
+  background: #fff;
   color: #0b0d0d;
-  padding: 9px 12px;
-  font: 10px var(--mono);
-  transform: translate(18px, 18px);
-  transition: opacity 0.2s;
+  font: 800 20px/1 var(--display);
+  letter-spacing: -0.04em;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.15s, width 0.2s, height 0.2s, transform 0.08s ease-out;
+}
+.pointer-cue.is-view {
+  width: 98px;
+  height: 46px;
+}
+.has-portfolio-cursor, .has-portfolio-cursor * {
+  cursor: none !important;
 }
 @media (hover: none), (pointer: coarse) {
   .pointer-cue {
