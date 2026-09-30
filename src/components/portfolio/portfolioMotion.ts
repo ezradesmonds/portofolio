@@ -117,6 +117,14 @@ function setupPortfolio() {
   );
 
   const copy = root.querySelector<HTMLButtonElement>("[data-copy-email]");
+  const carousel = root.querySelector<HTMLElement>('[data-project-carousel]');
+  root.querySelectorAll<HTMLButtonElement>('[data-carousel-step]').forEach(button => {
+    button.addEventListener('click', () => {
+      if (!carousel) return;
+      carousel.scrollBy({ left: Number(button.dataset.carouselStep) * carousel.clientWidth * 0.8,
+        behavior: reduced.matches ? 'instant' : 'smooth' });
+    }, { signal });
+  });
   copy?.addEventListener(
     "click",
     async () => {
@@ -138,7 +146,7 @@ function setupPortfolio() {
   };
   root.addEventListener("pointermove", event => {
     if (!cue || !finePointer.matches || reduced.matches || event.pointerType !== "mouse") return;
-    const view = event.target instanceof Element && Boolean(event.target.closest(".latest-card,.archive-row"));
+    const view = event.target instanceof Element && Boolean(event.target.closest(".latest-card,.archive-row,.journey-carousel a"));
     cue.textContent = view ? "VIEW" : "";
     cue.classList.toggle("is-view", view);
     cue.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0) translate(-50%, -50%)`;
@@ -154,6 +162,9 @@ function setupPortfolio() {
     context?.revert();
     focusResize?.disconnect();
     root?.querySelector('[data-true-focus]')?.classList.remove('focus-enhanced');
+    root?.querySelectorAll<HTMLElement>('[data-count-to]').forEach(counter => {
+      counter.textContent = Number(counter.dataset.countTo).toFixed(Number(counter.dataset.countDecimals ?? 0));
+    });
     if (ticker) gsap.ticker.remove(ticker);
     lenis?.destroy();
     ticker = undefined;
@@ -172,6 +183,12 @@ function setupPortfolio() {
     }
 
     context = gsap.context(() => {
+      root?.querySelectorAll<HTMLElement>('[data-count-to]').forEach(counter => {
+        const value = { count: 0 };
+        gsap.to(value, { count: Number(counter.dataset.countTo), duration: 1.6, ease: 'power2.out',
+          scrollTrigger: { trigger: counter, start: 'top 90%', once: true },
+          onUpdate: () => { counter.textContent = value.count.toFixed(Number(counter.dataset.countDecimals ?? 0)); } });
+      });
       // True Focus treatment: blur surrounding words and move corner brackets.
       const focus = root?.querySelector<HTMLElement>('[data-true-focus]');
       const words = [...(focus?.querySelectorAll<HTMLElement>('.focus-word') ?? [])];
