@@ -142,30 +142,6 @@ function setupPortfolio() {
     }
 
     context = gsap.context(() => {
-      gsap.from(".hero-name-line > span", {
-        yPercent: 105,
-        duration: 1.05,
-        stagger: 0.12,
-        ease: "power4.out",
-        clearProps: "transform",
-      });
-      gsap.from(".hero-topline,.hero-facts,.hero-introduction", {
-        opacity: 0,
-        y: 22,
-        duration: 0.7,
-        delay: 0.3,
-        stagger: 0.12,
-        ease: "power2.out",
-        clearProps: "all",
-      });
-      gsap.from(".hero-film", {
-        clipPath: "inset(12% 0 0 0)",
-        opacity: 0.5,
-        duration: 1.1,
-        delay: 0.2,
-        ease: "power3.out",
-        clearProps: "all",
-      });
       gsap.to(".hero-film img", {
         yPercent: -8,
         ease: "none",
