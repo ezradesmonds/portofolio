@@ -1,0 +1,5 @@
+Technology logos: Simple Icons, fetched from https://cdn.simpleicons.org/.
+Source project: https://github.com/simple-icons/simple-icons
+SVG artwork is distributed under CC0-1.0. Brand names and marks remain the
+property of their respective owners; their inclusion identifies technologies.
+Generic capability symbols are locally authored SVG paths.

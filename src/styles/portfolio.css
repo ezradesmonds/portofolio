@@ -813,6 +813,33 @@ body.reference-site {
 .portfolio-archive .chapter-intro {
   padding-bottom: 70px;
 }
+.stack-groups { margin: 0 3.4vw; }
+.stack-group { padding: 32px 0 44px; border-top: 1px solid var(--line); }
+.stack-group h3 { font: 600 clamp(1.5rem, 2.6vw, 2.5rem) var(--display); margin: 0 0 30px; }
+.stack-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px 28px; margin: 0; padding: 0; list-style: none; }
+.stack-item { display: flex; align-items: center; gap: 18px; min-height: 98px; padding: 20px 0; border-top: 1px solid var(--line); transition: border-color .25s; }
+.stack-item > span:last-child { font: 500 15px var(--display); overflow-wrap: anywhere; }
+.stack-icon { display: block; flex: 0 0 40px; width: 40px; height: 40px; transition: transform .25s; }
+.stack-icon-float { display: block; animation: stack-float var(--float-duration) ease-in-out var(--float-delay) infinite; animation-play-state: paused; }
+.evidence-home .stack-icon img, .stack-icon svg { display: block; width: 40px; height: 40px; object-fit: contain; }
+.stack-group[data-visible="true"] .stack-icon-float { animation-play-state: running; }
+@keyframes stack-float { 0%, 100% { transform: translateY(-4px); } 50% { transform: translateY(4px); } }
+@media (hover:hover) and (pointer:fine) {
+  .stack-item:hover { border-color: var(--accent); }
+  .stack-item:hover .stack-icon { transform: scale(1.08); }
+  .stack-item:hover .stack-icon-float { animation-play-state: paused; }
+}
+@media (max-width: 1100px) { .stack-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 700px) {
+  .stack-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 20px; }
+  .stack-item { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .stack-item > span:last-child { font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stack-icon-float { animation: none; }
+  .stack-icon, .stack-item { transition: none; }
+  .stack-item:hover .stack-icon { transform: none; }
+}
 .capability-ledger {
   margin: 0 3.4vw;
   border-top: 1px solid var(--line);

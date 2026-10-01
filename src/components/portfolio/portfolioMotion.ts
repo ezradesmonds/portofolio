@@ -25,6 +25,14 @@ function setupPortfolio() {
     signal.addEventListener('abort', () => galleryObserver.disconnect(), { once: true });
   }
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+  const stack = root.querySelector<HTMLElement>('[data-stack-tools]');
+  if (stack) {
+    const stackObserver = new IntersectionObserver(entries => {
+      for (const entry of entries) (entry.target as HTMLElement).dataset.visible = String(entry.isIntersecting);
+    });
+    stack.querySelectorAll('.stack-group').forEach(group => stackObserver.observe(group));
+    signal.addEventListener('abort', () => stackObserver.disconnect(), { once: true });
+  }
   const fineDesktop = matchMedia("(min-width: 901px) and (pointer: fine)");
   const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
   let context: gsap.Context | undefined;
