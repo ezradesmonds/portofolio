@@ -9,10 +9,29 @@ const id = lang === 'id';
 const history = localizeExperiences(experiences, lang);
 const honors = localizeAwards(awards, lang);
 const showcase = selectedSlugs.map(slug => publicProjects.find(project => project.slug === slug)).filter(project => project !== undefined);
-const gallery = Object.keys(import.meta.glob('/public/assets/case-studies/*.{webp,png,jpg,jpeg}'))
-  .filter(path => !path.includes('/financeos-'))
-  .filter((path, _, paths) => !path.endsWith('.png') || !paths.includes(path.replace(/\.png$/, '.webp')))
-  .map(path => ({ src: path.replace('/public', ''), alt: path.split('/').pop()!.replace(/\.[^.]+$/, '').replaceAll('-', ' ') }));
+// One view per public project, plus six workflow views that show product depth.
+const gallery = [
+  ['tokokaret-landing.webp', 'TokoKaret storefront'],
+  ['tailor-allocation.webp', 'SAKTI workforce allocation'],
+  ['innofashion-hero-new.webp', 'Innofashion Show 8 landing page'],
+  ['akun-ai-dashboard.webp', 'Akun.AI accounting dashboard'],
+  ['market-district-trade.webp', 'Market District trading board'],
+  ['rekapflow-launch.png', 'RekapFlow spreadsheet workspace'],
+  ['wgg-wasbang-kevins-journey.webp', 'WGG interactive audience experience'],
+  ['finlend-landing.webp', 'FinLend credit analysis'],
+  ['bank-tulang-landing-2026.webp', 'Bank Tulang health education'],
+  ['servisin-home.webp', 'Servisin service marketplace'],
+  ['wedding-rental-landing.webp', 'Wedding dress rental storefront'],
+  ['tower-defense-gameplay.webp', 'Tower Defense gameplay'],
+  ['ppdb-landing.webp', 'School admissions portal'],
+  ['finance-tracker-dashboard.webp', 'Finance Tracker dashboard'],
+  ['akun-ai-receipt-ocr.webp', 'Akun.AI receipt extraction workflow'],
+  ['tokokaret-ai-check.webp', 'TokoKaret AI product recommendation'],
+  ['innofashion-admin-new.webp', 'Innofashion registration administration'],
+  ['tailor-analytics.webp', 'SAKTI cooperative analytics'],
+  ['rekapflow-correction-queue.png', 'RekapFlow correction queue'],
+  ['wedding-rental-booking.webp', 'Odoo wedding dress booking workflow'],
+].map(([file, alt]) => ({ src: `/assets/case-studies/${file}`, alt }));
 const stats = [
   { value: publicProjects.length, label: id ? 'Proyek publik' : 'Public projects', decimals: 0, suffix: '' },
   { value: showcase.length, label: id ? 'Studi kasus pilihan' : 'Selected case studies', decimals: 0, suffix: '' },
