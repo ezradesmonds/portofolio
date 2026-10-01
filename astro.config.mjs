@@ -12,7 +12,9 @@ export default defineConfig({
   site: 'https://www.ezradesmonds.my.id',
 
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    // Prebundle the gallery dependency before its viewport-triggered import.
+    optimizeDeps: { include: ['three', 'gsap', 'gsap/ScrollTrigger', 'lenis'] }
   },
 
   integrations: [

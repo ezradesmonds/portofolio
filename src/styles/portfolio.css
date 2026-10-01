@@ -1648,7 +1648,8 @@ body.reference-site {
 .other-awards > summary { display: flex; justify-content: space-between; padding: 20px 0; cursor: pointer; color: var(--muted); font: 12px var(--mono); }
 .portfolio-person .person-layout { padding-bottom: 28px; }
 .journey-showcase { padding: 0; background: #000; color: #fff; }
-.journey-gallery-stage { position: relative; height: clamp(420px, 48vw, 800px); overflow: hidden; touch-action: pan-y; }
+.journey-gallery { position: relative; }
+.journey-gallery-stage { position: relative; height: 100svh; min-height: 320px; overflow: hidden; touch-action: pan-y; }
 .journey-gallery-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0; }
 .journey-gallery-links { display: flex; align-items: center; gap: 20px; height: 100%; overflow-x: auto; padding: 24px; }
 .journey-gallery-links a { display: block; position: relative; flex: 0 0 46vw; border-radius: 18px; overflow: hidden; }
@@ -1658,25 +1659,28 @@ body.reference-site {
 .gallery-enhanced canvas { opacity: 1; }
 .gallery-enhanced .journey-gallery-links { position: absolute; inset: 0; display: block; overflow: hidden; padding: 0; cursor: grab; }
 .gallery-enhanced .journey-gallery-links:active { cursor: grabbing; }
-.gallery-enhanced .journey-gallery-links a { position: absolute; top: 0; left: 0; border-radius: 18px; }
+.gallery-enhanced .journey-gallery-links a { position: absolute; top: 0; left: 0; border-radius: 0; will-change: transform; }
 .gallery-enhanced .journey-gallery-links img, .gallery-enhanced .journey-gallery-links a > span { opacity: 0; }
-.gallery-enhanced .journey-gallery-links a:focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
-.gallery-enhanced .journey-gallery-links a:focus-visible > span { opacity: 1; }
-.journey-gallery-controls { position: relative; display: flex; justify-content: space-between; align-items: center; padding: 0 3.4vw 35px; font: 400 11px var(--mono); color: #aaa; }
+.journey-gallery-heading { position: absolute; top: 5.2%; inset-inline: 5.3%; z-index: 1; display: flex; justify-content: space-between; pointer-events: none; font: 500 11px var(--body); }
+.journey-gallery-controls { position: absolute; bottom: 4%; inset-inline: 5.3%; display: flex; justify-content: space-between; align-items: center; font: 500 11px var(--body); color: #fff; }
 .journey-gallery-controls > div { display: none; gap: 12px; }
 .gallery-enhanced .journey-gallery-controls > div { display: flex; }
+.journey-gallery-controls a { margin-left: 20px; align-self: center; }
 .journey-gallery-controls button { width: 42px; height: 42px; border: 1px solid #555; border-radius: 50%; background: transparent; color: #fff; font-size: 22px; cursor: pointer; }
 .journey-gallery-controls button:hover, .journey-gallery-controls button:focus-visible { background: #fff; color: #000; }
 .contact-aside img.contact-certificate { aspect-ratio: 1600/1069; object-fit: contain; filter: none; mix-blend-mode: normal; border-radius: 6px; }
 @media (max-width: 700px) {
   .person-stats { grid-template-columns: repeat(2, 1fr); gap: 40px 20px; padding: 45px 22px; }
-  .journey-gallery-stage { height: 420px; }
   .journey-gallery-links a { flex-basis: 80vw; }
+  .journey-gallery-controls { gap: 15px; font-size: 10px; }
+  .journey-gallery-controls a { margin-left: 0; }
+  .journey-gallery-controls button { width: 32px; height: 32px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .latest-caption > span, .archive-arrow, .person-portrait > a { transition: none; }
   .journey-gallery-stage { height: auto; }
   .journey-gallery-links { flex-wrap: wrap; justify-content: center; overflow: visible; }
+  .journey-gallery-heading { display: none; }
   .journey-gallery-controls { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {

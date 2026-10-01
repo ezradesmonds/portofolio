@@ -25,6 +25,7 @@ const stats = [
 <details class="other-awards"><summary>{id ? 'Lihat penghargaan lainnya' : 'Other awards'} <span aria-hidden="true">＋</span></summary><div class="award-list">{honors.slice(1).map(award => <details><summary><span>{award.year}</span><strong>{award.title}</strong><span>{award.event}</span><b aria-hidden="true">↗</b></summary><p>{award.description}</p></details>)}</div></details></div></div>
   <section class="journey-showcase" aria-label={id ? 'Galeri proyek' : 'Project gallery'}>
     <div class="journey-gallery" data-project-gallery data-lenis-prevent>
+      <div class="journey-gallery-heading"><span>{id ? 'GALERI PROYEK' : 'PROJECT GALLERY'}</span><span>{gallery.length} {id ? 'PROYEK' : 'PROJECTS'}</span></div>
       <div class="journey-gallery-stage">
         <canvas aria-hidden="true"></canvas>
         <div class="journey-gallery-links">{gallery.map(project => <a href={`${id ? '/id' : ''}/work/${project.slug}/`} data-gallery-card data-title={displayName(project)} aria-label={`${id ? 'Lihat studi kasus' : 'Read case study'}: ${displayName(project)}`}>
@@ -32,7 +33,7 @@ const stats = [
           <span>{displayName(project)}<b aria-hidden="true">↗</b></span>
         </a>)}</div>
       </div>
-      <div class="journey-gallery-controls"><span>{id ? 'SCROLL ATAU GESER UNTUK JELAJAH' : 'SCROLL OR DRAG TO EXPLORE'}</span><div><button type="button" data-gallery-prev aria-label={id ? 'Proyek sebelumnya' : 'Previous project'}>←</button><button type="button" data-gallery-next aria-label={id ? 'Proyek berikutnya' : 'Next project'}>→</button></div></div>
+      <div class="journey-gallery-controls"><span>{id ? 'SCROLL ATAU GESER UNTUK JELAJAH' : 'SCROLL OR DRAG TO EXPLORE'}</span><div><button type="button" data-gallery-prev aria-label={id ? 'Proyek sebelumnya' : 'Previous project'}>←</button><button type="button" data-gallery-next aria-label={id ? 'Proyek berikutnya' : 'Next project'}>→</button><a href="#archive">{id ? 'LANJUT' : 'CONTINUE'} ↓</a></div></div>
     </div>
   </section>
 </section>

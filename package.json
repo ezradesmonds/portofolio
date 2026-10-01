@@ -10,7 +10,8 @@
     "build": "astro build",
     "check": "astro check --minimumSeverity error",
     "check:links": "node scripts/check-links.mjs",
-    "verify": "npm run check && npm run build && npm run check:links",
+    "check:gallery": "node --experimental-strip-types scripts/check-project-gallery.mjs",
+    "verify": "npm run check && npm run check:gallery && npm run build && npm run check:links",
     "preview": "astro preview",
     "astro": "astro"
   },
