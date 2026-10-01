@@ -3,13 +3,12 @@ import { experiences } from '../../data/experience';
 import { awards } from '../../data/awards';
 import { localizeExperiences, localizeAwards } from '../../i18n/content';
 import { SITE } from '../../data/site';
-import { publicProjects, selectedSlugs, displayName } from '../../data/studio';
+import { publicProjects, selectedSlugs } from '../../data/studio';
 const { lang } = Astro.props as { lang: 'en' | 'id' };
 const id = lang === 'id';
 const history = localizeExperiences(experiences, lang);
 const honors = localizeAwards(awards, lang);
 const showcase = selectedSlugs.map(slug => publicProjects.find(project => project.slug === slug)).filter(project => project !== undefined);
-const gallery = publicProjects.filter(project => project.screenshot);
 const stats = [
   { value: publicProjects.length, label: id ? 'Proyek publik' : 'Public projects', decimals: 0, suffix: '' },
   { value: showcase.length, label: id ? 'Studi kasus pilihan' : 'Selected case studies', decimals: 0, suffix: '' },
@@ -23,17 +22,4 @@ const stats = [
   <div class="person-layout"><div class="person-portrait"><img src="/images/profile/ezra-portrait-editorial.webp" alt="Portrait of Ezra Desmond Sutanto" width="1000" height="1000" loading="lazy"/><div><span>EZRA DESMOND SUTANTO</span><span>INFORMATICS · GPA 3.76 / 4.00</span></div><p>{id ? 'Saya bekerja di persimpangan software engineering, AI, dan keputusan produk—dari kebutuhan pengguna sampai sistem yang bisa dijalankan.' : 'I work where software engineering, AI, and product decisions meet—from user needs to systems that can actually run.'}</p><a href={SITE.cvUrl} download>{id ? 'Unduh Resume' : 'Download Resume'} ↗</a></div>
     <div class="person-record" id="experience"><h3>{id ? 'Pengalaman & perjalanan' : 'Experience & journey'}</h3>{history.map((entry, index) => <details class="experience-entry" open={index === 0}><summary><span>{entry.period}</span><strong>{entry.organization}</strong><small>{entry.role}</small><b aria-hidden="true">＋</b></summary><div class="experience-body"><p>{entry.description}</p><ul>{entry.highlights.map(highlight => <li>{highlight}</li>)}</ul></div></details>)}<details class="experience-entry"><summary><span>2024 — {id ? 'sekarang' : 'present'}</span><strong>Petra Christian University</strong><small>{id ? 'Informatika · GPA 3.76 / 4.00' : 'Informatics · GPA 3.76 / 4.00'}</small><b aria-hidden="true">＋</b></summary><div class="experience-body"><p>{id ? 'Fondasi pemrograman, data, pengembangan aplikasi, dan proyek kolaboratif.' : 'Foundations in programming, data, application development, and collaborative projects.'}</p></div></details>{honors[0] && <div class="award-spotlight journey-award"><span>{honors[0].year} / {id ? 'PENGHARGAAN TEKNIK' : 'ENGINEERING AWARD'}</span><strong>{honors[0].title}</strong><h4>{honors[0].event}</h4><p>{honors[0].description}</p></div>}
 <details class="other-awards"><summary>{id ? 'Lihat penghargaan lainnya' : 'Other awards'} <span aria-hidden="true">＋</span></summary><div class="award-list">{honors.slice(1).map(award => <details><summary><span>{award.year}</span><strong>{award.title}</strong><span>{award.event}</span><b aria-hidden="true">↗</b></summary><p>{award.description}</p></details>)}</div></details></div></div>
-  <section class="journey-showcase" aria-label={id ? 'Galeri proyek' : 'Project gallery'}>
-    <div class="journey-gallery" data-project-gallery data-lenis-prevent>
-      <div class="journey-gallery-heading"><span>{id ? 'GALERI PROYEK' : 'PROJECT GALLERY'}</span><span>{gallery.length} {id ? 'PROYEK' : 'PROJECTS'}</span></div>
-      <div class="journey-gallery-stage">
-        <canvas aria-hidden="true"></canvas>
-        <div class="journey-gallery-links">{gallery.map(project => <a href={`${id ? '/id' : ''}/work/${project.slug}/`} data-gallery-card data-title={displayName(project)} aria-label={`${id ? 'Lihat studi kasus' : 'Read case study'}: ${displayName(project)}`}>
-          <img src={project.screenshot} alt="" width="800" height="500" loading="eager" fetchpriority="low" decoding="async"/>
-          <span>{displayName(project)}<b aria-hidden="true">↗</b></span>
-        </a>)}</div>
-      </div>
-      <div class="journey-gallery-controls"><span>{id ? 'SCROLL ATAU GESER UNTUK JELAJAH' : 'SCROLL OR DRAG TO EXPLORE'}</span><div><button type="button" data-gallery-prev aria-label={id ? 'Proyek sebelumnya' : 'Previous project'}>←</button><button type="button" data-gallery-next aria-label={id ? 'Proyek berikutnya' : 'Next project'}>→</button><a href="#archive">{id ? 'LANJUT' : 'CONTINUE'} ↓</a></div></div>
-    </div>
-  </section>
 </section>

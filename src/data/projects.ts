@@ -360,7 +360,7 @@ export const projects: Project[] = [
     statusLabel: "Live · Delivered August 2026",
     outcome:
       "WGG 2026 concluded in August 2026. The official platform, participant game flow, live-result interface, and supporting event systems were delivered as part of the IT team. Approximately 1,300 remains the planned orientation audience, not a separately verified concurrent-user measurement.",
-    screenshot: "/assets/case-studies/wgg-wasbang-kevins-journey.webp",
+    screenshot: "/assets/case-studies/wgg-2026-landing.webp",
     liveLinks: [
       { label: "Official WGG Site", url: "https://wgg.petra.ac.id" },
       { label: "Open Wasbang Game", url: "https://wgg.petra.ac.id/wasbang/play" },
@@ -386,7 +386,7 @@ export const projects: Project[] = [
           "Result state: aggregate A/B percentages and the majority interpretation are presented to the audience.",
       },
       {
-        src: "/assets/case-studies/wgg-2026-official-landing.png",
+        src: "/assets/case-studies/wgg-2026-landing.webp",
         alt: "Official Welcome Grateful Generation 2026 landing page.",
         caption:
           "Official orientation platform: WGG landing experience with the loader and landing-page components I developed in Laravel.",

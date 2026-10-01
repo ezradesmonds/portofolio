@@ -19,10 +19,10 @@ const manifestoLines = id ? ['DARI IDE KE SISTEM.', 'DARI SISTEM KE PENGGUNAAN N
 const all = localizeProjects(publicProjects, lang);
 const featured = selectedSlugs.map(slug => all.find(project => project.slug === slug)).filter((project): project is typeof all[number] => Boolean(project));
 const navigation = [
-  { href: '#work', label: id ? 'Karya' : 'Work' },
-  { href: '#about', label: id ? 'Tentang' : 'About' },
-  { href: '#experience', label: id ? 'Pengalaman' : 'Experience' },
-  { href: '#contact', label: id ? 'Kontak' : 'Contact' },
+  { href: '#work', label: id ? 'Karya' : 'Work', image: '/assets/case-studies/innofashion-menu-landing.webp' },
+  { href: '#about', label: id ? 'Tentang' : 'About', image: '/images/profile/ezra-portrait-editorial.webp' },
+  { href: '#experience', label: id ? 'Pengalaman' : 'Experience', image: '/images/profile/ezra-certificate.jpeg' },
+  { href: '#contact', label: id ? 'Kontak' : 'Contact', image: '/images/profile/hackathon-team-awarding.webp' },
 ];
 const sectionNavigation = [
   { href: '#introduction', label: id ? 'Pendekatan' : 'Approach' },
@@ -44,7 +44,10 @@ const sectionNavigation = [
   </header>
   <dialog id="portfolio-menu" class="portfolio-menu" aria-label={id ? 'Menu navigasi' : 'Navigation menu'}>
     <div class="menu-header"><a class="menu-logo" href="#top" aria-label="Ezra"><img src="/ezra-logo-clear-v2.png" alt="" width="40" height="40"/></a><button type="button" class="nav-toggle menu-close" data-close-menu aria-label={id ? 'Tutup menu' : 'Close menu'}><span aria-hidden="true">×</span></button><a class="nav-contact" href="#contact">{id ? 'HUBUNGI SAYA' : 'CONTACT NOW'}</a></div>
-    <nav class="menu-links" aria-label={id ? 'Navigasi utama' : 'Main navigation'}>{navigation.map((item,index) => <a href={item.href} style={`--menu-index: ${index}`}><span>{item.label}</span></a>)}</nav>
+    <nav class="menu-links" aria-label={id ? 'Navigasi utama' : 'Main navigation'}>{navigation.map((item,index) => <a href={item.href} aria-label={item.label} style={`--menu-index: ${index}`}>
+      <span class="menu-label">{item.label}</span>
+      <span class="menu-flow" aria-hidden="true"><span class="menu-flow-track">{[0,1].map(() => <span class="menu-flow-group">{[0,1,2].map(() => <><span>{item.label}</span><img src={item.image} alt="" width="240" height="120" loading="lazy" decoding="async"/></>)}</span>)}</span></span>
+    </a>)}</nav>
     <footer class="menu-footer"><span>©2026 {id ? 'HAK CIPTA DILINDUNGI' : 'ALL RIGHTS RESERVED'}</span><div><div class="language-switch"><a href="/" aria-current={!id ? 'page' : undefined}>EN</a><span>/</span><a href="/id/" aria-current={id ? 'page' : undefined}>ID</a></div><a href={SITE.instagram} target="_blank" rel="noopener noreferrer">INSTAGRAM ↗</a><a href={SITE.linkedin} target="_blank" rel="noopener noreferrer">LINKEDIN ↗</a><a href={SITE.github} target="_blank" rel="noopener noreferrer">GITHUB ↗</a><a href={SITE.cvUrl} download>RESUME ↗</a></div></footer>
   </dialog>
   <nav class="section-sidebar" data-section-sidebar inert aria-label={id ? 'Navigasi section' : 'Section navigation'}>

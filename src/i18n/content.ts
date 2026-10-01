@@ -356,7 +356,7 @@ const projectIdLocales: Record<string, ProjectLocale> = {
           "State hasil: persentase A/B agregat dan interpretasi pilihan mayoritas ditampilkan ke audiens.",
       },
       {
-        src: "/assets/case-studies/wgg-2026-official-landing.png",
+        src: "/assets/case-studies/wgg-2026-landing.webp",
         alt: "Landing page resmi Welcome Grateful Generation 2026.",
         caption:
           "Platform orientasi resmi: pengalaman landing WGG dengan komponen loader dan landing page Laravel yang saya kembangkan.",
