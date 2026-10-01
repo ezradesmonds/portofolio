@@ -40,6 +40,7 @@ function setupPortfolio() {
   let ticker: ((time: number) => void) | undefined;
   let observer: IntersectionObserver | undefined;
   let focusResize: ResizeObserver | undefined;
+  let focusVisibility: IntersectionObserver | undefined;
 
   const progress = root.querySelector<HTMLElement>("[data-reading-progress]");
   const sidebar = root.querySelector<HTMLElement>('[data-section-sidebar]');
@@ -202,6 +203,7 @@ function setupPortfolio() {
     hideCursor();
     context?.revert();
     focusResize?.disconnect();
+    focusVisibility?.disconnect();
     root?.querySelector('[data-true-focus]')?.classList.remove('focus-enhanced');
     root?.querySelectorAll<HTMLElement>('[data-count-to]').forEach(counter => {
       counter.textContent = Number(counter.dataset.countTo).toFixed(Number(counter.dataset.countDecimals ?? 0));
@@ -248,10 +250,12 @@ function setupPortfolio() {
           position();
           current = (current + 1) % words.length;
         };
-        const cycle = gsap.timeline({ repeat: -1, paused: true }).call(advance).to({}, { duration: 1.5 });
-        ScrollTrigger.create({ trigger: focus, start: 'top bottom', end: 'bottom top',
-          onEnter: () => cycle.play(), onEnterBack: () => cycle.play(),
-          onLeave: () => cycle.pause(), onLeaveBack: () => cycle.pause() });
+        advance();
+        const cycle = gsap.timeline({ repeat: -1, paused: true, onRepeat: advance }).to({}, { duration: 2.5 });
+        focusVisibility = new IntersectionObserver(([entry]) => {
+          cycle.paused(!entry.isIntersecting);
+        });
+        focusVisibility.observe(focus);
         focusResize = new ResizeObserver(() => {
           const active = words.findIndex(word => word.classList.contains('is-focused'));
           const next = current;
@@ -313,6 +317,7 @@ function setupPortfolio() {
     abort.abort();
     observer?.disconnect();
     focusResize?.disconnect();
+    focusVisibility?.disconnect();
     context?.revert();
     if (ticker) gsap.ticker.remove(ticker);
     lenis?.destroy();
