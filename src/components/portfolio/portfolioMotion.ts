@@ -44,6 +44,9 @@ function setupPortfolio() {
   const progress = root.querySelector<HTMLElement>("[data-reading-progress]");
   const sidebar = root.querySelector<HTMLElement>('[data-section-sidebar]');
   const hero = root.querySelector<HTMLElement>('.portfolio-hero');
+  hero?.addEventListener('animationend', event => {
+    if (event.animationName === 'entry-page') ScrollTrigger.refresh();
+  }, { signal });
   const sidebarSections = [...(sidebar?.querySelectorAll<HTMLAnchorElement>('a') ?? [])]
     .map(link => ({ link, section: root.querySelector<HTMLElement>(link.hash) }))
     .filter((item): item is { link: HTMLAnchorElement; section: HTMLElement } => Boolean(item.section));
@@ -256,16 +259,24 @@ function setupPortfolio() {
         });
         focusResize.observe(focus);
       }
-      gsap.to(".montage-wall", {
-        yPercent: -8,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".hero-film",
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
+      const film = root?.querySelector<HTMLElement>('.hero-film');
+      if (film) {
+        gsap.set(film, { height: '100svh', width: () => document.documentElement.clientWidth, borderRadius: 0, background: 'transparent',
+          marginLeft: () => -parseFloat(getComputedStyle(film.parentElement!).paddingLeft) });
+        const expand = gsap.timeline({ scrollTrigger: {
+          trigger: film, start: 'top top', end: () => `+=${innerHeight * 1.55}`,
+          pin: true, pinSpacing: true, pinType: 'transform', scrub: .1, invalidateOnRefresh: true,
+        } });
+        expand.fromTo(film.querySelector('.film-frame'),
+          { clipPath: 'inset(21% 29% 21% 29% round 24px)' },
+          { clipPath: 'inset(0% 0% 0% 0% round 0px)', duration: 1.2, ease: 'power1.inOut' }, 0);
+        expand.fromTo(film.querySelector('.montage-wall'), { scale: 1.35 },
+          { scale: 1, duration: 1.2, ease: 'power1.inOut' }, 0);
+        expand.fromTo(film.querySelector('.montage-title'), { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, duration: .35 }, .85);
+        expand.to(film.querySelector('.film-expand-heading'), { opacity: 0, y: -28, scale: 1.06, duration: .58 }, .48);
+        expand.to({}, { duration: .35 });
+      }
       gsap.from(".portfolio-manifesto>p", {
         y: 60,
         opacity: 0.25,
