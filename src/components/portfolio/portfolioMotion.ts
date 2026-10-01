@@ -12,6 +12,18 @@ function setupPortfolio() {
   document.documentElement.classList.add("studio-enhanced");
   const abort = new AbortController();
   const { signal } = abort;
+  const gallery = root.querySelector<HTMLElement>('[data-project-gallery]');
+  if (gallery) {
+    const galleryObserver = new IntersectionObserver(entries => {
+      if (!entries.some(entry => entry.isIntersecting)) return;
+      galleryObserver.disconnect();
+      import('./projectGallery').then(({ setupProjectGallery }) => {
+        if (!signal.aborted) setupProjectGallery(gallery, signal);
+      }).catch(error => console.warn('Project gallery uses the image fallback:', error));
+    }, { rootMargin: '400px' });
+    galleryObserver.observe(gallery);
+    signal.addEventListener('abort', () => galleryObserver.disconnect(), { once: true });
+  }
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
   const fineDesktop = matchMedia("(min-width: 901px) and (pointer: fine)");
   const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
