@@ -1754,3 +1754,5 @@ body.reference-site {
 .evidence-home button.menu-close { background:#171a19; }
 .evidence-home button.nav-toggle:hover,.evidence-home button.nav-toggle:focus-visible { background:var(--ink); color:var(--canvas); }
 @media(max-width:700px) { .evidence-home button.nav-toggle {width:48px;height:48px;} }
+
+.project-deployment { display: block; margin-top: 8px; color: var(--accent); font: 500 11px/1.5 var(--body); }

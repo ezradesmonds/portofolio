@@ -1000,6 +1000,8 @@ const projectIdLocales: Record<string, ProjectLocale> = {
         `Platform mencatat ${PORTFOLIO_FACTS.innofashion.competitionRegistrations} registrasi kompetisi, ${PORTFOLIO_FACTS.innofashion.competitionApproved} approval, dan ${PORTFOLIO_FACTS.innofashion.eventParticipants} peserta event. Log presensi QR mencatat ${PORTFOLIO_FACTS.innofashion.eventCheckIns.join(", ")} check-in di tiga event.`,
     },
     proofArtifacts: [
+      { src: "/assets/case-studies/innofashion-hero-new.webp", alt: "Landing page Innofashion Show dan tombol registrasi.", caption: "Landing page publik untuk pengenalan event dan awal registrasi." },
+      { src: "/assets/case-studies/innofashion-admin-new.webp", alt: "Dashboard admin Innofashion dengan statistik validasi kompetisi dan peserta event.", caption: "Snapshot dashboard saat operasional event; angka mengikuti waktu pengambilan gambar, bukan total akhir." },
       {
         src: "/assets/case-studies/innofashion-dashboard.webp",
         alt: "Dashboard peserta Innofashion dengan status registrasi, upload submission, join WhatsApp, dan badge verified.",
@@ -1089,7 +1091,7 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     ],
   },
   "wedding-dress-rental": {
-    title: "Platform Rental Gaun Pengantin",
+    title: "Platform Rental Gaun Pengantin — Odoo ERP",
     category: "Sistem Enterprise / Odoo",
     description:
       "Sistem e-commerce rental berbasis Odoo untuk bisnis gaun pengantin, termasuk tracking inventori dan manajemen booking.",
@@ -1098,7 +1100,7 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     role: "Developer",
     contribution:
       "Mengonfigurasi dan menyesuaikan modul e-commerce serta rental Odoo untuk mendukung booking, ketersediaan, dan manajemen transaksi.",
-    statusLabel: "Studi Kasus",
+    statusLabel: "Pernah Live · Trial Odoo Berakhir",
     detail: {
       overview:
         "Implementasi Odoo rental-commerce untuk bisnis gaun pengantin. Fokusnya adalah mengubah inventori produk menjadi storefront rental yang bisa dijelajahi pelanggan, lengkap dengan booking dan dukungan back-office inventory.",

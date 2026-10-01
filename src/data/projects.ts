@@ -480,7 +480,6 @@ export const projects: Project[] = [
     screenshot: "/assets/case-studies/rekapflow-launch.png",
     liveUrl: "https://rekapflow.vercel.app/",
     proofStatus: "available",
-    isPrivate: true,
     proofArtifacts: [
       {
         src: "/assets/case-studies/rekapflow-launch.png",
@@ -1050,10 +1049,10 @@ export const projects: Project[] = [
       "Led the technical division, designed the system architecture and product interface, implemented a substantial portion of the frontend and backend, coordinated technical contributors, managed deployment, and supported live-event reliability.",
     technologies: ["Next.js", "Laravel", "Tailwind CSS", "MySQL"],
     status: "live",
-    statusLabel: "Delivered",
+    statusLabel: "Live · Delivered",
     outcome:
       `Supported ${PORTFOLIO_FACTS.innofashion.competitionRegistrations} competition registrations, ${PORTFOLIO_FACTS.innofashion.competitionApproved} approved competition participants, and ${PORTFOLIO_FACTS.innofashion.eventParticipants} event participants; QR attendance recorded ${PORTFOLIO_FACTS.innofashion.eventCheckIns.join(", ")} check-ins across three events.`,
-    screenshot: "/assets/case-studies/innofashion-dashboard.webp",
+    screenshot: "/assets/case-studies/innofashion-hero-new.webp",
     liveUrl: "https://innofashionshow.petra.ac.id",
     githubUrl: "https://github.com/innofashion-8/frontend",
     githubLabel: "Frontend Repo",
@@ -1069,6 +1068,8 @@ export const projects: Project[] = [
     ],
     proofStatus: "available",
     proofArtifacts: [
+      { src: "/assets/case-studies/innofashion-hero-new.webp", alt: "Innofashion Show landing page with event identity and registration entry.", caption: "Public landing page introduces the event and registration journey." },
+      { src: "/assets/case-studies/innofashion-admin-new.webp", alt: "Innofashion admin dashboard with competition validation and event participant statistics.", caption: "Admin dashboard snapshot during event operations; counts reflect the capture date, not final event totals." },
       {
         src: "/assets/case-studies/innofashion-dashboard.webp",
         alt: "Innofashion participant dashboard with registration status, upload submission, WhatsApp join, and verified badge.",
@@ -1213,7 +1214,7 @@ export const projects: Project[] = [
 export const additionalProjects: Project[] = [
   {
     slug: "wedding-dress-rental",
-    title: "Wedding Dress Rental Platform",
+    title: "Wedding Dress Rental Platform — Odoo ERP",
     category: "Enterprise System / Odoo",
     description:
       "An Odoo-based rental e-commerce system for a wedding dress business including inventory tracking and booking management.",
@@ -1225,7 +1226,7 @@ export const additionalProjects: Project[] = [
       "Configured and customized Odoo e-commerce and rental modules to support booking, availability tracking, and transaction management.",
     technologies: ["Odoo ERP", "E-Commerce"],
     status: "case-study",
-    statusLabel: "Case Study",
+    statusLabel: "Previously Live · Odoo Trial Expired",
     screenshot: "/assets/case-studies/wedding-rental-landing.webp",
     proofStatus: "available",
     proofArtifacts: [

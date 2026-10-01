@@ -1,6 +1,6 @@
 ---
 import type { Project } from '../../types';
-import { displayName } from '../../data/studio';
+import { displayName, deploymentLabel } from '../../data/studio';
 const { lang, featured, prefix } = Astro.props as { lang: 'en' | 'id'; featured: Project[]; prefix: string };
 const id = lang === 'id';
 ---
@@ -16,6 +16,7 @@ const id = lang === 'id';
         <div class="latest-image feature-media"><div class="feature-media-inner"><img src={project.screenshot} alt={`${displayName(project)} — ${project.description}`} width="1600" height="1000" loading="lazy" decoding="async"/></div></div>
         <div class="latest-caption"><h3>{displayName(project)}</h3><span aria-hidden="true">→</span></div>
         <p class="latest-category">{project.category}</p>
+        {deploymentLabel(project, lang) && <span class="project-deployment">{deploymentLabel(project, lang)}</span>}
       </a>
     </article>)}
   </div>
