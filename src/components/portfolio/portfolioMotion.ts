@@ -18,10 +18,7 @@ function setupPortfolio() {
       if (!entries.some(entry => entry.isIntersecting)) return;
       galleryObserver.disconnect();
       import('./projectGallery').then(({ setupProjectGallery }) => {
-        if (!signal.aborted) setupProjectGallery(gallery, signal, top => {
-          if (lenis) lenis.scrollTo(top, { immediate: true });
-          else window.scrollTo({ top, behavior: 'instant' });
-        });
+        if (!signal.aborted) setupProjectGallery(gallery, signal);
       }).catch(error => console.warn('Project gallery uses the image fallback:', error));
     }, { rootMargin: '400px' });
     galleryObserver.observe(gallery);

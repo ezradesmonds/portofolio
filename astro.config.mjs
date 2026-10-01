@@ -13,7 +13,7 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
-    // Prebundle the gallery dependency before its viewport-triggered import.
+    // Prebundle the shared animation dependencies used by interactive pages.
     optimizeDeps: { include: ['three', 'gsap', 'gsap/ScrollTrigger', 'lenis'] }
   },
 

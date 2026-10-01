@@ -1647,44 +1647,50 @@ body.reference-site {
 .other-awards { margin-top: 25px; border-top: 1px solid var(--line); }
 .other-awards > summary { display: flex; justify-content: space-between; padding: 20px 0; cursor: pointer; color: var(--muted); font: 12px var(--mono); }
 .portfolio-person .person-layout { padding-bottom: 28px; }
-.journey-showcase { padding: 0; background: #0b0d0d; color: #fff; }
-.journey-gallery { position: relative; background: linear-gradient(to bottom, #0b0d0d, #000 18%, #000 52%, #503b2f 72%, #d8a47f 100%); }
-.gallery-enhanced .journey-gallery { position: sticky; top: 0; }
-.journey-gallery-stage { position: relative; height: 100svh; min-height: 320px; overflow: hidden; touch-action: pan-y; }
-.journey-gallery-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0; }
-.journey-gallery-links { display: flex; align-items: center; gap: 20px; height: 100%; overflow-x: auto; padding: 24px; }
-.journey-gallery-links a { display: block; position: relative; flex: 0 0 46vw; border-radius: 18px; overflow: hidden; }
-.journey-gallery-links img { display: block; width: 100%; aspect-ratio: 1.56; object-fit: cover; }
-.journey-gallery-links a > span { position: absolute; bottom: 0; inset-inline: 0; padding: 35px 24px 20px; font: 500 clamp(16px, 1.4vw, 26px)/1.2 var(--body); background: linear-gradient(transparent, #000c); }
-.journey-gallery-links b { float: right; }
-.gallery-enhanced canvas { opacity: 1; }
-.gallery-enhanced .journey-gallery-links { position: absolute; inset: 0; display: block; overflow: hidden; padding: 0; cursor: grab; }
-.gallery-enhanced .journey-gallery-links:active { cursor: grabbing; }
-.gallery-enhanced .journey-gallery-links a { position: absolute; top: 0; left: 0; border-radius: 0; will-change: transform; }
-.gallery-enhanced .journey-gallery-links img, .gallery-enhanced .journey-gallery-links a > span { opacity: 0; }
-.journey-gallery-heading { position: absolute; top: 5.2%; inset-inline: 5.3%; z-index: 1; display: flex; justify-content: space-between; pointer-events: none; font: 500 11px var(--body); }
-.journey-gallery-controls { position: absolute; bottom: 4%; inset-inline: 5.3%; display: flex; justify-content: space-between; align-items: center; font: 600 11px var(--body); color: #161b19; }
-.journey-gallery-controls > div { display: none; gap: 12px; }
-.gallery-enhanced .journey-gallery-controls > div { display: flex; }
-.journey-gallery-controls a { margin-left: 20px; align-self: center; }
-.journey-gallery-controls button { width: 42px; height: 42px; border: 1px solid currentColor; border-radius: 50%; background: transparent; color: inherit; font-size: 22px; cursor: pointer; }
-.journey-gallery-controls button:not(:disabled):hover, .journey-gallery-controls button:focus-visible { background: #161b19; color: #d8a47f; }
-.journey-gallery-controls button:disabled { opacity: .3; cursor: default; }
-.journey-gallery-controls a:focus-visible { outline: 2px solid currentColor; outline-offset: 6px; }
+/* Drift Wall: native CSS adaptation of React Bits, /licenses/react-bits.txt. */
+.project-drift { padding: 0 0 80px; color: var(--ink); background: linear-gradient(#0b0d0d 0%, #0b0d0d 64%, #6f5140 86%, #d8a47f 100%); overflow: clip; }
+.drift-heading { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 55px 5.3vw 25px; font: 500 11px var(--mono); }
+.drift-heading h2 { font: 600 12px var(--body); letter-spacing: 0; }
+.drift-stage { position: relative; padding: 25px 5.3vw 60px; }
+.drift-plane { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 22px; }
+.drift-tile { display: block; position: relative; min-width: 0; border-radius: 9px; background: #151817; aspect-ratio: 1.6; transition: transform .4s cubic-bezier(.22,1,.36,1),opacity .4s,box-shadow .4s; }
+.drift-tile-phone { aspect-ratio: .85; }
+.evidence-home .drift-tile img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; border-radius: inherit; }
+.drift-tile > span { display: flex; align-items: end; justify-content: space-between; gap: 10px; position: absolute; inset: 0; padding: 16px; border-radius: inherit; background: linear-gradient(transparent 45%,#000d); font: 600 clamp(12px,1vw,17px)/1.2 var(--body); opacity: 0; transition: opacity .3s; }
+.drift-tile b { font-size: 22px; }
+.drift-tile:hover > span,.drift-tile:focus-visible > span { opacity: 1; }
+.drift-tile:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+.project-drift[data-view="wall"] .drift-stage { height: clamp(520px,72svh,780px); padding: 0; perspective: 1400px; mask-image: linear-gradient(transparent,#000 15%,#000 78%,transparent); }
+.project-drift[data-view="wall"] .drift-plane { position: absolute; width: 120%; height: 100%; left: 50%; top: 50%; display: flex; gap: 22px; transform: translate(-50%,-50%) rotateX(8deg) rotateY(-10deg) rotateZ(-3deg); transform-style: preserve-3d; }
+.drift-column { flex: 1; min-width: 0; transform-style: preserve-3d; }
+.drift-track { animation: project-drift var(--drift-duration) var(--drift-delay) linear infinite; animation-play-state: paused; transform-style: preserve-3d; }
+.drift-column:nth-child(even) .drift-track { animation-direction: reverse; }
+.drift-group { display: flex; flex-direction: column; gap: 22px; padding-bottom: 22px; }
+.project-drift[data-running="true"] .drift-track { animation-play-state: running; }
+.project-drift[data-view="wall"] .drift-tile { opacity: .78; transform-style: preserve-3d; }
+@media (hover:hover) and (pointer:fine) {
+  .drift-stage:hover .drift-track { animation-play-state: paused; }
+  .project-drift[data-view="wall"] .drift-tile:hover { opacity: 1; transform: translateZ(38px); box-shadow: 0 20px 45px #0008; z-index: 1; }
+}
+.project-drift[data-view="grid"] :is(.drift-column,.drift-track,.drift-group) { display: contents; animation: none; }
+.project-drift[data-view="grid"] [data-drift-copy] { display: none; }
+.project-drift[data-view="grid"] .drift-tile > span { opacity: 1; }
+@keyframes project-drift { to { transform: translateY(-50%); } }
 .contact-aside img.contact-certificate { aspect-ratio: 4/3; object-fit: contain; filter: none; mix-blend-mode: normal; border-radius: 6px; }
 @media (max-width: 700px) {
-  .person-stats { grid-template-columns: repeat(2, 1fr); gap: 40px 20px; padding: 45px 22px; }
-  .journey-gallery-links a { flex-basis: 80vw; }
-  .journey-gallery-controls { gap: 15px; font-size: 10px; }
-  .journey-gallery-controls a { margin-left: 0; }
-  .journey-gallery-controls button { width: 44px; height: 44px; }
+  .person-stats { grid-template-columns: repeat(2,1fr); gap: 40px 20px; padding: 45px 22px; }
+  .drift-heading { padding: 40px 22px 25px; font-size: 9px; gap: 12px; }
+  .drift-stage { padding: 15px 22px 35px; }
+  .drift-plane { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
+  .project-drift[data-view="wall"] .drift-stage { height: 580px; }
+  .project-drift[data-view="wall"] .drift-plane { width: 155%; gap: 14px; transform: translate(-50%,-50%) rotateX(5deg) rotateY(-7deg) rotateZ(-3deg); }
+  .drift-group { gap: 14px; padding-bottom: 14px; }
+  .project-drift { padding-bottom: 60px; }
+  .drift-tile > span { padding: 10px; font-size: 11px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .latest-caption > span, .archive-arrow, .person-portrait > a { transition: none; }
-  .journey-gallery-stage { height: auto; }
-  .journey-gallery-links { flex-wrap: wrap; justify-content: center; overflow: visible; }
-  .journey-gallery-heading { display: none; }
-  .journey-gallery-controls { display: none; }
+  .latest-caption > span,.archive-arrow,.person-portrait > a,.drift-tile,.drift-tile > span { transition: none; }
+  .drift-track { animation: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .true-focus.focus-enhanced .focus-word { filter: none; }
