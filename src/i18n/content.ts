@@ -1091,8 +1091,8 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     ],
   },
   "wedding-dress-rental": {
-    title: "Platform Rental Gaun Pengantin — Odoo ERP",
-    category: "Sistem Enterprise / Odoo",
+    title: "Platform Rental Gaun Pengantin",
+    category: "Sistem Enterprise / Odoo ERP",
     description:
       "Sistem e-commerce rental berbasis Odoo untuk bisnis gaun pengantin, termasuk tracking inventori dan manajemen booking.",
     problem: "Bisnis rental butuh cara yang lebih rapi untuk mengelola ketersediaan gaun, booking, dan transaksi.",

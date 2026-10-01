@@ -1455,10 +1455,11 @@ body.reference-site {
 .archive-row {
   position: relative;
   display: grid;
-  grid-template-columns: 80px 1fr minmax(150px, 0.5fr) 30px;
+  grid-template-columns: 80px minmax(0, 1fr) minmax(150px, 0.5fr) 30px;
   gap: 20px;
   align-items: center;
   min-height: 115px;
+  padding-block: 22px;
   border-bottom: 1px solid var(--line);
   font: 11px var(--mono);
   text-transform: uppercase;
@@ -1508,7 +1509,7 @@ body.reference-site {
     margin: 0 22px;
   }
   .archive-row {
-    grid-template-columns: 50px 1fr 25px;
+    grid-template-columns: 50px minmax(0, 1fr) 25px;
   }
   .archive-row > span:nth-of-type(2) {
     display: none;
@@ -1755,4 +1756,4 @@ body.reference-site {
 .evidence-home button.nav-toggle:hover,.evidence-home button.nav-toggle:focus-visible { background:var(--ink); color:var(--canvas); }
 @media(max-width:700px) { .evidence-home button.nav-toggle {width:48px;height:48px;} }
 
-.project-deployment { display: block; margin-top: 8px; color: var(--accent); font: 500 11px/1.5 var(--body); }
+.project-deployment { display: block; margin-top: 8px; color: var(--accent); font: 500 12px/1.5 var(--body); letter-spacing: normal; text-transform: none; }

@@ -1214,8 +1214,8 @@ export const projects: Project[] = [
 export const additionalProjects: Project[] = [
   {
     slug: "wedding-dress-rental",
-    title: "Wedding Dress Rental Platform — Odoo ERP",
-    category: "Enterprise System / Odoo",
+    title: "Wedding Dress Rental Platform",
+    category: "Enterprise System / Odoo ERP",
     description:
       "An Odoo-based rental e-commerce system for a wedding dress business including inventory tracking and booking management.",
     problem:
