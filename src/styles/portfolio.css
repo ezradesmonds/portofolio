@@ -1669,7 +1669,7 @@ body.reference-site {
 .project-drift[data-running="true"] .drift-track { animation-play-state: running; }
 .project-drift[data-view="wall"] .drift-tile { opacity: .78; transform-style: preserve-3d; }
 @media (hover:hover) and (pointer:fine) {
-  .drift-stage:hover .drift-track { animation-play-state: paused; }
+  .drift-column:has(.drift-tile:hover) .drift-track { animation-play-state: paused; }
   .project-drift[data-view="wall"] .drift-tile:hover { opacity: 1; transform: translateZ(38px); box-shadow: 0 20px 45px #0008; z-index: 1; }
 }
 .project-drift[data-view="grid"] :is(.drift-column,.drift-track,.drift-group) { display: contents; animation: none; }
