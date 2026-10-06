@@ -579,7 +579,7 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     title: "SAKTI — Alokasi Penjahit Berbantuan ML & Sistem Manajemen Koperasi",
     category: "Decision Support Berbantuan ML / Operasi Koperasi",
     description:
-      "Platform decision support berbasis data untuk meningkatkan alokasi workload, visibilitas inventori, dan koordinasi operasional koperasi penjahit.",
+      "Prototipe untuk membantu koperasi penjahit membagi order sesuai kapasitas dan memantau operasional harian.",
     problem:
       "Admin membagi order ke jaringan penjahit dengan mengandalkan ingatan, kedekatan personal, dan komunikasi manual sehingga workload tidak merata, inventori sulit dipantau, dan bulk order menambah tekanan operasional.",
     targetUsers: "Admin dan manajer koperasi; mitra penjahit sebagai penerima manfaat utama",
@@ -760,7 +760,7 @@ const projectIdLocales: Record<string, ProjectLocale> = {
           "Prototype kompetisi memakai dataset akademik yang jumlah raw, cleaned, dan model-used row-nya tidak diklaim di sini. Logika alokasi masih butuh feedback deployment nyata sebelum bisa mengklaim akurasi produksi.",
       },
       results:
-        "Mendapat Juara 2 di SUTD x Petra Christian University International Hackathon karena menggabungkan kedalaman teknis dengan kegunaan operasional.",
+        "Meraih Juara 2 di SUTD × Petra Christian University International Hackathon. Proyek ini masih berupa prototipe kompetisi; akurasi operasional belum divalidasi dalam produksi.",
     },
     proofArtifacts: [
       {
@@ -1326,12 +1326,11 @@ const experienceIdLocalesByKey: Record<string, Partial<Experience>> = {
     role: "Anggota Divisi IT",
     period: "Maret 2026 – Agustus 2026",
     description:
-      "Program orientasi mahasiswa baru Informatika di Petra Christian University yang telah selesai.",
+      "Membangun pengalaman web dan realtime bersama tim IT untuk orientasi mahasiswa Petra 2026.",
     highlights: [
-      "Berkolaborasi dengan tim IT pada platform digital rekrutmen panitia dan kegiatan orientasi mahasiswa baru, termasuk website rekrutmen yang digunakan 100+ calon panitia serta website manajemen administratif",
-      "Mengembangkan komponen loader dan landing page Laravel untuk platform orientasi resmi bagi audiens sekitar 1.300 mahasiswa baru, serta berkoordinasi dalam testing sebelum peluncuran",
-      "Membangun game keputusan tiga tahap untuk peserta dengan kontrol operator, jendela voting 30 detik, dan update hasil live melalui Laravel serta Ably Pro",
-      "Mengimplementasikan autentikasi realtime subscribe-only, voting berbasis session, perlindungan vote duplikat, dan fallback polling; event selesai pada Agustus 2026, sementara hasil concurrency terukur sekitar 1.300 user tidak diklaim",
+      "Berkontribusi pada website rekrutmen dan admin; website rekrutmen digunakan 100+ calon panitia",
+      "Mengembangkan loader dan landing page Laravel serta mengoordinasikan testing untuk audiens sekitar 1.300 mahasiswa; angka ini adalah ukuran audiens, bukan concurrency terukur",
+      "Membangun game voting tiga tahap dengan Laravel dan Ably: kontrol operator, ronde 30 detik, voting berbasis session, perlindungan vote duplikat, dan fallback polling",
     ],
     skills: ["Laravel", "Ably", "Sistem Real-Time", "Full-Stack Development", "Teknologi Event"],
   },
@@ -1339,13 +1338,11 @@ const experienceIdLocalesByKey: Record<string, Partial<Experience>> = {
     role: "Kepala / Koordinator Divisi IT",
     period: "November 2025 - Sekarang",
     description:
-      "Memimpin perencanaan teknis, arsitektur, development, dan deployment platform event full-stack.",
+      "Memimpin pengembangan IT untuk kompetisi fashion dan pelaksanaan event-nya.",
     highlights: [
-      "Berkembang dari Web Developer Innofashion Show 7 (2024–2025), ketika saya membangun flow showcase dan voting karya angkatan serta mengintegrasikan API GET/POST milik tim",
-      "Memimpin perencanaan teknis, arsitektur, desain interface, development, deployment, dan reliabilitas saat event",
-      "Mengoordinasikan kontributor teknis dan divisi event non-teknis",
-      "Mengimplementasikan banyak bagian frontend dan backend",
-      "Mengelola operasi teknis on-site saat event berlangsung",
+      "Membangun fitur frontend dan backend untuk registrasi, alur admin, dan absensi QR",
+      "Mengoordinasikan kontributor IT dan divisi event, dari perencanaan dan deployment hingga operasi di lokasi",
+      "Sebelumnya membangun showcase dan voting Innofashion Show 7 (2024–2025) serta mengintegrasikan API tim",
     ],
     skills: ["Leadership Teknis", "Full-Stack Development", "Teknologi Event", "Deployment"],
   },
@@ -1355,7 +1352,6 @@ const experienceIdLocalesByKey: Record<string, Partial<Experience>> = {
     description:
       "Memimpin perencanaan dan eksekusi talkshow edukasi finansial.",
     highlights: [
-      "Memimpin perencanaan dan eksekusi talkshow edukasi finansial",
       "Mengoordinasikan tim, operasi event, evaluasi, dan pengalaman peserta",
       "Mengelola budgeting dan alokasi resource",
     ],

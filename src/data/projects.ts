@@ -643,7 +643,7 @@ export const projects: Project[] = [
     title: "SAKTI — ML-Assisted Tailor Allocation & Cooperative Management System",
     category: "ML-Assisted Decision Support / Cooperative Operations",
     description:
-      "A data-driven decision-support platform designed to improve workload allocation, inventory visibility, and operational coordination for a tailor cooperative.",
+      "A prototype that helps a tailor cooperative match orders to available capacity and track daily operations.",
     problem:
       "Administrators distributed orders across a large tailor network using memory, personal familiarity, and manual communication, creating uneven workloads, limited inventory visibility, and pressure during bulk orders.",
     targetUsers: "Cooperative administrators and managers; member tailors are the primary beneficiaries",
@@ -863,7 +863,7 @@ export const projects: Project[] = [
           "Competition prototype using an academic dataset whose raw, cleaned, and model-used row counts are not claimed here. The allocation logic needs real-world feedback before it can claim production-grade accuracy.",
       },
       results:
-        "Awarded 2nd Place at the SUTD × Petra Christian University International Hackathon, recognized for combining technical depth with operational practicality.",
+        "Awarded 2nd Place at the SUTD × Petra Christian University International Hackathon. This remains a competition prototype; operational accuracy has not been validated in production.",
     },
   },
   {

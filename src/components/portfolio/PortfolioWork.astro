@@ -1,21 +1,22 @@
 ---
 import type { Project } from '../../types';
-import { displayName, deploymentLabel } from '../../data/studio';
+import { displayName, deploymentLabel, projectCardCopy } from '../../data/studio';
 const { lang, featured, prefix } = Astro.props as { lang: 'en' | 'id'; featured: Project[]; prefix: string };
 const id = lang === 'id';
 ---
 <section id="work" class="portfolio-work" aria-labelledby="work-heading">
   <header class="latest-intro">
     <h2 id="work-heading">{id ? <>PROYEK<br/>PILIHAN</> : <>SELECTED<br/>PROJECTS</>}</h2>
-    <p>{id ? 'Pilihan produk digital yang dirancang untuk menghadirkan kejelasan, kemudahan penggunaan, dan pengalaman pengguna yang dapat berkembang.' : 'A curated selection of digital products designed to deliver clarity, usability, and scalable user experiences.'}</p>
-    <a href="#other-projects">{id ? 'LIHAT SEMUA' : 'VIEW ALL'}</a>
+    <p>{id ? 'Masalahnya, peran saya, dan hasilnya. Lihat setiap studi kasus.' : 'The problem, my role, and the outcome. Explore each case study.'}</p>
+    <a href="#other-projects">{id ? 'PROYEK LAIN' : 'MORE PROJECTS'}</a>
   </header>
   <div class="latest-grid">
     {featured.map(project => <article class="latest-project" id={`project-${project.slug}`}>
       <a class="latest-card" href={`${prefix}/work/${project.slug}/`} aria-label={`${id ? 'Baca studi kasus' : 'Read case study'}: ${displayName(project)}`}>
         <div class="latest-image feature-media"><div class="feature-media-inner"><img src={project.screenshot} alt={`${displayName(project)} — ${project.description}`} width="1600" height="1000" loading="lazy" decoding="async"/></div></div>
         <div class="latest-caption"><h3>{displayName(project)}</h3><span aria-hidden="true">→</span></div>
-        <p class="latest-category">{project.category}</p>
+        <p class="latest-category">{projectCardCopy(project, lang).category}</p>
+        <p class="latest-summary">{projectCardCopy(project, lang).summary}</p>
         {deploymentLabel(project, lang) && <span class="project-deployment">{deploymentLabel(project, lang)}</span>}
       </a>
     </article>)}

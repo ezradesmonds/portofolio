@@ -15,7 +15,7 @@ import PortfolioApproach from './PortfolioApproach.astro';
 const { lang = 'en' } = Astro.props as { lang: 'en' | 'id' };
 const id = lang === 'id';
 const prefix = id ? '/id' : '';
-const manifestoLines = id ? ['DARI IDE KE SISTEM.', 'DARI SISTEM KE PENGGUNAAN NYATA.'] : ['FROM IDEA TO SYSTEM.', 'FROM SYSTEM TO REAL USE.'];
+const manifestoLines = id ? ['PAHAMI MASALAHNYA.', 'BANGUN SOLUSINYA.'] : ['UNDERSTAND THE PROBLEM.', 'BUILD THE SOLUTION.'];
 const all = localizeProjects(publicProjects, lang);
 const featured = selectedSlugs.map(slug => all.find(project => project.slug === slug)).filter((project): project is typeof all[number] => Boolean(project));
 const navigation = [
@@ -40,10 +40,10 @@ const sectionNavigation = [
   <header class="portfolio-header">
     <a class="portfolio-brand" href="#top" aria-label={id ? 'Ezra — kembali ke atas' : 'Ezra — back to top'}><img src="/ezra-logo-clear-v2.png" alt="" width="40" height="40"/><strong>EZRA<span>.</span></strong></a>
     <button class="nav-toggle" type="button" data-open-menu aria-label={id ? 'Buka menu' : 'Open menu'} aria-haspopup="dialog" aria-controls="portfolio-menu" aria-expanded="false"><span class="menu-dots" aria-hidden="true"><i/><i/><i/><i/></span></button>
-    <a class="nav-contact" href="#contact">{id ? 'HUBUNGI SAYA' : 'CONTACT NOW'}</a>
+    <a class="nav-contact" href="#contact">{id ? 'HUBUNGI SAYA' : 'CONTACT ME'}</a>
   </header>
   <dialog id="portfolio-menu" class="portfolio-menu" aria-label={id ? 'Menu navigasi' : 'Navigation menu'}>
-    <div class="menu-header"><a class="menu-logo" href="#top" aria-label="Ezra"><img src="/ezra-logo-clear-v2.png" alt="" width="40" height="40"/></a><button type="button" class="nav-toggle menu-close" data-close-menu aria-label={id ? 'Tutup menu' : 'Close menu'}><span aria-hidden="true">×</span></button><a class="nav-contact" href="#contact">{id ? 'HUBUNGI SAYA' : 'CONTACT NOW'}</a></div>
+    <div class="menu-header"><a class="menu-logo" href="#top" aria-label="Ezra"><img src="/ezra-logo-clear-v2.png" alt="" width="40" height="40"/></a><button type="button" class="nav-toggle menu-close" data-close-menu aria-label={id ? 'Tutup menu' : 'Close menu'}><span aria-hidden="true">×</span></button><a class="nav-contact" href="#contact">{id ? 'HUBUNGI SAYA' : 'CONTACT ME'}</a></div>
     <nav class="menu-links" aria-label={id ? 'Navigasi utama' : 'Main navigation'}>{navigation.map((item,index) => <a href={item.href} aria-label={item.label} style={`--menu-index: ${index}`}>
       <span class="menu-label">{item.label}</span>
       <span class="menu-flow" aria-hidden="true"><span class="menu-flow-track">{[0,1].map(() => <span class="menu-flow-group">{[0,1,2].map(() => <><span>{item.label}</span><img src={item.image} alt="" width="240" height="120" loading="lazy" decoding="async"/></>)}</span>)}</span></span>
@@ -55,7 +55,7 @@ const sectionNavigation = [
   </nav>
   <div class="portfolio-flow">
     <PortfolioHero lang={lang}/>
-    <section id="introduction" class="portfolio-manifesto" aria-label={id ? 'Pendekatan' : 'Approach'}><span class="chapter-index">00 / {id ? 'PENDEKATAN' : 'APPROACH'}</span><p class="true-focus" data-true-focus aria-label={manifestoLines.join(' ')}>{manifestoLines.map((line, index) => <>{index > 0 && <br/>}<span class="focus-word" aria-hidden="true">{line}</span></>)}<span class="focus-frame" aria-hidden="true"><i/><i/><i/><i/></span></p><div><span>{id ? 'Mahasiswa Informatika · AI & Full-Stack Builder' : 'Informatics Student · AI & Full-Stack Builder'}</span><span>{id ? 'Saya mengerjakan produk dari pertanyaan awal hingga antarmuka, logika, dan operasi yang dapat diuji.' : 'I work across the question, the interface, the logic, and the operating reality of a product.'}</span></div></section>
+    <section id="introduction" class="portfolio-manifesto" aria-label={id ? 'Pendekatan' : 'Approach'}><span class="chapter-index">00 / {id ? 'PENDEKATAN' : 'APPROACH'}</span><p class="true-focus" data-true-focus aria-label={manifestoLines.join(' ')}>{manifestoLines.map((line, index) => <>{index > 0 && <br/>}<span class="focus-word" aria-hidden="true">{line}</span></>)}<span class="focus-frame" aria-hidden="true"><i/><i/><i/><i/></span></p><div><span>{id ? 'Mahasiswa Informatika · AI & Full-Stack Builder' : 'Informatics Student · AI & Full-Stack Builder'}</span><span>{id ? 'Dari kebutuhan pengguna ke antarmuka, backend, dan pengujian.' : 'From user needs to interfaces, backends, and testing.'}</span></div></section>
     <PortfolioApproach lang={lang}/>
     <PortfolioWork lang={lang} featured={featured} prefix={prefix}/>
     <PortfolioPerson lang={lang}/>

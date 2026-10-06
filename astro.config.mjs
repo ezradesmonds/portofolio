@@ -14,7 +14,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     // Prebundle the shared animation dependencies used by interactive pages.
-    optimizeDeps: { include: ['three', 'gsap', 'gsap/ScrollTrigger', 'lenis'] }
+    optimizeDeps: { include: ['three', 'gsap', 'gsap/ScrollTrigger', 'lenis', 'motion/react'] }
   },
 
   integrations: [

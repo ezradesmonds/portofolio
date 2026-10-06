@@ -5,9 +5,11 @@ import { studioCopy } from '../../i18n/studio';
 
 export default function Gallery({items, lang, scene, priority=false}: {items:ProjectArtifact[];lang:'en'|'id';scene?:string;priority?:boolean}) {
   const [index,setIndex]=useState(0), [manual,setManual]=useState(false), [paused,setPaused]=useState(false);
+  const [ready,setReady]=useState(false);
   const dialog=useRef<HTMLDialogElement>(null), root=useRef<HTMLDivElement>(null), touch=useRef(0), beat=useRef(0);
   const reduced=useReducedMotion(), c=studioCopy(lang);
   useEffect(()=>{
+    setReady(true);
     const el=root.current?.closest('[data-scene]');
     const update=(event:Event)=>{ const detail=(event as CustomEvent).detail; beat.current=detail.beat; if(!detail.active)setManual(false); if(!manual || !detail.active)setIndex(detail.beat % Math.max(1,items.length)); };
     const preference=()=>setPaused(document.documentElement.dataset.motion==='paused');
@@ -22,14 +24,14 @@ export default function Gallery({items, lang, scene, priority=false}: {items:Pro
   return <div className="studio-gallery" ref={root}>
     <motion.div className="gallery-screen" key={index} initial={false} animate={{opacity:1}} transition={{duration:reduced||paused?0:.2}}
       onTouchStart={e=>touch.current=e.touches[0].clientX} onTouchEnd={e=>{const distance=touch.current-e.changedTouches[0].clientX;if(Math.abs(distance)>60)choose(index+(distance>0?1:-1));}}>
-      {media()}<button className="enlarge enhanced-only" onClick={()=>dialog.current?.showModal()} aria-label={c.enlarge}>↗</button>
+      {media()}{ready&&<button className="enlarge" onClick={()=>dialog.current?.showModal()} aria-label={c.enlarge}>↗</button>}
     </motion.div>
-    <div className="gallery-controls enhanced-only"><button onClick={()=>choose(index-1)} aria-label={c.previous}>←</button>
+    {ready&&<div className="gallery-controls"><button onClick={()=>choose(index-1)} aria-label={c.previous}>←</button>
       <div className="gallery-thumbnails">{items.map((item,i)=><button key={item.src} onClick={()=>choose(i)} aria-label={`${i+1}: ${item.alt}`} aria-pressed={index===i}>{item.kind==='video'?<span>▶</span>:<img src={item.poster??item.src} alt="" width="72" height="45" loading="lazy"/>}</button>)}</div>
       <button onClick={()=>choose(index+1)} aria-label={c.next}>→</button>
-    </div>
+    </div>}
     <p className="media-caption"><span>{String(index+1).padStart(2,'0')} / {String(items.length).padStart(2,'0')}</span> {items[index].caption}</p>
-    {scene&&<button className="text-button enhanced-only" disabled={!manual} onClick={()=>{setManual(false);setIndex(beat.current%items.length);}}>{manual?`${c.manual} · ${c.follow} ↻`:c.follow}</button>}
+    {scene&&ready&&<button className="text-button" disabled={!manual} onClick={()=>{setManual(false);setIndex(beat.current%items.length);}}>{manual?`${c.manual} · ${c.follow} ↻`:c.follow}</button>}
     <noscript><div className="fallback-artifacts">{items.slice(1).map(a=><a key={a.src} href={a.src}>{a.caption} ↗</a>)}</div></noscript>
     <dialog ref={dialog} className="media-dialog" aria-label={items[index].caption || c.enlarge} onClick={e=>{if(e.target===dialog.current)dialog.current.close();}} onClose={()=>{dialog.current?.querySelectorAll('video').forEach(v=>v.pause());}}>
       <button autoFocus onClick={()=>dialog.current?.close()}>{c.close} ×</button>{media(true)}<p>{items[index].caption}</p>

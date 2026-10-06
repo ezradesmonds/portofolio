@@ -6,13 +6,11 @@ export const experiences: Experience[] = [
     role: "Head / Coordinator of IT Division",
     period: "November 2025 – Present",
     description:
-      "Led the technical planning, architecture, development, and deployment of the full-stack event platform.",
+      "Led IT delivery for a fashion competition and its live event.",
     highlights: [
-      "Progressed from Web Developer for Innofashion Show 7 (2024–2025), where I built cohort-project showcase and voting flows and integrated the team's GET/POST APIs",
-      "Led technical planning, architecture, interface design, development, deployment, and live-event reliability",
-      "Coordinated technical contributors and non-technical event divisions",
-      "Implemented a substantial portion of the frontend and backend",
-      "Managed on-site technical operations during the live event",
+      "Built frontend and backend features for registration, admin workflows, and QR attendance",
+      "Coordinated IT contributors and event divisions, from planning and deployment to on-site operations",
+      "Previously built showcase and voting flows for Innofashion Show 7 (2024–2025), integrating the team's APIs",
     ],
     skills: ["Technical Leadership", "Full-Stack Development", "Event Technology", "Deployment"],
   },
@@ -21,12 +19,11 @@ export const experiences: Experience[] = [
     role: "Member of IT Division",
     period: "March 2026 – August 2026",
     description:
-      "Completed new-student orientation program for Informatics students at Petra Christian University.",
+      "Built web and realtime experiences with the IT team for Petra's 2026 student orientation.",
     highlights: [
-      "Collaborated with the IT team on digital platforms for committee recruitment and freshman-orientation activities, including a recruitment website used by 100+ committee applicants and an administrative management website",
-      "Developed Laravel loader and landing-page components for the official orientation platform serving an approximately 1,300-student audience, and coordinated testing before launch",
-      "Built the participant-facing, three-stage decision game with operator-controlled state, 30-second voting windows, and live result updates through Laravel and Ably Pro",
-      "Implemented subscribe-only realtime authentication, session-linked voting, duplicate-vote protection, and polling fallback; the event concluded in August 2026, while an independently measured approximately 1,300-user concurrency result is not claimed",
+      "Contributed to recruitment and admin websites; 100+ committee applicants used the recruitment site",
+      "Developed Laravel loader and landing-page components and coordinated pre-launch testing for an orientation audience of about 1,300 students; this is audience size, not measured concurrency",
+      "Built a three-stage Laravel and Ably voting game with operator controls, 30-second rounds, session-linked votes, duplicate-vote protection, and polling fallback",
     ],
     skills: ["Laravel", "Ably", "Real-Time Systems", "Full-Stack Development", "Event Technology"],
   },
@@ -37,7 +34,6 @@ export const experiences: Experience[] = [
     description:
       "Led the planning and execution of a financial-education talk show.",
     highlights: [
-      "Led planning and execution of the financial-education talk show",
       "Coordinated teams, event operations, evaluation, and participant experience",
       "Managed budgeting and resource allocation",
     ],

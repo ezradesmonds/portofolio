@@ -395,12 +395,14 @@ body.reference-site {
 .hero-film > span:nth-of-type(2) {
   right: 24px;
 }
-.hero-cv {
-  position: absolute;
-  right: 3.4vw;
-  top: 21px;
-  font: 11px var(--mono);
-  display: none;
+.hero-summary { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-top: 28px; }
+.evidence-home .hero-summary > p { max-width: 34ch; color: var(--ink); font: 500 clamp(18px, 1.65vw, 25px)/1.4 var(--body); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-actions a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 10px 18px; border: 1px solid var(--line); border-radius: 999px; font: 500 14px var(--body); }
+.hero-actions a:first-child { background: var(--accent); border-color: var(--accent); color: var(--canvas); }
+.hero-actions a:hover { border-color: var(--accent); }
+@media (max-width: 600px) {
+  .hero-summary { align-items: flex-start; flex-direction: column; gap: 18px; padding-top: 24px; }
 }
 .portfolio-manifesto {
   padding: clamp(110px, 14vw, 230px) 3.4vw 12vw;
@@ -829,6 +831,9 @@ body.reference-site {
 .stack-groups { margin: 0 3.4vw; }
 .stack-group { padding: 32px 0 44px; border-top: 1px solid var(--line); }
 .stack-group h3 { font: 600 clamp(1.5rem, 2.6vw, 2.5rem) var(--display); margin: 0 0 30px; }
+.stack-evidence { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 18px; font: 400 14px/1.5 var(--body); }
+.stack-evidence > span { color: var(--muted); }
+.stack-evidence a { text-decoration: underline; text-underline-offset: 4px; }
 .stack-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px 28px; margin: 0; padding: 0; list-style: none; }
 .stack-item { display: flex; align-items: center; gap: 18px; min-height: 98px; padding: 20px 0; border-top: 1px solid var(--line); transition: border-color .25s; }
 .stack-item > span:last-child { font: 500 15px var(--display); overflow-wrap: anywhere; }
@@ -1619,7 +1624,7 @@ body.reference-site {
 .hero-fact .fact-location { color: #45db20; }
 .hero-fact .fact-globe { width: 40px; }
 .hero-fact .fact-role { color: #00a8f0; }
-.hero-fact p { font: 500 clamp(10px, .9vw, 14px)/1.4 var(--body); }
+.hero-fact p { font: 500 clamp(12px, .9vw, 14px)/1.4 var(--body); }
 .hero-fact strong, .hero-fact span { display: block; }
 .hero-fact strong { font-weight: 650; color: var(--ink); }
 .hero-fact span { color: var(--muted); }
@@ -1758,7 +1763,8 @@ body.reference-site {
 .latest-caption { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding-top: 18px; }
 .latest-caption h3 { font: 600 clamp(17px, 1.4vw, 23px)/1.2 var(--body); letter-spacing: -.03em; }
 .latest-caption > span { font-size: 24px; }
-.latest-category { margin-top: 5px; color: var(--muted); font: 400 11px/1.3 var(--body); text-transform: uppercase; }
+.evidence-home .latest-category { margin-top: 7px; color: var(--muted); font: 500 13px/1.4 var(--body); text-transform: uppercase; }
+.evidence-home .latest-summary { max-width: 52ch; margin-top: 10px; color: var(--ink); font: 400 16px/1.5 var(--body); }
 @media (max-width: 900px) {
   .latest-intro { grid-template-columns: 1fr 1fr; gap: 30px; }
   .latest-intro > a { grid-column: 2; }
@@ -1766,7 +1772,7 @@ body.reference-site {
 }
 @media (max-width: 600px) {
   .hero-facts { gap: 12px; padding: 35px 0 25px; }
-  .hero-fact p { font-size: 9px; }
+  .hero-fact p { font-size: 12px; }
   .hero-introduction { gap: 15px; padding: 10px 0 25px; }
   .hero-introduction p { font-size: 18px; text-align: left; }
   .latest-intro { padding: 90px 22px 40px; grid-template-columns: 1fr; gap: 25px; }
