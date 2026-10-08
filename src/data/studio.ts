@@ -15,7 +15,7 @@ export {studioCopy} from '../i18n/studio';
 export function deploymentLabel(p: Project, lang: "en" | "id") {
   if (p.slug === "wedding-dress-rental") return lang === "id" ? "Pernah live · trial Odoo berakhir" : "Previously live · Odoo trial expired";
   if (p.slug === "tailor-cooperative-system") return lang === "id" ? "Prototipe hackathon · Juara 2" : "Hackathon prototype · 2nd place";
-  if (p.slug === "market-district") return lang === "id" ? "Build permainan privat" : "Private play build";
+  if (p.slug === "market-district") return lang === "id" ? "Beta live · Pembayaran belum dibuka" : "Live beta · Payments not open";
   if (p.slug === "wgg-2026-realtime-voting-game") return lang === "id" ? "Selesai · Agustus 2026" : "Delivered · August 2026";
   if (p.liveUrl || p.liveLinks?.length) {
     if (p.slug === "rekapflow") return lang === "id" ? "Prototipe live" : "Live prototype";
@@ -44,8 +44,8 @@ const cardCopy: Record<string, Record<'en' | 'id', { category: string; summary?:
     id: { category: 'Akuntansi berbantuan AI', summary: 'Mengembangkan pembukuan, laporan keuangan, dan asisten AI untuk bisnis Indonesia.' },
   },
   'market-district': {
-    en: { category: 'Multiplayer board game', summary: 'Built a private 3–5 player negotiation game with synchronized turns and trades.' },
-    id: { category: 'Board game multiplayer', summary: 'Membangun game negosiasi privat untuk 3–5 pemain dengan giliran dan transaksi tersinkron.' },
+    en: { category: 'Multiplayer board game', summary: 'Built a live Classic/Team negotiation game with Google sign-in, a bilingual landing, and Premium Host workflows.' },
+    id: { category: 'Board game multiplayer', summary: 'Membangun game negosiasi Classic/Team dengan login Google, landing bilingual, dan flow Premium Host dalam beta live.' },
   },
   rekapflow: {
     en: { category: 'Spreadsheet review tool', summary: 'Built a prototype that checks spreadsheets and exports reviewed reports, without uploading files.' },

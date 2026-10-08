@@ -166,7 +166,7 @@ export const projects: Project[] = [
     title: "Market District",
     category: "Real-Time Multiplayer Board Game",
     description:
-      "A private, synchronous 3–5 player negotiation board game for remote game nights, built as an unofficial non-commercial web adaptation inspired by Chinatown.",
+      "A live beta negotiation board game for remote game nights, with Google sign-in, Classic and Team modes, and a Premium Host membership workflow.",
     problem:
       "Physical negotiation board games are difficult to play across different homes because their hidden information, simultaneous deals, shared board state, and turn transitions do not translate cleanly to a video call.",
     targetUsers: "Small groups of friends playing private online board-game sessions",
@@ -179,19 +179,30 @@ export const projects: Project[] = [
       "Vite",
       "Cloudflare Workers",
       "Durable Objects",
+      "Cloudflare D1",
+      "Better Auth",
+      "Google OAuth",
       "WebSockets",
       "SQLite",
       "Zod",
       "Vitest",
       "Playwright",
     ],
-    status: "prototype",
-    statusLabel: "Private Play Build",
+    status: "live",
+    statusLabel: "Live Beta · Payments Not Open",
     outcome:
-      "Delivered a complete six-round multiplayer flow and validated it through a five-player UAT that reached final scoring. Four feedback-driven interface and rule-clarity fixes were implemented and retested. Shared privately through temporary Cloudflare Quick Tunnels rather than a permanent public deployment.",
-    screenshot: "/assets/case-studies/market-district-trade.webp",
+      "Deployed a permanent Cloudflare beta with a bilingual landing page, Google authentication, Classic/Team rooms, and manual Premium Host order and approval workflows. Automated checks cover a full six-round Worker/D1/Durable Object/WebSocket match; real payment verification and commercial release remain pending.",
+    screenshot: "/assets/case-studies/market-district-landing.png",
+    liveUrl: "https://market-district-staging.royallitycraft.workers.dev/",
+    githubUrl: "https://github.com/ezradesmonds/MarketDistrict",
+    githubLabel: "GitHub Repo",
     proofStatus: "available",
     proofArtifacts: [
+      {
+        src: "/assets/case-studies/market-district-landing.png",
+        alt: "Live Market District bilingual landing with Google sign-in, Classic and Team modes, and Premium Host pricing.",
+        caption: "Cloudflare-hosted beta landing captured from the live URL; bank-transfer sales remain gated pending verification.",
+      },
       {
         src: "/assets/case-studies/market-district-trade.webp",
         alt: "Market District multiplayer trade phase with the shared district board, player states, shop reference, hand, and atomic trade desk.",
@@ -215,7 +226,7 @@ export const projects: Project[] = [
     sortOrder: 7,
     detail: {
       overview:
-        "Market District is a private, synchronous negotiation board game for 3–5 players. It recreates the social tension of trading properties, money, and shop permits across a shared district while moving hidden information and rule enforcement into a server-authoritative online experience. It is an unofficial, non-commercial project with original branding, writing, board art, and shop art.",
+          "Market District is a live beta negotiation game with Classic 3–5 player matches and Team formats 2v2, 3v3, and 2v2v2. A bilingual public landing leads into Google-authenticated rooms, while server-authoritative trades, hidden information, and income preserve a shared match. Premium Host order and approval workflows are implemented; paid launch and legal clearance remain pending.",
       metrics: [
         { value: "5", label: "UAT players" },
         { value: "6", label: "Rounds completed" },
@@ -224,24 +235,28 @@ export const projects: Project[] = [
       mySpecificBuilds: [
         "Modeled the complete six-round game loop as a reusable TypeScript engine covering property selection, trading, placement, income, pause/resume, and final scoring.",
         "Built password-protected rooms, signed player sessions, reconnectable WebSocket state, per-player hidden views, and host-only room controls on Cloudflare Workers and Durable Objects.",
-        "Designed the dense desktop game table, responsive player drawers, ledger, shop reference, board interactions, trade desk, and final-results experience.",
+          "Designed the dense desktop game table, responsive player drawers, ledger, shop reference, board interactions, trade desk, and final-results experience.",
+          "Added an Indonesian/English landing page, Google OAuth through Better Auth and D1, account-bound room recovery, and server-enforced one-room Premium Host limits.",
+          "Built manual bank-transfer orders, admin approval/rejection/revocation, transaction uniqueness, atomic 30-day renewal, and customer email drafts without automatic payment or email delivery.",
       ],
       keyFeatures: [
-        "Private password-protected rooms for 3–5 players",
+          "Google-authenticated Classic and Team rooms with optional passwords",
+          "Bilingual public landing, account, checkout, and administrator screens",
+          "Manual bank-transfer Premium Host workflow; payments not yet open",
         "Real-time WebSocket synchronization and reconnectable sessions",
         "Server-authoritative six-round game engine",
         "Hidden property and shop hands projected per player",
         "Atomic money, property, and shop-tile trade offers",
         "Interactive district board with shop placement and ownership states",
         "Automatic shop income, ledger history, and final ranking",
-        "Site access gate and host-only pause, resume, and room controls",
+          "Account-bound reconnect and host-only pause, resume, and room controls",
       ],
       implementation:
-        "The monorepo separates the React/Vite client, shared game engine, validated protocol, reusable UI, and Cloudflare Worker. Each room is owned by one SQLite-backed Durable Object; clients send versioned commands over WebSockets and receive a player-specific projection of the authoritative state.",
+          "The monorepo separates React/Vite, a pure rules engine, Zod protocol, UI, and Worker. Better Auth uses Google OAuth and D1 for accounts and sessions; D1 also stores orders, subscriptions, reservations, and admin audits. SQLite-backed Durable Objects coordinate versioned WebSocket commands and private player snapshots.",
       systemArchitecture:
-        "React/Vite client → Zod-validated command protocol → Cloudflare Worker routing → one Durable Object and SQLite state store per room → player-specific WebSocket snapshots.",
+          "React/Vite → Worker → Better Auth/Google OAuth and D1 account/billing storage; match intents → Zod validation → SQLite Durable Object → viewer-specific WebSocket snapshots.",
       constraints:
-        "Designed for private game nights rather than public commercial distribution. The current hosted flow uses temporary Cloudflare Quick Tunnels, so no unstable tunnel URL is presented as a permanent live demo.",
+          "The permanent workers.dev URL is a beta environment, separate from the legacy private deployment. Payments remain disabled until owner-verified transfer and admin setup; deployed multiplayer/hibernation playtests and legal review are still release gates. No revenue or commercial clearance is claimed.",
       challenges: [
         "Preserving hidden information while keeping every browser synchronized to one authoritative match",
         "Making multi-asset trades atomic so money, lots, and shop tiles cannot partially transfer",
@@ -254,7 +269,7 @@ export const projects: Project[] = [
         "Multiplayer game UI must expose server state clearly without leaking private player information",
         "A pure rules engine makes complex turn transitions easier to test than logic embedded in React components",
         "Multiplayer playtesting exposed rule and visual-discoverability gaps that automated coverage could not reveal",
-        "Temporary tunnels are useful for private validation but should not be represented as durable production hosting",
+          "Hosting a beta is distinct from validating real payments, demand, and commercial readiness",
       ],
     },
   },

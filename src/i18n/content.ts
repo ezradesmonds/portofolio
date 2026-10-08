@@ -168,17 +168,22 @@ const projectIdLocales: Record<string, ProjectLocale> = {
   "market-district": {
     category: "Board Game Multiplayer Real-Time",
     description:
-      "Board game negosiasi sinkron untuk 3–5 pemain dalam sesi privat jarak jauh, dibangun sebagai adaptasi web nonkomersial tidak resmi yang terinspirasi Chinatown.",
+      "Beta live board game negosiasi untuk game night jarak jauh, dengan login Google, mode Classic dan Team, serta flow keanggotaan Premium Host.",
     problem:
       "Board game negosiasi fisik sulit dimainkan dari rumah berbeda karena informasi tersembunyi, transaksi simultan, board bersama, dan transisi ronde tidak mudah dipindahkan ke video call.",
     targetUsers: "Kelompok kecil teman yang bermain board game online secara privat",
     role: "Developer full-stack solo dan desainer sistem game",
     contribution:
       "Merancang identitas produk dan game table responsif, mengimplementasikan rules engine enam ronde, membangun multiplayer private-room dan trade atomik, serta menghubungkan client React ke backend Cloudflare Worker yang stateful.",
-    statusLabel: "Build untuk Sesi Privat",
+    statusLabel: "Beta Live · Pembayaran Belum Dibuka",
     outcome:
-      "Menyelesaikan flow multiplayer enam ronde dan memvalidasinya melalui UAT lima pemain sampai final scoring. Empat perbaikan interface dan kejelasan aturan berbasis feedback telah diterapkan dan diuji ulang. Dibagikan secara privat melalui Cloudflare Quick Tunnel sementara, bukan deployment publik permanen.",
+      "Men-deploy beta permanen di Cloudflare dengan landing bilingual, autentikasi Google, room Classic/Team, serta flow pesanan dan approval Premium Host manual. Pengujian otomatis mencakup match enam ronde melalui Worker/D1/Durable Object/WebSocket; verifikasi pembayaran nyata dan peluncuran komersial masih pending.",
     proofArtifacts: [
+      {
+        src: "/assets/case-studies/market-district-landing.png",
+        alt: "Landing bilingual Market District live dengan login Google, mode Classic dan Team, serta harga Premium Host.",
+        caption: "Landing beta di Cloudflare diambil dari URL live; penjualan transfer bank tetap dibatasi sampai verifikasi selesai.",
+      },
       {
         src: "/assets/case-studies/market-district-trade.webp",
         alt: "Fase trading multiplayer Market District dengan board distrik bersama, status pemain, referensi toko, hand, dan trade desk atomik.",
@@ -200,7 +205,7 @@ const projectIdLocales: Record<string, ProjectLocale> = {
     ],
     detail: {
       overview:
-        "Market District adalah board game negosiasi sinkron untuk 3–5 pemain. Game ini membawa ketegangan sosial dari transaksi properti, uang, dan izin toko ke pengalaman online dengan shared district serta aturan yang ditegakkan server. Project ini bersifat tidak resmi dan nonkomersial, dengan branding, tulisan, board art, serta shop art original.",
+        "Market District adalah beta live game negosiasi dengan Classic 3–5 pemain dan Team 2v2, 3v3, serta 2v2v2. Landing bilingual mengarah ke room dengan login Google, sementara server menjaga trade atomik, informasi tersembunyi, dan income. Flow pesanan Premium Host sudah dibuat; aktivasi pembayaran dan peninjauan legal masih pending.",
       metrics: [
         { value: "5", label: "Pemain UAT" },
         { value: "6", label: "Ronde diselesaikan" },
@@ -210,23 +215,27 @@ const projectIdLocales: Record<string, ProjectLocale> = {
         "Memodelkan game loop enam ronde sebagai engine TypeScript reusable untuk pemilihan properti, trading, placement, income, pause/resume, dan final scoring.",
         "Membangun room berpassword, signed player session, state WebSocket yang dapat tersambung kembali, tampilan privat per pemain, dan host control melalui Cloudflare Workers serta Durable Objects.",
         "Mendesain game table desktop yang padat, drawer pemain responsif, ledger, referensi toko, interaksi board, trade desk, dan pengalaman final-results.",
+        "Menambahkan landing Indonesia/Inggris, Google OAuth melalui Better Auth dan D1, pemulihan kursi berbasis akun, serta batas satu room Premium Host yang ditegakkan server.",
+        "Membangun pesanan transfer bank manual, approval/rejection/revoke admin, referensi transaksi unik, renewal atomik 30 hari, dan draft email tanpa pengiriman otomatis.",
       ],
       keyFeatures: [
-        "Room privat berpassword untuk 3–5 pemain",
+        "Room Classic dan Team dengan login Google serta password opsional",
+        "Landing bilingual, profil akun, checkout, dan layar admin",
+        "Flow transfer bank Premium Host manual; pembayaran belum dibuka",
         "Sinkronisasi WebSocket real-time dan session yang dapat reconnect",
         "Rules engine enam ronde yang server-authoritative",
         "Hand properti dan toko tersembunyi yang diproyeksikan per pemain",
         "Trade offer atomik untuk uang, properti, dan tile toko",
         "Board distrik interaktif dengan placement toko dan ownership state",
         "Perhitungan income otomatis, ledger, dan ranking akhir",
-        "Site access gate serta kontrol pause, resume, dan tutup room khusus host",
+        "Reconnect berbasis akun serta kontrol pause, resume, dan tutup room khusus host",
       ],
       implementation:
-        "Monorepo memisahkan client React/Vite, shared game engine, protocol tervalidasi, reusable UI, dan Cloudflare Worker. Setiap room dimiliki satu Durable Object dengan state SQLite; client mengirim command berversi melalui WebSocket dan menerima proyeksi state khusus pemain.",
+        "Monorepo memisahkan React/Vite, rules engine murni, protocol Zod, UI, dan Worker. Better Auth menggunakan Google OAuth dan D1 untuk akun serta session; D1 juga menyimpan pesanan, langganan, reservasi room, dan audit admin. Durable Object SQLite mengoordinasikan command WebSocket berversi dan snapshot privat pemain.",
       systemArchitecture:
-        "Client React/Vite → command protocol tervalidasi Zod → routing Cloudflare Worker → satu Durable Object dan state SQLite per room → snapshot WebSocket khusus pemain.",
+        "React/Vite → Worker → Better Auth/Google OAuth dan D1 akun/billing; intent game → validasi Zod → Durable Object SQLite → snapshot WebSocket khusus pemain.",
       constraints:
-        "Dibangun untuk game night privat, bukan distribusi komersial publik. Flow hosting saat ini memakai Cloudflare Quick Tunnel sementara, sehingga URL tunnel yang tidak stabil tidak ditampilkan sebagai live demo permanen.",
+        "URL workers.dev permanen ini adalah lingkungan beta, terpisah dari deployment privat lama. Pembayaran belum aktif sampai transfer nyata dan bootstrap admin diverifikasi; playtest deployment/hibernation serta review legal tetap menjadi syarat rilis. Tidak ada klaim pendapatan atau izin komersial.",
       challenges: [
         "Menjaga informasi tersembunyi tanpa membuat browser pemain keluar dari state match yang sama",
         "Membuat trade multi-aset atomik agar uang, lot, dan tile toko tidak pernah berpindah sebagian",
@@ -239,7 +248,7 @@ const projectIdLocales: Record<string, ProjectLocale> = {
         "UI game multiplayer harus memperlihatkan state server dengan jelas tanpa membocorkan informasi privat pemain",
         "Rules engine murni membuat transisi ronde kompleks lebih mudah diuji dibanding logic yang tertanam di komponen React",
         "Playtesting multiplayer menemukan celah kejelasan aturan dan discoverability visual yang tidak terlihat dari automated coverage",
-        "Tunnel sementara cocok untuk validasi privat tetapi tidak boleh dipresentasikan sebagai hosting production yang permanen",
+        "Beta yang live berbeda dari pembayaran nyata, permintaan pasar, dan kesiapan komersial yang tervalidasi",
       ],
     },
   },
