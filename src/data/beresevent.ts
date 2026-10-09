@@ -17,8 +17,8 @@ export const beresEvent: Project = {
     "unittest"
   ],
   "status": "competition",
-  "statusLabel": "Hackathon submitted · Prototype",
-  "outcome": "Submitted to the Hacktiv8 x IBM SkillsBuild National Hackathon. One synthetic live baseline returned five review cases; the AI draft preserved all case IDs, participant IDs, codes and evidence. Seven local unit tests passed. Competition results and real-user impact are not claimed.",
+  "statusLabel": "IBM SkillsBuild National Hackathon 2026 × Hacktiv8 · Submitted prototype",
+  "outcome": "Submitted to IBM SkillsBuild National Hackathon 2026 × Hacktiv8. One synthetic live baseline returned five review cases; the AI draft preserved all case IDs, participant IDs, codes and evidence. Seven local unit tests passed. Competition results and real-user impact are not claimed.",
   "screenshot": "/assets/case-studies/beresevent-workflow.png",
   "proofStatus": "available",
   "proofArtifacts": [
@@ -47,7 +47,7 @@ export const beresEvent: Project = {
   "featured": false,
   "sortOrder": 13,
   "detail": {
-    "overview": "BeresEvent is a completed hackathon submission prototype for reviewing registration and payment snapshots. It combines deterministic discrepancy checks with SOP-grounded AI clarification drafts. The published evidence uses synthetic data; a working demo is separate from validated user benefit.",
+    "overview": "BeresEvent is a registration and payment review prototype submitted to IBM SkillsBuild National Hackathon 2026 × Hacktiv8. It combines deterministic discrepancy checks with SOP-grounded AI clarification drafts. The published evidence uses synthetic data; a working demo is separate from validated user benefit.",
     "mySpecificBuilds": [
       "Built CSV schema, ID, reference and integer-rupiah validation in a custom Python component.",
       "Implemented discrepancy rules and versioned input price checks, case IDs, source-row evidence and a snapshot hash.",
@@ -138,8 +138,8 @@ export const beresEventId: Project = {
     "unittest"
   ],
   "status": "competition",
-  "statusLabel": "Hackathon dikumpulkan · Prototipe",
-  "outcome": "Disubmit ke National Hackathon Hacktiv8 x IBM SkillsBuild. Satu baseline sintetis live menghasilkan lima kasus; draft AI mempertahankan seluruh ID kasus, ID peserta, kode dan bukti. Tujuh unit test lokal lolos. Hasil lomba dan dampak pengguna nyata belum diklaim.",
+  "statusLabel": "IBM SkillsBuild National Hackathon 2026 × Hacktiv8 · Prototipe dikumpulkan",
+  "outcome": "Disubmit ke IBM SkillsBuild National Hackathon 2026 × Hacktiv8. Satu baseline sintetis live menghasilkan lima kasus; draft AI mempertahankan seluruh ID kasus, ID peserta, kode dan bukti. Tujuh unit test lokal lolos. Hasil lomba dan dampak pengguna nyata belum diklaim.",
   "screenshot": "/assets/case-studies/beresevent-workflow.png",
   "proofStatus": "available",
   "proofArtifacts": [
@@ -168,7 +168,7 @@ export const beresEventId: Project = {
   "featured": false,
   "sortOrder": 13,
   "detail": {
-    "overview": "BeresEvent adalah prototipe submission hackathon yang sudah selesai untuk review snapshot registrasi dan pembayaran. Pemeriksaan ketidaksesuaian deterministik dipadukan dengan draft klarifikasi AI berdasarkan SOP. Bukti publik memakai data sintetis; demo yang berjalan berbeda dari manfaat pengguna yang tervalidasi.",
+    "overview": "BeresEvent adalah prototipe submission IBM SkillsBuild National Hackathon 2026 × Hacktiv8 yang sudah selesai untuk review snapshot registrasi dan pembayaran. Pemeriksaan ketidaksesuaian deterministik dipadukan dengan draft klarifikasi AI berdasarkan SOP. Bukti publik memakai data sintetis; demo yang berjalan berbeda dari manfaat pengguna yang tervalidasi.",
     "mySpecificBuilds": [
       "Membangun validasi schema CSV, ID, referensi dan nominal rupiah integer dalam komponen Python.",
       "Mengimplementasikan aturan audit, pemeriksaan harga input berversi, ID kasus, bukti baris dan hash snapshot.",
