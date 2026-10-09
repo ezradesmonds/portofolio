@@ -28,6 +28,28 @@ type ProjectLocale = Partial<
 
 const projectIdLocales: Record<string, ProjectLocale> = {
   beresevent: beresEventId,
+  flowphase: {
+  "category": "Riset Pasar IDX / Sectors Hackathon 2026",
+  "description": "Workspace riset IDX yang menggabungkan data broker dan kepemilikan Sectors dengan konteks harga-volume TradingView serta bukti yang dapat ditelusuri.",
+  "problem": "Periset perlu menghubungkan arus broker, kepemilikan, dan perilaku harga-volume sambil memahami data yang belum lengkap serta batas setiap sinyal.",
+  "targetUsers": "Periset saham Indonesia dan pembelajar analisis pasar",
+  "role": "Pengembang full-stack",
+  "contribution": "Membangun workspace riset, integrasi data server, analisis fase berbasis aturan, chart interaktif, analisis broker, dan visualisasi kepemilikan.",
+  "statusLabel": "Sectors Hackathon 2026 · Prototipe riset",
+  "outcome": "Mengimplementasikan dashboard, scanner, broker flow, chart saham, dan peta kepemilikan dalam satu alur riset. Screenshot mendokumentasikan prototipe lokal; belum ada klaim akurasi prediktif atau deployment publik.",
+  "detail": {
+    "overview": "Dibangun untuk Sectors Hackathon 2026, Track 03 — Market Intelligence. FlowPhase menghubungkan data broker, kepemilikan, free float, dan konteks harga-volume. Aturan deterministik menampilkan bukti pendukung, penyangkal, serta cakupan data agar kandidat fase tidak dianggap sebagai prediksi terkonfirmasi.",
+    "keyFeatures": [
+      "Dashboard pasar dan scanner IDX dengan filter",
+      "Analisis arus broker dan ekspor CSV",
+      "Chart candlestick dan region fase hasil perhitungan",
+      "Peta hubungan pemegang saham",
+      "Skor bukti, status sumber, dan indikator data yang belum tersedia",
+      "Watchlist lokal dan alur replay riset"
+    ],
+    "constraints": "Prototipe riset, bukan rekomendasi investasi atau sistem eksekusi order. Skor bukti bukan probabilitas profit. Arus broker bukan identitas beneficial owner. Cakupan bergantung pada data yang diperoleh; akurasi prediktif belum divalidasi independen. Deployment publik memerlukan kontrol akses dan kuota bersama."
+  }
+},
   "akun-ai": {
     category: "SaaS Akuntansi AI / FinTech",
     description:

@@ -4,7 +4,7 @@ export const PORTFOLIO_FACTS = {
     gpaScale: 4,
   },
   portfolio: {
-    documentedBuilds: 15,
+    documentedBuilds: 16,
   },
   innofashion: {
     competitionRegistrations: 302,

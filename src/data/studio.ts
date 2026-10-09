@@ -4,7 +4,7 @@ import { PORTFOLIO_FACTS } from './facts';
 
 // This collection is the only boundary used by pages and interactive islands.
 export const publicProjects = [...projects, ...additionalProjects].filter(p => !p.isPrivate);
-export const selectedSlugs = ['tokokaret', 'tailor-cooperative-system', 'innofashion-show-8', 'akun-ai', 'market-district', 'rekapflow'];
+export const selectedSlugs = ['tokokaret', 'tailor-cooperative-system', 'innofashion-show-8', 'akun-ai', 'market-district', 'flowphase'];
 export const displayName = (p: Project) => ({'akun-ai':'Akun.AI','market-district':'Market District','wgg-2026-realtime-voting-game':'WGG','tokokaret':'TokoKaret','tailor-cooperative-system':'SAKTI','innofashion-show-8':'Innofashion'}[p.slug] ?? p.title);
 export function artifacts(p: Project): ProjectArtifact[] {
   const items = [...(p.screenshot ? [{src:p.screenshot,alt:p.title,caption:p.description}] : []), ...(p.proofArtifacts ?? [])];

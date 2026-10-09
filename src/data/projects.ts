@@ -4,6 +4,87 @@ import { PORTFOLIO_FACTS } from "./facts";
 
 export const projects: Project[] = [
   beresEvent,
+{
+  "slug": "flowphase",
+  "title": "FlowPhase",
+  "category": "IDX Market Intelligence / Sectors Hackathon 2026",
+  "description": "An explainable IDX research workstation combining Sectors broker and ownership data with TradingView price-volume context.",
+  "problem": "Market researchers need to connect broker flow, ownership, and price-volume behaviour while understanding incomplete data and the limits of each signal.",
+  "targetUsers": "Indonesian equity researchers and market-analysis learners",
+  "role": "Full-stack developer",
+  "contribution": "Built the research workstation, server-side data integrations, rule-based phase analysis, interactive charts, broker-flow views, and ownership visualisation.",
+  "technologies": [
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+    "Sectors API",
+    "TradingView",
+    "Lightweight Charts",
+    "Zod",
+    "Vitest",
+    "Playwright"
+  ],
+  "status": "competition",
+  "statusLabel": "Sectors Hackathon 2026 · Research prototype",
+  "outcome": "Implemented a connected research workflow across the market dashboard, scanner, broker flow, stock charts, and ownership map. Screenshots document the local prototype; predictive accuracy and public deployment are not claimed.",
+  "screenshot": "/assets/case-studies/flowphase-overview.webp",
+  "githubUrl": "https://github.com/ezradesmonds/flowphase",
+  "githubLabel": "GitHub Repo",
+  "proofStatus": "available",
+  "proofArtifacts": [
+    {
+      "src": "/assets/case-studies/flowphase-overview.webp",
+      "alt": "FlowPhase Research dashboard showing the analysed subset, phase candidates, coverage, and evidence scores.",
+      "caption": "Research dashboard showing the analysed subset, phase candidates, coverage, and evidence scores."
+    },
+    {
+      "src": "/assets/case-studies/flowphase-broker-flow.webp",
+      "alt": "FlowPhase Broker-flow workspace with observed buy/sell lots, net flow, and CSV export.",
+      "caption": "Broker-flow workspace with observed buy/sell lots, net flow, and CSV export."
+    },
+    {
+      "src": "/assets/case-studies/flowphase-scanner.webp",
+      "alt": "FlowPhase IDX scanner separating Sectors-backed candidates from price-volume-only evidence.",
+      "caption": "IDX scanner separating Sectors-backed candidates from price-volume-only evidence."
+    },
+    {
+      "src": "/assets/case-studies/flowphase-stock-chart.webp",
+      "alt": "FlowPhase BBCA price-volume chart with calculated phase regions and pending-evidence labels.",
+      "caption": "BBCA price-volume chart with calculated phase regions and pending-evidence labels."
+    },
+    {
+      "src": "/assets/case-studies/flowphase-ownership.webp",
+      "alt": "FlowPhase Ownership relationship map distinguishing provider-reported links from official verification.",
+      "caption": "Ownership relationship map distinguishing provider-reported links from official verification."
+    }
+  ],
+  "featured": true,
+  "sortOrder": 5,
+  "detail": {
+    "overview": "Built for Sectors Hackathon 2026, Track 03 — Market Intelligence. FlowPhase brings broker flow, ownership, free float, and price-volume context into one IDX research workstation. Its deterministic rules expose supporting evidence, evidence against, and missing coverage rather than presenting phase candidates as confirmed predictions.",
+    "mySpecificBuilds": [
+      "Integrated Sectors company, broker, ownership, and free-float data through server-side adapters with validation and caching.",
+      "Built an IDX scanner, broker-flow workspace, interactive ownership map, and TradingView-backed charts.",
+      "Implemented explainable phase candidates with source provenance, coverage, and explicit price-volume-only labels."
+    ],
+    "keyFeatures": [
+      "Market dashboard and filtered IDX scanner",
+      "Broker-flow analysis and CSV export",
+      "Interactive candlestick charts and calculated phase regions",
+      "Ownership and shareholder relationship map",
+      "Evidence scores, source status, and missing-data indicators",
+      "Local research watchlist and replay workflow"
+    ],
+    "systemArchitecture": "Next.js server routes fetch and validate provider data before normalising it for React research views. Sectors supplies company and broker/ownership context; TradingView supplies OHLCV rendered with Lightweight Charts. Cached analysis snapshots support the dashboard and scanner without polling the entire market.",
+    "constraints": "Research prototype, not investment advice or an order-execution system. Evidence scores express rule support, not profit probability. Broker flow does not identify beneficial owners. Coverage varies by acquired data; predictive accuracy is not independently validated. Public deployment requires shared quota and access controls.",
+    "lessonsLearned": [
+      "Separate observed data from inferred phases and make missing evidence visible.",
+      "Bound provider requests and cache research snapshots to control API usage.",
+      "Keep credentials on the server and distinguish provider-reported ownership from official verification."
+    ]
+  }
+},
   {
     slug: "akun-ai",
     title: "Akun.AI",
