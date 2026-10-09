@@ -33,12 +33,12 @@ const projectIdLocales: Record<string, ProjectLocale> = {
   "description": "Workspace riset IDX yang menggabungkan data broker dan kepemilikan Sectors dengan konteks harga-volume TradingView serta bukti yang dapat ditelusuri.",
   "problem": "Periset perlu menghubungkan arus broker, kepemilikan, dan perilaku harga-volume sambil memahami data yang belum lengkap serta batas setiap sinyal.",
   "targetUsers": "Periset saham Indonesia dan pembelajar analisis pasar",
-  "role": "Pengembang full-stack",
-  "contribution": "Membangun workspace riset, integrasi data server, analisis fase berbasis aturan, chart interaktif, analisis broker, dan visualisasi kepemilikan.",
+  "role": "Pengembang full-stack · Proyek tim",
+  "contribution": "Berkontribusi pada UI terminal dan tema, tab broker summary dan holder, pengayaan ownership, preload dashboard, ringkasan bukti riset, serta perbaikan chart, rendering, dan cache dalam workspace yang dibangun bersama tim.",
   "statusLabel": "Sectors Hackathon 2026 · Prototipe riset",
-  "outcome": "Mengimplementasikan dashboard, scanner, broker flow, chart saham, dan peta kepemilikan dalam satu alur riset. Screenshot mendokumentasikan prototipe lokal; belum ada klaim akurasi prediktif atau deployment publik.",
+  "outcome": "Bersama tim, mengimplementasikan dashboard, scanner, broker flow, chart saham, dan peta kepemilikan dalam satu alur riset. Screenshot mendokumentasikan prototipe lokal; belum ada klaim akurasi prediktif atau deployment publik.",
   "detail": {
-    "overview": "Dibangun untuk Sectors Hackathon 2026, Track 03 — Market Intelligence. FlowPhase menghubungkan data broker, kepemilikan, free float, dan konteks harga-volume. Aturan deterministik menampilkan bukti pendukung, penyangkal, serta cakupan data agar kandidat fase tidak dianggap sebagai prediksi terkonfirmasi.",
+    "overview": "Dibangun bersama tim untuk Sectors Hackathon 2026, Track 03 — Market Intelligence. FlowPhase menghubungkan data broker, kepemilikan, free float, dan konteks harga-volume. Aturan deterministik menampilkan bukti pendukung, penyangkal, serta cakupan data agar kandidat fase tidak dianggap sebagai prediksi terkonfirmasi.",
     "keyFeatures": [
       "Dashboard pasar dan scanner IDX dengan filter",
       "Analisis arus broker dan ekspor CSV",
@@ -47,7 +47,13 @@ const projectIdLocales: Record<string, ProjectLocale> = {
       "Skor bukti, status sumber, dan indikator data yang belum tersedia",
       "Watchlist lokal dan alur replay riset"
     ],
-    "constraints": "Prototipe riset, bukan rekomendasi investasi atau sistem eksekusi order. Skor bukti bukan probabilitas profit. Arus broker bukan identitas beneficial owner. Cakupan bergantung pada data yang diperoleh; akurasi prediktif belum divalidasi independen. Deployment publik memerlukan kontrol akses dan kuota bersama."
+    "constraints": "Prototipe riset, bukan rekomendasi investasi atau sistem eksekusi order. Skor bukti bukan probabilitas profit. Arus broker bukan identitas beneficial owner. Cakupan bergantung pada data yang diperoleh; akurasi prediktif belum divalidasi independen. Deployment publik memerlukan kontrol akses dan kuota bersama.",
+    "mySpecificBuilds": [
+      "Merancang ulang antarmuka riset bergaya terminal dan menambahkan dukungan tema terang/gelap.",
+      "Menambahkan tab broker summary dan holder berbasis Sectors, termasuk ambang kepemilikan serta konteks ownership tambahan.",
+      "Membangun ringkasan bukti fase berisi dukungan, peringatan, pemeriksaan berikutnya, dan unit test terfokus.",
+      "Menambahkan preload analisis saham pada dashboard serta memperbaiki pemulihan chart saat ganti tema, preservasi metadata broker, rendering React, dan kesegaran cache scanner."
+    ]
   }
 },
   "akun-ai": {

@@ -11,8 +11,8 @@ export const projects: Project[] = [
   "description": "An explainable IDX research workstation combining Sectors broker and ownership data with TradingView price-volume context.",
   "problem": "Market researchers need to connect broker flow, ownership, and price-volume behaviour while understanding incomplete data and the limits of each signal.",
   "targetUsers": "Indonesian equity researchers and market-analysis learners",
-  "role": "Full-stack developer",
-  "contribution": "Built the research workstation, server-side data integrations, rule-based phase analysis, interactive charts, broker-flow views, and ownership visualisation.",
+  "role": "Full-stack developer · Team project",
+  "contribution": "Contributed the terminal UI and theming, broker-summary and holder tabs, ownership enrichment, dashboard preloading, evidence research briefs, and chart/rendering/cache reliability fixes within the team-built workstation.",
   "technologies": [
     "Next.js",
     "React",
@@ -27,7 +27,7 @@ export const projects: Project[] = [
   ],
   "status": "competition",
   "statusLabel": "Sectors Hackathon 2026 · Research prototype",
-  "outcome": "Implemented a connected research workflow across the market dashboard, scanner, broker flow, stock charts, and ownership map. Screenshots document the local prototype; predictive accuracy and public deployment are not claimed.",
+  "outcome": "As a team, implemented a connected research workflow across the market dashboard, scanner, broker flow, stock charts, and ownership map. Screenshots document the local prototype; predictive accuracy and public deployment are not claimed.",
   "screenshot": "/assets/case-studies/flowphase-overview.webp",
   "githubUrl": "https://github.com/ezradesmonds/flowphase",
   "githubLabel": "GitHub Repo",
@@ -62,11 +62,12 @@ export const projects: Project[] = [
   "featured": true,
   "sortOrder": 5,
   "detail": {
-    "overview": "Built for Sectors Hackathon 2026, Track 03 — Market Intelligence. FlowPhase brings broker flow, ownership, free float, and price-volume context into one IDX research workstation. Its deterministic rules expose supporting evidence, evidence against, and missing coverage rather than presenting phase candidates as confirmed predictions.",
+    "overview": "Built collaboratively for Sectors Hackathon 2026, Track 03 — Market Intelligence. FlowPhase brings broker flow, ownership, free float, and price-volume context into one IDX research workstation. Its deterministic rules expose supporting evidence, evidence against, and missing coverage rather than presenting phase candidates as confirmed predictions.",
     "mySpecificBuilds": [
-      "Integrated Sectors company, broker, ownership, and free-float data through server-side adapters with validation and caching.",
-      "Built an IDX scanner, broker-flow workspace, interactive ownership map, and TradingView-backed charts.",
-      "Implemented explainable phase candidates with source provenance, coverage, and explicit price-volume-only labels."
+      "Redesigned the terminal-style research interface and added light/dark theme support.",
+      "Added Sectors-powered broker-summary and shareholder-holder tabs, including ownership thresholds and additional ownership context.",
+      "Built phase-evidence research briefs with supporting evidence, cautions, next checks, and focused unit tests.",
+      "Added dashboard stock-analysis preloading and fixed chart theme restoration, broker-metadata preservation, React rendering, and scanner cache freshness."
     ],
     "keyFeatures": [
       "Market dashboard and filtered IDX scanner",
