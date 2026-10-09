@@ -1,5 +1,6 @@
 /** Art direction only. Facts and publication status remain in projects.ts. */
 export const portfolioPresentation: Record<string, { accent: string; lens: { en: string; id: string } }> = {
+  beresevent: { accent: '#9bbdc7', lens: { en: 'Evidence before decisions', id: 'Bukti sebelum keputusan' } },
   'akun-ai': { accent: '#efae83', lens: { en: 'Accounting, made reviewable', id: 'Akuntansi yang bisa ditinjau' } },
   'market-district': { accent: '#d4b47a', lens: { en: 'A shared game state', id: 'Status permainan bersama' } },
   tokokaret: { accent: '#e8a783', lens: { en: 'Commerce in daily use', id: 'Perdagangan dalam penggunaan nyata' } },

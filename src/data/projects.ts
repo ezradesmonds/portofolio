@@ -1,7 +1,9 @@
 import type { Project } from "../types";
+import { beresEvent } from "./beresevent";
 import { PORTFOLIO_FACTS } from "./facts";
 
 export const projects: Project[] = [
+  beresEvent,
   {
     slug: "akun-ai",
     title: "Akun.AI",

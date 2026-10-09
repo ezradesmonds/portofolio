@@ -1,5 +1,6 @@
 import type { Award, CapabilityGroup, Experience, Project, ProjectDetail } from "../types";
 import type { Lang } from "./translations";
+import { beresEventId } from "../data/beresevent";
 import { PORTFOLIO_FACTS } from "../data/facts";
 
 type ProjectLocale = Partial<
@@ -26,6 +27,7 @@ type ProjectLocale = Partial<
 };
 
 const projectIdLocales: Record<string, ProjectLocale> = {
+  beresevent: beresEventId,
   "akun-ai": {
     category: "SaaS Akuntansi AI / FinTech",
     description:
