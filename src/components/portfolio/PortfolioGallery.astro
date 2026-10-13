@@ -1,9 +1,11 @@
 ---
 import { publicProjects, displayName } from '../../data/studio';
+import { localizeProjects } from '../../i18n/content';
 import { galleryImages } from './projectGallery';
 const { lang } = Astro.props as { lang: 'en' | 'id' };
 const id = lang === 'id';
-const gallery = galleryImages(publicProjects).map(item => ({ ...item, title: displayName(publicProjects.find(project => project.slug === item.slug)!) }));
+const projects = localizeProjects(publicProjects, lang);
+const gallery = galleryImages(publicProjects).map(item => ({ ...item, title: displayName(projects.find(project => project.slug === item.slug)!) }));
 ---
 <section id="project-gallery" class="project-drift" data-project-gallery aria-labelledby="gallery-heading">
   <header class="drift-heading"><h2 id="gallery-heading">{id ? 'GALERI PROYEK' : 'PROJECT GALLERY'}</h2></header>

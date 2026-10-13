@@ -1478,7 +1478,7 @@ const capabilityIdLocales: {
   items: string[];
 }[] = [
   {
-    name: "Engineering Produk",
+    name: "Pengembangan Produk",
     items: [
       "TypeScript",
       "JavaScript",
@@ -1486,7 +1486,7 @@ const capabilityIdLocales: {
       "Next.js",
       "Astro",
       "Tailwind CSS",
-      "Engineering UI responsif",
+      "Pengembangan UI responsif",
       "Arsitektur komponen",
     ],
   },
@@ -1511,13 +1511,13 @@ const capabilityIdLocales: {
       "Integrasi LLM",
       "OpenRouter",
       "Integrasi Google Gemini",
-      "Workflow OCR",
+      "Alur kerja OCR",
       "Analisis data",
     ],
   },
   {
-    name: "Tools Engineering",
-    items: ["Git", "GitHub", "Docker", "Vercel", "Workflow deployment"],
+    name: "Alat Pengembangan",
+    items: ["Git", "GitHub", "Docker", "Vercel", "Alur penerapan aplikasi"],
   },
   {
     name: "Bahasa Lain & Fondasi Akademik",

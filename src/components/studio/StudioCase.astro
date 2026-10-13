@@ -12,10 +12,10 @@ const d=p.detail,c=studioCopy(lang),id=lang==='id',prefix=id?'/id':'';
 const sections=id?['Ikhtisar','Keputusan','Implementasi','Hasil','Detail teknis']:['Overview','Decisions','Implementation','Results','Technical details'];
 const anchors=['overview','decisions','implementation','results','technical'];
 const live=p.liveLinks?.length?p.liveLinks:p.liveUrl?[{url:p.liveUrl,label:c.live}]:[];
-const repos=p.githubLinks?.length?p.githubLinks:p.githubUrl?[{url:p.githubUrl,label:p.githubLabel??(p.githubIsGeneric?'GitHub profile':'GitHub')}]:[];
+const repos=p.githubLinks?.length?p.githubLinks:p.githubUrl?[{url:p.githubUrl,label:p.githubLabel??(p.githubIsGeneric?(id?'Profil GitHub':'GitHub profile'):'GitHub')}]:[];
 const related=localizeProjects(publicProjects.filter(item=>item.slug!==p.slug),lang).sort((a,b)=>Number(d?.relatedProjects?.includes(b.slug)??false)-Number(d?.relatedProjects?.includes(a.slug)??false)).slice(0,3);
 const media=artifacts(p);
-const aiLabels:Record<string,string>={provider:'Provider / model',dataFlow:id?'Aliran data':'Data flow',validation:id?'Validasi':'Validation',failureHandling:id?'Penanganan kegagalan':'Failure handling',limitations:id?'Batasan':'Limitations'};
+const aiLabels:Record<string,string>={provider:id?'Penyedia / model':'Provider / model',dataFlow:id?'Aliran data':'Data flow',validation:id?'Validasi':'Validation',failureHandling:id?'Penanganan kegagalan':'Failure handling',limitations:id?'Batasan':'Limitations'};
 const presentation=portfolioPresentation[p.slug];
 const caseTitle=p.slug==='tailor-cooperative-system'?(id?'SAKTI: Operasional koperasi penjahit':'SAKTI: Tailor cooperative operations'):p.title;
 ---

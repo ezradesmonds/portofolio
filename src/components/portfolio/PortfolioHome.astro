@@ -30,12 +30,12 @@ const sectionNavigation = [
   { href: '#work', label: id ? 'Karya' : 'Work' },
   { href: '#about', label: id ? 'Tentang' : 'About' },
   { href: '#experience', label: id ? 'Pengalaman' : 'Experience' },
-  { href: '#archive', label: 'Stack & Tools' },
+  { href: '#archive', label: id ? 'Teknologi & Alat' : 'Stack & Tools' },
   { href: '#contact', label: id ? 'Kontak' : 'Contact' },
 ];
 ---
 <div class="evidence-home studio-site" data-portfolio-home>
-  <div class="entry-curtain" aria-hidden="true"><span class="entry-title">{['EZRA', 'DESMOND'].map((word, wordIndex) => <><span class="entry-word">{[...word].map((letter, index) => <span class="entry-letter" style={`--letter-delay: ${((index + wordIndex * 2) % 4) * 45}ms`}>{letter}</span>)}</span>{wordIndex === 0 && <span class="entry-separator"> / </span>}</>)}</span><span class="entry-caption">PORTFOLIO 2026</span></div>
+  <div class="entry-curtain" aria-hidden="true"><span class="entry-title">{['EZRA', 'DESMOND'].map((word, wordIndex) => <><span class="entry-word">{[...word].map((letter, index) => <span class="entry-letter" style={`--letter-delay: ${((index + wordIndex * 2) % 4) * 45}ms`}>{letter}</span>)}</span>{wordIndex === 0 && <span class="entry-separator"> / </span>}</>)}</span><span class="entry-caption">{id ? 'PORTOFOLIO 2026' : 'PORTFOLIO 2026'}</span></div>
   <div class="reading-line" aria-hidden="true"><span data-reading-progress></span></div>
   <header class="portfolio-header">
     <a class="portfolio-brand" href="#top" aria-label={id ? 'Ezra — kembali ke atas' : 'Ezra — back to top'}><img src="/ezra-logo-clear-v2.png" alt="" width="40" height="40"/><strong>EZRA<span>.</span></strong></a>
@@ -48,14 +48,14 @@ const sectionNavigation = [
       <span class="menu-label">{item.label}</span>
       <span class="menu-flow" aria-hidden="true"><span class="menu-flow-track">{[0,1].map(() => <span class="menu-flow-group">{[0,1,2].map(() => <><span>{item.label}</span><img src={item.image} alt="" width="240" height="120" loading="lazy" decoding="async"/></>)}</span>)}</span></span>
     </a>)}</nav>
-    <footer class="menu-footer"><span>©2026 {id ? 'HAK CIPTA DILINDUNGI' : 'ALL RIGHTS RESERVED'}</span><div><div class="language-switch"><a href="/" aria-current={!id ? 'page' : undefined}>EN</a><span>/</span><a href="/id/" aria-current={id ? 'page' : undefined}>ID</a></div><a href={SITE.instagram} target="_blank" rel="noopener noreferrer">INSTAGRAM ↗</a><a href={SITE.linkedin} target="_blank" rel="noopener noreferrer">LINKEDIN ↗</a><a href={SITE.github} target="_blank" rel="noopener noreferrer">GITHUB ↗</a><a href={SITE.cvUrl} download>RESUME ↗</a></div></footer>
+    <footer class="menu-footer"><span>©2026 {id ? 'HAK CIPTA DILINDUNGI' : 'ALL RIGHTS RESERVED'}</span><div><div class="language-switch"><a href="/" aria-current={!id ? 'page' : undefined}>EN</a><span>/</span><a href="/id/" aria-current={id ? 'page' : undefined}>ID</a></div><a href={SITE.instagram} target="_blank" rel="noopener noreferrer">INSTAGRAM ↗</a><a href={SITE.linkedin} target="_blank" rel="noopener noreferrer">LINKEDIN ↗</a><a href={SITE.github} target="_blank" rel="noopener noreferrer">GITHUB ↗</a><a href={SITE.cvUrl} download>Download Resume ↗</a></div></footer>
   </dialog>
-  <nav class="section-sidebar" data-section-sidebar inert aria-label={id ? 'Navigasi section' : 'Section navigation'}>
+  <nav class="section-sidebar" data-section-sidebar inert aria-label={id ? 'Navigasi bagian' : 'Section navigation'}>
     {sectionNavigation.map((item, index) => <a href={item.href} aria-label={item.label}><span class="section-marker" aria-hidden="true"><i/></span><span class="section-label"><small>{String(index + 1).padStart(2, '0')}</small>{item.label}</span></a>)}
   </nav>
   <div class="portfolio-flow">
     <PortfolioHero lang={lang}/>
-    <section id="introduction" class="portfolio-manifesto" aria-label={id ? 'Pendekatan' : 'Approach'}><span class="chapter-index">00 / {id ? 'PENDEKATAN' : 'APPROACH'}</span><p class="true-focus" data-true-focus aria-label={manifestoLines.join(' ')}>{manifestoLines.map((line, index) => <>{index > 0 && <br/>}<span class="focus-word" aria-hidden="true">{line}</span></>)}<span class="focus-frame" aria-hidden="true"><i/><i/><i/><i/></span></p><div><span>{id ? 'Mahasiswa Informatika · AI & Full-Stack Builder' : 'Informatics Student · AI & Full-Stack Builder'}</span><span>{id ? 'Dari kebutuhan pengguna ke antarmuka, backend, dan pengujian.' : 'From user needs to interfaces, backends, and testing.'}</span></div></section>
+    <section id="introduction" class="portfolio-manifesto" aria-label={id ? 'Pendekatan' : 'Approach'}><span class="chapter-index">00 / {id ? 'PENDEKATAN' : 'APPROACH'}</span><p class="true-focus" data-true-focus aria-label={manifestoLines.join(' ')}>{manifestoLines.map((line, index) => <>{index > 0 && <br/>}<span class="focus-word" aria-hidden="true">{line}</span></>)}<span class="focus-frame" aria-hidden="true"><i/><i/><i/><i/></span></p><div><span>{id ? 'Mahasiswa Informatika · Pengembang AI & Full-Stack' : 'Informatics Student · AI & Full-Stack Builder'}</span><span>{id ? 'Dari kebutuhan pengguna ke antarmuka, backend, dan pengujian.' : 'From user needs to interfaces, backends, and testing.'}</span></div></section>
     <PortfolioApproach lang={lang}/>
     <PortfolioWork lang={lang} featured={featured} prefix={prefix}/>
     <PortfolioPerson lang={lang}/>

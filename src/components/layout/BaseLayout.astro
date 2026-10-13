@@ -25,7 +25,7 @@ interface Props {
   editorialCase?: boolean;
 }
 
-const lang: Lang = resolveLang(Astro.url.searchParams.get("lang"), Astro.url.pathname);
+const lang: Lang = resolveLang(null, Astro.url.pathname);
 const cinematicHome = Astro.props.cinematicHome ?? false;
 const editorialCase = Astro.props.editorialCase ?? false;
 

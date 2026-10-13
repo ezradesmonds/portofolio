@@ -3,9 +3,9 @@ const { lang } = Astro.props as { lang: 'en' | 'id' };
 const id = lang === 'id';
 // Process artwork from the user-requested Daniel Snows reference, stored locally.
 const phases = [
-  { name: 'RESEARCH', image: 'research', text: id ? 'Temukan masalah yang perlu diselesaikan.' : 'Find the problem worth solving.' },
-  { name: 'CREATE', image: 'create', text: id ? 'Rancang dan bangun solusinya.' : 'Design and build the solution.' },
-  { name: 'LAUNCH', image: 'launch', text: id ? 'Uji, rilis, dan perbaiki dari umpan balik.' : 'Test, release, and learn from feedback.' },
+  { name: id ? 'RISET' : 'RESEARCH', image: 'research', text: id ? 'Temukan masalah yang perlu diselesaikan.' : 'Find the problem worth solving.' },
+  { name: id ? 'BANGUN' : 'CREATE', image: 'create', text: id ? 'Rancang dan bangun solusinya.' : 'Design and build the solution.' },
+  { name: id ? 'RILIS' : 'LAUNCH', image: 'launch', text: id ? 'Uji, rilis, dan perbaiki dari umpan balik.' : 'Test, release, and learn from feedback.' },
 ];
 ---
 <section id="approach" class="portfolio-approach" aria-label={id ? 'Tiga tahap pendekatan' : 'Three-phase approach'}>
