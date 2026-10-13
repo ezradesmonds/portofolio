@@ -1,0 +1,43 @@
+---
+import { certifications } from '../../data/certifications';
+import { SITE } from '../../data/site';
+const { lang } = Astro.props as { lang: 'en' | 'id' };
+const id = lang === 'id';
+const dateFormat = new Intl.DateTimeFormat(id ? 'id-ID' : 'en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+const dateLabel = (date: string) => dateFormat.format(new Date(`${date}-01T00:00:00Z`));
+---
+<section id="certifications" class="portfolio-certifications" aria-labelledby="certifications-heading">
+  <header class="chapter-intro">
+    <span class="chapter-index">05 / {id ? 'SERTIFIKASI' : 'CERTIFICATIONS'} <span>{certifications.length} {id ? 'KREDENSIAL' : 'CREDENTIALS'}</span></span>
+    <div><h2 id="certifications-heading">{id ? <>Terus<br/><em>belajar.</em></> : <>Always<br/><em>learning.</em></>}</h2><p>{id ? 'Sertifikasi dan kursus yang saya selesaikan, dari AI dan data hingga cloud, jaringan, dan produk.' : 'Certifications and courses I’ve completed, from AI and data to cloud, networking, and product.'}</p></div>
+  </header>
+  <ul class="certification-list">
+    {certifications.map(certificate => <li class="certification-row">
+      <div class="certification-issuer"><span>{certificate.issuer}</span><time datetime={certificate.issued}>{dateLabel(certificate.issued)}</time></div>
+      <div><h3>{certificate.title}</h3>{certificate.expires && <p class="certification-expiry">{id ? 'Berlaku hingga' : 'Expires'} <time datetime={certificate.expires}>{dateLabel(certificate.expires)}</time></p>}</div>
+      <a href={certificate.url} target="_blank" rel="noopener noreferrer" aria-label={`${certificate.onLinkedIn ? (id ? 'Lihat di LinkedIn' : 'View on LinkedIn') : (id ? 'Lihat kredensial' : 'View credential')}: ${certificate.title}`}>{certificate.onLinkedIn ? 'LinkedIn' : (id ? 'Lihat kredensial' : 'View credential')} <span aria-hidden="true">↗</span></a>
+    </li>)}
+  </ul>
+  <a class="certifications-profile" href={`${SITE.linkedin.replace(/\/$/, '')}/details/certifications/`} target="_blank" rel="noopener noreferrer">{id ? 'Sertifikasi di LinkedIn' : 'Certifications on LinkedIn'} ↗</a>
+</section>
+<style>
+  .portfolio-certifications { padding-bottom: clamp(70px, 8vw, 130px); }
+  .certification-list { list-style: none; margin: 0; padding: 0 3.4vw; }
+  .certification-row { display: grid; grid-template-columns: 20% 1fr auto; align-items: center; gap: 3vw; padding: 30px 0; border-top: 1px solid var(--line); }
+  .certification-row:last-child { border-bottom: 1px solid var(--line); }
+  .certification-issuer { display: grid; gap: 8px; font: 400 12px/1.5 var(--mono); color: var(--muted); }
+  .certification-issuer > span { color: var(--accent); }
+  .certification-row h3 { font: 600 clamp(20px, 2.1vw, 32px)/1.2 var(--display); letter-spacing: -.035em; overflow-wrap: anywhere; }
+  .certification-expiry { margin-top: 10px; font-size: 14px; color: var(--muted); }
+  .certification-row a, .certifications-profile { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; font: 400 12px/1.5 var(--mono); }
+  .certification-row a:hover, .certifications-profile:hover { color: var(--accent); }
+  .certification-row a:focus-visible, .certifications-profile:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+  .certifications-profile { margin: 30px 3.4vw 0; }
+  @media(max-width: 700px) {
+    .certification-list { padding: 0 22px; }
+    .certification-row { grid-template-columns: 1fr; gap: 14px; padding: 26px 0; }
+    .certification-issuer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
+    .certification-row a { justify-self: start; }
+    .certifications-profile { margin-left: 22px; margin-right: 22px; }
+  }
+</style>

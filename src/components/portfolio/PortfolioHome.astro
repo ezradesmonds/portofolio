@@ -22,6 +22,7 @@ const navigation = [
   { href: '#work', label: id ? 'Karya' : 'Work', image: '/assets/case-studies/innofashion-menu-landing.webp' },
   { href: '#about', label: id ? 'Tentang' : 'About', image: '/images/profile/ezra-portrait-editorial.webp' },
   { href: '#experience', label: id ? 'Pengalaman' : 'Experience', image: '/images/profile/ezra-certificate.jpeg' },
+  { href: '#certifications', label: id ? 'Sertifikasi' : 'Certifications', image: '/images/profile/ezra-certificate.jpeg' },
   { href: '#contact', label: id ? 'Kontak' : 'Contact', image: '/images/profile/hackathon-team-awarding.webp' },
 ];
 const sectionNavigation = [
@@ -31,6 +32,7 @@ const sectionNavigation = [
   { href: '#about', label: id ? 'Tentang' : 'About' },
   { href: '#experience', label: id ? 'Pengalaman' : 'Experience' },
   { href: '#archive', label: id ? 'Teknologi & Alat' : 'Stack & Tools' },
+  { href: '#certifications', label: id ? 'Sertifikasi' : 'Certifications' },
   { href: '#contact', label: id ? 'Kontak' : 'Contact' },
 ];
 ---
@@ -64,3 +66,8 @@ const sectionNavigation = [
   <span class="pointer-cue" aria-hidden="true" data-pointer-cue></span>
 </div>
 <script src="./portfolioMotion.ts"></script>
+<style>
+  @media (max-width: 360px) {
+    .menu-links a[href="#certifications"] { font-size: 32px; }
+  }
+</style>
