@@ -6,7 +6,7 @@ export const SITE: SiteConfig = {
   description:
     "Portfolio of Ezra Desmond Sutanto, an Informatics student building practical AI-assisted and full-stack products.",
   url: "https://www.ezradesmonds.my.id",
-  email: "ezradesmonds@gmail.com",
+  email: "contact@ezradesmonds.my.id",
   github: "https://github.com/ezradesmonds",
   linkedin: "https://www.linkedin.com/in/ezradesmonds/",
   instagram: "https://instagram.com/ezradesmonds",

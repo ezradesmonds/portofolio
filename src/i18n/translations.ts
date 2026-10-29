@@ -87,7 +87,7 @@ export const translations = {
     "contact.form.submit": "Send Message",
     "contact.form.sending": "Sending...",
     "contact.form.success": "Message sent! I'll get back to you within 24 hours.",
-    "contact.form.error": "Something went wrong. Please email me directly at ezradesmonds@gmail.com.",
+    "contact.form.error": "Something went wrong. Please email me directly at contact@ezradesmonds.my.id.",
     "contact.form.or": "or reach me via",
 
     "footer.tagline":
@@ -189,7 +189,7 @@ export const translations = {
     "contact.form.submit": "Kirim Pesan",
     "contact.form.sending": "Mengirim...",
     "contact.form.success": "Pesan terkirim! Saya akan membalas dalam 24 jam.",
-    "contact.form.error": "Terjadi kesalahan. Silakan email saya langsung di ezradesmonds@gmail.com.",
+    "contact.form.error": "Terjadi kesalahan. Silakan email saya langsung di contact@ezradesmonds.my.id.",
     "contact.form.or": "atau hubungi via",
 
     "footer.tagline":
